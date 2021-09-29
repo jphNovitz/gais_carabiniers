@@ -12,3 +12,4 @@ Symfony 5.4
 - symfony/translation
 - symfony/orm-pack
 - symfony/security-bundle
+- symfony/security

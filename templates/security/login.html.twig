@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{% trans %}Log in {% endtrans %}!{% endblock %}
 
 {% block body %}
-    <div class="w-full lg:w-1/2 mx-auto my-auto bg-white p-8yarn add @tailwindcss/custom-forms -D">
+    <div class="w-full lg:w-2/3 mx-auto my-8 bg-white p-8 rounded-md">
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -15,19 +15,23 @@
                 </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label class="block">
+            <h1 class="text-xl text-gray-800 mx-4 my-4">{% trans %}Please sign in{% endtrans %}</h1>
+            <label class="block w-2/3 mx-4 my-4">
                 <span class="text-gray-700">Email</span>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
                        class="form-input mt-1 block w-full" autocomplete="email" required autofocus>
             </label>
-
-            <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-                   autocomplete="email" required autofocus>
-            <label for="inputPassword">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control"
-                   autocomplete="current-password" required>
+            <label class="block w-2/3 mx-4 my-4">
+                <span class="text-gray-700">{% trans %}Password {% endtrans %}</span>
+                <input type="password"  name="password" id="inputPassword"
+                       class="form-input mt-1 block w-full" autocomplete="current-password" required autofocus>
+            </label>
+{#            <div class="form-group block w-2/3 mx-auto">#}
+{#                <label for="inputPassword">Password</label>#}
+{#                <input type="password" name="password" id="inputPassword"#}
+{#                       class="form-input mt-1 block w-full"#}
+{#                       autocomplete="current-password" required>#}
+{#            </div>#}
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
@@ -44,8 +48,8 @@
             </div>
             #}
 
-            <button class="btn btn-lg btn-primary" type="submit">
-                Sign in
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-4 my-4" type="submit">
+                {% trans %}Sign in{% endtrans %}
             </button>
         </form>
     </div>

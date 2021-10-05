@@ -13,3 +13,4 @@ Symfony 5.4
 - symfony/orm-pack
 - symfony/security-bundle
 - symfony/security
+- symfonycasts/reset-password-bundle

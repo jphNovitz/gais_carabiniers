@@ -49,8 +49,10 @@ Days: Jours
 dose: dose
 Dose: Dose
 
-
-
+If an account matching your email exists, then an email was just sent that contains a link that you can use  to reset your password: Si un un compte correspondant à votre email existe, un mail concernant un lien de récupération vous a été envoyé
+or try again: ou recommencez
+Back to home: Retour à l'accueil
+back to home: retour à l'accueil
 
 #emails
 Hi!: Bonjour

@@ -1,42 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}Register{% endtrans %}{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="w-full lg:w-2/3 mx-auto my-8 bg-white p-8 rounded-md">
-        {% for flashError in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    <div class="my-16 p-16 m-auto w-ful md:max-w-96 bg-gray-200 border border-blue-900">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
 
-        <h1 class="text-xl text-gray-800 mx-4 my-4">{% trans %}Register{% endtrans %}</h1>
+        <h1>{% trans %}title.register{% endtrans %}</h1>
 
-        {{ form_start(registrationForm) }}
-        <div class="block w-2/3 mx-4 my-4">
-            {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'text-gray-700'}}) }}
-            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input mt-1 block w-full'}}) }}
-            {{ form_errors(registrationForm.email, {'attr': {'class': 'text-red-900'}}) }}
-        </div>
-        <div class="block w-2/3 mx-4 my-4">
-            {{ form_label(registrationForm.plainPassword.first, 'Password', {'label_attr': {'class': 'text-gray-700'}}) }}
-            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-input mt-1 block w-full'}}) }}
-            {{ form_errors(registrationForm.plainPassword.first, {'attr': {'class': 'text-red-900'}}) }}
-        </div>
-        <div class="block w-2/3 mx-4 my-4">
-            {{ form_label(registrationForm.plainPassword.second, 'Repeat password', {'label_attr': {'class': 'text-gray-700'}}) }}
-            {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-input mt-1 block w-full'}}) }}
-            {{ form_errors(registrationForm.plainPassword.second, {'attr': {'class': 'text-red-900'}}) }}
-        </div>
-        <div class="block w-2/3 mx-4 my-4">
-            {{ form_label(registrationForm.agreeTerms, 'Agree terms', {'label_attr': {'class': 'text-gray-700'}}) }}
-            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': ''}}) }}
-            {{ form_errors(registrationForm.agreeTerms, {'attr': {'class': 'text-red-900'}}) }}
-        </div>
-{#        {{ form_row(registrationForm.agreeTerms) }}#}
+        {{ form_errors(registrationForm) }}
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-4 my-4">
-          {% trans %}  Register {% endtrans %}
-        </button>
-
+        {{ form_start(registrationForm, { 'attr': {'class': 'flex flex-col space-y-8'} }) }}
+        <div class="w-full flex flex-col space-y-2">
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email) }}
+        </div>
+        <div class="w-full flex flex-col space-y-2">
+            {{ form_label(registrationForm.plainPassword) }}{{ form_widget(registrationForm.plainPassword) }}
+        </div>
+        <div class="w-full flex items-end justify-start space-x-4">
+            {{ form_label(registrationForm.agreeTerms) }}
+            {{ form_widget(registrationForm.agreeTerms) }}
+        </div>
+        <button type="submit" class="bg-blue-600 text-blue-50 py-2 my-4">{% trans %}button.login{% endtrans %}</button>
         {{ form_end(registrationForm) }}
+
+
+        <a href="{{ path('app_login') }}" class="text-blue-600 underline">
+            {% trans %}button.login{% endtrans %}
+        </a>
+
     </div>
 {% endblock %}

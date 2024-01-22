@@ -7,7 +7,8 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         in_memory:
             memory:
-                admin: { password: hashed_pass_here, roles: [ 'ROLE_ADMIN' ] }
+                users:
+                    admin: { password: 'hashed_password_here', roles: [ 'ROLE_ADMIN' ] }
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -15,6 +16,7 @@ security:
         chain_provider:
             chain:
                 providers: [ in_memory, app_user_provider ]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

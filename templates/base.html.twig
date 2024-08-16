@@ -16,7 +16,10 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body class="w-full min-h-screen h-auto  p-16 bg-gray-100">
-{% block body %}{% endblock %}
+<body class="w-full md:max-w-4xl  lg:max-w-7xl  min-h-screen h-auto bg-light-neutral dark:bg-light-neutral">
+<div class="px-4  pb-8 pt-0">
+    <div class="w-full py-4"> {% block nav_secondary%} {% endblock%} </div>
+    {% block body %}{% endblock %}
+</div>
 </body>
 </html>

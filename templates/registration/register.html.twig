@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="my-16 p-16 m-auto w-ful md:max-w-96 bg-gray-200 border border-blue-900">
+    <div class="my-16 p-16 m-auto w-ful md:max-w-96 bg-light-neutral/50 dark:bg-dark-neutral/50 border border-light-text-base dark:border-dark-text-base">
         {% for flash_error in app.flashes('verify_email_error') %}
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
@@ -24,11 +24,11 @@
             {{ form_label(registrationForm.agreeTerms) }}
             {{ form_widget(registrationForm.agreeTerms) }}
         </div>
-        <button type="submit" class="bg-blue-600 text-blue-50 py-2 my-4">{% trans %}button.register{% endtrans %}</button>
+        <button type="submit" class="bg-light-primary dark:bg-dark-primary text-light-neutral dark:text-light-neutral py-2 my-4">{% trans %}button.register{% endtrans %}</button>
         {{ form_end(registrationForm) }}
 
 
-        <a href="{{ path('app_login') }}" class="text-blue-600 underline">
+        <a href="{{ path('app_login') }}" class="hover:underline">
             {% trans %}button.login{% endtrans %}
         </a>
 

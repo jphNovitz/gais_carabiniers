@@ -5,6 +5,7 @@ button:
   login: "Connexion"
   logout: "Déconnexion"
   register: "Je m'enregistre"
+  open_main_menu: "Ouvrir le menu principal"
 form:
   agree: "J'accepte les Conditions"
   password: "Mot de passe"

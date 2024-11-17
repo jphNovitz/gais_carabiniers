@@ -2,7 +2,9 @@
 <html lang="fr_BE">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Les Gai Carabiniers de Bernissart{% endblock %}</title>
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
     {% block stylesheets %}
@@ -16,10 +18,16 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body class="w-full md:max-w-4xl  lg:max-w-7xl  min-h-screen h-auto bg-light-neutral dark:bg-light-neutral">
+<body class="w-full overflow-x-hidden min-h-screen h-auto bg-base-light dark:bg-base-dark p-0">
+{% include '_header/_header.html.twig' %}
 <div class="px-4  pb-8 pt-0">
-    <div class="w-full py-4"> {% block nav_secondary%} {% endblock%} </div>
-    {% block body %}{% endblock %}
+    <div class="w-full py-4">
+        {% block nav_secondary %} {% endblock %}
+    </div>
+    <div class="w-full py-4 space-y-24">
+        {% block body %}{% endblock %}
+    </div>
 </div>
+{% include '_footer/_footer.html.twig' %}
 </body>
 </html>

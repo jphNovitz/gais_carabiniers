@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="fr_BE">
 <head>
+    <!-- Meta classiques -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Les Gais Carabiniers - Club de Tir à Bernissart">
+    <meta name="description" content="Rejoignez Les Gais Carabiniers, club de tir à Bernissart. Ambiance conviviale, disciplines au tir à la carabine (10m et 12m), affilié à l'URSTB-F. Découvrez notre passion du tir en toute sécurité !">
+    <meta name="keywords" content="tir sportif, Bernissart, Les Gais Carabiniers, carabine, club de tir, URSTB-F, tir 10m, tir 12m, ambiance conviviale, passion tir, sécurité">
+    <meta name="author" content="Les Gais Carabiniers">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Les Gais Carabiniers - Club de Tir à Bernissart">
+    <meta property="og:description" content="Rejoignez Les Gais Carabiniers, club de tir à Bernissart. Ambiance conviviale, disciplines au tir à la carabine (10m et 12m), affilié à l'URSTB-F. Découvrez notre passion du tir en toute sécurité !">
+    <meta property="og:url" content="https://www.votre-site-club-tir-bernissart.com">
+    <meta property="og:site_name" content="Les Gais Carabiniers">
+    <meta property="og:image" content="https://www.votre-site-club-tir-bernissart.com/images/og-image-club-tir.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Les Gais Carabiniers - Club de Tir à Bernissart">
+    <meta name="twitter:description" content="Rejoignez Les Gais Carabiniers, club de tir à Bernissart. Ambiance conviviale, disciplines au tir à la carabine (10m et 12m), affilié à l'URSTB-F. Découvrez notre passion du tir en toute sécurité !">
+    <meta name="twitter:image" content="https://www.votre-site-club-tir-bernissart.com/images/og-image-club-tir.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico?v=1.0" type="image/x-icon">
+
+    <title>Les Gais Carabiniers - Club de Tir à Bernissart</title>
+
+
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Les Gai Carabiniers de Bernissart{% endblock %}</title>
-    <link rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 
@@ -20,11 +50,11 @@
 </head>
 <body class="w-full overflow-x-hidden min-h-screen h-auto bg-base-light dark:bg-base-dark p-0">
 {% include '_header/_header.html.twig' %}
-<div class="px-4  pb-8 pt-0">
+<div class="w-11/12 md:max-w-screen-xl mx-auto">
     <div class="w-full py-4">
         {% block nav_secondary %} {% endblock %}
     </div>
-    <div class="w-full py-4 space-y-24">
+    <div class="w-full py-4 space-y-16 lg:space-y-48 ">
         {% block body %}{% endblock %}
     </div>
 </div>

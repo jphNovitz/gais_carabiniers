@@ -3,11 +3,126 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-<div class="">
-    <h1 class="text-3xl font-black">Hello, welcome to boilerplate ! ✅</h1>
-<div>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad aliquid animi atque corporis culpa dicta dolor ea error ex exercitationem fugit illo ipsa ipsam iste iusto laborum maxime molestias nisi officia perspiciatis praesentium, quae quis recusandae reiciendis repudiandae sequi sunt tempora, ullam veritatis! Aliquid consectetur consequatur dignissimos error exercitationem harum laborum natus neque officiis, voluptatibus! Aliquid animi debitis ducimus incidunt iure libero magnam minima quasi quia sequi. Dicta ea eos expedita, fuga fugit hic qui quos sint? Consequatur cumque eius est facere iste? Aperiam at atque cum, cumque dicta doloribus eligendi error, esse excepturi facilis molestiae nam nemo odio optio pariatur, perspiciatis quas qui quibusdam reprehenderit saepe sapiente sit temporibus tenetur veniam veritatis vero voluptatem! A adipisci aliquam aliquid dolores doloribus error est facere harum illo incidunt inventore ipsum, iure magnam molestias natus nisi perferendis quasi quos repellendus unde vel, veniam voluptatem? Alias aliquid aperiam, cupiditate distinctio dolorum eos fuga ipsam iure iusto, laboriosam molestiae nisi numquam quasi qui sed sunt unde voluptatibus. At cupiditate delectus dolores hic ipsa libero maiores modi neque non obcaecati porro reiciendis repellat, sint vero voluptatum. Atque autem consequuntur dolor dolorum id ipsa magni modi optio recusandae temporibus. Commodi ea et minus repudiandae vitae.
-</div>
-</div>
+
+    <section class="bg-transparent">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-content-secondary/70 md:text-5xl lg:text-6xl">
+                Venez partager la passion du tir !</h1>
+            <p class="mb-8 text-lg font-normal text-content-primary-light/50 lg:text-xl sm:px-16 xl:px-48 dark:text-content-primary-dark/40">
+                Rejoignez notre club de tir, un lieu où vous pourrez pratiquer une discipline alliant concentration,
+                maîtrise de soi et précision, dans une ambiance chaleureuse et conviviale.</p>
+            {#            <p class="mb-8 text-lg font-normal text-content-primary-light/50 lg:text-xl sm:px-16 xl:px-48 dark:text-content-primary-dark/40"> #}
+            {#                Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez d'une ambiance #}
+            {#                conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute sécurité #}
+            {#                !</p> #}
+        </div>
+    </section>
+
+    <section class="w-full bg-surface-light dark:bg-surface-dark pt-4 pb-8 px-4 rounded-lg space-y-4">
+        <article id="default-carousel" class="w-full relative mx-auto" data-carousel-interval="7000"
+                 data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative {# h-56 #} overflow-hidden rounded-lg {# md:h-96 #} mx-auto aspect-video w-11/12 md:w-4/5 lg:md:w-3/5">
+                <!-- Item 1 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/carousel/demo_0.jpg') }}"
+                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                </div>
+                <!-- Item 2 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/carousel/demo_1.jpg') }}"
+                         class="absolute block w-full aspect-video -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                         alt="...">
+                </div>
+                <!-- Item 3 -->
+                <div class="hidden duration700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/carousel/demo_2.jpg') }}"
+                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                </div>
+            </div>
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
+                        data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
+                        data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
+                        data-carousel-slide-to="2"></button>
+            </div>
+            <!-- Slider controls -->
+            <button type="button"
+                    class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                    data-carousel-prev>
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-white/50 group-hover:bg-white/70 dark:group-hover:bg-white/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-white/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-content-primary-light/70 rtl:rotate-180" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 1 1 5l4 4"/>
+            </svg>
+            <span class="sr-only">Previous</span>
+        </span>
+            </button>
+            <button type="button"
+                    class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                    data-carousel-next>
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-white/50 group-hover:bg-white/70 dark:group-hover:bg-white/80 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-white/80 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-content-primary-light/70 rtl:rotate-180" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="sr-only">Next</span>
+        </span>
+            </button>
+        </article>
+        <article>
+            {#            <p class="mb-8 text-lg font-normal text-content-primary-light/50 lg:text-xl sm:px-16 xl:px-48 dark:text-content-primary-dark/40"> #}
+            {#                Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez d'une ambiance #}
+            {#                conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute sécurité #}
+            {#                !</p> #}
+        </article>
+    </section>
+
+    <section class="sm:px-16 lg:px-48  leading-loose space-y-4">
+        <h2 class="text-4xl font-extrabold dark:text-content-primary-dark/80">Notre histoire</h2>
+        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40">
+            Au lendemain de la guerre, l’envie de reconstruire et de retrouver joie et optimisme était au cœur de
+            toutes les initiatives. Avec la conviction qu’il n’y aurait plus de conflits, c’est dans cet esprit de
+            renouveau qu’a été créé **Les Gais Carabiniers**, un club de tir empreint de convivialité et de
+            passion.
+        </p>
+
+        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40">
+            Le tir à la carabine, discipline olympique par excellence, y est pratiqué avec sérieux et enthousiasme.
+            Il ne s’agit pas seulement d’un sport, mais d’un véritable exercice de concentration, de dépassement de
+            soi et de recherche de performance. Chaque semaine, les membres organisent un petit concours amical,
+            suivi d’un classement mensuel, dans une ambiance compétitive mais bienveillante.
+        </p>
+
+        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40">
+
+            Hors des lignes de tir, c’est un tout autre spectacle : rires, camaraderie et échanges chaleureux
+            rythment la vie du club. Que vous soyez novice ou expert, vous y trouverez un espace où passion et bonne
+            humeur se mêlent pour offrir une expérience unique et enrichissante.
+        </p>
+    </section>
+
+    <section class="w-full bg-surface-light dark:bg-surface-dark pt-4 pb-8 px-4 rounded-lg flex flex-col lg:flex-row">
+        <article class="w-full lg:w-1/2 sm:p-16 xl:p-24">
+            <h2 class="text-4xl font-extrabold dark:text-content-primary-dark/80">Nous trouver, <br/>nous contacter, <br/>nous
+                rencontrer </h2>
+            <p class="my-8 text-lg font-normal text-content-primary-light/50 lg:text-xl {# sm:px-16 xl:px-48 #} dark:text-content-primary-dark/40">
+                Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez
+                d'une ambiance
+                conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute
+                sécurité
+                !
+            </p>
+        </article>
+        <article class="w-full lg:w-1/2 p-8">
+            {{ ux_map(myMap, { class: 'w-full  sm:aspect-video lg:aspect-square mx-auto' }) }}
+        </article>
+    </section>
+
 {% endblock %}
 

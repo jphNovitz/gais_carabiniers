@@ -6,11 +6,11 @@
 
     <section class="bg-transparent">
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-content-secondary/70 md:text-5xl lg:text-6xl">
-                Venez partager la passion du tir !</h1>
+            <h1 class="mb-4 text-4xl font-headland font-extrabold tracking-tight leading-none text-content-highlight-light/70 dark:text-content-highlight-dark/70 md:text-5xl lg:text-6xl">
+                Tir à la carabine dans le Hainaut</h1>
             <p class="mb-8 text-lg font-normal text-content-primary-light/50 lg:text-xl sm:px-16 xl:px-48 dark:text-content-primary-dark/40">
-                Rejoignez notre club de tir, un lieu où vous pourrez pratiquer une discipline alliant concentration,
-                maîtrise de soi et précision, dans une ambiance chaleureuse et conviviale.</p>
+                Le club de Bernissart est un lieu où vous pourrez pratiquer le tir à la carabine à 10 mètres. Une discipline alliant concentration,
+                maîtrise de soi et précision.  Nous vous accueillons dans une ambiance chaleureuse et conviviale.</p>
             {#            <p class="mb-8 text-lg font-normal text-content-primary-light/50 lg:text-xl sm:px-16 xl:px-48 dark:text-content-primary-dark/40"> #}
             {#                Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez d'une ambiance #}
             {#                conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute sécurité #}
@@ -84,22 +84,22 @@
     </section>
 
     <section class="sm:px-16 lg:px-48  leading-loose space-y-4">
-        <h2 class="text-4xl font-extrabold dark:text-content-primary-dark/80">Notre histoire</h2>
-        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40">
+        <h2 class="text-4xl font-headland font-extrabold text-content-highlight-light/70 dark:text-content-highlight-dark/70 ">Notre histoire</h2>
+        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40 leading-loose">
             Au lendemain de la guerre, l’envie de reconstruire et de retrouver joie et optimisme était au cœur de
             toutes les initiatives. Avec la conviction qu’il n’y aurait plus de conflits, c’est dans cet esprit de
             renouveau qu’a été créé **Les Gais Carabiniers**, un club de tir empreint de convivialité et de
             passion.
         </p>
 
-        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40">
+        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40 leading-loose">
             Le tir à la carabine, discipline olympique par excellence, y est pratiqué avec sérieux et enthousiasme.
             Il ne s’agit pas seulement d’un sport, mais d’un véritable exercice de concentration, de dépassement de
             soi et de recherche de performance. Chaque semaine, les membres organisent un petit concours amical,
             suivi d’un classement mensuel, dans une ambiance compétitive mais bienveillante.
         </p>
 
-        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40">
+        <p class="text-lg font-normal text-content-primary-light/50 lg:text-xl dark:text-content-primary-dark/40 leading-loose">
 
             Hors des lignes de tir, c’est un tout autre spectacle : rires, camaraderie et échanges chaleureux
             rythment la vie du club. Que vous soyez novice ou expert, vous y trouverez un espace où passion et bonne
@@ -109,9 +109,9 @@
 
     <section class="w-full bg-surface-light dark:bg-surface-dark pt-4 pb-8 px-4 rounded-lg flex flex-col lg:flex-row">
         <article class="w-full lg:w-1/2 sm:p-16 xl:p-24">
-            <h2 class="text-4xl font-extrabold dark:text-content-primary-dark/80">Nous trouver, <br/>nous contacter, <br/>nous
+            <h2 class="text-4xl font-headland font-extrabold text-content-highlight-light/70 dark:text-content-highlight-dark/70 ">Nous trouver, <br/>nous contacter, <br/>nous
                 rencontrer </h2>
-            <p class="my-8 text-lg font-normal text-content-primary-light/50 lg:text-xl {# sm:px-16 xl:px-48 #} dark:text-content-primary-dark/40">
+            <p class="my-8 text-lg font-normal text-content-primary-light/50 lg:text-xl {# sm:px-16 xl:px-48 #} dark:text-content-primary-dark/40 leading-loose">
                 Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez
                 d'une ambiance
                 conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute
@@ -119,8 +119,8 @@
                 !
             </p>
         </article>
-        <article class="w-full lg:w-1/2 p-8">
-            {{ ux_map(myMap, { class: 'w-full  sm:aspect-video lg:aspect-square mx-auto' }) }}
+        <article class="w-full lg:w-1/2 p-4">
+            {{ ux_map(myMap, { class: 'w-full  aspect-video lg:aspect-square mx-auto' }) }}
         </article>
     </section>
 

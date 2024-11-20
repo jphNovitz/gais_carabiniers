@@ -1,3 +1,43 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Regular.ttf') format('opentype'),
+    url('../fonts/Poppins/Poppins-Regular.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Black.ttf') format('opentype'),
+    url('../fonts/Poppins/Poppins-Black.ttf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Headland';
+    src: url('../fonts/Headland_One/HeadlandOne-Regular.ttf') format('opentype'),
+    url('../fonts/Headland_One/HeadlandOne-Regular.ttf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grotesk';
+    src: url('../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf') format('opentype'),
+    url('../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*@font-face {*/
+/*    font-family: 'Poppins';*/
+/*    src: url('../fonts/Poppins/Poppins-Black.ttf') format('opentype'),*/
+/*    url('../fonts/Poppins/Poppins-Black.ttf') format('opentype');*/
+/*    font-weight: 700;*/
+/*    font-style: normal;*/
+/*}*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

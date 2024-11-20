@@ -6,6 +6,11 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                poppins: ['Poppins', 'sans-serif'],
+                grotesk: ['Grotesk', 'sans-serif'],
+                headland: ['Headland', 'sans-serif'],
+            },
             backgroundImage: {
                 'footer': "url('/images/logo-gais-carabiniers-bernissart.webp')",
             },
@@ -37,6 +42,10 @@ module.exports = {
                         // "dark": "#2A5A30",   // Version plus sombre du vert pour le mode sombre
                     },
                     "secondary": "#3B7C45", // Jaune vif pour les éléments de mise en avant
+                    "highlight":{
+                        "light": "#3B7C45",
+                        "dark": "#F2C029"
+                    }, // Jaune vif pour les éléments de mise en avant
                     // "secondary": "#F2C029", // Jaune vif pour les éléments de mise en avant
                 },
                 "secondary": "#3B7C45", // Jaune vif pour les éléments de mise en avant

@@ -12,20 +12,20 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white/80">Contact</h2>
                     <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70">
                         <li class="relative pl-5">
-                            {{ ux_icon('flowbite:map-pin-alt-solid', {'class': 'absolute left-0 top-1'}) }}
+                            {{ ux_icon('flowbite:map-pin-alt-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             {{ globalInfos.street }}, {{ globalInfos.StreetNumber }} <br />
                             {{ globalInfos.postCode }} &nbsp; &nbsp;{{ globalInfos.City }}
                         </li>
                         <li class="relative pl-5">
-                            {{ ux_icon('flowbite:envelope-solid', {'class': 'absolute left-0 top-1'}) }}
+                            {{ ux_icon('flowbite:envelope-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             <a href="mailto:{{ globalInfos.email }}"> {{ globalInfos.email }} </a>
                         </li>
                         <li class="relative pl-5">
-                            {{ ux_icon('flowbite:phone-solid', {'class': 'absolute left-0 top-1'}) }}
+                            {{ ux_icon('flowbite:phone-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             <a href="phone:{{ globalInfos.phoneNumber }}"> {{ globalInfos.phoneNumber }} </a>
                         </li>
                         <li class="relative pl-5">
-                            {{ ux_icon('flowbite:credit-card-solid', {'class': 'absolute left-0 top-1'}) }}
+                            {{ ux_icon('flowbite:credit-card-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             URBSFA N° {{ globalInfos.federationNumber }}
                         </li>
                     </ul>

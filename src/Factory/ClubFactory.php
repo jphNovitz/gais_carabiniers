@@ -34,7 +34,7 @@ final class ClubFactory extends PersistentProxyObjectFactory
         return [
             'email' => "info@gaicarabiniers.be",
             'phoneNumber' => self::faker()->phoneNumber(),
-            'name' => "Les Gai Carabiniers de Bernissart",
+            'name' => "Les Gai Carabiniers",
             'federationNumber' => "7-044",
             'street' => "Rue Lotard",
             'streetNumber' => "16",

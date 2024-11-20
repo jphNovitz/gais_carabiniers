@@ -18,11 +18,11 @@
         </div>
     </section>
 
-    <section class="w-full bg-surface-light dark:bg-surface-dark pt-4 pb-8 px-4 rounded-lg space-y-4">
+    <section class="w-full bg-surface-light dark:bg-surface-dark p-0 md:p-4 rounded-lg space-y-4">
         <article id="default-carousel" class="w-full relative mx-auto" data-carousel-interval="7000"
                  data-carousel="slide">
             <!-- Carousel wrapper -->
-            <div class="relative {# h-56 #} overflow-hidden rounded-lg {# md:h-96 #} mx-auto aspect-video w-11/12 md:w-4/5 lg:md:w-3/5">
+            <div class="relative {# h-56 #} overflow-hidden rounded-lg {# md:h-96 #} mx-auto aspect-video w-full md:w-11/12 lg:w-4/5">
                 <!-- Item 1 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <img src="{{ asset('images/carousel/demo_0.jpg') }}"
@@ -31,7 +31,7 @@
                 <!-- Item 2 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <img src="{{ asset('images/carousel/demo_1.jpg') }}"
-                         class="absolute block w-full aspect-video -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                          alt="...">
                 </div>
                 <!-- Item 3 -->

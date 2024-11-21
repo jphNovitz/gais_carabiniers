@@ -1,39 +1,39 @@
 <footer class="mt-16 lg:mt-48 p-4 bg-surface-light/80 sm:p-6 dark:bg-surface-dark/70">
     <div class="mx-auto max-w-screen-xl">
         <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0 bg-footer bg-[length:125px_125px] bg-[left_1.75rem_top_1.75rem] bg-no-repeat">
+            <div class="mb-6 md:mb-0 bg-footer min-h-40 bg-[length:125px_125px] bg-[left_1.75rem_top_1.75rem] bg-no-repeat">
                 <a href="#" class="flex items-center">
                     {#                    <img src="{{ asset('images/'~globalInfos.logoName) }}" class="mr-3 h-8" alt="{{ globalInfos.name}} Logo" /> #}
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-content-primary-dark/80 capitalize">{{ globalInfos.name }}  </span>
                 </a>
             </div>
-            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-                <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white/80">Contact</h2>
-                    <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70">
-                        <li class="relative pl-5">
+            <div class="grid grid-cols-2 gap-8 sm:gap-6 lg:grid-cols-3">
+                <div class="col-span-2 md:col-span-1">
+                    <h2 class="leading-9 inline-block align-baseline mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white/80">Contact</h2>
+                    <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70 space-y-2">
+                        <li class="relative pl-6">
                             {{ ux_icon('flowbite:map-pin-alt-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             {{ globalInfos.street }}, {{ globalInfos.StreetNumber }} <br />
                             {{ globalInfos.postCode }} &nbsp; &nbsp;{{ globalInfos.City }}
                         </li>
-                        <li class="relative pl-5">
+                        <li class="relative pl-6">
                             {{ ux_icon('flowbite:envelope-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             <a href="mailto:{{ globalInfos.email }}"> {{ globalInfos.email }} </a>
                         </li>
-                        <li class="relative pl-5">
+                        <li class="relative pl-6">
                             {{ ux_icon('flowbite:phone-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             <a href="phone:{{ globalInfos.phoneNumber }}"> {{ globalInfos.phoneNumber }} </a>
                         </li>
-                        <li class="relative pl-5">
+                        <li class="relative pl-6">
                             {{ ux_icon('flowbite:credit-card-solid', {'class': 'w-4 h-4 absolute left-0 top-1'}) }}
                             URBSFA N° {{ globalInfos.federationNumber }}
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-content-primary-light dark:text-content-primary-dark/70 uppercase dark:text-white/70">Suivez-nous</h2>
-                    <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70">
-                        <li class="mb-4">
+                    <h2 class="leading-9 inline-block align-baseline mb-6 text-sm font-semibold text-content-primary-light dark:text-content-primary-dark/70 uppercase dark:text-white/70">Suivez-nous</h2>
+                    <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70 space-y-2">
+                        <li class="">
                             <a href="https://www.facebook.com/gais.carabiniers.bernissart" class="hover:underline ">Facebook</a>
                         </li>
                         <li>
@@ -42,14 +42,14 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white/70">Legal</h2>
-                    <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70">
-                        <li class="mb-4">
-                            <a href="#" class="hover:underline">Privacy Policy</a>
+                    <h2 class="leading-9 inline-block align-baseline mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white/70">Mentions Légales</h2>
+                    <ul class="text-content-primary-light/70 dark:text-content-primary-dark/70 space-y-2">
+                        <li class="">
+                            <a href="#" class="hover:underline">Politique de confidentialité</a>
                         </li>
-                        <li>
+{#                        <li>
                             <a href="#" class="hover:underline">Terms &amp; Conditions</a>
-                        </li>
+                        </li>#}
                     </ul>
                 </div>
             </div>

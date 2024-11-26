@@ -1,5 +1,11 @@
 twig:
     file_name_pattern: '*.twig'
+    form_themes:
+#        - 'tailwind_2_layout.html.twig'
+        - 'form/layout.html.twig'
+#        - '@TalesFromADevFlowbite/form/default.html.twig'
+#        - 'flowbite/form/flowbite_form_theme.html.twig'
+#        - 'form/flowbite_form_theme.html.twig'
 
 when@test:
     twig:

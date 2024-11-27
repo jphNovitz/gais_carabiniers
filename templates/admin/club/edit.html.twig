@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}club.edit{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="w-full lg:w-2/3 m-auto">
+
+        <h1 class="mb-8 text-2xl font-extrabold leading-none tracking-tight text-content-primary-light md:text-3xl lg:text-4xl dark:text-content-primary-dark/70">{% trans %}club.edit{% endtrans %}</h1>
+
+        {{ include('admin/club/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('admin_club_index') }}">back to list</a>
+    </div>
+{% endblock %}

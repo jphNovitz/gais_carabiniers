@@ -1,4 +1,15 @@
-# templates/form/layout.html.twig
-
-{% use "@TalesFromADev/flow/form/default.html.twig" %}
-{#{% use "@TalesFromADevFlowbite/form/default.html.twig" %}#}
+{% use '@TalesFromADevFlowbite/form/default.html.twig' %}
+{#{% extends 'form_div_layout.html.twig' %}#}
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({'class': (row_attr.class|default('mb-8'))|trim}) -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_errors(form) -}}
+        {{- form_help(form) -}}
+    </div>
+{%- endblock form_row -%}

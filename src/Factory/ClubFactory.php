@@ -31,7 +31,9 @@ final class ClubFactory extends PersistentProxyObjectFactory
      */
     protected function defaults(): array|callable
     {
+        $faker = self::faker('fr_BE');
         return [
+            'description' => $faker->text(),
             'email' => "info@gaicarabiniers.be",
             'phoneNumber' => self::faker()->phoneNumber(),
             'name' => "Les Gais Carabiniers",
@@ -41,6 +43,8 @@ final class ClubFactory extends PersistentProxyObjectFactory
             'postCode' => "7320",
             'city' => "Bernissart",
             'logoName' => "logo-gais-carabiniers-bernissart.webp",
+            'createdAt' => self::faker()->dateTimeBetween('-1 years', 'now'),
+            'updatedAt' => self::faker()->dateTimeBetween('-1 years', 'now'),
         ];
     }
 

@@ -4,14 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ClubRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
 #[ORM\Entity(repositoryClass: ClubRepository::class)]
+#[Vich\Uploadable]
 class Club
 {
     #[ORM\Id]
@@ -25,7 +25,7 @@ class Club
     #[ORM\Column(length: 13, nullable: true)]
     private ?string $federationNumber = null;
 
-    #[ORM\Column(length: 16, nullable: true)]
+    #[ORM\Column(length: 20, nullable: true)]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -143,17 +143,31 @@ class Club
         return $this->logoName;
     }
 
-    public function setLogoName(?string $logoName): static
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $logoFile
+     */
+    public function setLogoFile(?File $logoFile = null): void
     {
-        $this->logoName = $logoName;
+        $this->logoFile = $logoFile;
 
-        return $this;
+        if (null !== $logoFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
     }
 
     public function getLogoSize(): ?string
     {
         return $this->logoSize;
     }
+
+
 
     public function setLogoSize(?string $logoSize): static
     {
@@ -186,29 +200,8 @@ class Club
         return $this;
     }
 
-    public function getCreatedAt(): ?string
-    {
-        return $this->createdAt;
-    }
 
-    public function setCreatedAt(?string $createdAt): static
-    {
-        $this->createdAt = $createdAt;
 
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?string
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?string $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
 
     public function getStreet(): ?string
     {
@@ -278,6 +271,37 @@ class Club
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function setLogoName(?string $logoName): static
+    {
+        $this->logoName = $logoName;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

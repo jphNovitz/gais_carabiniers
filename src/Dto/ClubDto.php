@@ -3,9 +3,15 @@
 namespace App\Dto;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-readonly class ClubDto
+#[Vich\Uploadable]
+class ClubDto
 {
+    #[Vich\UploadableField(mapping: 'logo', fileNameProperty: 'logoName', size: 'logoSize')]
+    public ?File $logoFile = null;
+
     public function __construct(
         public ?int                $id = null,
 
@@ -16,7 +22,11 @@ readonly class ClubDto
         #[Assert\Length(max: 20)]
         public ?string             $federationNumber = null,
 
-        #[Assert\Regex(pattern: '/^\+?\d{10,15}$/', message: 'Invalid phone number.')]
+        #[Assert\NotBlank(message: 'Le numéro de téléphone ne peut pas être vide')]
+        #[Assert\Regex(
+            pattern: '/^(\+32|0)(?:2|3|4|9)\d{8}$/',
+            message: 'Le numéro de téléphone belge est invalide'
+        )]
         public ?string             $phoneNumber = null,
 
         public ?string             $description = null,
@@ -24,6 +34,8 @@ readonly class ClubDto
 // Logo details
         public ?string             $logoName = null,
         public ?int                $logoSize = null,
+//        #[Vich\UploadableField(mapping: 'logo', fileNameProperty: 'logoName', size: 'logoSize')]
+//        public ?File               $logoFile = null,
 
 // Image details
         public ?string             $imageName = null,
@@ -51,4 +63,29 @@ readonly class ClubDto
     )
     {
     }
+
+    public function setLogoFile(?File $logoFile = null): void
+    {
+        $this->logoFile = $logoFile;
+
+        if (null !== $logoFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
+    }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
 }

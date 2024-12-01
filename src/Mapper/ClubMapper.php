@@ -30,13 +30,13 @@ class ClubMapper
         );
     }
 
-    public static function toEntity(ClubDto $dto): Club
+    public static function toEntity(Club $club, ClubDto $dto): Club
     {
-        $club = new Club();
         $club->setName($dto->name);
         $club->setFederationNumber($dto->federationNumber);
         $club->setPhoneNumber($dto->phoneNumber);
         $club->setDescription($dto->description);
+        $club->setLogoFile($dto->logoFile);
         $club->setLogoName($dto->logoName);
         $club->setLogoSize($dto->logoSize);
         $club->setImageName($dto->imageName);

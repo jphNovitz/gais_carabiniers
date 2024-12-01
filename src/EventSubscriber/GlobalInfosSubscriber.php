@@ -34,7 +34,7 @@ class GlobalInfosSubscriber implements EventSubscriberInterface
     {
         $route = $event->getRequest()->attributes->get('_route');
 
-        if ($route !== 'app_fallback' || !str_contains($route, 'admin_')) {
+        if ($route !== 'app_fallback' /*|| !str_contains($route, 'admin_')*/) {
 
             $infos = $this->clubRepository->findAll()[0];
 

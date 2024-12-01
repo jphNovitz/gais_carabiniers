@@ -54,8 +54,8 @@ class DefaultController extends AbstractController
             ))
         ;
 
-        return $this->render('default/index.html.twig', [
-            $clubs = $clubRepository->findAll()[0],
+        return $this->render('landing/index.html.twig', [
+//            $clubs = $clubRepository->findAll()[0],
             'myMap' => $myMap
         ]);
     }

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}club.infos{% endtrans %}{% endblock %}
+
+{% block body %}
+    <section>
+        <h1 class="mb-8 text-2xl font-extrabold leading-none tracking-tight text-content-primary-light md:text-5xl lg:text-6xl dark:text-content-primary-dark/70">{% trans %}club.infos{% endtrans %}</h1>
+        <div class="w-full flex flex-col space-y-8 mb-8 ">
+            <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+                <div class="w-full md:w-1/3 md:text-right">
+                    {% trans %}club.name{% endtrans %}
+                </div>
+                <div class="w-full md:w-2/3 md:text-left font-semibold">
+                    {{ club.name }}
+                </div>
+            </div>
+            <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+
+                <div class="w-full md:w-1/3 md:text-right">
+                    {% trans %}club.federationNumber{% endtrans %}
+                </div>
+                <div class="w-full md:w-2/3 md:text-left font-semibold">
+                    {{ club.federationNumber }}
+                </div>
+            </div>
+            <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+                <div class="w-full md:w-1/3 md:text-right">
+                    {% trans %}club.phoneNumber{% endtrans %}
+                </div>
+                <div class="w-full md:w-2/3 md:text-left font-semibold">
+                    {{ club.phoneNumber }}
+                </div>
+            </div>
+            <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+                <div class="w-full md:w-1/3 md:text-right">
+                    {% trans %}club.description{% endtrans %}
+                </div>
+                <div class="w-full md:w-2/3 md:text-left font-semibold">
+                    {{ club.description }}
+                </div>
+            </div>
+            <div class="w-full flex flex-col md:flex-row md:space-x-8 md:items-center ">
+                <div class="w-full md:w-1/3 md:text-right">
+                    {% trans %}club.logo{% endtrans %}
+                </div>
+                <div class="w-full md:w-2/3 md:text-left font-semibold">
+                    <img src="{{ asset('/images/' ~ club.logoName) }}" class="w-24" alt="{{ club.name }} logo">
+                </div>
+            </div>
+        <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+            <div class="w-full md:w-1/3 md:text-right">
+                {% trans %}club.street{% endtrans %}
+            </div>
+            <div class="w-full md:w-2/3 md:text-left font-semibold">
+                {{ club.street }}
+            </div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+            <div class="w-full md:w-1/3 md:text-right">
+                {% trans %}club.streetNumber{% endtrans %}
+            </div>
+            <div class="w-full md:w-2/3 md:text-left font-semibold">
+                {{ club.streetNumber }}
+            </div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+            <div class="w-full md:w-1/3 md:text-right">
+                {% trans %}club.postCode{% endtrans %}
+            </div>
+            <div class="w-full md:w-2/3 md:text-left font-semibold">
+                {{ club.postCode }}
+            </div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+            <div class="w-full md:w-1/3 md:text-right">
+                {% trans %}club.city{% endtrans %}
+            </div>
+            <div class="w-full md:w-2/3 md:text-left font-semibold">
+                {{ club.city }}
+            </div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row md:space-x-8 ">
+            <div class="w-full md:w-1/3 md:text-right">
+                {% trans %}club.email{% endtrans %}
+            </div>
+            <div class="w-full md:w-2/3 md:text-left font-semibold">
+                {{ club.email }}
+            </div>
+        </div>
+        </div>
+        <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90 md:ml-[33%] mt-8"
+           href="{{ path('admin_club_edit') }}">{% trans %} button.edit{% endtrans %}</a>
+    </section>
+{% endblock %}

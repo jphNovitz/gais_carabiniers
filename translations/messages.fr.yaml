@@ -9,12 +9,17 @@ button:
   edit: "Modifier"
   update: "Modifier"
   back_list: "Retour à la liste"
+  find: "Nous Trouver"
+nav:
+  home: "Accueil"
+  about: "Notre histoire"
 form:
   agree: "J'accepte les Conditions"
   password: "Mot de passe"
   email: "Email"
 
 club:
+    about: "À propos du club"
     infos: "Informations de contact"
     edit: "Modifier les informations du club"
     name: "Nom du club"

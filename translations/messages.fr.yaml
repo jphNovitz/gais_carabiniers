@@ -13,6 +13,7 @@ button:
 nav:
   home: "Accueil"
   about: "Notre histoire"
+  contact: "Contact"
 form:
   agree: "J'accepte les Conditions"
   password: "Mot de passe"

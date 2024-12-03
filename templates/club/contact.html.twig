@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}club.about {% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <section id="nous-contacter" class="w-full bg-surface-light dark:bg-surface-dark pt-4 pb-8 px-4 rounded-lg flex flex-col lg:flex-row">
+        <article class="w-full lg:w-1/2 sm:p-16 xl:p-24">
+            <h2 class="text-4xl font-headland font-extrabold text-content-highlight-light/70 dark:text-content-highlight-dark/70 ">Nous trouver, <br/>nous contacter, <br/>nous
+                rencontrer </h2>
+            <p class="my-8 text-lg font-normal text-content-primary-light/50 lg:text-xl {# sm:px-16 xl:px-48 #} dark:text-content-primary-dark/40 leading-loose">
+                Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez
+                d'une ambiance
+                conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute
+                sécurité
+                !
+            </p>
+        </article>
+        <article class="w-full lg:w-1/2 p-4">
+            {{ ux_map(myMap, { class: 'w-full  aspect-video lg:aspect-square mx-auto' }) }}
+        </article>
+    </section>
+
+{% endblock %}
+

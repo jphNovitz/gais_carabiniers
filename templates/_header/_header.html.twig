@@ -16,16 +16,24 @@
             <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
-                        <a href="{{ path('app_default') }}" class="block py-2 pr-4 pl-3 text-white rounded bg-secondary/70 lg:bg-transparent lg:text-content-primary-light/70 lg:p-0 dark:text-content-primary-dark" aria-current="page">{% trans %} nav.home {% endtrans %}</a>
+                        <a href="{{ path('app_default') }}" class="block py-2 pr-4 pl-3 text-content-primary-light/70 border-b border-surface-dark/20 hover:bg-base-dark/10 lg:hover:bg-transparent lg:border-0 lg:hover:text-content-primary-light lg:p-0 dark:text-content-primary-dark/80 lg:dark:hover:text-white dark:hover:bg-base-dark/40 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 {{ app.request.attributes.get('_route') == 'app_default' ? 'bg-secondary/70 text-white' : '' }}" aria-current="{{ app.request.attributes.get('_route') == 'app_default' ? 'page' : 'false' }}">
+                            {% trans %}nav.home{% endtrans %}
+                        </a>
                     </li>
                     <li>
-                        <a href="{{ path('app_about') }}" class="block py-2 pr-4 pl-3 text-content-primary-light/70 border-b border-surface-dark/20 hover:bg-base-dark/10 lg:hover:bg-transparent lg:border-0 lg:hover:text-content-primary-light lg:p-0 dark:text-content-primary-dark/80 lg:dark:hover:text-white dark:hover:bg-base-dark/40 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">{% trans %} nav.about {% endtrans %}</a>
+                        <a href="{{ path('app_about') }}" class="block py-2 pr-4 pl-3 text-content-primary-light/70 border-b border-surface-dark/20 hover:bg-base-dark/10 lg:hover:bg-transparent lg:border-0 lg:hover:text-content-primary-light lg:p-0 dark:text-content-primary-dark/80 lg:dark:hover:text-white dark:hover:bg-base-dark/40 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 {{ app.request.attributes.get('_route') == 'app_about' ? 'bg-secondary/70 text-white' : '' }}" aria-current="{{ app.request.attributes.get('_route') == 'app_about' ? 'page' : 'false' }}">
+                            {% trans %}nav.about{% endtrans %}
+                        </a>
                     </li>
                     <li>
-                        <a href="{{ path('app_contact') }}" class="block py-2 pr-4 pl-3 text-content-primary-light/70 border-b border-surface-dark/20 hover:bg-base-dark/10 lg:hover:bg-transparent lg:border-0 lg:hover:text-content-primary-light lg:p-0 dark:text-content-primary-dark/80 lg:dark:hover:text-white dark:hover:bg-base-dark/40 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">{% trans %} nav.contact {% endtrans %}</a>
+                        <a href="{{ path('app_contact') }}" class="block py-2 pr-4 pl-3 text-content-primary-light/70 border-b border-surface-dark/20 hover:bg-base-dark/10 lg:hover:bg-transparent lg:border-0 lg:hover:text-content-primary-light lg:p-0 dark:text-content-primary-dark/80 lg:dark:hover:text-white dark:hover:bg-base-dark/40 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 {{ app.request.attributes.get('_route') == 'app_contact' ? 'bg-secondary/70 text-white' : '' }}" aria-current="{{ app.request.attributes.get('_route') == 'app_contact' ? 'page' : 'false' }}">
+                            {% trans %}nav.contact{% endtrans %}
+                        </a>
                     </li>
                     <li>
-                        <a href="#" class="text-content-primary-light dark:text-white hover:bg-surface-light/5 focus:ring-4 focus:ring-base/30 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-base-dark/50 focus:outline-none dark:focus:ring-base-dark/70">Log in</a>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-content-primary-light/70 border-b border-surface-dark/20 hover:bg-base-dark/10 lg:hover:bg-transparent lg:border-0 lg:hover:text-content-primary-light lg:p-0 dark:text-content-primary-dark/80 lg:dark:hover:text-white dark:hover:bg-base-dark/40 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            Log in
+                        </a>
                     </li>
                 </ul>
             </div>

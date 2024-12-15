@@ -48,4 +48,7 @@ return [
     '@symfony/ux-leaflet-map' => [
         'path' => './vendor/symfony/ux-leaflet-map/assets/dist/map_controller.js',
     ],
+    'turbo-view-transitions' => [
+        'version' => '0.3.0',
+    ],
 ];

@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'media',
     content: [
+    "./vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig",
         "./assets/**/*.js",
         "./templates/**/*.html.twig",
+        "./vendor/symfony/twig-bridge/Resources/views/Form/*.html.twig",
+        "./vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig"
     ],
     theme: {
         extend: {
@@ -12,6 +16,7 @@ module.exports = {
                 headland: ['Headland', 'sans-serif'],
             },
             backgroundImage: {
+                'hero': "url('/images/gais-carabinier-hero-01-1280.webp')",
                 'footer': "url('/images/logo-gais-carabiniers-bernissart.webp')",
             },
             transitionProperty: {
@@ -53,5 +58,7 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require('flowbite/plugin')
+    ],
 }

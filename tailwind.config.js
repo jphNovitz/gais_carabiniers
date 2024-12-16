@@ -17,6 +17,7 @@ module.exports = {
             },
             backgroundImage: {
                 'hero': "url('/images/gais-carabinier-hero-01-1280.webp')",
+                'hero-sm': "url('/images/gais-carabinier-hero-01-mobile.webp')",
                 'footer': "url('/images/logo-gais-carabiniers-bernissart.webp')",
             },
             transitionProperty: {
@@ -26,6 +27,10 @@ module.exports = {
             transitionDuration: {
                 '2000': '2000ms',
                 '5000': '5000ms',
+            },
+            translate: {
+                '1/6': '16.666667%', // 1/6 correspond à 16.666667%
+                '1/12': '8.33333%', // 1/6 correspond à 16.666667%
             },
             colors: {
                 "transparent": "transparent",

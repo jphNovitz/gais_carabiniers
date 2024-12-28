@@ -65,4 +65,11 @@ class ClubController extends AbstractController
             'myMap' => $myMap
         ]);
     }
+
+    #[Route('/politique-de-confidentialite', name: 'app_privacy_policy')]
+    public function privacyPolicy(): Response
+    {
+        return $this->render('club/privacy_policy.html.twig', [
+        ]);
+    }
 }

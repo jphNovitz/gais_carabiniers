@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FacebookEvent index{% endblock %}
+
+{% block body %}
+    <h1>FacebookEvent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>FacebookLink</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facebook_event in facebook_events %}
+            <tr>
+                <td>{{ facebook_event.id }}</td>
+                <td>{{ facebook_event.name }}</td>
+                <td>{{ facebook_event.date ? facebook_event.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facebook_event.facebookLink }}</td>
+                <td>{{ facebook_event.createdAt ? facebook_event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facebook_event.updatedAt ? facebook_event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_facebook_event_show', {'slug': facebook_event.slug}) }}">show</a>
+                    <a href="{{ path('admin_facebook_event_edit', {'slug': facebook_event.slug}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_facebook_event_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FacebookEvent{% endblock %}
+
+{% block body %}
+    <h1>Create new FacebookEvent</h1>
+
+    {{ include('admin/facebook_event/_form.html.twig') }}
+
+    <a href="{{ path('admin_facebook_event_index') }}">back to list</a>
+{% endblock %}

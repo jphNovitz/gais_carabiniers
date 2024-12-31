@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit FacebookEvent{% endblock %}
+{% block title %}{% trans %}event.edit{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Edit FacebookEvent</h1>
+    <div class="w-full lg:w-2/3 m-auto p-4">
+        <h1 class="mb-8 text-2xl font-extrabold leading-none tracking-tight text-content-primary-light md:text-3xl lg:text-4xl dark:text-content-primary-dark/70">
+            {% trans %}event.edit{% endtrans %}
+        </h1>
+        <div class="my-8">
+            {{ include('admin/facebook_event/_form.html.twig', {'button_label': 'button.update'}) }}
+        </div>
 
-    {{ include('admin/facebook_event/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('admin_facebook_event_index') }}">back to list</a>
-
-    {{ include('admin/facebook_event/_delete_form.html.twig') }}
+        <a href="{{ path('admin_facebook_event_index') }}" class="py-2.5 px-5 me-2  text-sm font-medium text-content-primary-light/70 focus:outline-none bg-surface-light rounded-lg border border-surface-dark/20 hover:bg-surface-light/50 hover:text-content-primary-light focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-surface-dark dark:text-content-primary-dark/70 dark:border-gray-600 dark:hover:text-content-primary-dark dark:hover:bg-gray-700">
+            {% trans %}button.back_list{% endtrans %}
+        </a>
+    </div>
 {% endblock %}

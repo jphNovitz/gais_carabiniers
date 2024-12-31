@@ -3,41 +3,70 @@
 {% block title %}FacebookEvent index{% endblock %}
 
 {% block body %}
-    <h1>FacebookEvent index</h1>
+    <div class="container-fluid p-4">
+        <div class="mb-4 flex justify-between items-center">
+            <h3 class="text-xl font-semibold text-content-primary-light dark:text-content-primary-dark">Liste des événements Facebook</h3>
+            <a href="{{ path('admin_facebook_event_new') }}" 
+               class="px-4 py-2 bg-content-secondary text-white rounded-lg hover:bg-content-secondary/80">
+                <i class="fa fa-plus"></i> Créer un événement
+            </a>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>FacebookLink</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for facebook_event in facebook_events %}
-            <tr>
-                <td>{{ facebook_event.id }}</td>
-                <td>{{ facebook_event.name }}</td>
-                <td>{{ facebook_event.date ? facebook_event.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ facebook_event.facebookLink }}</td>
-                <td>{{ facebook_event.createdAt ? facebook_event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ facebook_event.updatedAt ? facebook_event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('admin_facebook_event_show', {'slug': facebook_event.slug}) }}">show</a>
-                    <a href="{{ path('admin_facebook_event_edit', {'slug': facebook_event.slug}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_facebook_event_new') }}">Create new</a>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left">
+                <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Nom</th>
+                        <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Date</th>
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Lien Facebook</th>
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Créé le</th>
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Modifié le</th>
+                        <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for facebook_event in facebook_events %}
+                        <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
+                            <th scope="row" class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
+                                {{ facebook_event.name }}
+                            </th>
+                            <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                                {{ facebook_event.date ? facebook_event.date|date('d/m/Y H:i') : '' }}
+                            </td>
+                            <td class="px-6 py-4 hidden md:table-cell">
+                                <a href="{{ facebook_event.facebookLink }}" target="_blank" 
+                                   class="text-content-highlight-light dark:text-content-highlight-dark hover:opacity-80">
+                                    <i class="fab fa-facebook"></i> Voir sur Facebook
+                                </a>
+                            </td>
+                            <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                                {{ facebook_event.createdAt ? facebook_event.createdAt|date('d/m/Y') : '' }}
+                            </td>
+                            <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                                {{ facebook_event.updatedAt ? facebook_event.updatedAt|date('d/m/Y') : '' }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex space-x-2">
+                                    <a href="{{ path('admin_facebook_event_show', {'slug': facebook_event.slug}) }}" 
+                                       class="px-3 py-1.5 bg-transparent text-content-primary-light border border-content-primary-light dark:text-content-primary-dark dark:border-content-primary-dark rounded hover:bg-content-primary-light/80">
+                                        <i class="fas fa-eye">{%trans%}button.show{%endtrans%}</i>
+                                    </a>
+                                    <a href="{{ path('admin_facebook_event_edit', {'slug': facebook_event.slug}) }}" 
+                                       class="px-3 py-1.5 bg-content-highlight-light dark:bg-content-highlight-dark/70 text-content-primary-dark dark:text-content-primary-light rounded hover:bg-content-highlight-light/60 dark:hover:bg-content-highlight-dark/50">
+                                        <i class="fas fa-edit">{%trans%}button.edit{%endtrans%}</i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr class="bg-base-light dark:bg-base-dark">
+                            <td colspan="6" class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                                Aucun événement trouvé
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

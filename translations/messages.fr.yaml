@@ -6,6 +6,8 @@ button:
   logout: "Déconnexion"
   register: "Je m'enregistre"
   open_main_menu: "Ouvrir le menu principal"
+  show: "Voir"
+  details: "Détails"
   edit: "Modifier"
   update: "Modifier"
   back_list: "Retour à la liste"
@@ -69,3 +71,9 @@ club:
         error: "Une erreur s'est produite lors de l'envoi de votre message"
     contact_info:
         title
+event:
+    details: "Détails de l'événement"
+text:
+    name: "Nom"
+    date: "Date"
+    link: "Lien"

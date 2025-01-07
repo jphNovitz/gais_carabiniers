@@ -16,9 +16,10 @@ class DefaultController extends AbstractController
     #[Cache(maxage: 31536000, public: true, mustRevalidate: true)]
     public function index(ClubRepository $clubRepository, FacebookEventRepository $facebookEventRepository): Response
     {
-        $facebookEvent = $facebookEventRepository->findLastFutureElement();
+        $facebookEvents = $facebookEventRepository->findLastFutureElements(3);
+        // dd($facebookEvents);
         return $this->render('landing/index.html.twig', [
-            'facebookEvent' => $facebookEvent,
+            'facebookEvents' => $facebookEvents,
         ]);
     }
 }

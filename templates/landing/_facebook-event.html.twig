@@ -1,1 +1,14 @@
-Facebook event
+<section class="w-11/12 md:w-10/12 lg:w-8/12 mx-auto">
+    <twig:Title:H2 class="text-center">
+        {{ 'event.landing.h2' | trans }}
+    </twig:Title:H2>
+
+    <ul class="w-full flex flex-col gap-4  bg-surface-light dark:bg-surface-dark p-4">
+        {% for event in facebookEvents %}
+            <li class="w-full border-b border-border-light/30 dark:border-border-dark/30 ">
+                <twig:Title:H3>{{ event.name }}</twig:Title:H3>
+            </li>
+        {% endfor %}
+    </ul>
+
+</section>

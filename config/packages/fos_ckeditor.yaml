@@ -1,0 +1,13 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: 'standard'
+            language: 'fr'
+            autoParagraph: true
+            autoload: true
+            theme: 'moono-lisa'
+twig:
+    form_themes:
+        - 'form/ckeditor-widget.html.twig'
+        # - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

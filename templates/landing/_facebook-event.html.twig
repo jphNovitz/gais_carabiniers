@@ -6,7 +6,7 @@
     <ul class="w-full flex flex-col gap-4  bg-surface-light dark:bg-surface-dark p-4">
         {% for event in facebookEvents %}
             <li class="w-full border-b border-border-light/30 dark:border-border-dark/30 ">
-                <twig:Title:H3>{{ event.name }}</twig:Title:H3>
+                <twig:Title:H3>{{ event.title }}</twig:Title:H3>
             </li>
         {% endfor %}
     </ul>

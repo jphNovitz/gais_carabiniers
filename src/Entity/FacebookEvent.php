@@ -20,7 +20,7 @@ class FacebookEvent
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private string $name;
+    private string $title;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTime $date;
@@ -37,23 +37,26 @@ class FacebookEvent
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
-    #[Gedmo\Slug(fields: ['name'])]
+    #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
-    // Getters and setters...
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): static
+    public function setTitle(string $title): static
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -117,5 +120,18 @@ class FacebookEvent
 
         return $this;
     }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 
 }

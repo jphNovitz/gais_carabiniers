@@ -28,7 +28,7 @@
                     {% for facebook_event in facebook_events %}
                         <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
                             <th scope="row" class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
-                                {{ facebook_event.name }}
+                                {{ facebook_event.title }}
                             </th>
                             <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
                                 {{ facebook_event.date ? facebook_event.date|date('d/m/Y H:i') : '' }}

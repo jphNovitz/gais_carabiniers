@@ -11,10 +11,11 @@ class FacebookEventMapper
     {
         return new FacebookEventDto(
             id: $facebookEvent->getId(),
-            name: $facebookEvent->getName(),
+            title: $facebookEvent->getTitle(),
             slug: $facebookEvent->getSlug(),
             date: $facebookEvent->getDate(),
             facebookLink: $facebookEvent->getFacebookLink(),
+            description: $facebookEvent->getDescription(),
             createdAt: $facebookEvent->getCreatedAt(),
             updatedAt: $facebookEvent->getUpdatedAt()
         );
@@ -26,9 +27,10 @@ class FacebookEventMapper
             $facebookEvent = new FacebookEvent();
         }
 
-        $facebookEvent->setName($dto->name);
+        $facebookEvent->setTitle($dto->title);
         $facebookEvent->setDate($dto->date);
         $facebookEvent->setFacebookLink($dto->facebookLink);
+        $facebookEvent->setDescription($dto->description);
         $facebookEvent->setSlug($dto->slug);
         $facebookEvent->setCreatedAt($dto->createdAt);
         $facebookEvent->setUpdatedAt($dto->updatedAt);

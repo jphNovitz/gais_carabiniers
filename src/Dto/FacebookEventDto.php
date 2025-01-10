@@ -22,7 +22,7 @@ class FacebookEventDto
 
         public ?string             $description = null,
 
-        public ?string             $slug = null,
+        // public ?string             $slug = null,
         public ?\DateTimeImmutable $createdAt = null,
 
         public ?\DateTimeImmutable $updatedAt = null,

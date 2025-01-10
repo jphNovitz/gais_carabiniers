@@ -87,5 +87,4 @@ class ClubDto
     {
         return $this->imageSize;
     }
-
 }

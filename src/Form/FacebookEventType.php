@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Dto\FacebookEventDto;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,8 +15,8 @@ class FacebookEventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'event.name',
+            ->add('title', TextType::class, [
+                'label' => 'event.title',
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
@@ -23,6 +24,10 @@ class FacebookEventType extends AbstractType
             ])
             ->add('facebookLink', TextType::class, [
                 'label' => 'event.link',
+            ])
+            ->add('description', CKEditorType::class, [
+                // 'config_name' => 'custom',
+                'label' => 'event.description',
             ])
             
         ;

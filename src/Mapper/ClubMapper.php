@@ -53,3 +53,4 @@ class ClubMapper
         return $club;
     }
 }
+

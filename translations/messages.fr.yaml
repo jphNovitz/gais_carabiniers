@@ -72,8 +72,17 @@ club:
     contact_info:
         title
 event:
+    landing:
+        h2: "Nos prochains événements"
+    name: "Nom"
+    description: "Description"
+    date: "Date"
+    link: "Lien"
+    new: "Nouvel événement"
     details: "Détails de l'événement"
+    edit: "Modifier l'événement"
 text:
     name: "Nom"
+    title: "Titre"
     date: "Date"
     link: "Lien"

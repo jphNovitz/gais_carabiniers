@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "prop",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
@@ -119,3 +119,6 @@
         "zenstruck/foundry": "^2.2"
     }
 }
+
+
+

@@ -3,10 +3,12 @@
 {% block title %}Les Gais Carabiniers de Bernissart | Tir à la carabine à 10m{% endblock %}
 
 {% block body %}
-{% include 'landing/_hero.html.twig' %}
 
-{% include 'landing/_carousel.html.twig' %}
-{% include 'landing/_facebook-event.html.twig' with {'facebookEvents': facebookEvents} only %}
+    <div class="flex flex-col space-y-12 md:space-y-24 lg:space-y-36">
+        {% include 'landing/_hero.html.twig' %}
+
+        {% include 'landing/_carousel.html.twig' %}
+        {% include 'landing/_facebook-event.html.twig' with {'facebookEvents': facebookEvents} only %}
+    </div>
 
 {% endblock %}
-

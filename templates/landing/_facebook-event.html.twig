@@ -1,16 +1,29 @@
 <section class="w-11/12 md:w-10/12 lg:w-8/12 mx-auto">
 
     <article>
-        <twig:Title:H2>Nous nous réunissons généralement le vendredi. <br />
-            Que vous soyez tireur ou non, n'hésitez pas à venir nous rendre visite. <br />
-            Notre prochain événement aura lieu le <strong>{{ facebookEvents[0].date | date('d/m/Y') }}</strong> pour le <strong> <a href="{{ facebookEvents[0].facebookLink }}" class="hover:underline" target="_blank">{{ facebookEvents[0].title }}</a></strong></twig:Title:H2>
+        <twig:Title:H2> Bienvenue au club de tir - Les Gais Carabiniers</twig:Title:H2>
+        <p>
+            Nous nous réunissons généralement le vendredi. Que vous soyez tireur ou non, n'hésitez pas à venir nous
+            rendre visite.
+        </p>
+    </article>
+    <article>
+        <twig:Title:H2>Nos prochains événements</twig:Title:H2>
+        <twig:Title:H3>
+            <a href="{{ facebookEvents[0].facebookLink }}" class="hover:underline"
+               target="_blank">{{ facebookEvents[0].title }}</a>
+        </twig:Title:H3>
+        <twig:Title:H4>
+            Notre prochain événement aura lieu le <strong>{{ facebookEvents[0].date | date('d/m/Y') }}</strong>
+        </twig:Title:H4>
         <div class="my-4 px-4 flex flex-col gap-4">
-                {{facebookEvents[0].description | raw}}
+            {{ facebookEvents[0].description | raw }}
         </div>
     </article>
-    <article
+
+    <article>
     <twig:Title:H2 class="">
-        {{ 'event.landing.h2' | trans }}
+        {{ 'event.landing.next' | trans }}
     </twig:Title:H2>
 
     <ul class="w-full flex flex-col gap-4  bg-surface-light dark:bg-surface-dark bg-opacity-20 my-8 p-4">
@@ -18,9 +31,9 @@
             <li class="w-full border-b border-border-light/30 dark:border-border-dark/30 ">
                 <twig:Title:H3>{{ event.title }}</twig:Title:H3>
             </li>
-            {% else %}
-                <twig:Title:H3>Bientôt</twig:Title:H3>
-            {% endfor %}
+        {% else %}
+            <twig:Title:H3>Bientôt</twig:Title:H3>
+        {% endfor %}
     </ul>
-</article>
+    </article>
 </section>

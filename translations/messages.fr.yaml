@@ -74,6 +74,7 @@ club:
 event:
     landing:
         h2: "Nos prochains événements"
+        next: "Prochains événements à venir"
     name: "Nom"
     description: "Description"
     date: "Date"

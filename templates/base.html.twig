@@ -4,31 +4,34 @@
     <!-- Meta classiques -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Les Gais Carabiniers - Club de Tir à Bernissart">
-    <meta name="keywords" content="{% block seo_content %}club de tir, Bernissart, tir à la carabine, tir récréatif, Gais Carabiniers, événements de tir, concours de tir, tir 12m, tir 10m, carabine .22 Zimmer, critérium Daniel Manfroid, activité sportive, inscriptions tir, compétition de tir, passion tir, sécurité tir{% endblock %}">
+    <title>{% block title %}Les Gais Carabiniers - Club de Tir à Bernissart{% endblock %}</title>
+    <meta name="keywords" content="{% block seo_content %}tir sportif, Bernissart, Les Gais Carabiniers, carabine, club de tir, URSTB-F, tir 10m, tir 12m, ambiance conviviale, passion tir, sécurité, air comprimé{% endblock %}">
     <meta name="description" content="{% block seo_description %}Rejoignez les Gais Carabiniers de Bernissart, un club de tir à la carabine convivial et passionné. Découvrez nos disciplines de tir 10m et 12m, participez à nos événements comme le Critérium Daniel Manfroid, et partagez votre passion dans un cadre sécurisé. Inscriptions ouvertes !{% endblock %}">
-    <meta name="keywords" content="tir sportif, Bernissart, Les Gais Carabiniers, carabine, club de tir, URSTB-F, tir 10m, tir 12m, ambiance conviviale, passion tir, sécurité">
-    <meta name="author" content="Les Gais Carabiniers">
-    <meta name="robots" content="index, follow">
+    <meta name="author" content="{% block seo_author %}Novitz Jean-Philippe{% endblock %}">
+    <meta name="robots" content="{% block seo_robots %}index, follow{% endblock %}">
+    <meta name="view-transition">
+
     <meta name="view-transition">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Gais Carabiniers de Bernissart - Club de tir à la carabine">
+    <meta property="og:title" content="{% block og_title %}Gais Carabiniers de Bernissart - Club de tir à la carabine{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Participez aux événements de tir des Gais Carabiniers à Bernissart, comme le Critérium Daniel Manfroid ! Découvrez nos disciplines 10m et 12m et rejoignez une communauté conviviale.{% endblock %}">
-    <meta property="og:image" content="https://gc-bernissart.be/images/carousel/gais-carabiniers-slider_01.jpg">
-    <meta property="og:url" content="https://gc-bernissart.be">
-    <meta property="og:type" content="website">
+    <meta property="og:image" content="{% block og_image %}https://gc-bernissart.be/images/carousel/gais-carabiniers-slider_01.jpg{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://gc-bernissart.be{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Découvrez le Club de tir - Gais Carabiniers de Bernissart">
-    <meta name="twitter:description" content="Envie de défi ? Participez à nos concours de tir 10m et 12m, comme le Critérium Daniel Manfroid. Rejoignez-nous à Bernissart !">
     <meta name="twitter:image" content="https://gc-bernissart.be/images/carousel/gais-carabiniers-slider_01.jpg">
+    <meta name="twitter:card" content="{% block twitter_card %}summary_large_image{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}Découvrez le Club de tir - Gais Carabiniers de Bernissart{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Envie de défi ? Participez à nos concours de tir 10m et 12m, comme le Critérium Daniel Manfroid. Rejoignez-nous à Bernissart !{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://gc-bernissart.be/images/carousel/gais-carabiniers-slider_01.jpg{% endblock %}">
+
 
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico?v=1.0" type="image/x-icon">
 
-    <title>Les Gais Carabiniers - Club de Tir à Bernissart</title>
 
 
 

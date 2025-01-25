@@ -20,7 +20,7 @@ class FacebookEventRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('f')
             ->where('f.date >= :now')      // Filtrer les dates dans le futur
-            ->setParameter('now', new \DateTime()) // Définir le paramètre actuel
+            ->setParameter('now', new \DateTime('today midnight')) // Définir le paramètre actuel
             ->orderBy('f.date', 'DESC')   
             ->setMaxResults($limit)            // Limiter à 1 résultat
             ->getQuery()

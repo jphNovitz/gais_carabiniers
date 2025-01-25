@@ -16,10 +16,10 @@ class FacebookEventRepository extends ServiceEntityRepository
         parent::__construct($registry, FacebookEvent::class);
     }
 
-    public function findLastFutureElements($limit = 1): ?array
+    public function findLastFutureElements($limit = 5): ?array
     {
         return $this->createQueryBuilder('f')
-            ->where('f.date > :now')      // Filtrer les dates dans le futur
+            ->where('f.date >= :now')      // Filtrer les dates dans le futur
             ->setParameter('now', new \DateTime()) // Définir le paramètre actuel
             ->orderBy('f.date', 'DESC')   
             ->setMaxResults($limit)            // Limiter à 1 résultat

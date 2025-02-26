@@ -17,7 +17,7 @@ class DefaultController extends AbstractController
     public function index(ClubRepository $clubRepository, FacebookEventRepository $facebookEventRepository): Response
     {
         $facebookEvents = $facebookEventRepository->findLastFutureElements(3);
-        // dd($facebookEvents);
+//         dd($facebookEvents);
         return $this->render('landing/index.html.twig', [
             'facebookEvents' => $facebookEvents,
         ]);

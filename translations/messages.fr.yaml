@@ -75,6 +75,8 @@ event:
     landing:
         h2: "Nos prochains événements"
         next: "Prochains événements à venir"
+    future: "Événements à venir"
+    past: "Événements passés"
     name: "Nom"
     description: "Description"
     date: "Date"

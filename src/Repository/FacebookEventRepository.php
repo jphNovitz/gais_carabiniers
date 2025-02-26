@@ -22,8 +22,26 @@ class FacebookEventRepository extends ServiceEntityRepository
             ->where('f.date >= :now')      // Filtrer les dates dans le futur
             ->setParameter('now', new \DateTime('today midnight')) // Définir le paramètre actuel
             ->orderBy('f.date', 'DESC')   
-            ->setMaxResults($limit)            // Limiter à 1 résultat
+            ->setMaxResults($limit)
             ->getQuery()
-            ->getResult();       // Retourner l'entité ou null si aucun résultat
+            ->getResult();
+    }
+    public function findAllFutureElements(): ?array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.date >= :now')      // Filtrer les dates dans le futur
+            ->setParameter('now', new \DateTime('today midnight'))
+            ->orderBy('f.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAllPastElements(): ?array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.date < :now')      // Filtrer les dates dans le futur
+            ->setParameter('now', new \DateTime())
+            ->orderBy('f.date', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

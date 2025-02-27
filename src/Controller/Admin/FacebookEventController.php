@@ -40,7 +40,6 @@ final class FacebookEventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // die('ok');
             $facebookEvent = $this->facebookEventMapper->toEntity($facebookEventDto);
             $entityManager->persist($facebookEvent);
             $entityManager->flush();
@@ -49,7 +48,6 @@ final class FacebookEventController extends AbstractController
         }
 
         return $this->render('admin/facebook_event/new.html.twig', [
-            // 'facebook_event' => $facebookEvent,
             'form' => $form,
         ]);
     }

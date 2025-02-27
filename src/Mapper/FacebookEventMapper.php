@@ -12,7 +12,7 @@ class FacebookEventMapper
         return new FacebookEventDto(
             id: $facebookEvent->getId(),
             title: $facebookEvent->getTitle(),
-            // slug: $facebookEvent->getSlug(),
+             slug: $facebookEvent->getSlug(),
             date: $facebookEvent->getDate(),
             facebookLink: $facebookEvent->getFacebookLink(),
             description: $facebookEvent->getDescription(),

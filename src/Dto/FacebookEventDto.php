@@ -12,6 +12,7 @@ class FacebookEventDto
         #[Assert\NotBlank(message: 'The event title cannot be blank.')]
         #[Assert\Length(max: 255, maxMessage: 'The event title cannot exceed 255 characters.')]
         public ?string             $title = null,
+        public ?string             $slug = null,
 
         #[Assert\NotBlank(message: 'The event date cannot be blank.')]
         public ?\DateTime          $date = null,

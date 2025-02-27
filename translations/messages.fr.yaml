@@ -78,6 +78,7 @@ event:
     future: "Événements à venir"
     past: "Événements passés"
     name: "Nom"
+    title: "Nom"
     description: "Description"
     date: "Date"
     link: "Lien"

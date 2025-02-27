@@ -16,6 +16,7 @@ nav:
   home: "Accueil"
   about: "Notre histoire"
   contact: "Contact"
+  agenda: "Agenda"
 form:
   agree: "J'accepte les Conditions"
   password: "Mot de passe"

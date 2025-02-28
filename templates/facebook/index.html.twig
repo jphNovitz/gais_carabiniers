@@ -25,8 +25,10 @@
         <section id="events-futur" class="py-8">
             <twig:Title:H2>{{ 'event.future' | trans }}</twig:Title:H2>
             <div class="pl-4">
-                {% for item in facebookEvents %}
-                    {#                    <twig:Title:H3 class="space-x-8">{{ item.date | date('F Y')|format_date(locale='fr', pattern='dd MMMM yyyy')  }} {{ item.title }}</twig:Title:H3>#}
+                {% for item in facebook_events %}
+                    <twig:Title:H3 class="space-x-8">
+                        {{ item.date | date('F Y')|format_date(locale='fr', pattern='dd MMMM yyyy') }} {{ item.title }}
+                    </twig:Title:H3>
                 {% else %}
                     <p class="italic">Pas encore d'événement à venir</p>
                 {% endfor %}
@@ -38,7 +40,9 @@
             <twig:Title:H2>{{ 'event.past' | trans }}</twig:Title:H2>
             <div class="pl-4">
                 {% for item in facebookEventsPast %}
-                    <twig:Title:H3 class="space-x-8">{{ item.date |format_date(locale='fr', pattern='MMMM Y')  }} {{ item.title }}</twig:Title:H3>
+                    <twig:Title:H3 class="space-x-8">
+                        {{ item.date |format_date(locale='fr', pattern='MMMM Y') }} {{ item.title }}
+                    </twig:Title:H3>
                 {% else %}
                     <p class="italic">Pas d'événements passés.</p>
                 {% endfor %}

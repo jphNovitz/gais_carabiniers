@@ -12,9 +12,8 @@ class FacebookEventController extends AbstractController
     #[Route('/agenda', name: 'app_agenda')]
     public function agenda(FacebookEventRepository $facebookEventRepository): Response
     {
-
         return $this->render('facebook/index.html.twig', [
-            'facebookEvents' => $facebookEventRepository->findAllFutureElements(),
+            'facebook_events' => $facebookEventRepository->findAllFutureElements(),
             'facebookEventsPast' => $facebookEventRepository->findAllPastElements()
         ]);
     }

@@ -13,9 +13,10 @@
 {% block body %}
 
 
-    <section class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
+    <section
+            class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
-            <div class="max-w-3xl mx-auto text-center">
+            <div class="max-w-3xl mx-auto text-left">
                 <twig:Title:H2>Agenda</twig:Title:H2>
                 <div class="mt-4">
                     <a href="{{ path('app_agenda') }}" title="Agenda des Gais Carabiniers de Bernissart"
@@ -26,17 +27,20 @@
             </div>
 
             <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-16">
-                <div class="-my-4 divide-y divide-content-primary-light/30 dark:divide-content-primary-dark/70">
+                <div class="-my-4 border-y border-content-primary-light/30 dark:border-content-primary-dark/70">
                     {% for item in facebook_events %}
                         <div class="flex flex-col gap-2 py-4 sm:gap-6 sm:flex-row sm:items-center">
                             <p class="w-32 text-lg font-normal text-content-primary-light-60 sm:text-right dark:text-content-primary-dark/60 shrink-0">
                                 {{ item.date |format_date(locale='fr', pattern='dd MMMM yyyy') }}
                             </p>
-                            <h3 class="text-lg font-semibold text-content-primary-light/90 text-content-primary-dark/90">
-                                <a href="{{ path('app_agenda_show', {'slug': item.slug})}}" class="hover:underline">
+
+                            <twig:Title:H3 class="font-semibold text-content-primary-light/90 text-content-primary-dark/90 !m-0">
+                                {#                            <h3 class="text-lg font-semibold text-content-primary-light/90 text-content-primary-dark/90"> #}
+                                <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="hover:underline">
                                     {{ item.title }}
                                 </a>
-                            </h3>
+                            </twig:Title:H3>
+                            {#                            </h3> #}
                         </div>
                     {% else %}
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">

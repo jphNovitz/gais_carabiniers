@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{# {% block title %}{% trans %}club.about {% endtrans %}{% endblock %} #}
+{% block title %}Histoire des Gais Carabiniers - Club de Tir à Bernissart depuis 1947{% endblock %}
+{% block seo_content %}club tir Bernissart, Gais Carabiniers, tir sportif, Critérium Daniel Manfroid, URSTB-F, histoire club tir{% endblock %}
+{% block seo_description %}Découvrez l'histoire des Gais Carabiniers, club de tir emblématique de Bernissart depuis 1947. Infrastructures modernes, événements comme le Critérium Daniel Manfroid et ambiance conviviale vous attendent.{% endblock %}
+{% block og_title %}Histoire des Gais Carabiniers - Club de Tir à Bernissart depuis 1947{% endblock %}
+{% block og_description %}Découvrez l'histoire des Gais Carabiniers, club de tir emblématique de Bernissart depuis 1947. Rejoignez une communauté passionnée dans un cadre sécurisé.{% endblock %}
+{% block og_image %}https://gc-bernissart.be/images/carousel/gais-carabiniers-slider_01.jpg{% endblock %}
+{% block og_url %}https://gc-bernissart.be/notre-histoire{% endblock %}
+{% block twitter_title %}Histoire des Gais Carabiniers - Club de Tir à Bernissart depuis 1947{% endblock %}
+{% block twitter_description %}Découvrez l'histoire des Gais Carabiniers, club de tir emblématique de Bernissart depuis 1947. Rejoignez une communauté passionnée dans un cadre sécurisé.{% endblock %}
+{% block twitter_image %}https://gc-bernissart.be/images/carousel/gais-carabiniers-slider_01.jpg{% endblock %}
+{% block body %}
+
+
+    <section class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
+{#        <section class="bg-surface-light/90 dark:bg-surface-dark/40">#}
+            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                <div class="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
+                    <twig:Title:H2> {{ facebookEvent.title }}
+                        <span class="font-thin">({{ facebookEvent.date |format_date(locale='fr', pattern='dd MMMM yyyy') }})</span>
+                    </twig:Title:H2>
+                    <p class="mb-4 font-medium">{{ facebookEvent.description }}</p>
+                    <a href="{{ facebookEvent.facebookLink }}" target="_blank" class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
+                        {{ 'text.learn.more' |trans }}
+                        <svg class="ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    </a>
+                </div>
+            </div>
+{#        </section>#}
+
+    </section>
+{% endblock %}
+

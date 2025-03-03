@@ -2,6 +2,8 @@
 
 namespace App\Controller\Facebook;
 
+use App\Entity\FacebookEvent;
+use App\Mapper\FacebookEventMapper;
 use App\Repository\FacebookEventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +17,14 @@ class FacebookEventController extends AbstractController
         return $this->render('facebook/index.html.twig', [
             'facebook_events' => $facebookEventRepository->findAllFutureElements(),
             'facebookEventsPast' => $facebookEventRepository->findAllPastElements()
+        ]);
+    }
+    #[Route('/agenda/{slug}', name: 'app_agenda_show')]
+    public function show(FacebookEvent $facebookEvent, FacebookEventMapper $facebookEventMapper): Response
+    {
+        $facebookEventDto = $facebookEventMapper->fromEntity($facebookEvent);
+        return $this->render('facebook/show.html.twig', [
+            'facebookEvent' => $facebookEventDto
         ]);
     }
 }

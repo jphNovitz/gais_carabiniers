@@ -25,8 +25,8 @@ class FacebookEvent
     #[ORM\Column(type: 'datetime')]
     private \DateTime $date;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $facebookLink;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $facebookLink ;
 
     #[ORM\Column(nullable: true)]
     #[Gedmo\Timestampable(on: 'create')]

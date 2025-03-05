@@ -13,21 +13,42 @@
 {% block body %}
 
 
-    <section class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
-{#        <section class="bg-surface-light/90 dark:bg-surface-dark/40">#}
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                <div class="max-w-screen-lg text-content-primary-light-50 sm:text-lg dark:text-content-primary-dark/40">
-                    <twig:Title:H2> {{ facebookEvent.title }}
-                        <span class="font-thin">({{ facebookEvent.date |format_date(locale='fr', pattern='dd MMMM yyyy') }})</span>
-                    </twig:Title:H2>
-                    <div class="my-8 space-y-4 font-medium">{{ facebookEvent.description | raw}}</div>
-                    <a href="{{ facebookEvent.facebookLink }}" target="_blank" class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
+    <section
+            class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
+        {#        <section class="bg-surface-light/90 dark:bg-surface-dark/40"> #}
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="max-w-screen-lg text-content-primary-light-50 sm:text-lg dark:text-content-primary-dark/40">
+                <twig:Title:H2> {{ facebookEvent.title }}
+                    <span class="font-thin">({{ facebookEvent.date |format_date(locale='fr', pattern='dd MMMM yyyy') }})</span>
+                </twig:Title:H2>
+                <div class="my-8 space-y-4 font-medium">{{ facebookEvent.description | raw }}</div>
+
+                {% if facebookEvent.facebookLink  %}
+                    <a href="{{ facebookEvent.facebookLink }}" target="_blank"
+                       class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
                         {{ 'text.learn.more' |trans }}
-                        <svg class="ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <svg class="ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
                     </a>
-                </div>
+                {% else %}
+                    <a href="{{ 'mailto:' ~ globalInfos.email }}?subject={{ facebookEvent.title|url_encode }}"
+                       class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
+                        {{ 'text.contact.us' |trans }}
+                        <svg class="ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                {% endif %}
             </div>
-{#        </section>#}
+        </div>
+        {#        </section> #}
 
     </section>
 {% endblock %}

@@ -54,7 +54,9 @@
                 <div class="pl-4">
                     {% for item in facebookEventsPast %}
                         <twig:Title:H3 class="space-x-8">
+                            <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="hover:underline">
                             {{ item.date |format_date(locale='fr', pattern='MMMM Y') }} {{ item.title }}
+                            </a>
                         </twig:Title:H3>
                     {% else %}
                         <p class="italic">Pas d'événements passés.</p>

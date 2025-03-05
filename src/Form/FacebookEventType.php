@@ -24,6 +24,7 @@ class FacebookEventType extends AbstractType
             ])
             ->add('facebookLink', TextType::class, [
                 'label' => 'event.link',
+                'required' => false,
             ])
             ->add('description', CKEditorType::class, [
                 // 'config_name' => 'custom',

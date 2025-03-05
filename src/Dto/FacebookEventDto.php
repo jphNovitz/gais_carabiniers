@@ -17,7 +17,6 @@ class FacebookEventDto
         #[Assert\NotBlank(message: 'The event date cannot be blank.')]
         public ?\DateTime          $date = null,
 
-        #[Assert\NotBlank(message: 'The Facebook link cannot be blank.')]
         #[Assert\Url(message: 'The Facebook link must be a valid URL.')]
         public ?string             $facebookLink = null,
 

@@ -78,7 +78,7 @@ class FacebookEvent
         return $this->facebookLink;
     }
 
-    public function setFacebookLink(string $facebookLink): static
+    public function setFacebookLink(?string $facebookLink): static
     {
         $this->facebookLink = $facebookLink;
 

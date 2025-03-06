@@ -8,6 +8,7 @@ button:
   open_main_menu: "Ouvrir le menu principal"
   show: "Voir"
   details: "Détails"
+  create: "Ajouter"
   edit: "Modifier"
   update: "Modifier"
   back_list: "Retour à la liste"

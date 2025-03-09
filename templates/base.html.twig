@@ -9,7 +9,7 @@
     <meta name="description" content="{% block seo_description %}Rejoignez les Gais Carabiniers de Bernissart, un club de tir à la carabine convivial et passionné. Découvrez nos disciplines de tir 10m et 12m, participez à nos événements comme le Critérium Daniel Manfroid, et partagez votre passion dans un cadre sécurisé. Inscriptions ouvertes !{% endblock %}">
     <meta name="author" content="{% block seo_author %}Novitz Jean-Philippe{% endblock %}">
     <meta name="robots" content="{% block seo_robots %}index, follow{% endblock %}">
-    <meta name="view-transition">
+    <meta name="view-transition" content="same-origin" />
     <link rel="canonical" href="{{ app.request.uri }}">
 
     <!-- Open Graph / Facebook -->
@@ -29,9 +29,8 @@
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico?v=1.0" type="image/x-icon">
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+{#        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">#}
 
     {% endblock %}
 

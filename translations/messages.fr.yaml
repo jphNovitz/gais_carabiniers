@@ -19,6 +19,9 @@ nav:
   contact: "Contact"
   agenda: "Agenda"
 form:
+  firstname: "Prénom"
+  lastname: "Nom"
+  active: "Actif"
   agree: "J'accepte les Conditions"
   password: "Mot de passe"
   email: "Email"

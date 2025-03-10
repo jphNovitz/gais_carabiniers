@@ -8,6 +8,7 @@ button:
   open_main_menu: "Ouvrir le menu principal"
   show: "Voir"
   details: "Détails"
+  add: "Ajouter"
   create: "Ajouter"
   edit: "Modifier"
   update: "Modifier"
@@ -97,3 +98,13 @@ text:
     link: "Lien"
     learn.more: "En savoir plus"
     contact.us: "Contactez-nous"
+member:
+  list: "Liste des membres"
+  na: "Aucun membre"
+  isActive: "Actif"
+  new: "Nouveau  membre"
+  name: "Nom"
+  firstname: "Prénom"
+  lastname: "Nom"
+  email: "Email"
+

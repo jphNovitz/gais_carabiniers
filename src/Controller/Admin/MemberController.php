@@ -9,6 +9,7 @@ use App\Form\MemberType;
 use App\Mapper\MemberMapper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -77,4 +78,17 @@ final class MemberController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/toggle-active/{id}', name: 'toggle_active', methods: ['POST'])]
+    public function toggleActive(Member $entity): JsonResponse
+    {
+        $entity->setIsActive(!$entity->isActive());
+        $this->entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'isActive' => $entity->isActive(),
+        ]);
+    }
+
 }

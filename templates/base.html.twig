@@ -33,7 +33,7 @@
 {#        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">#}
 
     {% endblock %}
-
+    {% block json_ld %} {% endblock %}
     {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}

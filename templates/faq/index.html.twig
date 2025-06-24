@@ -10,9 +10,29 @@
 {% block twitter_title %}FAQ – Gais Carabiniers de Bernissart{% endblock %}
 {% block twitter_description %}Questions fréquentes et réponses sur le club de tir des Gais Carabiniers de Bernissart.{% endblock %}
 {% block twitter_image %}https://gc-bernissart.be/images/gc-bernissart_agenda_cover_image.webp{% endblock %}
-
+{% block json_ld %}
+    <script type="application/ld+json">
+        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {% for faq in faqs %}
+        {
+            "@type": "Question",
+            "name": "{{ faq.question|raw }}",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ faq.answer|raw }}"
+            }
+        }{% if not loop.last %}{% endif %}
+        {% endfor %}
+        ]
+    }
+    </script>
+{% endblock %}
 {% block body %}
-    <section class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
+    <section
+            class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
             <div class="max-w-3xl mx-auto text-left">
                 <twig:Title:H1>Questions Fréquentes</twig:Title:H1>
@@ -29,19 +49,21 @@
                         {% for faq in faqs %}
                             <div class="bg-base-light dark:bg-base-dark border border-surface-dark/20 rounded-lg shadow-sm">
                                 <h2 id="accordion-collapse-heading-{{ loop.index }}">
-                                    <button type="button" 
-                                            class="flex items-center justify-between w-full p-5 font-medium text-left text-content-primary-light dark:text-content-primary-dark border-b border-surface-dark/20 hover:bg-surface-light/50 dark:hover:bg-surface-dark/50 focus:ring-4 focus:ring-content-secondary/30 rounded-t-lg" 
-                                            data-accordion-target="#accordion-collapse-body-{{ loop.index }}" 
-                                            aria-expanded="false" 
+                                    <button type="button"
+                                            class="flex items-center justify-between w-full p-5 font-medium text-left text-content-primary-light dark:text-content-primary-dark border-b border-surface-dark/20 hover:bg-surface-light/50 dark:hover:bg-surface-dark/50 focus:ring-4 focus:ring-content-secondary/30 rounded-t-lg"
+                                            data-accordion-target="#accordion-collapse-body-{{ loop.index }}"
+                                            aria-expanded="false"
                                             aria-controls="accordion-collapse-body-{{ loop.index }}">
                                         <span class="text-lg font-semibold">{{ faq.question }}</span>
-                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                  stroke-width="2" d="m1 1 4 4 4-4"/>
                                         </svg>
                                     </button>
                                 </h2>
-                                <div id="accordion-collapse-body-{{ loop.index }}" 
-                                     class="hidden" 
+                                <div id="accordion-collapse-body-{{ loop.index }}"
+                                     class="hidden"
                                      aria-labelledby="accordion-collapse-heading-{{ loop.index }}">
                                     <div class="p-5 border-b border-surface-dark/20">
                                         <div class="text-content-primary-light dark:text-content-primary-dark prose prose-lg max-w-none dark:prose-invert">
@@ -63,7 +85,8 @@
                     <div class="text-center py-12">
                         <div class="text-content-primary-light/60 dark:text-content-primary-dark/60">
                             <svg class="mx-auto h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                             <h3 class="text-lg font-medium mb-2">Aucune question disponible</h3>
                             <p class="text-sm">Les questions fréquentes seront bientôt disponibles.</p>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MemberRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -37,6 +39,18 @@ class Member
     #[ORM\Column(nullable: true)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    /**
+     * @var Collection<int, MeetingParticipant>
+     */
+    #[ORM\OneToMany(mappedBy: 'shooter', targetEntity: MeetingParticipant::class)]
+    private Collection $participations;
+
+    public function __construct()
+    {
+        $this->meetingParticipants = new ArrayCollection();
+        $this->participations = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -112,6 +126,66 @@ class Member
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MeetingParticipant>
+     */
+    public function getMeetingParticipants(): Collection
+    {
+        return $this->meetingParticipants;
+    }
+
+    public function addMeetingParticipant(MeetingParticipant $meetingParticipant): static
+    {
+        if (!$this->meetingParticipants->contains($meetingParticipant)) {
+            $this->meetingParticipants->add($meetingParticipant);
+            $meetingParticipant->setShooter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeetingParticipant(MeetingParticipant $meetingParticipant): static
+    {
+        if ($this->meetingParticipants->removeElement($meetingParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($meetingParticipant->getShooter() === $this) {
+                $meetingParticipant->setShooter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MeetingParticipant>
+     */
+    public function getParticipations(): Collection
+    {
+        return $this->participations;
+    }
+
+    public function addParticipation(MeetingParticipant $participation): static
+    {
+        if (!$this->participations->contains($participation)) {
+            $this->participations->add($participation);
+            $participation->setShooter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(MeetingParticipant $participation): static
+    {
+        if ($this->participations->removeElement($participation)) {
+            // set the owning side to null (unless already changed)
+            if ($participation->getShooter() === $this) {
+                $participation->setShooter(null);
+            }
+        }
 
         return $this;
     }

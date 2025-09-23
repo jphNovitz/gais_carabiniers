@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: MeetingRepository::class)]
+#[ORM\Index(name: 'idx_meeting_date', columns: ['date'])]
+#[ORM\Index(name: 'idx_meeting_date_status', columns: ['date','status'])]
 class Meeting
 {
     #[ORM\Id]
@@ -16,8 +18,8 @@ class Meeting
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $date = null;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $date;
 
     #[ORM\Column(length: 16)]
     private ?string $status = null;
@@ -61,7 +63,6 @@ class Meeting
 
     public function __construct()
     {
-        $this->meetingParticipants = new ArrayCollection();
         $this->participants = new ArrayCollection();
     }
 
@@ -166,35 +167,6 @@ class Meeting
         return $this;
     }
 
-    /**
-     * @return Collection<int, MeetingParticipant>
-     */
-    public function getMeetingParticipants(): Collection
-    {
-        return $this->meetingParticipants;
-    }
-
-    public function addMeetingParticipant(MeetingParticipant $meetingParticipant): static
-    {
-        if (!$this->meetingParticipants->contains($meetingParticipant)) {
-            $this->meetingParticipants->add($meetingParticipant);
-            $meetingParticipant->setMeeting($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeetingParticipant(MeetingParticipant $meetingParticipant): static
-    {
-        if ($this->meetingParticipants->removeElement($meetingParticipant)) {
-            // set the owning side to null (unless already changed)
-            if ($meetingParticipant->getMeeting() === $this) {
-                $meetingParticipant->setMeeting(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function addParticipant(MeetingParticipant $participant): static
     {

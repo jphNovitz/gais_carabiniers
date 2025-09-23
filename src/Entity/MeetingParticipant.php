@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: MeetingParticipantRepository::class)]
+#[ORM\UniqueConstraint(name: 'uniq_meeting_shooter', columns: ['meeting_id','shooter_id'])]
+#[ORM\UniqueConstraint(name: 'uniq_meeting_position', columns: ['meeting_id','position'])]
 class MeetingParticipant
 {
     #[ORM\Id]

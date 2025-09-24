@@ -31,10 +31,12 @@ class MeetingParticipant
     #[ORM\Column]
     private ?bool $present = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int

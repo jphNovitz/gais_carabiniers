@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des séances{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-4">
+        <div class="mb-4 flex justify-between items-center">
+            <h3 class="text-xl font-semibold text-content-primary-light dark:text-content-primary-dark">Séances</h3>
+
+            <form method="post" action="{{ path('admin_meeting_create') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('meeting_create') }}">
+                <button class="px-4 py-2 bg-content-secondary text-white rounded-lg hover:bg-content-secondary/80">
+                    <i class="fa fa-plus"></i> Démarrer une séance
+                </button>
+            </form>
+
+        </div>
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left">
+                <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Libellé</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Date</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Statut</th>
+                    <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Ouverte le</th>
+                    <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Fermée le</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in meetings %}
+                    <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
+                        <th scope="row" class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
+                            {{ item.label ?? ('Séance du ' ~ (item.date ? item.date|date('d/m/Y') : '')) }}
+                        </th>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.date ? item.date|date('d/m/Y') : '' }}
+                        </td>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.status ?? '' }}
+                        </td>
+                        <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.openedAt ? item.openedAt|date('d/m/Y H:i') : '' }}
+                        </td>
+                        <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.closedAt ? item.closedAt|date('d/m/Y H:i') : '' }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex space-x-2">
+                                {# Placeholder for future actions (edit, open/close) #}
+                                <span class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded cursor-not-allowed opacity-60">Actions</span>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="bg-base-light dark:bg-base-dark">
+                        <td colspan="6" class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                            Aucune séance pour le moment.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

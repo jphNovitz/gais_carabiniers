@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{ form_start(form) }}
+{#    <input type="hidden" name="meeting_id" value="{{ meeting_id }}">#}
+    <input type="submit" value="Add Participant">
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

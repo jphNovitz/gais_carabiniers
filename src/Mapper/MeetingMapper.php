@@ -4,11 +4,27 @@ namespace App\Mapper;
 
 use App\Dto\MeetingDto;
 use App\Entity\Meeting;
+use App\Entity\MeetingParticipant;
 
 class MeetingMapper
 {
     public static function fromEntity(Meeting $meeting): MeetingDto
     {
+        // Build participants list sorted by position ASC
+        $participants = [];
+        foreach ($meeting->getParticipants() as $mp) {
+            if (!$mp instanceof MeetingParticipant) { continue; }
+            $name = (string) $mp->getShooter();
+            $participants[] = [
+                'position' => $mp->getPosition(),
+                'name' => $name,
+                'present' => (bool) $mp->isPresent(),
+            ];
+        }
+        usort($participants, static function(array $a, array $b) {
+            return ($a['position'] <=> $b['position']);
+        });
+
         return new MeetingDto(
             id: $meeting->getId(),
             date: $meeting->getDate(),
@@ -19,6 +35,7 @@ class MeetingMapper
             closedAt: $meeting->getClosedAt(),
             createdAt: $meeting->getCreatedAt(),
             updatedAt: $meeting->getUpdatedAt(),
+            participants: $participants,
         );
     }
 

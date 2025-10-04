@@ -48,7 +48,6 @@ class Member
 
     public function __construct()
     {
-        $this->meetingParticipants = new ArrayCollection();
         $this->participations = new ArrayCollection();
     }
 
@@ -190,4 +189,8 @@ class Member
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 }

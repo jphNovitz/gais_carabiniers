@@ -48,7 +48,7 @@ class Meeting
     /**
      * @var Collection<int, MeetingParticipant>
      */
-    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: MeetingParticipant::class)]
+    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: MeetingParticipant::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $participants;
 
     public function getParticipants(): Collection

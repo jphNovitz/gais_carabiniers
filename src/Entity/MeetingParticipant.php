@@ -18,18 +18,18 @@ class MeetingParticipant
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
-    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    private Meeting $meeting;
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?Meeting $meeting = null;
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'participations')]
     #[ORM\JoinColumn(name: 'shooter_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
-    private Member $shooter;
+    private ?Member $shooter=null ;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $position = null;
 
     #[ORM\Column]
-    private ?bool $present = null;
+    private ?bool $present = true;
 
     #[ORM\Column(nullable: true)]
     #[Gedmo\Timestampable(on: 'create')]

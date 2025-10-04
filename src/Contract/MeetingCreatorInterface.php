@@ -4,5 +4,5 @@ namespace App\Contract;
 
 interface MeetingCreatorInterface
 {
-    public function createMeeting(): void;
+    public function createMeeting(): int;
 }

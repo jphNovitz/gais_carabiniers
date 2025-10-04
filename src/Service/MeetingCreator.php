@@ -12,7 +12,7 @@ class MeetingCreator implements MeetingCreatorInterface
     {
     }
 
-    public function createMeeting(): void
+    public function createMeeting(): int
     {
         $months = [
             '1' => 'janvier',
@@ -42,5 +42,7 @@ class MeetingCreator implements MeetingCreatorInterface
 
         $this->em->persist($meeting);
         $this->em->flush();
+
+        return $meeting->getId();
     }
 }

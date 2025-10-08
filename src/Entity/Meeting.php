@@ -51,6 +51,12 @@ class Meeting
     #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: MeetingParticipant::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $participants;
 
+    /**
+     * @var Collection<int, Round>
+     */
+    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: Round::class)]
+    private Collection $rounds;
+
     public function getParticipants(): Collection
     {
         return $this->participants;
@@ -64,6 +70,7 @@ class Meeting
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->rounds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,6 +191,36 @@ class Meeting
             // set the owning side to null (unless already changed)
             if ($participant->getMeeting() === $this) {
                 $participant->setMeeting(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Round>
+     */
+    public function getRounds(): Collection
+    {
+        return $this->rounds;
+    }
+
+    public function addRound(Round $round): static
+    {
+        if (!$this->rounds->contains($round)) {
+            $this->rounds->add($round);
+            $round->setMeeting($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRound(Round $round): static
+    {
+        if ($this->rounds->removeElement($round)) {
+            // set the owning side to null (unless already changed)
+            if ($round->getMeeting() === $this) {
+                $round->setMeeting(null);
             }
         }
 

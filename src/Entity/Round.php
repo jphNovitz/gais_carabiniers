@@ -2,36 +2,31 @@
 
 namespace App\Entity;
 
-use App\Repository\MeetingParticipantRepository;
+use App\Repository\RoundRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-#[ORM\Entity(repositoryClass: MeetingParticipantRepository::class)]
-#[ORM\UniqueConstraint(name: 'uniq_meeting_shooter', columns: ['meeting_id','shooter_id'])]
-#[ORM\UniqueConstraint(name: 'uniq_meeting_position', columns: ['meeting_id','position'])]
-class MeetingParticipant
+#[ORM\Entity(repositoryClass: RoundRepository::class)]
+class Round
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'participants')]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(inversedBy: 'rounds')]
     private ?Meeting $meeting = null;
 
-    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'participations')]
-    #[ORM\JoinColumn(name: 'shooter_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
-    private ?Member $shooter=null ;
-
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $position = null;
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $status = null;
 
     #[ORM\Column]
-    private ?bool $present = true;
+    private ?\DateTimeImmutable $startedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $endedAt = null;
 
     #[ORM\Column(nullable: true)]
     #[Gedmo\Timestampable(on: 'create')]
@@ -44,11 +39,12 @@ class MeetingParticipant
     /**
      * @var Collection<int, RoundShot>
      */
-    #[ORM\OneToMany(mappedBy: 'meetingParticipant', targetEntity: RoundShot::class)]
+    #[ORM\OneToMany(mappedBy: 'round', targetEntity: RoundShot::class)]
     private Collection $roundShots;
 
     public function __construct()
     {
+        $this->startedAt = new \DateTimeImmutable();
         $this->roundShots = new ArrayCollection();
     }
 
@@ -69,38 +65,38 @@ class MeetingParticipant
         return $this;
     }
 
-    public function getShooter(): ?Member
+    public function getStatus(): ?string
     {
-        return $this->shooter;
+        return $this->status;
     }
 
-    public function setShooter(?Member $shooter): static
+    public function setStatus(?string $status): static
     {
-        $this->shooter = $shooter;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getPosition(): ?int
+    public function getStartedAt(): ?\DateTimeImmutable
     {
-        return $this->position;
+        return $this->startedAt;
     }
 
-    public function setPosition(int $position): static
+    public function setStartedAt(\DateTimeImmutable $startedAt): static
     {
-        $this->position = $position;
+        $this->startedAt = $startedAt;
 
         return $this;
     }
 
-    public function isPresent(): ?bool
+    public function getEndedAt(): ?\DateTimeImmutable
     {
-        return $this->present;
+        return $this->endedAt;
     }
 
-    public function setPresent(bool $present): static
+    public function setEndedAt(?\DateTimeImmutable $endedAt): static
     {
-        $this->present = $present;
+        $this->endedAt = $endedAt;
 
         return $this;
     }
@@ -132,10 +128,6 @@ class MeetingParticipant
     /**
      * @return Collection<int, RoundShot>
      */
-
-    /**
-     * @return Collection<int, RoundShot>
-     */
     public function getRoundShots(): Collection
     {
         return $this->roundShots;
@@ -145,7 +137,7 @@ class MeetingParticipant
     {
         if (!$this->roundShots->contains($roundShot)) {
             $this->roundShots->add($roundShot);
-            $roundShot->setMeetingParticipant($this);
+            $roundShot->setRound($this);
         }
 
         return $this;
@@ -155,12 +147,11 @@ class MeetingParticipant
     {
         if ($this->roundShots->removeElement($roundShot)) {
             // set the owning side to null (unless already changed)
-            if ($roundShot->getMeetingParticipant() === $this) {
-                $roundShot->setMeetingParticipant(null);
+            if ($roundShot->getRound() === $this) {
+                $roundShot->setRound(null);
             }
         }
 
         return $this;
     }
-
 }

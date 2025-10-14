@@ -17,6 +17,9 @@ class RoundShotDto
         #[Assert\NotNull(groups: ['create'])]
         public ?int $meetingParticipantId = null,
 
+        // Score for this shot (nullable to match entity)
+        public ?int $score = null,
+
         // Timestamps are system-managed
         #[Assert\Blank(groups: ['create','update'])]
         public ?\DateTimeImmutable $createdAt = null,

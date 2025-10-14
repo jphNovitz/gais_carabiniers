@@ -16,6 +16,15 @@ class RoundShotRepository extends ServiceEntityRepository
         parent::__construct($registry, RoundShot::class);
     }
 
+
+    // Dans RoundRepository et RoundShotRepository
+    public function save(object $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
     //    /**
     //     * @return RoundShot[] Returns an array of RoundShot objects
     //     */

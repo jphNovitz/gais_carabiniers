@@ -26,7 +26,7 @@ public ?string $title = null,
 #[Assert\Blank(groups: ['create','update'])] public ?\DateTimeImmutable $closedAt = null,
 #[Assert\Blank(groups: ['create','update'])] public ?\DateTimeImmutable $createdAt = null,
 #[Assert\Blank(groups: ['create','update'])] public ?\DateTimeImmutable $updatedAt = null,
-
+public ?int $participantCount = null,
 // Read-only for views: list of participants as simple arrays [{position:int, name:string, present:bool}]
 #[Assert\Blank(groups: ['create','update'])] public array $participants = [],
 ) {}

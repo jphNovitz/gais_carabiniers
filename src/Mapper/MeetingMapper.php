@@ -8,8 +8,29 @@ use App\Entity\MeetingParticipant;
 
 class MeetingMapper
 {
+    public function toDtoFromArray(array $data): MeetingDTO
+    {
+        return new MeetingDTO(
+            id: $data['id'],
+            date: $data['date'],
+            title: $data['label'],
+            status: $data['status'],
+            openedAt: $data['openedAt'] ?? null,
+            closedAt: $data['closedAt'] ?? null,
+            participantCount: (int) $data['participantCount'],
+
+        );
+    }
+
+    public function toDtosFromArray(array $results): array
+    {
+        return array_map($this->toDtoFromArray(...), $results);
+    }
+
+
     public static function fromEntity(Meeting $meeting): MeetingDto
     {
+
         // Build participants list sorted by position ASC
         $participants = [];
         foreach ($meeting->getParticipants() as $mp) {

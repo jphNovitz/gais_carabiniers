@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Meeting;
 
 use App\Contract\MeetingCreatorInterface;
 use App\Contract\MeetingParticipantAdderInterface;
+use App\Dto\MeetingDto;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Form\AddParticipantsType;
@@ -16,14 +17,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/meeting')]
+#[Route('/admin/meetings')]
 final class MeetingController extends AbstractController
 {
+    public function __construct()
+    {
+    }
+
     #[Route(name: 'admin_meeting_index', methods: ['GET'])]
     public function index(MeetingRepository $meetingRepository): Response
     {
+
+        $meetings = $meetingRepository->findIndex();
         return $this->render('admin/meeting/index.html.twig', [
-            'meetings' => $meetingRepository->findAll()
+            'meetings' => $meetings
         ]);
     }
 

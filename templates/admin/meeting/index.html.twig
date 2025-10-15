@@ -21,6 +21,7 @@
                 <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Libellé</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Participants</th>
                     <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Date</th>
                     <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Statut</th>
                     <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Ouverte le</th>
@@ -35,10 +36,14 @@
                             {{ item.label ?? ('Séance du ' ~ (item.date ? item.date|date('d/m/Y') : '')) }}
                         </th>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.partcicipantCount ?? 0 }}
+                        </td>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
                             {{ item.date ? item.date|date('d/m/Y') : '' }}
                         </td>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
-                            {{ item.status ?? '' }}
+                            {{ ('meeting.status.' ~ (item.status ?? '')) | trans }}
+
                         </td>
                         <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
                             {{ item.openedAt ? item.openedAt|date('d/m/Y H:i') : '' }}

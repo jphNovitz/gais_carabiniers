@@ -109,4 +109,13 @@ member:
   firstname: "Prénom"
   lastname: "Nom"
   email: "Email"
-
+meeting:
+  list: "Liste des réunions"
+  na: "Aucune réunion"
+  new: "Nouvelle réunion"
+  date: "Date"
+  status:
+    header: "Statut"
+    open: "Ouvert"
+    start: "Commencé"
+    closed: "Fermé"

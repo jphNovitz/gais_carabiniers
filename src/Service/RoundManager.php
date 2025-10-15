@@ -40,7 +40,10 @@ class RoundManager implements RoundManagerInterface
 
     public function closeRound(Round $round): void
     {
-        // TODO: Implement closeRound() method.
+        $round->setStatus('closed');
+        $this->entityManager->persist($round);
+        $this->entityManager->flush();
+
     }
 
 

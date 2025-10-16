@@ -20,19 +20,35 @@
             <table class="w-full text-sm text-left">
                 <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Libellé</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Participants</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Date</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Statut</th>
-                    <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Ouverte le</th>
-                    <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Fermée le</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Actions</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.label' |trans }}
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.participants' | trans }}</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.date' | trans }}
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.status.header' |trans }}
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.openAt' | trans }}
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.closeAt' | trans }}
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.action' |trans }}
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in meetings %}
                     <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
-                        <th scope="row" class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
                             {{ item.label ?? ('Séance du ' ~ (item.date ? item.date|date('d/m/Y') : '')) }}
                         </th>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
@@ -60,7 +76,8 @@
                     </tr>
                 {% else %}
                     <tr class="bg-base-light dark:bg-base-dark">
-                        <td colspan="6" class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                        <td colspan="6"
+                            class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
                             Aucune séance pour le moment.
                         </td>
                     </tr>

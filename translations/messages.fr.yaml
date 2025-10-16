@@ -110,10 +110,15 @@ member:
   lastname: "Nom"
   email: "Email"
 meeting:
+  label: "Label"
   list: "Liste des réunions"
   na: "Aucune réunion"
   new: "Nouvelle réunion"
   date: "Date"
+  openAt: "Ouvert le"
+  closeAt: "Fermé le"
+  action : "Action"
+  participants: "Participants"
   status:
     header: "Statut"
     open: "Ouvert"

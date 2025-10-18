@@ -13,8 +13,8 @@ class MeetingMapper
         return new MeetingDTO(
             id: $data['id'],
             date: $data['date'],
-            title: $data['label'],
             status: $data['status'],
+            title: $data['label'],
             openedAt: $data['openedAt'] ?? null,
             closedAt: $data['closedAt'] ?? null,
             participantCount: (int) $data['participantCount'],
@@ -51,6 +51,7 @@ class MeetingMapper
             date: $meeting->getDate(),
             status: $meeting->getStatus(),
             title: $meeting->getLabel(),
+            rounds: $meeting->getRounds()->toArray(),
             slug: $meeting->getSlug(),
             openedAt: $meeting->getOpenedAt(),
             closedAt: $meeting->getClosedAt(),

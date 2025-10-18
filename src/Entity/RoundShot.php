@@ -29,7 +29,7 @@ class RoundShot
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $score = null;
+    private ?int $score = 0;
 
     public function getId(): ?int
     {

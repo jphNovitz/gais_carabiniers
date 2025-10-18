@@ -16,8 +16,8 @@
 
         </div>
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left">
+        <div class="relative overflow-visible shadow-md sm:rounded-lg">
+            <table class="w-full  text-sm text-left">
                 <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
@@ -46,7 +46,7 @@
                 </thead>
                 <tbody>
                 {% for item in meetings %}
-                    <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
+                    <tr class="overflow-visible bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
                             {{ item.label ?? ('Séance du ' ~ (item.date ? item.date|date('d/m/Y') : '')) }}
@@ -58,7 +58,7 @@
                             {{ item.date ? item.date|date('d/m/Y') : '' }}
                         </td>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
-                            {{ ('meeting.status.' ~ (item.status ?? '')) | trans }}
+                            {{ ('meeting.status.' ~ (item.status ?? '') ~ '.label') | trans }}
 
                         </td>
                         <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
@@ -67,10 +67,31 @@
                         <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
                             {{ item.closedAt ? item.closedAt|date('d/m/Y H:i') : '' }}
                         </td>
-                        <td class="px-6 py-4">
-                            <div class="flex space-x-2">
-                                {# Placeholder for future actions (edit, open/close) #}
-                                <span class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded cursor-not-allowed opacity-60">Actions</span>
+                        <td class="px-6 py-4 relative ">
+
+                                                        <div class="flex justify-start">
+                                {% set uid = item.id ?? loop.index %}
+                                <button id="dropdownActionsButton-{{ uid }}" data-dropdown-toggle="dropdownActions-{{ uid }}" type="button"
+                                        class="inline-flex items-center rounded-lg bg-content-secondary px-3 py-2 text-sm font-medium text-white hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30">
+                                    <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5h.01M12 12h.01M12 19h.01"/>
+                                    </svg>
+                                    {{ 'meeting.action'|trans }}
+                                    <svg class="w-2.5 h-2.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdownActions-{{ uid }}" class="absolute z-20 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700">
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionsButton-{{ uid }}">
+                                        <li>
+                                            <a href="{{ path('admin_meeting_show', {id: item.id}) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Voir la séance</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('admin_meeting_add_participant', {id: item.id}) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ajouter des participants</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </td>
                     </tr>

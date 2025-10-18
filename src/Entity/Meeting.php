@@ -13,6 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 #[ORM\Index(name: 'idx_meeting_date_status', columns: ['date','status'])]
 class Meeting
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

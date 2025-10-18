@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Contract\MeetingCreatorInterface;
 use App\Entity\Meeting;
+use App\Enum\MeetingStatus;
 use Doctrine\ORM\EntityManagerInterface;
 
 class MeetingCreator implements MeetingCreatorInterface
@@ -35,7 +36,7 @@ class MeetingCreator implements MeetingCreatorInterface
 
         $meeting = new Meeting();
         $meeting->setDate($now);
-        $meeting->setStatus('start');
+        $meeting->setStatus(MeetingStatus::DRAFT->value);
         $meeting->setLabel('Tir du mois de ' . $months[(new \DateTime())->format('n')]);
         $meeting->setDate(new \DateTimeImmutable());
         $meeting->setOpenedAt(new \DateTimeImmutable());

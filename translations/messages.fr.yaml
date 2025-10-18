@@ -121,6 +121,22 @@ meeting:
   participants: "Participants"
   status:
     header: "Statut"
-    open: "Ouvert"
-    start: "Commencé"
-    closed: "Fermé"
+    draft:
+      label: Brouillon
+      description: Séance créée mais non encore préparée.
+    ready:
+      label: Prête
+      description: Les participants sont définis, la séance peut commencer.
+    in_progress:
+      label: En cours
+      description: La séance de tir est en cours d’exécution.
+    finished:
+      label: Terminée
+      description: Tous les tirs sont effectués, les résultats sont disponibles.
+    archived:
+      label: Archivée
+      description: Séance clôturée et conservée pour l’historique.
+
+  participants.add.success: "Participant ajouté avec succès"
+  participants.add.error: "Erreur lors de l'ajout du participant"
+  no.new.add:  "Aucun nouveau participant ajouté"

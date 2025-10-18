@@ -21,6 +21,8 @@ public ?string $status = 'DRAFT',
 #[Assert\Length(max: 120, groups: ['create','update'])]
 public ?string $title = null,
 
+public array $rounds = [],
+
 #[Assert\Blank(groups: ['create','update'])] public ?string $slug = null,
 #[Assert\Blank(groups: ['create','update'])] public ?\DateTimeImmutable $openedAt = null,
 #[Assert\Blank(groups: ['create','update'])] public ?\DateTimeImmutable $closedAt = null,

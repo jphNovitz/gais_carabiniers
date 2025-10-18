@@ -7,6 +7,7 @@ use App\Entity\Round;
 use App\Entity\RoundShot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,15 +17,18 @@ class RoundShotType extends AbstractType
     {
         $builder
 
-            ->add('score')
-            ->add('round', EntityType::class, [
-                'class' => Round::class,
-                'choice_label' => 'id',
+            ->add('score', NumberType::class, [
+                'label' => 'Nombre de plaquettes abattues',
+                'html5' => true,
+                'attr' => [
+                    'default' => 0,
+                    'min' => 0,
+                    'max' => 5,
+                    'step' => 1,
+                    'width' => '10'
+                ],
             ])
-            ->add('meetingParticipant', EntityType::class, [
-                'class' => MeetingParticipant::class,
-                'choice_label' => 'id',
-            ])
+
         ;
     }
 

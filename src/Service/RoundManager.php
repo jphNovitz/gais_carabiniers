@@ -7,6 +7,7 @@ use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Entity\Round;
 use App\Entity\RoundShot;
+use App\Enum\MeetingStatus;
 use App\Repository\RoundShotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -22,8 +23,10 @@ class RoundManager implements RoundManagerInterface
         $round = new Round();
         $round->setMeeting($meeting);
         $round->setStatus('running');
+        $meeting->setStatus(MeetingStatus::IN_PROGRESS->value);
 
         $this->entityManager->persist($round);
+        $this->entityManager->persist($meeting);
         $this->entityManager->flush();
         return $round;
     }
@@ -41,6 +44,7 @@ class RoundManager implements RoundManagerInterface
     public function closeRound(Round $round): void
     {
         $round->setStatus('closed');
+        $round->setEndedAt(new \DateTimeImmutable());
         $this->entityManager->persist($round);
         $this->entityManager->flush();
 

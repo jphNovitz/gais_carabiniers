@@ -6,6 +6,7 @@ use App\Contract\MeetingParticipantAdderInterface;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Entity\Member;
+use App\Enum\MeetingStatus;
 use App\Repository\MeetingParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -39,7 +40,10 @@ class MeetingParticipantAdder implements MeetingParticipantAdderInterface
             ++$added;
         }
 
-        $this->em->flush(); // un seul flush
+        if (count($meeting->getParticipants()) > 0 && $meeting->getStatus() === MeetingStatus::DRAFT->value) {
+            $meeting->setStatus(MeetingStatus::READY->value);
+        }
+
         return $added;
     }
 

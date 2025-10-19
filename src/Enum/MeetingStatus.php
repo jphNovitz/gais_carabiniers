@@ -9,4 +9,5 @@ enum MeetingStatus: string
     case IN_PROGRESS = 'in_progress'; // Séance en cours
     case CLOSED = 'closed';     // Tirs terminés, résultats disponibles
     case ARCHIVED = 'archived';     // Séance clôturée et archivée
+
 }

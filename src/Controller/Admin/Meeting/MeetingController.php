@@ -64,14 +64,9 @@ final class MeetingController extends AbstractController
 
             if ($addedCount > 0) {
                 $em->flush();
-
                 $this->addFlash('success', 'meeting.participants.add.success');
 
-                return $this->redirectToRoute(
-                    'admin_meeting_show',
-                    ['id' => $meeting->getId()],
-                    Response::HTTP_SEE_OTHER
-                );
+                return $this->redirectToRoute('admin_meeting_show', ['id' => $meeting->getId()], Response::HTTP_SEE_OTHER);
             }
 
             $this->addFlash('warning', 'meeting.no.new.add');
@@ -110,7 +105,7 @@ final class MeetingController extends AbstractController
     #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]
     public function close(Meeting $meeting): Response
     {
-            $meeting->setStatus(MeetingStatus::FINISHED->value);
+            $meeting->setStatus(MeetingStatus::CLOSED);
             $this->meetingRepository->save($meeting, true);
 
             $this->addFlash('success', 'meeting.close.success');

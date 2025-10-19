@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use App\Enum\MeetingStatus;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -16,7 +17,8 @@ public ?\DateTimeImmutable $date = null,
 #[Assert\NotBlank(groups: ['create','update'])]
 #[Assert\Choice(['DRAFT','OPEN','CLOSED'], groups: ['create','update'])]
 #[Assert\Length(max: 16, groups: ['create','update'])]
-public ?string $status = 'DRAFT',
+
+public ?MeetingStatus $status = MeetingStatus::DRAFT,
 
 #[Assert\Length(max: 120, groups: ['create','update'])]
 public ?string $title = null,

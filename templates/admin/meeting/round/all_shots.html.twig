@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Saisie des tirs{% endblock %}
+
+{% block body %}
+  <div class="container mx-auto p-4">
+    <twig:Title:H1 class="text-2xl font-bold mb-4">{% if meeting.label is defined %}{{ meeting.label }}{% endif %}</twig:Title:H1>
+    <twig:Title:H2>Volée {{ round.number }}</twig:Title:H2>
+
+    {{ form_start(form) }}
+      {{ form_errors(form) }}
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="min-w-full text-left text-sm">
+          <thead class="border-b font-medium">
+            <tr>
+              <th class="px-4 py-2">Position</th>
+              <th class="px-4 py-2">Participant</th>
+              <th class="px-4 py-2">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for roundShotForm in form.roundShots %}
+            {% set roundShot = roundShotForm.vars.data %}
+            <tr class="border-b">
+              <td class="px-4 py-2">{{ roundShot.meetingParticipant.position }}</td>
+              <td class="px-4 py-2">
+                {% if roundShot.meetingParticipant.shooter is defined and roundShot.meetingParticipant.shooter %}
+                  {{ roundShot.meetingParticipant.shooter.firstName }} {{ roundShot.meetingParticipant.shooter.lastName }}
+                {% else %}
+                  Inconnu
+                {% endif %}
+              </td>
+              <td class="px-4 py-2">
+                {{ form_widget(roundShotForm.score, { attr: { class: 'w-20' } }) }}
+                {{ form_errors(roundShotForm.score) }}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90">Enregistrer</button>
+      </div>
+    {{ form_end(form) }}
+
+    <div class="mt-4">
+      <a class="text-blue-600 underline" href="{{ path('meeting_show', {id: meeting.id}) }}">Retour à la rencontre</a>
+    </div>
+  </div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\RoundStatus;
 use App\Repository\RoundRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,11 +17,13 @@ class Round
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column]
+    private ?int $number = null;
     #[ORM\ManyToOne(inversedBy: 'rounds')]
     private ?Meeting $meeting = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'string', enumType: RoundStatus::class)]
+    private RoundStatus $status = RoundStatus::IN_PROGRESS;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $startedAt = null;
@@ -61,18 +64,6 @@ class Round
     public function setMeeting(?Meeting $meeting): static
     {
         $this->meeting = $meeting;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): static
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -151,6 +142,30 @@ class Round
                 $roundShot->setRound(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): static
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    public function getStatus(): ?RoundStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(RoundStatus $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

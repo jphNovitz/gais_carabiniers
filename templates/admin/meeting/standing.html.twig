@@ -4,7 +4,7 @@
 
 {% block body %}
     <section class="container-fluid p-4">
-{{ dump(standing) }}
+        {{ dump(standing) }}
         <twig:Title:H1
                 class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
                 data-status="{{ ('meeting.status.' ~ meeting.status ~ '.label')|trans }}">
@@ -67,18 +67,26 @@
                     ajouté.</p>
             {% endif %}
         </div>
+        {% if meeting.status in ['ready', 'in_progress'] %}
         <div class="my-12 flex flex-col space-y-8">
             <div class="flex flex-wrap gap-4">
                 <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"
-                   href="{{ path('round_start', {'id': meeting.id}) }}">
+                   href="{{ path('round_start', {'meeting': meeting.id}) }}">
                     {% if meeting.rounds|length >0 %}
                         Nouveau tour
                     {% else %}
                         Démarrer la séance
                     {% endif %}
                 </a>
-                <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"
-                   href="#">Clôturer</a>
+                <form method="post" action="{{ path('admin_meeting_close', {'id': meeting.id}) }}"
+                      onsubmit="return confirm('Êtes-vous sûr de vouloir clôturer cette séance ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('open' ~ meeting.id) }}">
+                    <button type="submit"
+                            class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90">
+                        Clôturer
+                    </button>
+                </form>
+
             </div>
             <div class="flex flex-wrap gap-4">
                 <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
@@ -89,6 +97,15 @@
                    href="{{ path('admin_meeting_index') }}">Retour à la liste</a>
             </div>
         </div>
+        {% else %}
+            <div>
+            <p>La séance est clôturée.</p>
+            <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
+               href="{{ path('admin_meeting_index') }}">Retour à la liste</a>
+            </div>
+
+        {% endif %}
+
     </section>
 {% endblock %}
 

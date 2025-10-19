@@ -106,4 +106,17 @@ final class MeetingController extends AbstractController
         ]);
 
     }
+
+    #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]
+    public function close(Meeting $meeting): Response
+    {
+            $meeting->setStatus(MeetingStatus::FINISHED->value);
+            $this->meetingRepository->save($meeting, true);
+
+            $this->addFlash('success', 'meeting.close.success');
+
+        return $this->redirectToRoute('admin_meeting_show', [
+            'id' => $meeting->getId()
+        ]);
+    }
 }

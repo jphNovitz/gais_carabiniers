@@ -8,6 +8,7 @@ use App\Entity\MeetingParticipant;
 use App\Entity\Round;
 use App\Entity\RoundShot;
 use App\Enum\MeetingStatus;
+use App\Enum\RoundStatus;
 use App\Repository\RoundShotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -20,13 +21,31 @@ class RoundManager implements RoundManagerInterface
     }
     public function createNextRound(Meeting $meeting): Round
     {
+//        $round = new Round();
+//        $round->setMeeting($meeting);
+//        $round->setStatus(RoundStatus::IN_PROGRESS);
+//        $meeting->setStatus(MeetingStatus::IN_PROGRESS->value);
+
+//        $this->entityManager->persist($round);
+//        $this->entityManager->persist($meeting);
+//        $this->entityManager->flush();
+//        return $round;
+
         $round = new Round();
         $round->setMeeting($meeting);
-        $round->setStatus('running');
+        $round->setNumber($meeting->getRounds()->count() + 1);
+        $round->setStatus(RoundStatus::IN_PROGRESS);
         $meeting->setStatus(MeetingStatus::IN_PROGRESS->value);
 
+        foreach ($meeting->getParticipants() as $participant) {
+            $roundShot = new RoundShot();
+            $roundShot->setRound($round);
+            $roundShot->setMeetingParticipant($participant);
+            $round->addRoundShot($roundShot);
+            $this->entityManager->persist($roundShot);
+        }
+
         $this->entityManager->persist($round);
-        $this->entityManager->persist($meeting);
         $this->entityManager->flush();
         return $round;
     }

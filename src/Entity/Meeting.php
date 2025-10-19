@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Enum\MeetingStatus;
+use App\Enum\RoundStatus;
 use App\Repository\MeetingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -22,8 +24,8 @@ class Meeting
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $date;
 
-    #[ORM\Column(length: 16)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'string', enumType: RoundStatus::class)]
+    private MeetingStatus $status = MeetingStatus::DRAFT;
 
     #[ORM\Column(length: 120, nullable: true)]
     private ?string $label = null;
@@ -87,18 +89,6 @@ class Meeting
     public function setDate(\DateTimeImmutable $date): static
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -224,6 +214,18 @@ class Meeting
                 $round->setMeeting(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?RoundStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(RoundStatus $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

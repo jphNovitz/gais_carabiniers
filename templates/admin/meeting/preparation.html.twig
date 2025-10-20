@@ -31,7 +31,7 @@
 
         <div class="mt-12">
             <h2 class="text-lg font-semibold mb-4">Participants</h2>
-            {{dump(meeting.participants)}}
+
             {% if meeting.participants is defined and meeting.participants|length > 0 %}
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left">
@@ -74,6 +74,7 @@
             {% endif %}
         </div>
         <div class="my-12 flex flex-col space-y-8">
+            {% if meeting.participants.count > 0 %}
             <div class="flex flex-wrap gap-4">
                 <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"
                    href="{{ path('round_start', {'meeting': meeting.id}) }}">
@@ -86,6 +87,7 @@
                 <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"
                    href="#">Clôturer</a>
             </div>
+            {% endif %}
             <div class="flex flex-wrap gap-4">
                 <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
                    href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}">Ajouter des participants</a>

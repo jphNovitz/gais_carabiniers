@@ -84,9 +84,8 @@ final class MeetingController extends AbstractController
     public function show($id): Response
     {
         $meeting = $this->meetingRepository->findWithParticipants($id);
-
-        if (($meeting->getStatus() === MeetingStatus::DRAFT->value) ||
-            ($meeting->getStatus() === MeetingStatus::READY->value)) {
+        if (($meeting->getStatus() === MeetingStatus::DRAFT) ||
+            ($meeting->getStatus() === MeetingStatus::READY)) {
             return $this->render('admin/meeting/preparation.html.twig', [
                 'meeting' => $meeting,
             ]);

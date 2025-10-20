@@ -36,7 +36,7 @@ class MeetingCreator implements MeetingCreatorInterface
 
         $meeting = new Meeting();
         $meeting->setDate($now);
-        $meeting->setStatus(MeetingStatus::DRAFT->value);
+        $meeting->setStatus(MeetingStatus::DRAFT);
         $meeting->setLabel('Tir du mois de ' . $months[(new \DateTime())->format('n')]);
         $meeting->setDate(new \DateTimeImmutable());
         $meeting->setOpenedAt(new \DateTimeImmutable());

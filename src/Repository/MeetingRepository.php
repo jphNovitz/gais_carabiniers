@@ -70,8 +70,8 @@ class MeetingRepository extends ServiceEntityRepository
             )
             ->where('m.id = :id')
             ->setParameter('id', $id)
-            ->groupBy('mp.id, participant.id, m.id')  // ⭐ GROUP BY obligatoire
-            ->orderBy('totalScore', 'DESC')  // Tri par score total
+            ->groupBy('mp.id, participant.id, m.id')
+            ->orderBy('totalScore', 'DESC')
             ->getQuery()
             ->getResult();
 

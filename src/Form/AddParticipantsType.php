@@ -23,6 +23,13 @@ final class AddParticipantsType extends AbstractType
             'expanded' => true,
             'mapped' => false,
             'query_builder' => fn(MemberRepository $r) => $r->qbActifsNonParticipants($options['meeting']),
+            'attr' => [
+                'class' => 'w-full flex flex-wrap gap-4 space-y-4 bg-base-light dark:bg-base-dark border border-gray-300 text-content-primary-light dark:text-content-primary-dark text-sm rounded-lg focus:ring-content-secondary focus:border-content-secondary block p-8'
+            ],
+            'row_attr' => [
+                'class' => 'shooter-row w-[50%]'
+            ]
+
         ]);
     }
 

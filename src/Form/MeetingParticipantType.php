@@ -40,17 +40,7 @@ class MeetingParticipantType extends AbstractType
                 ]
             ])
         ;
-//        $builder->add('participants', CollectionType::class, [
-//            'entry_type' => MeetingParticipantType::class,
-//            'entry_options' => ['label' => false],
-//            'allow_add' => true,
-//            'allow_delete' => true,
-//            'by_reference' => false,
-//            'label' => 'Participants',
-//            'attr' => [
-//                'class' => 'participants-collection'
-//            ]
-//        ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

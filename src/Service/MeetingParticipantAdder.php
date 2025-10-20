@@ -40,8 +40,8 @@ class MeetingParticipantAdder implements MeetingParticipantAdderInterface
             ++$added;
         }
 
-        if (count($meeting->getParticipants()) > 0 && $meeting->getStatus() === MeetingStatus::DRAFT->value) {
-            $meeting->setStatus(MeetingStatus::READY->value);
+        if (count($meeting->getParticipants()) > 0 && $meeting->getStatus() === MeetingStatus::DRAFT) {
+            $meeting->setStatus(MeetingStatus::READY);
         }
 
         return $added;

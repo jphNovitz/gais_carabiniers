@@ -4,10 +4,9 @@
 
 {% block body %}
     <section class="container-fluid p-4">
-        {{ dump(standing) }}
         <twig:Title:H1
                 class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
-                data-status="{{ ('meeting.status.' ~ meeting.status ~ '.label')|trans }}">
+                data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
             {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
         </twig:Title:H1>
         <div class="w-full grid grid-cols-6 mt-16 mb-8">
@@ -37,16 +36,13 @@
                         <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
-                                Position
+                                {{ 'meeting.rank' |trans }}
                             </th>
                             <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
-                                Participant
+                                {{ 'meeting.participant' |trans }}
                             </th>
                             <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
-                                Position
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
-                                Points
+                                {{ 'meeting.points' |trans }}
                             </th>
                         </tr>
                         </thead>
@@ -55,7 +51,6 @@
                             <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ p.rank }}</td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.position }} </td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
                             </tr>
                         {% endfor %}
@@ -98,9 +93,9 @@
             </div>
         </div>
         {% else %}
-            <div>
+            <div class="my-12 flex flex-col space-y-8">
             <p>La séance est clôturée.</p>
-            <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
+            <a class="w-fit bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
                href="{{ path('admin_meeting_index') }}">Retour à la liste</a>
             </div>
 

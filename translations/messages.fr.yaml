@@ -117,7 +117,12 @@ meeting:
   date: "Date"
   openAt: "Ouvert le"
   closeAt: "Fermé le"
+  participant: "Participant"
   participants: "Participants"
+  rank: "Rang"
+  score: "Score"
+  points: "Points"
+  details: "Détails de la réunion"
   status:
     header: "Statut"
     draft:

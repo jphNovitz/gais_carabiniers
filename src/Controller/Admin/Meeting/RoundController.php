@@ -85,7 +85,8 @@ final class RoundController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush(); // Sauvegarde tous les RoundShots d'un coup
+            $em->flush(); // Persist all RoundShots changes
+            $this->roundManager->closeRound($round);
 
             $this->addFlash('success', 'Scores enregistrés avec succès');
 

@@ -62,7 +62,7 @@
                     ajouté.</p>
             {% endif %}
         </div>
-        {% if meeting.status in ['ready', 'in_progress'] %}
+        {% if meeting.status.value in ['ready', 'in_progress'] %}
         <div class="my-12 flex flex-col space-y-8">
             <div class="flex flex-wrap gap-4">
                 <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"

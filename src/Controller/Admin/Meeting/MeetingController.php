@@ -105,6 +105,7 @@ final class MeetingController extends AbstractController
     public function close(Meeting $meeting): Response
     {
             $meeting->setStatus(MeetingStatus::CLOSED);
+            $meeting->setClosedAt(new \DateTimeImmutable());
             $this->meetingRepository->save($meeting, true);
 
             $this->addFlash('success', 'meeting.close.success');

@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class MeetingParticipantAdder implements MeetingParticipantAdderInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $em,
         private readonly MeetingParticipantRepository $mpRepo,
     ) {
     }

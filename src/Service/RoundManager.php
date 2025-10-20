@@ -15,8 +15,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class RoundManager implements RoundManagerInterface
 {
 
-    public function __construct(private EntityManagerInterface $entityManager,
-                                private RoundShotRepository $roundShotRepository)
+    public function __construct(private EntityManagerInterface       $entityManager,
+                                private readonly RoundShotRepository $roundShotRepository)
     {
     }
     public function createNextRound(Meeting $meeting): Round
@@ -35,7 +35,7 @@ class RoundManager implements RoundManagerInterface
         $round->setMeeting($meeting);
         $round->setNumber($meeting->getRounds()->count() + 1);
         $round->setStatus(RoundStatus::IN_PROGRESS);
-        $meeting->setStatus(MeetingStatus::IN_PROGRESS->value);
+        $meeting->setStatus(MeetingStatus::IN_PROGRESS);
 
         foreach ($meeting->getParticipants() as $participant) {
             $roundShot = new RoundShot();
@@ -62,7 +62,7 @@ class RoundManager implements RoundManagerInterface
 
     public function closeRound(Round $round): void
     {
-        $round->setStatus('closed');
+        $round->setStatus(RoundStatus::COMPLETED);
         $round->setEndedAt(new \DateTimeImmutable());
         $this->entityManager->persist($round);
         $this->entityManager->flush();

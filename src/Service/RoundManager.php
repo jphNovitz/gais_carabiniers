@@ -21,15 +21,6 @@ class RoundManager implements RoundManagerInterface
     }
     public function createNextRound(Meeting $meeting): Round
     {
-//        $round = new Round();
-//        $round->setMeeting($meeting);
-//        $round->setStatus(RoundStatus::IN_PROGRESS);
-//        $meeting->setStatus(MeetingStatus::IN_PROGRESS->value);
-
-//        $this->entityManager->persist($round);
-//        $this->entityManager->persist($meeting);
-//        $this->entityManager->flush();
-//        return $round;
 
         $round = new Round();
         $round->setMeeting($meeting);
@@ -37,7 +28,10 @@ class RoundManager implements RoundManagerInterface
         $round->setStatus(RoundStatus::IN_PROGRESS);
         $meeting->setStatus(MeetingStatus::IN_PROGRESS);
 
-        foreach ($meeting->getParticipants() as $participant) {
+        $participants = $meeting->getParticipants()->toArray();
+        usort($participants, fn($a, $b) => $a->getPosition() <=> $b->getPosition());
+
+        foreach ($participants as $participant) {
             $roundShot = new RoundShot();
             $roundShot->setRound($round);
             $roundShot->setMeetingParticipant($participant);

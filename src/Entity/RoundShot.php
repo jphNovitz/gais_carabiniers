@@ -31,6 +31,9 @@ class RoundShot
     #[ORM\Column(nullable: true)]
     private ?int $score = 0;
 
+    #[ORM\Column(type: 'json')]
+    private array $targets = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +96,17 @@ class RoundShot
     {
         $this->score = $score;
 
+        return $this;
+    }
+    public function getTargets(): array
+    {
+        return $this->targets;
+    }
+
+    public function setTargets(array $targets): self
+    {
+        sort($targets);
+        $this->targets = $targets;
         return $this;
     }
 }

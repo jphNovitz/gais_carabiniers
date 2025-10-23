@@ -19,7 +19,7 @@ class MeetingParticipantAdder implements MeetingParticipantAdderInterface
 
     public function addMany(Meeting $meeting, iterable $members): int
     {
-        // dédup en 1 fois
+
         $existingIds = array_flip(
             array_map(fn($p) => $p->getShooter()->getId(), $meeting->getParticipants()->toArray())
         );
@@ -27,7 +27,13 @@ class MeetingParticipantAdder implements MeetingParticipantAdderInterface
         $pos   = $this->mpRepo->maxPosition($meeting) + 1;
         $added = 0;
 
-        foreach ($members as $member) {
+        $membersArray = $members instanceof \Traversable
+            ? iterator_to_array($members)
+            : (array) $members;
+
+        shuffle($membersArray);
+
+        foreach ($membersArray as $member) {
             if (isset($existingIds[$member->getId()])) continue;
 
             $mp = (new MeetingParticipant())

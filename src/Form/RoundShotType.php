@@ -7,7 +7,9 @@ use App\Entity\Round;
 use App\Entity\RoundShot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,6 +29,15 @@ class RoundShotType extends AbstractType
                     'step' => 1,
                     'width' => '10'
                 ],
+            ])
+            ->add('targets', ChoiceType::class, [
+                'choices' => array_combine(range(1, 25), range(1, 25)),
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'roundshot.targets.label',
+                'required' => false,
+                'row_attr' => [
+                    'class' => '!mb-0' ]
             ])
 
         ;

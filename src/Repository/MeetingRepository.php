@@ -48,7 +48,7 @@ class MeetingRepository extends ServiceEntityRepository
     public function findWithScores($id): MeetingStandingDTO
     {
 
-        $results =  $this->createQueryBuilder('m')
+        $results = $this->createQueryBuilder('m')
             ->leftJoin('m.rounds', 'r')
             ->leftJoin('r.roundShots', 'rs')
             ->leftJoin('rs.meetingParticipant', 'mp')
@@ -65,8 +65,9 @@ class MeetingRepository extends ServiceEntityRepository
                 'participant.id as shooterId',
                 'participant.firstName',
                 'participant.lastName',
-                'SUM(rs.score) as totalScore',  // ⭐ Somme des scores
-                'COUNT(DISTINCT r.id) as roundsPlayed'  // Bonus : nombre de rounds
+                // ⭐ Calcul du score en SQL
+                'SUM(CASE WHEN rs.leftHit = true THEN 1 ELSE 0 END + CASE WHEN rs.rightHit = true THEN 1 ELSE 0 END) as totalScore',
+                'COUNT(DISTINCT r.id) as roundsPlayed'
             )
             ->where('m.id = :id')
             ->setParameter('id', $id)
@@ -74,7 +75,6 @@ class MeetingRepository extends ServiceEntityRepository
             ->orderBy('totalScore', 'DESC')
             ->getQuery()
             ->getResult();
-
 
         $participants = [];
         $rank = 1;

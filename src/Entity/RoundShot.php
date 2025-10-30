@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RoundShotRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -28,11 +29,17 @@ class RoundShot
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $score = 0;
+    #[ORM\Column(type: 'boolean')]
+    private bool $leftHit = false;
 
-    #[ORM\Column(type: 'json')]
-    private array $targets = [];
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    private ?int $leftTarget = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $rightHit = false;
+
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    private ?int $rightTarget = null;
 
     public function getId(): ?int
     {
@@ -87,26 +94,60 @@ class RoundShot
         return $this;
     }
 
-    public function getScore(): ?int
+
+    public function getScore(): int
     {
-        return $this->score;
+        return ($this->leftHit ? 1 : 0) + ($this->rightHit ? 1 : 0);
     }
 
-    public function setScore(?int $score): static
+
+    public function isLeftHit(): ?bool
     {
-        $this->score = $score;
+        return $this->leftHit;
+    }
+
+    public function setLeftHit(bool $leftHit): static
+    {
+        $this->leftHit = $leftHit;
 
         return $this;
     }
-    public function getTargets(): array
+
+
+
+    public function isRightHit(): ?bool
     {
-        return $this->targets;
+        return $this->rightHit;
     }
 
-    public function setTargets(array $targets): self
+    public function setRightHit(bool $rightHit): static
     {
-        sort($targets);
-        $this->targets = $targets;
+        $this->rightHit = $rightHit;
+
+        return $this;
+    }
+
+    public function getRightTarget(): ?int
+    {
+        return $this->rightTarget;
+    }
+
+    public function setRightTarget(?int $rightTarget): static
+    {
+        $this->rightTarget = $rightTarget;
+
+        return $this;
+    }
+
+    public function getLeftTarget(): ?int
+    {
+        return $this->leftTarget;
+    }
+
+    public function setLeftTarget(?int $leftTarget): static
+    {
+        $this->leftTarget = $leftTarget;
+
         return $this;
     }
 }

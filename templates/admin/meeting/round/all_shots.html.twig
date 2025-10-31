@@ -25,7 +25,11 @@
                 {% for roundShotForm in form.roundShots %}
                     {% set roundShot = roundShotForm.vars.data %}
                     <tr class="odd:bg-content-primary-light/10 even:bg-content-primary-dark/10 dark:odd:bg-content-primary-dark/20 dark:even:bg-content-primary-light/20 border-b border-2 ">
-                        <td class="px-4 py-2">{{ roundShot.meetingParticipant.position }}</td>
+                        <td class="px-4 py-2">
+                            <div class="flex items-center justify-center">
+                                {{ roundShot.meetingParticipant.position }}
+                            </div>
+                        </td>
                         <td class="px-4 py-2">
                             {% if roundShot.meetingParticipant.shooter is defined and roundShot.meetingParticipant.shooter %}
                                 {{ roundShot.meetingParticipant.shooter.firstName }} {{ roundShot.meetingParticipant.shooter.lastName }}

@@ -14,11 +14,3 @@
     </div>
 {%- endblock form_row -%}
 
-{%- block checkbox_widget -%}
-    {%- set attr_class = attr_class|default(block('class_input_checkbox')) -%}
-    {%- set attr = attr|merge({'class': (attr_class ~ ' ' ~ attr.class|default(''))|trim}) -%}
-    {{- form_label(form, null, { widget: parent() }) -}}
-{%- endblock checkbox_widget -%}
-
-{% form_theme roundShotForm.leftHit 'form_div_layout.html.twig' %}
-{% form_theme roundShotForm.rightHit 'form_div_layout.html.twig' %}

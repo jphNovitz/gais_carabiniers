@@ -52,7 +52,7 @@ final class MeetingController extends AbstractController
         Meeting                          $meeting,
         Request                          $request,
         MeetingParticipantAdderInterface $participantAdder,
-        EntityManagerInterface            $em
+        EntityManagerInterface           $em
     ): Response
     {
         $form = $this->createForm(AddParticipantsType::class, null, ['meeting' => $meeting]);
@@ -78,6 +78,53 @@ final class MeetingController extends AbstractController
         ]);
     }
 
+    #[Route('/meeting/{id}/participant/{participant}', name: 'admin_meeting_participant_update_position', methods: ['POST'])]
+    public function reorder(Meeting $meeting, MeetingParticipant $participant, Request $request, EntityManagerInterface $em): Response
+    {
+        $token = $request->request->get('_token');
+        if (!$this->isCsrfTokenValid('update_position_' . $participant->getId(), $token)) {
+            $this->addFlash('error', 'Token CSRF invalide');
+            return $this->redirectToRoute('admin_meeting_show', ['id' => $meeting->getId()]);
+        }
+
+        $newPosition = (int)$request->request->get('position');
+
+        if ($newPosition < 1) {
+            $this->addFlash('error', 'Position invalide');
+            return $this->redirectToRoute('admin_meeting_show', ['id' => $meeting->getId()]);
+        }
+
+        if ($participant->getPosition() === $newPosition) {
+            $this->addFlash('info', 'meeting.participant.reorder.nochange');
+            return $this->redirectToRoute('admin_meeting_show', ['id' => $meeting->getId()]);
+        }
+
+        $oldPosition = $participant->getPosition();
+
+
+        $currentOccupant = $em->getRepository(MeetingParticipant::class)
+            ->findOneBy([
+                'meeting' => $meeting,
+                'position' => $newPosition
+            ]);
+
+        if ($currentOccupant) {
+            $currentOccupant->setPosition(-999); // Position temporaire
+            $em->flush();
+        }
+
+        $participant->setPosition($newPosition);
+        $em->flush();
+
+        if ($currentOccupant) {
+            $currentOccupant->setPosition($oldPosition);
+            $em->flush();
+        }
+
+        $this->addFlash('success', 'meeting.participant.reorder.success');
+
+        return $this->redirectToRoute('admin_meeting_show', ['id' => $meeting->getId()]);
+    }
 
 
     #[Route('/{id}', name: 'admin_meeting_show', methods: ['GET'])]
@@ -104,11 +151,11 @@ final class MeetingController extends AbstractController
     #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]
     public function close(Meeting $meeting): Response
     {
-            $meeting->setStatus(MeetingStatus::CLOSED);
-            $meeting->setClosedAt(new \DateTimeImmutable());
-            $this->meetingRepository->save($meeting, true);
+        $meeting->setStatus(MeetingStatus::CLOSED);
+        $meeting->setClosedAt(new \DateTimeImmutable());
+        $this->meetingRepository->save($meeting, true);
 
-            $this->addFlash('success', 'meeting.close.success');
+        $this->addFlash('success', 'meeting.close.success');
 
         return $this->redirectToRoute('admin_meeting_show', [
             'id' => $meeting->getId()

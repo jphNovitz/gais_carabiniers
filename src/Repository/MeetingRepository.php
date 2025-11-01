@@ -19,6 +19,7 @@ class MeetingRepository extends ServiceEntityRepository
         parent::__construct($registry, Meeting::class);
     }
 
+
     public function findIndex(): array
     {
         $results = $this->createQueryBuilder('m')
@@ -30,6 +31,29 @@ class MeetingRepository extends ServiceEntityRepository
             ->getResult();
 
         return $this->mapper->toDtosFromArray($results);
+    }
+
+    public function findIndexGroupedByYear(): array
+    {
+        $results = $this->createQueryBuilder('m')
+            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
+            ->leftJoin('m.participants', 'mp')
+            ->groupBy('m.id')
+            ->orderBy('m.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        $dtos = $this->mapper->toDtosFromArray($results);
+
+        $grouped = [];
+        foreach ($dtos as $dto) {
+            $year = (int)$dto->date->format('Y');
+            $grouped[$year][] = $dto;
+        }
+
+        krsort($grouped);
+
+        return $grouped;
     }
 
     public function findWithParticipants(int $id): ?Meeting
@@ -45,10 +69,11 @@ class MeetingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-    public function findWithScores($id): MeetingStandingDTO
+
+    public function findWithScores($id, $limit = 0): MeetingStandingDTO
     {
 
-        $results = $this->createQueryBuilder('m')
+        $qb = $this->createQueryBuilder('m')
             ->leftJoin('m.rounds', 'r')
             ->leftJoin('r.roundShots', 'rs')
             ->leftJoin('rs.meetingParticipant', 'mp')
@@ -72,9 +97,12 @@ class MeetingRepository extends ServiceEntityRepository
             ->where('m.id = :id')
             ->setParameter('id', $id)
             ->groupBy('mp.id, participant.id, m.id')
-            ->orderBy('totalScore', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('totalScore', 'DESC');
+
+        if ($limit !== null && $limit > 0) {
+            $qb->setMaxResults($limit);
+        }
+        $results = $qb->getQuery()->getResult();
 
         $participants = [];
         $rank = 1;

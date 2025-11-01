@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{ dump(standing) }}
+    <section>
+        <div class="p-12">
+            <h2 class="text-lg font-semibold mb-4">{{ standing.label }} : Classement</h2>
+            <p>{{ standing.date|format_datetime('long', 'none') }}</p>
+            {% if standing is defined and standing|length > 0 %}
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                                {{ 'meeting.rank' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                                {{ 'meeting.participant' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                                {{ 'meeting.points' |trans }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in standing.participants %}
+                            <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark even:bg-surface-light dark:even:bg-surface-dark/10 bg-opacity-10">
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ p.rank }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName |first }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-content-primary-light dark:text-content-primary-dark">Aucun participant n'a encore été
+                    ajouté.</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

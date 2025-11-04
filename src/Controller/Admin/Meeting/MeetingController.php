@@ -13,6 +13,7 @@ use App\Form\MeetingParticipantType;
 use App\Mapper\MeetingMapper;
 use App\Mapper\MeetingParticipantMapper;
 use App\Repository\MeetingRepository;
+use App\Service\MeetingCloser;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -149,11 +150,11 @@ final class MeetingController extends AbstractController
     }
 
     #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]
-    public function close(Meeting $meeting): Response
+    public function close(Meeting $meeting, MeetingCloser $meetingCloser): Response
     {
-        $meeting->setStatus(MeetingStatus::CLOSED);
-        $meeting->setClosedAt(new \DateTimeImmutable());
-        $this->meetingRepository->save($meeting, true);
+
+        $meetingCloser->close($meeting);
+
 
         $this->addFlash('success', 'meeting.close.success');
 

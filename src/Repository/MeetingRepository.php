@@ -70,38 +70,10 @@ class MeetingRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findWithScores($id, $limit = 0): MeetingStandingDTO
+    public function findWithScores($id): MeetingStandingDTO
     {
+        $qb = $this->getScoresBuilder($id);
 
-        $qb = $this->createQueryBuilder('m')
-            ->leftJoin('m.rounds', 'r')
-            ->leftJoin('r.roundShots', 'rs')
-            ->leftJoin('rs.meetingParticipant', 'mp')
-            ->leftJoin('mp.shooter', 'participant')
-            ->select(
-                'm.id as meetingId',
-                'm.date',
-                'm.label',
-                'm.status',
-                'm.openedAt',
-                'm.closedAt',
-                'mp.id as participantId',
-                'mp.position',
-                'participant.id as shooterId',
-                'participant.firstName',
-                'participant.lastName',
-                // ⭐ Calcul du score en SQL
-                'SUM(CASE WHEN rs.leftHit = true THEN 1 ELSE 0 END + CASE WHEN rs.rightHit = true THEN 1 ELSE 0 END) as totalScore',
-                'COUNT(DISTINCT r.id) as roundsPlayed'
-            )
-            ->where('m.id = :id')
-            ->setParameter('id', $id)
-            ->groupBy('mp.id, participant.id, m.id')
-            ->orderBy('totalScore', 'DESC');
-
-        if ($limit !== null && $limit > 0) {
-            $qb->setMaxResults($limit);
-        }
         $results = $qb->getQuery()->getResult();
 
         $participants = [];
@@ -127,6 +99,11 @@ class MeetingRepository extends ServiceEntityRepository
             participants: $participants
         );
 
+    }
+
+    public function findSnapshot($id)
+    {
+        return $this->getScoresBuilder($id)->getQuery()->getResult();
     }
 
     public function save(Meeting $entity, bool $flush = false): void
@@ -162,4 +139,37 @@ class MeetingRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    /**
+     * @param $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getScoresBuilder($id): \Doctrine\ORM\QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->leftJoin('m.rounds', 'r')
+            ->leftJoin('r.roundShots', 'rs')
+            ->leftJoin('rs.meetingParticipant', 'mp')
+            ->leftJoin('mp.shooter', 'participant')
+            ->select(
+                'm.id as meetingId',
+                'm.date',
+                'm.label',
+                'm.status',
+                'm.openedAt',
+                'm.closedAt',
+                'mp.id as participantId',
+                'mp.position',
+                'participant.id as shooterId',
+                'participant.firstName',
+                'participant.lastName',
+                // ⭐ Calcul du score en SQL
+                'SUM(CASE WHEN rs.leftHit = true THEN 1 ELSE 0 END + CASE WHEN rs.rightHit = true THEN 1 ELSE 0 END) as totalScore',
+                'COUNT(DISTINCT r.id) as roundsPlayed'
+            )
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->groupBy('mp.id, participant.id, m.id')
+            ->orderBy('totalScore', 'DESC');
+        return $qb;
+    }
 }

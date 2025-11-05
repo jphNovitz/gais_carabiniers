@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ dump(standing) }}
-    <section>
+
+    <section class="min-h-screen">
         <div class="p-12">
-            <h2 class="text-lg font-semibold mb-4">{{ standing.label }} : Classement</h2>
-            <p>{{ standing.date|format_datetime('long', 'none') }}</p>
+            <h2 class="text-lg font-semibold mb-4">{{ meeting.label }} : Classement</h2>
+            <p>{{ meeting.date|format_datetime('long', 'none') }}</p>
             {% if standing is defined and standing|length > 0 %}
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left">
@@ -23,11 +23,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for p in standing.participants %}
+                        {% for line in standing %}
                             <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark even:bg-surface-light dark:even:bg-surface-dark/10 bg-opacity-10">
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ p.rank }}</td>
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName |first }}</td>
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ line.meetingPosition }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ line.shooterName }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ line.totalScore }} </td>
                             </tr>
                         {% endfor %}
                         </tbody>

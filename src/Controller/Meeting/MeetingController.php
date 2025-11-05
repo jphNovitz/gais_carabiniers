@@ -6,6 +6,7 @@ use App\Dto\MeetingDto;
 use App\Entity\Meeting;
 use App\Mapper\MeetingMapper;
 use App\Repository\MeetingRepository;
+use App\Repository\MeetingSnapshotRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class MeetingController extends AbstractController
 {
 
-    public function __construct(private Meetingrepository $meetingRepository)
+    public function __construct(private readonly Meetingrepository $meetingRepository, private readonly MeetingSnapshotRepository $meetingSnapshotRepository)
     {
     }
 
@@ -28,11 +29,14 @@ final class MeetingController extends AbstractController
     }
 
     #[Route('/meetings/{id}', name: 'meeting_show', methods: ['GET'])]
-    public function show($id = null): Response
+    public function show(Meeting $meeting): Response
     {
-        $standing = $this->meetingRepository->findWithScores($id);
-
+//        $standing = $this->meetingRepository->findWithScores($id);
+//         $standing = $this->meetingSnapshotRepository->findBy(['meeting'=> $meeting]);
+         $standing = $this->meetingSnapshotRepository->findByMeetingId($meeting->getId());
+//         dd($standing);
         return $this->render('meeting/show.html.twig', [
+            'meeting' => $meeting,
             'standing' => $standing,
         ]);
     }

@@ -20,16 +20,15 @@ class MeetingCloser implements MeetingCloserInterface
     public function close(Meeting $meeting): bool
     {
         $standings  = $this->meetingRepository->findSnapshot($meeting->getId());
-//        dd($standings);
         foreach ($standings as $index => $standing) {
             $snapshot = new MeetingSnapshot();
             $snapshot->setMeetingPosition($index + 1);
             $snapshot->setMeeting($meeting);
-            $shooter = $meeting->getParticipants()->filter(function ($participant) use ($standing) {
+            $participant = $meeting->getParticipants()->filter(function ($participant) use ($standing) {
                 return $participant->getId() === $standing['participantId'];
             })->first()->getShooter();
-            $snapshot->setShooter($shooter);
-            $snapshot->setShooterName($shooter);
+            $snapshot->setParticipant($participant);
+            $snapshot->setShooterName($participant->getFullName());
             $snapshot->setTotalScore($standing['totalScore']);
             $snapshot->setComputedAt(new \DateTimeImmutable());
             $snapshot->setYear((int)$meeting->getDate()->format('Y'));

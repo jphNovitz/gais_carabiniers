@@ -16,6 +16,18 @@ class MeetingSnapshotRepository extends ServiceEntityRepository
         parent::__construct($registry, MeetingSnapshot::class);
     }
 
+    public function findByMeetingId(int $meetingId): ?array
+    {
+
+        return $this->createQueryBuilder('ms')
+            ->leftJoin('ms.meeting', 'meeting')
+            ->leftJoin('ms.participant', 'participant')
+            ->select('ms', 'meeting', 'participant')
+            ->andWhere('ms.meeting = :meetingId')
+            ->setParameter('meetingId', $meetingId)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function save(MeetingSnapshot $entity, bool $flush = false): void
     {

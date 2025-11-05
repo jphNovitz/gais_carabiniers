@@ -10,7 +10,7 @@
                 <h2 class="text-2xl font-bold mb-6">{{ year }}</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {% for meeting in meetings %}
-                    <a href="#" class="block p-4 bg-surface-light dark:bg-surface-dark rounded-xl shadow hover:bg-base-300 transition">
+                    <a href="{{ path('meeting_show', {'id': meeting.id}) }}" class="block p-4 bg-surface-light dark:bg-surface-dark rounded-xl shadow hover:bg-base-300 transition">
                         <h3 class="font-semibold text-lg mb-1">{{ meeting.title}}</h3>
                         <p class="text-sm text-gray-600">{{ meeting.date|format_datetime('long', 'none') }}
                         <p class="text-sm mt-2">{{ meeting.participantCount }} participants</p>

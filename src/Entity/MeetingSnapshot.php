@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MeetingSnapshotRepository::class)]
 #[ORM\Table(name: 'meeting_snapshot')]
-#[ORM\UniqueConstraint(name: 'uniq_meeting_shooter', columns: ['meeting_id', 'shooter_id'])]
+#[ORM\UniqueConstraint(name: 'uniq_meeting_shooter', columns: ['meeting_id', 'participant_id'])]
 #[ORM\Index(columns: ['year', 'points'], name: 'idx_points')]
 #[ORM\Index(columns: ['meeting_id', 'meeting_position'], name: 'idx_meeting_meeting_position')]
 class MeetingSnapshot
@@ -24,7 +24,7 @@ class MeetingSnapshot
 
     #[ORM\ManyToOne(targetEntity: Member::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    private ?Member $shooter = null;
+    private ?Member $participant = null;
 
     // Données de classement
     #[ORM\Column(type: 'integer')]
@@ -155,17 +155,6 @@ class MeetingSnapshot
         return $this;
     }
 
-    public function getShooter(): ?Member
-    {
-        return $this->shooter;
-    }
-
-    public function setShooter(?Member $shooter): static
-    {
-        $this->shooter = $shooter;
-
-        return $this;
-    }
 
     public function getMeetingPosition(): ?int
     {
@@ -175,6 +164,18 @@ class MeetingSnapshot
     public function setMeetingPosition(int $meetingPosition): static
     {
         $this->meetingPosition = $meetingPosition;
+
+        return $this;
+    }
+
+    public function getParticipant(): ?Member
+    {
+        return $this->participant;
+    }
+
+    public function setParticipant(?Member $participant): static
+    {
+        $this->participant = $participant;
 
         return $this;
     }

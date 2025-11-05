@@ -56,10 +56,10 @@
                             <div class="flex flex-col items-center justify-center gap-2">
                                 <input
                                         type="checkbox"
-                                        id="{{ roundShotForm.leftHit.vars.id }}"
-                                        name="{{ roundShotForm.leftHit.vars.full_name }}"
+                                        id="{{ roundShotForm.rightHit.vars.id }}"
+                                        name="{{ roundShotForm.rightHit.vars.full_name }}"
                                         value="{{ roundShotForm.rightHit.vars.value }}"
-                                        {% if roundShotForm.leftHit.vars.checked %}checked{% endif %}
+                                        {% if roundShotForm.rightHit.vars.checked %}checked{% endif %}
                                         class="w-6 h-6 rounded text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
                                 />
                                 {% do roundShotForm.rightHit.setRendered %}

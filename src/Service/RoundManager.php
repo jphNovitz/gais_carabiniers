@@ -49,7 +49,6 @@ class RoundManager implements RoundManagerInterface
         $roundShot = new RoundShot();
         $roundShot->setRound($round);
         $roundShot->setMeetingParticipant($participant);
-        $roundShot->setScore($score);
         $this->roundShotRepository->save($roundShot, true);
 
     }

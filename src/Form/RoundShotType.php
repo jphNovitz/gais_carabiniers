@@ -48,6 +48,8 @@ class RoundShotType extends AbstractType
             ->add('rightHit', CheckboxType::class, [
                 'required' => false,
                 'label' => false,
+                'attr' => ['class' => ''],
+                'row_attr' => ['class' => 'b-2']
             ])
             ->add('rightTarget', ChoiceType::class, [
                 'choices' => array_combine(range(1, 24), range(1, 24)),

@@ -2,10 +2,11 @@
 
 {% block body %}
 
-    <section class="min-h-screen">
-        <div class="p-12">
-            <h2 class="text-lg font-semibold mb-4">{{ meeting.label }} : Classement</h2>
-            <p>{{ meeting.date|format_datetime('long', 'none') }}</p>
+    <section class="min-h-screen p-2 md:p-6 lg:p-12">
+        <twig:Title:H1>{{ meeting.label }} : Classement</twig:Title:H1>
+        <p>{{ meeting.date|format_datetime('long', 'none') }}</p>
+        <p class="my-4"><a href="{{ path('meeting_index') }}" class="bg-transparent text-content-primary-light border border-content-primary-light focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 my-2.5 text-center dark:text-content-primary-dark dark:border-content-primary-dark ">liste</a></p>
+        <div class="py-12">
             {% if standing is defined and standing|length > 0 %}
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left">

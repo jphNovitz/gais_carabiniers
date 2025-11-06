@@ -1,5 +1,14 @@
 <div{{ attributes }}>
 
+    <select data-model="year" class="mb-4 p-2 border border-base-light rounded bg-surface-light text-content-primary-light dark:bg-surface-dark dark:text-content-primary-dark dark:border-base-dark">
+        {% for availableYear in this.availableYears %}
+            <option value="{{ availableYear }}"
+                    {% if availableYear == year %}selected{% endif %}>
+                {{ availableYear }}
+            </option>
+        {% endfor %}
+    </select>
+
   {% if this.standings is not empty %}
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right text-content-primary-light dark:text-content-primary-dark">

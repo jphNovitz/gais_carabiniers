@@ -52,6 +52,15 @@ class MeetingSnapshotRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findAvailableYears(): array
+    {
+        return $this->createQueryBuilder('ms')
+            ->select('DISTINCT ms.year')
+            ->orderBy('ms.year', 'DESC')
+            ->getQuery()
+            ->getSingleColumnResult();
+    }
     //    /**
     //     * @return MeetingSnapshot[] Returns an array of MeetingSnapshot objects
     //     */

@@ -18,13 +18,28 @@ class MeetingSnapshotRepository extends ServiceEntityRepository
 
     public function findByMeetingId(int $meetingId): ?array
     {
-
         return $this->createQueryBuilder('ms')
             ->leftJoin('ms.meeting', 'meeting')
             ->leftJoin('ms.participant', 'participant')
             ->select('ms', 'meeting', 'participant')
             ->andWhere('ms.meeting = :meetingId')
             ->setParameter('meetingId', $meetingId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findSeasonStandings(int $year): array
+    {
+        return $this->createQueryBuilder('ms')
+            ->select('ms.shooterName as participant')
+            ->addSelect('ms.clubName as club')
+            ->addSelect('ms.year as year')
+            ->addSelect('SUM(ms.totalScore) as totalPoints')
+            ->join('ms.meeting', 'm')
+            ->where('ms.year = :year')
+            ->groupBy('ms.shooterName', 'ms.clubName', 'ms.year')  // ✅ Tout en une fois
+            ->orderBy('totalPoints', 'DESC')
+            ->setParameter('year', $year)
             ->getQuery()
             ->getResult();
     }

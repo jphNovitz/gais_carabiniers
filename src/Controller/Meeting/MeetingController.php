@@ -40,4 +40,12 @@ final class MeetingController extends AbstractController
             'standing' => $standing,
         ]);
     }
+
+    #[Route('/classement', name: 'meeting_standing', methods: ['GET'])]
+    public function standing(): Response
+    {
+        return $this->render('meeting/standing.html.twig', [
+        ]);
+    }
+
 }

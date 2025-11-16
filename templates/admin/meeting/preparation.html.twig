@@ -89,29 +89,21 @@
             {% endif %}
         </div>
         <div class="my-12 flex flex-col space-y-8">
-            {% if meeting.participants.count > 0 %}
-                <div class="flex flex-wrap gap-4">
-                    <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"
-                       href="{{ path('round_start', {'meeting': meeting.id}) }}">
-                        {% if meeting.rounds|length >0 %}
-                            Nouveau tour
-                        {% else %}
-                            Démarrer la séance
-                        {% endif %}
-                    </a>
-                    <a class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90"
-                       href="#">Clôturer</a>
-                </div>
-            {% endif %}
-            <div class="flex justify-between flex-wrap gap-4">
+           <div class="flex justify-between flex-wrap gap-4">
                 <a class="flex items-center"
                    href="{{ path('admin_meeting_index') }}">
                    {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-6 font-medium'}) }} <span class="underline">{{'button.back_list' |trans}}</span> 
                    </a>
                 <div class="space-x-4">
-                  <twig:Button:Primary href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}"> {{'button.add_participant' |trans}} </twig:Button:Primary>
-                  <twig:Button:Secondary href="#"> {{'button.edit' |trans}} </twig:Button:Secondary>  
-                </div>
+                  <twig:Button:Secondary href="#"> {{'button.edit' |trans}} </twig:Button:Secondary> 
+                  <twig:Button:Secondary href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}"> {{'button.add_participant' |trans}} </twig:Button:Secondary>
+        
+                  {% if meeting.participants.count > 0 %}
+                    <twig:Button:Primary href="{{ path('round_start', {'meeting': meeting.id}) }}"> 
+                        {{'button.meeting_start' |trans}}
+                    </twig:Button:Primary>
+                  {% endif %}
+ </div>
             </div>
         </div>
     </section>

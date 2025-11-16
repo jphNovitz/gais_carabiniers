@@ -3,21 +3,15 @@
 {% block title %}{{ meeting.label }} - détails de la séance du {{ meeting.date|date('d/m/Y') }}{% endblock %}
 
 {% block body %}
-    <section class="container-fluid p-4">
+    <section class="container-fluid bg-surface-light dark:bg-surface-dark p-4">
         <twig:Title:H1
                 class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
                 data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
             {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
         </twig:Title:H1>
-        <div class="w-full grid grid-cols-6 mt-16 mb-8">
+        <div class="w-full grid grid-cols-3 gap-8 mt-16 mb-8">
             <div>
                 Date : {{ meeting.date ? meeting.date|date('d/m/Y') : '' }}
-            </div>
-            <div>
-                Création : {{ meeting.createdAt ? meeting.createdAt|date('d/m/Y') : '' }}
-            </div>
-            <div>
-                Modifiée le : {{ meeting.updatedAt ? meeting.updatedAt|date('d/m/Y') : '' }}
             </div>
             <div>
                 Ouverte le : {{ meeting.openedAt ? meeting.openedAt|date('d/m/Y') : '' }}
@@ -28,26 +22,26 @@
         </div>
 
         <div class="mt-12">
-            <h2 class="text-lg font-semibold mb-4">Participants</h2>
+            <h2 class="text-lg font-semibold mb-4">Classement {% if meeting.status.value == 'closed' %} final {% endif %}</h2>
             {% if standing is defined and standing|length > 0 %}
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left">
-                        <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                    <table class="w-full text-sm text-left border border-base-light dark:border-base-dark">
+                        <thead class="text-xs uppercase bg-base-light dark:bg-base-dark text-content-primary-light dark:text-content-primary-dark">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                            <th scope="col" class="px-6 py-3">
                                 {{ 'meeting.rank' |trans }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                            <th scope="col" class="px-6 py-3">
                                 {{ 'meeting.participant' |trans }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                            <th scope="col" class="px-6 py-3">
                                 {{ 'meeting.points' |trans }}
                             </th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for p in standing.participants %}
-                            <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
+                            <tr class="border-b last:border-0 border-content-primary-light/20 dark:border-content-primary-dark/20">
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ p.rank }}</td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
@@ -57,7 +51,7 @@
                     </table>
                 </div>
             {% else %}
-                <p class="text-content-primary-light dark:text-content-primary-dark">Aucun participant n'a encore été
+                <p class="text-content-primary-light dark:text-content-primary-dark font-semibold">Aucun participant n'a encore été
                     ajouté.</p>
             {% endif %}
         </div>
@@ -83,6 +77,7 @@
 
             </div>
             <div class="flex flex-wrap gap-4">
+            <twig:Button:Primary href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}> {{'add_participant' | trans}}</twig:Button:Primary>
                 <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
                    href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}">Ajouter des participants</a>
                 <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
@@ -93,9 +88,9 @@
         </div>
         {% else %}
             <div class="my-12 flex flex-col space-y-8">
-            <p>La séance est clôturée.</p>
-            <a class="w-fit bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
-               href="{{ path('admin_meeting_index') }}">Retour à la liste</a>
+            <p class="font-bold">La séance est clôturée.</p>
+            <twig:Button:Primary link="{{ path('admin_meeting_index') }}"> {{'button.back_list' |trans}} </twig:Button:Primary> 
+            
             </div>
 
         {% endif %}

@@ -3,22 +3,16 @@
 {% block title %}{{ meeting.label }} - détails de la séance du {{ meeting.date|date('d/m/Y') }}{% endblock %}
 
 {% block body %}
-    <section class="container-fluid p-4">
+    <section class="bg-surface-light dark:bg-surface-dark container-fluid p-4">
 
         <twig:Title:H1
                 class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
                 data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
             {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
         </twig:Title:H1>
-        <div class="w-full grid grid-cols-6 mt-16 mb-8">
+        <div class="w-full grid grid-cols-3 mt-16 mb-8">
             <div>
                 Date : {{ meeting.date ? meeting.date|date('d/m/Y') : '' }}
-            </div>
-            <div>
-                Création : {{ meeting.createdAt ? meeting.createdAt|date('d/m/Y') : '' }}
-            </div>
-            <div>
-                Modifiée le : {{ meeting.updatedAt ? meeting.updatedAt|date('d/m/Y') : '' }}
             </div>
             <div>
                 Ouverte le : {{ meeting.openedAt ? meeting.openedAt|date('d/m/Y') : '' }}
@@ -109,13 +103,15 @@
                        href="#">Clôturer</a>
                 </div>
             {% endif %}
-            <div class="flex flex-wrap gap-4">
-                <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
-                   href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}">Ajouter des participants</a>
-                <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
-                   href="#">Modifier</a>
-                <a class="bg-transparent text-content-secondary border border-content-secondary hover:bg-content-secondary/10 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-content-secondary dark:border-content-secondary dark:hover:bg-content-secondary/20"
-                   href="{{ path('admin_meeting_index') }}">Retour à la liste</a>
+            <div class="flex justify-between flex-wrap gap-4">
+                <a class="flex items-center"
+                   href="{{ path('admin_meeting_index') }}">
+                   {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-6 font-medium'}) }} <span class="underline">{{'button.back_list' |trans}}</span> 
+                   </a>
+                <div class="space-x-4">
+                  <twig:Button:Primary href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}"> {{'button.add_participant' |trans}} </twig:Button:Primary>
+                  <twig:Button:Secondary href="#"> {{'button.edit' |trans}} </twig:Button:Secondary>  
+                </div>
             </div>
         </div>
     </section>

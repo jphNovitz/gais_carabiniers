@@ -4,18 +4,13 @@ namespace App\Controller\Admin\Meeting;
 
 use App\Contract\MeetingCreatorInterface;
 use App\Contract\MeetingParticipantAdderInterface;
-use App\Dto\MeetingDto;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Enum\MeetingStatus;
 use App\Form\AddParticipantsType;
-use App\Form\MeetingParticipantType;
-use App\Mapper\MeetingMapper;
-use App\Mapper\MeetingParticipantMapper;
 use App\Repository\MeetingRepository;
 use App\Service\MeetingCloser;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,19 +38,20 @@ final class MeetingController extends AbstractController
     {
         $meetingId = $meetingCreator->createMeeting();
 
-        return $this->redirectToRoute('admin_meeting_add_participant',
+        return $this->redirectToRoute(
+            'admin_meeting_add_participant',
             ['id' => $meetingId],
-            Response::HTTP_SEE_OTHER);
+            Response::HTTP_SEE_OTHER
+        );
     }
 
     #[Route('/{id}/add-participants', name: 'admin_meeting_add_participant', methods: ['GET', 'POST'])]
     public function addParticipants(
-        Meeting                          $meeting,
-        Request                          $request,
+        Meeting $meeting,
+        Request $request,
         MeetingParticipantAdderInterface $participantAdder,
-        EntityManagerInterface           $em
-    ): Response
-    {
+        EntityManagerInterface $em
+    ): Response {
         $form = $this->createForm(AddParticipantsType::class, null, ['meeting' => $meeting]);
         $form->handleRequest($request);
 
@@ -132,8 +128,10 @@ final class MeetingController extends AbstractController
     public function show($id): Response
     {
         $meeting = $this->meetingRepository->findWithParticipants($id);
-        if (($meeting->getStatus() === MeetingStatus::DRAFT) ||
-            ($meeting->getStatus() === MeetingStatus::READY)) {
+        if (
+            ($meeting->getStatus() === MeetingStatus::DRAFT) ||
+                 ($meeting->getStatus() === MeetingStatus::READY)
+        ) {
             return $this->render('admin/meeting/preparation.html.twig', [
                 'meeting' => $meeting,
             ]);
@@ -146,7 +144,6 @@ final class MeetingController extends AbstractController
             'meeting' => $meeting,
             'standing' => $standingDto
         ]);
-
     }
 
     #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]

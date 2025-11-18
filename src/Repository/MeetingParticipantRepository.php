@@ -30,6 +30,15 @@ class MeetingParticipantRepository extends ServiceEntityRepository
         return $this->findOneBy(['meeting' => $meeting], ['position' => 'DESC']);
     }
 
+    public function save(MeetingParticipant $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return MeetingParticipant[] Returns an array of MeetingParticipant objects
     //     */

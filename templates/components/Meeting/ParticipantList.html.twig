@@ -11,6 +11,9 @@
                         Position
                     </th>
                     <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
                         Participant
                     </th>
                     <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
@@ -23,13 +26,16 @@
                     <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-32">
                             {{ p.position }}
+                        </td>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-8">
+
                             <button
                                     type="button"
                                     data-action="live#action"
                                     data-live-id-param="{{ p.id }}"
                                     data-live-action-param="moveUp"
                             >
-                                    ↑
+                                {{ ux_icon('flowbite:caret-up-solid', {'class': 'w-6'}) }}
                                 </button>
 
                                 <button
@@ -37,7 +43,7 @@
                                         data-live-action-param="moveDown"
                                         data-live-id-param="{{ p.id }}"
                                 >
-                                    ↓
+                                    {{ ux_icon('flowbite:caret-down-solid', {'class': 'w-6'}) }}
                                 </button>
                         </td>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">

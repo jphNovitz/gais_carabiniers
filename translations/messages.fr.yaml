@@ -15,8 +15,8 @@ button:
   update: "Modifier"
   back_list: "Retour à la liste"
   find: "Nous Trouver"
-  add_participant: "Ajouter des participants"
-  meeting_start: "Démarrer la séance"
+  add_participant: "Ajouter"
+  meeting_start: "Démarrer"
 nav:
   home: "Accueil"
   about: "Notre histoire"

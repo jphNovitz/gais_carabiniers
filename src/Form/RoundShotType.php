@@ -42,7 +42,7 @@ class RoundShotType extends AbstractType
                 'required' => false,
                 'placeholder' => '🎯',
                 'attr' => [
-                    'class' => 'w-12'
+                    'class' => 'w-12 disabled:opacity-30 disabled:cursor-not-allowed'
                     ]
             ])
             ->add('rightHit', CheckboxType::class, [
@@ -56,7 +56,7 @@ class RoundShotType extends AbstractType
                 'required' => false,
                 'placeholder' => '🎯',
                 'attr' => [
-                    'class' => 'w-12'
+                    'class' => 'w-12 disabled:opacity-30 disabled:cursor-not-allowed'
                 ]
             ])
 

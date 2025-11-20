@@ -3,6 +3,7 @@ title:
   login: "Connexion"
   faq: "Foire aux questions"
 button:
+  submit: "valider"
   login: "Connexion"
   logout: "Déconnexion"
   register: "Je m'enregistre"
@@ -14,6 +15,7 @@ button:
   edit: "Modifier"
   update: "Modifier"
   back_list: "Retour à la liste"
+  back: "Retour"
   find: "Nous Trouver"
   add_participant: "Ajouter"
   meeting_start: "Démarrer"

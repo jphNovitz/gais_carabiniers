@@ -19,6 +19,8 @@ button:
   find: "Nous Trouver"
   add_participant: "Ajouter"
   meeting_start: "Démarrer"
+  meeting_continue: "Nouveau tour"
+  meeting_close: "Clôturer"
 nav:
   home: "Accueil"
   about: "Notre histoire"

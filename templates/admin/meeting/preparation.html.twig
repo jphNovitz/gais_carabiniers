@@ -4,61 +4,61 @@
 
 {% block body %}
 
-<section class="bg-surface-light dark:bg-surface-dark container-fluid p-4">
+    <section class="bg-surface-light dark:bg-surface-dark container-fluid p-4">
 
-    <twig:Title:H1
-            class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
-            data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
-        {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
-    </twig:Title:H1>
-    
-    <div class="w-full grid grid-cols-1 md:grid-cols-3 mt-16 mb-8">
-        <div>
-            Date : {{ meeting.date ? meeting.date|date('d/m/Y') : '' }}
+        <twig:Title:H1
+                class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
+                data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
+            {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
+        </twig:Title:H1>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 mt-16 mb-8">
+            <div>
+                Date : {{ meeting.date ? meeting.date|date('d/m/Y') : '' }}
+            </div>
+            <div>
+                Ouverte le : {{ meeting.openedAt ? meeting.openedAt|date('d/m/Y') : '' }}
+            </div>
+            {#        <div> #}
+            {#            Fermée le : {{ meeting.closedAt ? meeting.closedAt|date('d/m/Y') : '' }} #}
+            {#        </div> #}
         </div>
-        <div>
-            Ouverte le : {{ meeting.openedAt ? meeting.openedAt|date('d/m/Y') : '' }}
+
+        <div class="mt-12">
+            <h2 class="text-lg font-semibold mb-4">Participants</h2>
+
+            <twig:Meeting:ParticipantList meeting="{{ meeting }}"/>
+
         </div>
-        <div>
-            Fermée le : {{ meeting.closedAt ? meeting.closedAt|date('d/m/Y') : '' }}
-        </div>
-    </div>
 
-    <div class="mt-12">
-        <h2 class="text-lg font-semibold mb-4">Participants</h2>
+        <div class="my-12">
+            <div class="flex flex-col-reverse md:flex-row justify-between items-start  md:items-center flex-wrap gap-4">
+                <!-- Retour à gauche -->
+                <a class="flex items-center gap-2  hover:underline"
+                   href="{{ path('admin_meeting_index') }}">
+                    {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-5'}) }}
+                    <span>{{ 'button.back_list'|trans }}</span>
+                </a>
 
-        <twig:Meeting:ParticipantList meeting="{{ meeting }}" />
+                <!-- Actions à droite -->
+                <div class="flex gap-3">
+                    <twig:Button:Secondary href="#">
+                        {{ 'button.edit'|trans }}
+                    </twig:Button:Secondary>
 
-    </div>
-    
-    <div class="my-12">
-        <div class="flex flex-col-reverse md:flex-row justify-between items-start  md:items-center flex-wrap gap-4">
-            <!-- Retour à gauche -->
-            <a class="flex items-center gap-2  hover:underline"
-               href="{{ path('admin_meeting_index') }}">
-                {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-5'}) }}
-                <span>{{ 'button.back_list'|trans }}</span>
-            </a>
-            
-            <!-- Actions à droite -->
-            <div class="flex gap-3">
-                <twig:Button:Secondary href="#">
-                    {{ 'button.edit'|trans }}
-                </twig:Button:Secondary>
-                
-                <twig:Button:Secondary href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}">
-                    {{ 'button.add_participant'|trans }}
-                </twig:Button:Secondary>
-                
-                {% if meeting.participants|length > 0 %}
-                    <twig:Button:Primary href="{{ path('round_start', {'meeting': meeting.id}) }}">
-                        {{ 'button.meeting_start'|trans }}
-                    </twig:Button:Primary>
-                {% endif %}
+                    {% if meeting.participants|length > 0 %}
+                        <twig:Button:Primary href="{{ path('round_start', {'meeting': meeting.id}) }}">
+                            {{ 'button.meeting_start'|trans }}
+                        </twig:Button:Primary>
+                    {% else %}
+                        <twig:Button:Primary href="{{ path('admin_meeting_add_participant', { 'id': meeting.id }) }}">
+                            {{ 'button.add_participant'|trans }}
+                        </twig:Button:Primary>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-</section>
- 
+    </section>
+
 {% endblock %}
 

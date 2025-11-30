@@ -17,7 +17,7 @@ button:
   back_list: "Retour à la liste"
   back: "Retour"
   find: "Nous Trouver"
-  add_participant: "Ajouter"
+  add_participant: "Ajouter des participants"
   meeting_start: "Démarrer"
   meeting_continue: "Nouveau tour"
   meeting_close: "Clôturer"

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Enum\MeetingStatus;
+use App\Enum\MeetingType;
 use App\Repository\MeetingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,6 +26,8 @@ class Meeting
 
     #[ORM\Column(type: 'string', enumType: MeetingStatus::class)]
     private MeetingStatus $status = MeetingStatus::DRAFT;
+    #[ORM\Column(type: 'string', enumType: MeetingType::class)]
+    private MeetingType $type = MeetingType::OTHER;
 
     #[ORM\Column(length: 120, nullable: true)]
     private ?string $label = null;
@@ -225,6 +228,18 @@ class Meeting
     public function setStatus(MeetingStatus $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getType(): ?MeetingType
+    {
+        return $this->type;
+    }
+
+    public function setType(MeetingType $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

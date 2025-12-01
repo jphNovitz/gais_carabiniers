@@ -166,9 +166,7 @@ final class MeetingController extends AbstractController
     #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]
     public function close(Meeting $meeting, MeetingCloser $meetingCloser): Response
     {
-
         $meetingCloser->close($meeting);
-
 
         $this->addFlash('success', 'meeting.close.success');
 

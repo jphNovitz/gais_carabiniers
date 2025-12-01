@@ -8,11 +8,45 @@
         <div class="mb-4 flex justify-between items-center">
             <h3 class="text-xl font-semibold text-content-primary-light dark:text-content-primary-dark">Séances</h3>
 
-            <form method="post" action="{{ path('admin_meeting_create') }}">
+           {# <form method="post" action="{{ path('admin_meeting_create') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token('meeting_create') }}">
                 <button class="px-4 py-2 bg-content-secondary text-white rounded-lg hover:bg-content-secondary/80">
                     <i class="fa fa-plus"></i> Démarrer une séance
                 </button>
+            </form>#}
+            <form method="post" action="{{ path('admin_meeting_create') }}" id="meetingForm">
+                <input type="hidden" name="_token" value="{{ csrf_token('meeting_create') }}">
+                <input type="hidden" name="meeting_type" id="meetingType" value="Tir du mois">
+
+                <div class="dropdown-container relative inline-block">
+                    <div class="flex rounded-lg overflow-hidden">
+                        <button type="submit" class="px-4 py-2 bg-content-secondary text-white hover:bg-content-secondary/80 flex items-center gap-2">
+                            {{ ux_icon('flowbite:plus-outline', {'class': 'w-6'}) }}
+                            <span id="buttonText">Tir du mois</span>
+                        </button>
+                        <button type="button" id="dropdownBtn" class="px-3 py-2 bg-content-secondary/90 text-white hover:bg-content-secondary/70 border-l border-white/20">
+                            {{ ux_icon('flowbite:angle-down-outline', {'class': 'w-6'}) }}
+                        </button>
+                    </div>
+
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-1 bg-white rounded-lg shadow-lg min-w-[200px] z-50">
+                        <button type="button" class="dropdown-item w-full p-2 bg-content-secondary text-white hover:bg-content-secondary/80"
+                                data-type="Tir du mois" data-label="Tir du mois">
+                            <i class="fa fa-calendar"></i>
+                            Tir du mois
+                        </button>
+                        <button type="button" class="dropdown-item w-full p-2 bg-content-secondary text-white hover:bg-content-secondary/80"
+                                data-type="Tir public" data-label="Tir public">
+                            <i class="fa fa-users"></i>
+                            Tir public <span class="ml-auto text-xs text-gray-500"></span>
+                        </button>
+                        <button type="button" class="dropdown-item w-full p-2 bg-content-secondary text-white hover:bg-content-secondary/80"
+                                data-type="Autre" data-label="Autre">
+                            <i class="fa fa-ellipsis-h"></i>
+                            Autre
+                        </button>
+                    </div>
+                </div>
             </form>
 
         </div>
@@ -120,4 +154,34 @@
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownBtn = document.getElementById('dropdownBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const meetingTypeInput = document.getElementById('meetingType');
+            const buttonText = document.getElementById('buttonText');
+
+            dropdownBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown-container')) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    meetingTypeInput.value = item.dataset.type;
+                    buttonText.textContent = item.dataset.label;
+                    dropdownMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
 {% endblock %}

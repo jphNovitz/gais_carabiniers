@@ -7,6 +7,7 @@ use App\Contract\MeetingParticipantAdderInterface;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Enum\MeetingStatus;
+use App\Enum\MeetingType;
 use App\Form\AddParticipantsType;
 use App\Repository\MeetingRepository;
 use App\Service\MeetingCloser;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 #[Route('/admin/meetings')]
 final class MeetingController extends AbstractController
@@ -34,9 +36,24 @@ final class MeetingController extends AbstractController
     }
 
     #[Route('/create', name: 'admin_meeting_create', methods: ['POST'])]
-    public function create(MeetingCreatorInterface $meetingCreator): Response
+    public function create(MeetingCreatorInterface $meetingCreator, Request $request): Response
     {
-        $meetingId = $meetingCreator->createMeeting();
+        $token = $request->request->get('_token');
+
+        if (!$this->isCsrfTokenValid('meeting_create', $token)) {
+            throw new InvalidCsrfTokenException();
+        }
+
+        $typeValue = $request->request->get('meeting_type', 'COMPETITION');
+
+        try {
+            $meetingType = MeetingType::from($typeValue);
+        } catch (\Error $e) {
+            $this->addFlash('error', 'Type de séance invalide');
+            return $this->redirectToRoute('admin_meeting_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $meetingId = $meetingCreator->createMeeting($meetingType);
 
         return $this->redirectToRoute(
             'admin_meeting_add_participant',

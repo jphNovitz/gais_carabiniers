@@ -2,7 +2,9 @@
 
 namespace App\Contract;
 
+use App\Enum\MeetingType;
+
 interface MeetingCreatorInterface
 {
-    public function createMeeting(): int;
+    public function createMeeting( MeetingType $type): int;
 }

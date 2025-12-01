@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Contract\MeetingCreatorInterface;
 use App\Entity\Meeting;
 use App\Enum\MeetingStatus;
+use App\Enum\MeetingType;
 use Doctrine\ORM\EntityManagerInterface;
 
 class MeetingCreator implements MeetingCreatorInterface
@@ -13,7 +14,7 @@ class MeetingCreator implements MeetingCreatorInterface
     {
     }
 
-    public function createMeeting(): int
+    public function createMeeting( MeetingType $type): int
     {
         $months = [
             '1' => 'janvier',
@@ -35,9 +36,21 @@ class MeetingCreator implements MeetingCreatorInterface
         $monthName = $months[(string)$monthNumber] ?? '';
 
         $meeting = new Meeting();
+        $meeting->setType($type);
         $meeting->setDate($now);
         $meeting->setStatus(MeetingStatus::DRAFT);
-        $meeting->setLabel('Tir du mois de ' . $months[(new \DateTime())->format('n')]);
+        switch ($type) {
+            case MeetingType::COMPETITION:
+                $meeting->setLabel('Tir du mois de ' . $monthName. ' ' . $now->format('Y'));
+                break;
+            case MeetingType::PUBLIC:
+                $meeting->setLabel('Tir public de ' . $monthName. ' ' . $now->format('Y'));
+                break;
+            case MeetingType::OTHER:
+                $meeting->setLabel('Séance du ' . $now->format('d/m/Y'));
+                break;
+        }
+//        $meeting->setLabel('Tir du mois de ' . $months[(new \DateTime())->format('n')]);
         $meeting->setDate(new \DateTimeImmutable());
         $meeting->setOpenedAt(new \DateTimeImmutable());
 

@@ -163,6 +163,25 @@ final class MeetingController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit', name: 'admin_meeting_edit', methods: ['GET', 'POST'])]
+    public function edit(Meeting $meeting, Request $request): Response
+    {
+        $basicForm = $this->createForm(\App\Form\MeetingLabelType::class, $meeting);
+        $basicForm->handleRequest($request);
+        if ($basicForm->isSubmitted() && $basicForm->isValid()) {
+            $this->meetingRepository->save($meeting, true);
+            $this->addFlash('success', 'meeting.edit.success');
+
+            return $this->redirectToRoute('admin_meeting_show', [
+                'id' => $meeting->getId()
+            ]);
+        }
+        return $this->render('admin/meeting/edit.html.twig', [
+            'meeting' => $meeting,
+            'basicForm' => $basicForm,
+        ]);
+    }
+
     #[Route('/{id}/close', name: 'admin_meeting_close', methods: ['POST'])]
     public function close(Meeting $meeting, MeetingCloser $meetingCloser): Response
     {

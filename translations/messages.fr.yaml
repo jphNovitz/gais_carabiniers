@@ -2,6 +2,8 @@ title:
   register: "Inscription"
   login: "Connexion"
   faq: "Foire aux questions"
+  meeting: "Séance de tir"
+  meeting.edit: "Modifier la séance de tir"
 button:
   submit: "valider"
   login: "Connexion"
@@ -34,6 +36,24 @@ form:
   agree: "J'accepte les Conditions"
   password: "Mot de passe"
   email: "Email"
+  meeting:
+    status:
+        draft: "Brouillon"
+        ready: "Prête"
+        in_progress: "En cours"
+        closed: "Terminée"
+        archived: "Archivée"
+    type:
+        public: "Tir Public"
+        competition: "Tir du Mois"
+        other: "Autre"
+    label:
+      label: "Libellé"
+      placeholder: "Séance du mois de ..."
+      type: "Type de séance"
+      status: "Statut de la séance"
+      date: "Date de la séance"
+
 
 club:
   about: "À propos du club"

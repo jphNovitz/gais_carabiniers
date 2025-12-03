@@ -31,10 +31,7 @@ final class MeetingController extends AbstractController
     #[Route('/meetings/{id}', name: 'meeting_show', methods: ['GET'])]
     public function show(Meeting $meeting): Response
     {
-//        $standing = $this->meetingRepository->findWithScores($id);
-//         $standing = $this->meetingSnapshotRepository->findBy(['meeting'=> $meeting]);
-         $standing = $this->meetingSnapshotRepository->findByMeetingId($meeting->getId());
-//         dd($standing);
+        $standing = $this->meetingSnapshotRepository->findByMeetingId($meeting->getId());
         return $this->render('meeting/show.html.twig', [
             'meeting' => $meeting,
             'standing' => $standing,

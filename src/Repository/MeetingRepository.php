@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Dto\MeetingStandingDto;
 use App\Dto\ParticipantStandingDto;
 use App\Entity\Meeting;
+use App\Enum\MeetingType;
 use App\Mapper\MeetingMapper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,7 +24,7 @@ class MeetingRepository extends ServiceEntityRepository
     public function findIndex(): array
     {
         $results = $this->createQueryBuilder('m')
-            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
+            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.type', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
             ->leftJoin('m.participants', 'mp')
             ->groupBy('m.id')
             ->orderBy('m.date', 'DESC')
@@ -36,7 +37,7 @@ class MeetingRepository extends ServiceEntityRepository
     public function findIndexGroupedByYear(): array
     {
         $results = $this->createQueryBuilder('m')
-            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
+            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.type', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
             ->leftJoin('m.participants', 'mp')
             ->groupBy('m.id')
             ->orderBy('m.date', 'DESC')
@@ -52,11 +53,35 @@ class MeetingRepository extends ServiceEntityRepository
         }
 
         krsort($grouped);
+        $sorted = [];
 
-        return $grouped;
+        foreach ($grouped as $year => $meetings) {
+            foreach ($meetings as $meeting) {
+                switch ($meeting->type) {
+                    case MeetingType::COMPETITION:
+                        $sorted[$year]['competition'][] = $meeting;
+                        break;
+                    case MeetingType::PUBLIC:
+                        $sorted[$year]['public'][] = $meeting;
+                        break;
+                    case MeetingType::OTHER:
+                        $sorted[$year]['other'][] = $meeting;
+                        break;
+                }
+            }
+        }
+
+        foreach ($sorted as &$year) {
+            ksort($year);
+        }
+        unset($year); // sécurité
+
+        return $sorted;
+
     }
 
-    public function findWithParticipants(int $id): ?Meeting
+    public
+    function findWithParticipants(int $id): ?Meeting
     {
         return $this->createQueryBuilder('m')
             ->leftJoin('m.participants', 'p')
@@ -70,7 +95,8 @@ class MeetingRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findWithScores($id): MeetingStandingDTO
+    public
+    function findWithScores($id): MeetingStandingDTO
     {
         $qb = $this->getScoresBuilder($id);
 
@@ -101,12 +127,14 @@ class MeetingRepository extends ServiceEntityRepository
 
     }
 
-    public function findSnapshot($id)
+    public
+    function findSnapshot($id)
     {
         return $this->getScoresBuilder($id)->getQuery()->getResult();
     }
 
-    public function save(Meeting $entity, bool $flush = false): void
+    public
+    function save(Meeting $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -143,7 +171,8 @@ class MeetingRepository extends ServiceEntityRepository
      * @param $id
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getScoresBuilder($id): \Doctrine\ORM\QueryBuilder
+    public
+    function getScoresBuilder($id): \Doctrine\ORM\QueryBuilder
     {
         $qb = $this->createQueryBuilder('m')
             ->leftJoin('m.rounds', 'r')

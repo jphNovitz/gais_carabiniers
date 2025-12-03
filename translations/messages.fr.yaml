@@ -148,6 +148,10 @@ meeting:
   score: "Score"
   points: "Points"
   details: "Détails de la réunion"
+  type:
+    competition: "Tir du Mois"
+    public: "Tir Public"
+    other: "Autre"
   status:
     header: "Statut"
     draft:

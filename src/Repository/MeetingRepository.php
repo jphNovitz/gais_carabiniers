@@ -34,7 +34,7 @@ class MeetingRepository extends ServiceEntityRepository
         return $this->mapper->toDtosFromArray($results);
     }
 
-    public function findIndexGroupedByYear(): array
+    /*public function findIndexGroupedByYear(): array
     {
         $results = $this->createQueryBuilder('m')
             ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.type', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
@@ -78,6 +78,21 @@ class MeetingRepository extends ServiceEntityRepository
 
         return $sorted;
 
+    }*/
+
+    // Repository
+    public function findRawDtos(int $limit = 500): array
+    {
+        $results = $this->createQueryBuilder('m')
+            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.type', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
+            ->leftJoin('m.participants', 'mp')
+            ->groupBy('m.id')
+            ->orderBy('m.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        // Juste la transformation en DTO, pas de logique métier
+        return $this->mapper->toDtosFromArray($results);
     }
 
     public

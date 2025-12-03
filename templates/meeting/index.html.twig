@@ -4,23 +4,22 @@
 
 
     <section class="max-w-6xl mx-auto p-8 space-y-12">
-        {% for year, grouped in meetingsByYear %}
+        {% for year, grouped in groupedMeetings %}
             <div>
                 <h2 class="text-2xl font-bold mb-6">{{ year }}</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {% for type, meetings in grouped %}
-                        <div>{{ 'meeting.type.public'|trans }}
-                            <h3 class="font-semibold text-xl mb-1">{{ ('meeting.type.'~type) |trans }}
-                            {% for meeting in meetings %}
-                            <div>
-                                <a href="{{ path('meeting_show', {'id': meeting.id}) }}"
-                                   class="block p-4 bg-surface-light dark:bg-surface-dark rounded-xl shadow hover:bg-base-300 transition">
-                                    <h4 class="font-semibold text-lg mb-1">{{ meeting.title }}</h4>
-                                    <p class="text-sm text-gray-600">{{ meeting.date|format_datetime('long', 'none') }}
-                                    <p class="text-sm mt-2">{{ meeting.participantCount }} participants</p>
-                                </a>
-                            </div>
-                            {% endfor %}
+                        <div>
+                            <h3 class="font-semibold text-xl mb-1">{{ ('meeting.type.'~type) |trans }} </h3>
+                                {% for meeting in meetings %}
+                                    <div class="block p-4 bg-surface-light dark:bg-surface-dark rounded-xl shadow hover:bg-base-300 transition">
+                                        <a href="{{ path('meeting_show', {'id': meeting.id}) }}"> {{ meeting.title }} </a>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <div class="text-sm">{{ meeting.date|format_datetime('long', 'none') }}</div>
+                                            <div class="text-sm">{{ meeting.participantCount }} participants</div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                         </div>
                     {% endfor %}
                 </div>

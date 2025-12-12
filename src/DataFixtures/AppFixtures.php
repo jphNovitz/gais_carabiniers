@@ -2,14 +2,30 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\ClubFactory;
+use App\DataFixtures\Story\DefaultStory;
+use Zenstruck\Foundry\Story;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use App\Factory\MemberFactory;
+use App\Factory\MeetingFactory;
+use App\Factory\MeetingParticipantFactory;
 
-class AppFixtures extends Fixture
+final class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-       ClubFactory::new()->create();
+//        DefaultStory::load();
+        MemberFactory::new()->createMany(10);
+        MeetingFactory::new()
+            ->create([
+                'participants' => MeetingParticipantFactory::new()
+                    ->many(5, function() {
+                        return [
+                            'shooter'  => MemberFactory::random(),
+                            'present'  => self::faker()->boolean(),
+                            'position' => self::faker()->unique()->numberBetween(1, 100),
+                        ];
+                    })
+            ]);
     }
 }

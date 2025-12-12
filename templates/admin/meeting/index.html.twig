@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des séances de tir{% endblock %}
+
+{% block body %}
+    <twig:Title:H1>Liste des séances de tir</twig:Title:H1>
+    <div class="container-fluid p-4">
+        <div class="mb-4 flex justify-between items-center">
+            <h3 class="text-xl font-semibold text-content-primary-light dark:text-content-primary-dark">Séances</h3>
+
+           {# <form method="post" action="{{ path('admin_meeting_create') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('meeting_create') }}">
+                <button class="px-4 py-2 bg-content-secondary text-white rounded-lg hover:bg-content-secondary/80">
+                    <i class="fa fa-plus"></i> Démarrer une séance
+                </button>
+            </form>#}
+            <form method="post" action="{{ path('admin_meeting_create') }}" id="meetingForm">
+                <input type="hidden" name="_token" value="{{ csrf_token('meeting_create') }}">
+                <input type="hidden" name="meeting_type" id="meetingType" value="Tir du mois">
+
+                <div class="dropdown-container relative inline-block">
+                    <div class="flex rounded-lg overflow-hidden">
+                        <button type="submit" class="px-4 py-2 bg-content-secondary text-white hover:bg-content-secondary/80 flex items-center gap-2">
+                            {{ ux_icon('flowbite:plus-outline', {'class': 'w-6'}) }}
+                            <span id="buttonText">Tir du mois</span>
+                        </button>
+                        <button type="button" id="dropdownBtn" class="px-3 py-2 bg-content-secondary/90 text-white hover:bg-content-secondary/70 border-l border-white/20">
+                            {{ ux_icon('flowbite:angle-down-outline', {'class': 'w-6'}) }}
+                        </button>
+                    </div>
+
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-1 bg-white rounded-lg shadow-lg min-w-[200px] z-50">
+                        <button type="button" class="dropdown-item w-full p-2 bg-content-secondary text-white hover:bg-content-secondary/80"
+                                data-type="Tir du mois" data-label="Tir du mois">
+                            <i class="fa fa-calendar"></i>
+                            Tir du mois
+                        </button>
+                        <button type="button" class="dropdown-item w-full p-2 bg-content-secondary text-white hover:bg-content-secondary/80"
+                                data-type="Tir public" data-label="Tir public">
+                            <i class="fa fa-users"></i>
+                            Tir public <span class="ml-auto text-xs text-gray-500"></span>
+                        </button>
+                        <button type="button" class="dropdown-item w-full p-2 bg-content-secondary text-white hover:bg-content-secondary/80"
+                                data-type="Autre" data-label="Autre">
+                            <i class="fa fa-ellipsis-h"></i>
+                            Autre
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="relative overflow-visible shadow-md sm:rounded-lg">
+            <table class="w-full  text-sm text-left">
+                <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.label' |trans }}
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.participants' | trans }}</th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.date' | trans }}
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.status.header' |trans }}
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.openAt' | trans }}
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.closeAt' | trans }}
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        {{ 'meeting.action.header' |trans }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in meetings %}
+                    <tr class="overflow-visible bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
+                            {{ item.label ?? ('Séance du ' ~ (item.date ? item.date|date('d/m/Y') : '')) }}
+                        </th>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.participantCount ?? 0 }}
+                        </td>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.date ? item.date|date('d/m/Y') : '' }}
+                        </td>
+                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                            {{ ('meeting.status.' ~ (item.status.value ?? '') ~ '.label') | trans }}
+
+                        </td>
+                        <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.openedAt ? item.openedAt|date('d/m/Y H:i') : '' }}
+                        </td>
+                        <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                            {{ item.closedAt ? item.closedAt|date('d/m/Y H:i') : '' }}
+                        </td>
+                        <td class="px-6 py-4 relative ">
+
+                            <div class="flex justify-start">
+                                <twig:Button:MeetingActions :id="item.id" :status="item.status" :loopIndex="loop.index" />
+                                {#{% set uid = item.id ?? loop.index %}
+                                <button id="dropdownActionsButton-{{ uid }}"
+                                        data-dropdown-toggle="dropdownActions-{{ uid }}" type="button"
+                                        class="inline-flex items-center rounded-lg bg-content-secondary px-3 py-2 text-sm font-medium text-white hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30">
+                                    <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="M12 5h.01M12 12h.01M12 19h.01"/>
+                                    </svg>
+                                    {{ 'meeting.action'|trans }}
+                                    <svg class="w-2.5 h-2.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdownActions-{{ uid }}"
+                                     class="absolute z-20 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700">
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownActionsButton-{{ uid }}">
+                                        <li>
+                                            <a href="{{ path('admin_meeting_show', {id: item.id}) }}"
+                                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Voir
+                                                la séance</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('admin_meeting_add_participant', {id: item.id}) }}"
+                                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ajouter
+                                                des participants</a>
+                                        </li>
+                                    </ul>
+                                </div>#}
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="bg-base-light dark:bg-base-dark">
+                        <td colspan="6"
+                            class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                            Aucune séance pour le moment.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            alert();
+            const dropdownBtn = document.getElementById('dropdownBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const meetingTypeInput = document.getElementById('meetingType');
+            const buttonText = document.getElementById('buttonText');
+
+            dropdownBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown-container')) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    meetingTypeInput.value = item.dataset.type;
+                    buttonText.textContent = item.dataset.label;
+                    dropdownMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+{% endblock %}

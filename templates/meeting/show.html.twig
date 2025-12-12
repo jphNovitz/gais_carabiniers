@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="min-h-screen p-2 md:p-6 lg:p-12">
+        <twig:Title:H1>{{ meeting.label }} : Classement</twig:Title:H1>
+        <p>{{ meeting.date|format_datetime('long', 'none') }}</p>
+        <p class="my-4"><a href="{{ path('meeting_index') }}" class="bg-transparent text-content-primary-light border border-content-primary-light focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 my-2.5 text-center dark:text-content-primary-dark dark:border-content-primary-dark ">liste</a></p>
+        <div class="py-12">
+            {% if standing is defined and standing|length > 0 %}
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                                {{ 'meeting.rank' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                                {{ 'meeting.participant' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                                {{ 'meeting.points' |trans }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for line in standing %}
+                            <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark even:bg-surface-light dark:even:bg-surface-dark/10 bg-opacity-10">
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ line.meetingPosition }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ line.shooterName }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ line.totalScore }} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-content-primary-light dark:text-content-primary-dark">Aucun participant n'a encore été
+                    ajouté.</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

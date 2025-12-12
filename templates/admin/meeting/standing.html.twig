@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ meeting.label }} - détails de la séance du {{ meeting.date|date('d/m/Y') }}{% endblock %}
+
+{% block body %}
+    <section class="container-fluid bg-surface-light dark:bg-surface-dark p-4">
+        <twig:Title:H1
+                class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
+                data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
+            {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
+        </twig:Title:H1>
+        <div class="w-full grid grid-cols-3 gap-8 mt-16 mb-8">
+            <div>
+                Date : {{ meeting.date ? meeting.date|date('d/m/Y') : '' }}
+            </div>
+            <div>
+                Ouverte le : {{ meeting.openedAt ? meeting.openedAt|date('d/m/Y') : '' }}
+            </div>
+            <div>
+                Fermée le : {{ meeting.closedAt ? meeting.closedAt|date('d/m/Y') : '' }}
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="text-lg font-semibold mb-4">
+                Classement {% if meeting.status.value == 'closed' %} final {% endif %}</h2>
+            {% if standing is defined and standing|length > 0 %}
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left border border-base-light dark:border-base-dark">
+                        <thead class="text-xs uppercase bg-base-light dark:bg-base-dark text-content-primary-light dark:text-content-primary-dark">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                {{ 'meeting.rank' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ 'meeting.participant' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ 'meeting.points' |trans }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in standing.participants %}
+                            <tr class="border-b last:border-0 border-content-primary-light/20 dark:border-content-primary-dark/20">
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ p.rank }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-content-primary-light dark:text-content-primary-dark font-semibold">
+                    Aucun participant n'a encore été ajouté.
+                </p>
+            {% endif %}
+        </div>
+        {% if meeting.status.value in ['ready', 'in_progress'] %}
+            <div class="my-12">
+                <div class="flex flex-col-reverse md:flex-row justify-between items-start  md:items-center flex-wrap gap-4">
+                    <!-- Retour à gauche -->
+                    <a class="flex items-center gap-2  hover:underline"
+                       href="{{ path('admin_meeting_index') }}">
+                        {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-5'}) }}
+                        <span>{{ 'button.back'|trans }}</span>
+                    </a>
+
+                    <!-- Actions à droite -->
+                    <div class="flex gap-3">
+                        {% if meeting.rounds|length >0 %}
+                        <form method="post" action="{{ path('admin_meeting_close', {'id': meeting.id}) }}"
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir clôturer cette séance ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('open' ~ meeting.id) }}">
+                            <twig:Button:Submit class="!bg-opacity-60 !hover:bg-opacity-80 !focus:ring-opacity-80">
+                                {{ 'button.meeting_close' | trans }}
+                            </twig:Button:Submit>
+                            {% else %}
+                                <twig:Button:Secondary>
+                                    {{ 'button.edit' |trans }}
+                                </twig:Button:Secondary>
+                            {% endif %}
+                        </form>
+                        <twig:Button:Primary href="{{ path('round_start', {'meeting': meeting.id}) }}">
+                            {% if meeting.rounds|length >0 %}
+                                {{ 'button.meeting_continue' | trans }}
+                            {% else %}
+                                {{ 'button.meeting_start' | trans }}
+                            {% endif %}
+                        </twig:Button:Primary>
+
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <div class="my-12">
+                <div class="flex flex-col-reverse md:flex-row justify-between items-start  md:items-center flex-wrap gap-4">
+                    <!-- Retour à gauche -->
+                    <a class="flex items-center gap-2  hover:underline"
+                       href="{{ path('admin_meeting_index') }}" data-turbo="false">
+                        {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-5'}) }}
+                        <span>{{ 'button.back_list'|trans }}</span>
+                    </a>
+
+                    <!-- Actions à droite -->
+                    <div class="flex gap-3">
+                        <span class="font-black">La séance est clôturée</span>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+
+    </section>
+{% endblock %}
+

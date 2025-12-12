@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter des participants{% endblock %}
+
+{% block body %}
+    <div class="container-fluid bg-surface-light dark:bg-surface-dark p-4">
+        <h3 class="text-xl font-semibold text-content-primary-light dark:text-content-primary-dark">
+                Ajouter des participants
+        </h3> 
+        <div class="shadow-md sm:rounded-lg p-6">
+            {{ form_errors(form) }}
+
+            {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 flow-cols p-8">
+                {% for shooter in form.shooters %}
+                    <div class="flex items-center space-x-2">
+                        {{ form_widget(shooter, {'attr': {'class': 'rounded'}}) }}
+                        {{ form_label(shooter, null, {'label_attr': {'class': 'hidden'}}) }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="my-12">
+                <div class="flex flex-col-reverse md:flex-row justify-between items-start  md:items-center flex-wrap gap-4">
+                    <!-- Retour à gauche -->
+                    <a class="flex items-center gap-2  hover:underline"
+                       href="{{ path('admin_meeting_index') }}">
+                        {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-5'}) }}
+                        <span>{{ 'button.back'|trans }}</span>
+                    </a>
+
+                    <!-- Actions à droite -->
+                    <div class="flex gap-3">
+                        <twig:Button:Submit> {{ 'button.add'|trans }} </twig:Button:Submit>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+

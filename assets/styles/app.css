@@ -45,3 +45,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    p {
+        @apply leading-relaxed mb-0;
+    }
+
+    p:not(:first-child) {
+        @apply mt-5;
+    }
+}

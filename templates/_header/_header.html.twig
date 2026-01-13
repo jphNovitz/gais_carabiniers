@@ -54,7 +54,21 @@
                             {% trans %}nav.agenda{% endtrans %}
                         </a>
                     </li>
+{#                    <li>#}
+{#                        <a>Competitions</a>#}
+{#                        <ul class="p-2">#}
+{#                            <li><a>Tirs</a></li>#}
+{#                            <li><a>Classements</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
 
+                    <li>
+                        <a href="{{ path('meeting_standing') }}"
+                           class="{{ baseClass }} {{ route == 'meeting_standing' ? activeClass : '' }}"
+                           aria-current="{{ route == 'meeting_standing' ? 'page' : 'false' }}">
+                            {% trans %}nav.standings{% endtrans %}
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ path('app_faq') }}"
                            class="{{ baseClass }} {{ route == 'app_faq' ? activeClass : '' }}"
@@ -71,12 +85,12 @@
                         </a>
                     </li>
 
-                    <li class="lg:ml-auto">
-                        <a href="{{ path('app_login') }}"
-                           class="{{ baseClass }} opacity-50 hover:opacity-100">
-                            Log in
-                        </a>
-                    </li>
+{#                    <li class="lg:ml-auto">#}
+{#                        <a href="{{ path('app_login') }}"#}
+{#                           class="{{ baseClass }} opacity-50 hover:opacity-100">#}
+{#                            Log in#}
+{#                        </a>#}
+{#                    </li>#}
                 </ul>
 
             </div>

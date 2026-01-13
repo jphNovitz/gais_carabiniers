@@ -30,3 +30,5 @@ yarn-error.log
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+/data/standings_2025.php

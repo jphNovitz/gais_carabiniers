@@ -29,6 +29,10 @@ nav:
   contact: "Contact"
   agenda: "Agenda"
   faq: "FAQ"
+  standings: "Classements"
+  members: "Membres"
+  club: "Club"
+  events: "Événements"
 form:
   firstname: "Prénom"
   lastname: "Nom"

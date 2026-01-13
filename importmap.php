@@ -69,4 +69,7 @@ return [
     'picocolors' => [
         'version' => '1.1.0',
     ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
 ];

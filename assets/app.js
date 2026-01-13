@@ -4,13 +4,11 @@
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
-// import 'flowbite';
 import * as Turbo from '@hotwired/turbo';
 import './bootstrap.js';
 import './styles/app.css';
 import { shouldPerformTransition, performTransition } from 'turbo-view-transitions';
 import { initFlowbite } from 'flowbite';
-// import 'flowbite';
 
 
 

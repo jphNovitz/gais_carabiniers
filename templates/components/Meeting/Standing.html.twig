@@ -9,64 +9,47 @@
         {% endfor %}
     </select>
 
-  {% if this.standings is not empty %}
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="table-auto w-full text-sm text-left rtl:text-right text-content-primary-light dark:text-content-primary-dark">
-            <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark text-content-primary-light dark:text-content-primary-dark bg-opacity-90">
-            <tr>
-                <th scope="col" class="px-3 py-3">#</th>
-                <th scope="col" class="px-3 py-3 whitespace-nowrap">Participant</th>
-                <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
-                    <span class="block md:hidden">Part.</span>
-                    <span class="hidden md:block">Participations</span>
-                </th>
-
-                <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
-                    <span class="block md:hidden">Plaq.</span>
-                    <span class="hidden md:block">Plaquettes</span>
-                </th>
-        </thead>
-        <tbody>
-          {% for row in this.standings %}
-            <tr class="bg-surface-light border-b border-base-light dark:bg-surface-dark dark:border-base-dark hover:bg-base-light dark:hover:bg-base-dark">
-              <td class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">{{ loop.index }}</td>
-              <td class="px-6 py-4">{{ row.participant }}
-                  {% if row.usesSupport %}
-                      <span class="text-xs">*</span>
-                  {% endif %}
-              </td>
-{#              <td class="px-6 py-4">{{ row.club }}</td>#}
-              <td class="px-6 py-4 text-right font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.meetingCount }}</td>
-              <td class="px-6 py-4 text-right font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.totalScore }}</td>
-            </tr>
-            </thead>
-            <tbody>
-            {% for row in this.standings %}
-                <tr class="bg-surface-light border-b border-base-light dark:bg-surface-dark dark:border-base-dark hover:bg-base-light dark:hover:bg-base-dark">
-                    <td class="px-3 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">{{ loop.index }}</td>
-                    <td class="px-3 py-4 whitespace-nowrap">
-                        {{ row.participant.firstName }} {{ row.participant.lastName|first }}.
-                        {% if row.usesSupport %}
-                            <span class="text-xs">*</span>
-                        {% endif %}
-                    </td>
-                    <td class="px-3 py-4 text-center font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.meetingCount }}</td>
-                    <td class="px-3 py-4 text-center font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.totalScore }}</td>
+    {% if this.standings is not empty %}
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="table-auto w-full text-sm text-left rtl:text-right text-content-primary-light dark:text-content-primary-dark">
+                <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark text-content-primary-light dark:text-content-primary-dark bg-opacity-90">
+                <tr>
+                    <th scope="col" class="px-3 py-3">#</th>
+                    <th scope="col" class="px-3 py-3 whitespace-nowrap">Participant</th>
+                    <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
+                        <span class="block md:hidden">Part.</span>
+                        <span class="hidden md:block">Participations</span>
+                    </th>
+                    <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
+                        <span class="block md:hidden">Plaq.</span>
+                        <span class="hidden md:block">Plaquettes</span>
+                    </th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <p class="mt-2 text-xs text-content-secondary-light dark:text-content-secondary-dark">
-            <p class="md:hidden">Plaq. : nombre de plaquettes abattues <br />Part. : nombre de participation</p>
-            * Tir réalisé avec appui
-
-        </p>
-    </div>
-  {% else %}
-    <div class="p-4 text-sm text-content-primary-light bg-surface-light border border-surface-light rounded-lg dark:bg-surface-dark dark:text-content-primary-dark dark:border-surface-dark">
-      Aucun classement disponible pour le moment.
-    </div>
-  {% endif %}
+                </thead>
+                <tbody>
+                {% for row in this.standings %}
+                    <tr class="bg-surface-light border-b border-base-light dark:bg-surface-dark dark:border-base-dark hover:bg-base-light dark:hover:bg-base-dark">
+                        <td class="px-3 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">{{ loop.index }}</td>
+                        <td class="px-3 py-4 whitespace-nowrap">
+                            {{ row.participant.firstName }} {{ row.participant.lastName|first }}.
+                            {% if row.usesSupport %}
+                                <span class="text-xs">*</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-3 py-4 text-center font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.meetingCount }}</td>
+                        <td class="px-3 py-4 text-center font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.totalScore }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="mt-2 text-xs text-content-secondary-light dark:text-content-secondary-dark">
+                <p class="md:hidden">Plaq. : nombre de plaquettes abattues<br>Part. : nombre de participations</p>
+                <p>* Tir réalisé avec appui</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="p-4 text-sm text-content-primary-light bg-surface-light border border-surface-light rounded-lg dark:bg-surface-dark dark:text-content-primary-dark dark:border-surface-dark">
+            Aucun classement disponible pour le moment.
+        </div>
+    {% endif %}
 </div>
-

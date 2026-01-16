@@ -23,9 +23,20 @@ class MeetingCloser implements MeetingCloserInterface
     {
         if ($meeting->getType() === MeetingType::COMPETITION) {
             $standings = $this->meetingRepository->findSnapshot($meeting->getId());
-            foreach ($standings as $index => $standing) {
+
+            $lastScore = null;
+            $position = 0;
+            foreach ($standings as $standing) {
+                $score = (int) $standing['totalScore'];
+
+                if ($lastScore === null || $score !== $lastScore) {
+                    $position++;
+                    $lastScore = $score;
+                }
+
+
                 $snapshot = new MeetingSnapshot();
-                $snapshot->setMeetingPosition($index + 1);
+                $snapshot->setMeetingPosition($position);
                 $snapshot->setMeeting($meeting);
                 $participant = $meeting->getParticipants()->filter(function ($participant) use ($standing) {
                     return $participant->getId() === $standing['participantId'];

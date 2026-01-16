@@ -24,9 +24,16 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {% set prevPosition = null %}
                         {% for line in standing %}
                             <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark even:bg-surface-light dark:even:bg-surface-dark/10 bg-opacity-10">
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ line.meetingPosition }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
+                                    {% if line.meetingPosition != prevPosition %}
+                                        {{ line.meetingPosition }}
+                                    {% endif %}
+                                    {% set prevPosition = line.meetingPosition  %}
+
+                                </td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ line.shooterName }}</td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ line.totalScore }} </td>
                             </tr>

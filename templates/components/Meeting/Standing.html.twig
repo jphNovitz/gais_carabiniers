@@ -22,17 +22,24 @@
                     </th>
                     <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
                         <span class="block md:hidden">Plaq.</span>
-                        <span class="hidden md:block">Plaquettes</span>
+                        <span class="hidden md:block"> {{ 'meeting.points' |trans }}</span>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
+                {% set prevMeetingPosition = null %}
                 {% for row in this.standings %}
                     <tr class="bg-surface-light border-b border-base-light dark:bg-surface-dark dark:border-base-dark hover:bg-base-light dark:hover:bg-base-dark">
-                        <td class="px-3 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">{{ loop.index }}</td>
+                        <td class="px-3 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
+                            {% if row.meetingPosition != prevMeetingPosition %}
+                                {{ row.meetingPosition }}
+                            {% endif %}
+                            {% set prevMeetingPosition = row.meetingPosition %}
+                        </td>
                         <td class="px-3 py-4 whitespace-nowrap">
-                            {{ row.participant.firstName }} {{ row.participant.lastName|first }}.
-                            {% if row.usesSupport %}
+
+                            {{ row.firstName }} {{ row.lastName|first }}.
+                            {% if row.usesSupport is defined and row.usesSupport %}
                                 <span class="text-xs">*</span>
                             {% endif %}
                         </td>

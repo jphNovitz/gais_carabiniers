@@ -41,9 +41,15 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {% set prevRank = null %}
                         {% for p in standing.participants %}
                             <tr class="border-b last:border-0 border-content-primary-light/20 dark:border-content-primary-dark/20">
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">{{ p.rank }}</td>
+                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
+                                    {% if p.rank != prevRank %}
+                                        {{ p.rank }}
+                                    {% endif %}
+                                    {% set prevRank = p.rank %}
+                                </td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
                             </tr>

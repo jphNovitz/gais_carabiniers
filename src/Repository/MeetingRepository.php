@@ -110,16 +110,23 @@ class MeetingRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public
-    function findWithScores($id): MeetingStandingDTO
+    public function findWithScores($id): MeetingStandingDTO
     {
         $qb = $this->getScoresBuilder($id);
 
         $results = $qb->getQuery()->getResult();
 
         $participants = [];
-        $rank = 1;
+        $lastScore = null;
+        $rank = 0;
+
         foreach ($results as $row) {
+            $score = (int) $row['totalScore'];
+            if ($lastScore === null || $score !== $lastScore) {
+                $rank++;
+                $lastScore = $score;
+            }
+
             $participants[] = new ParticipantStandingDTO(
                 participantId: $row['participantId'],
                 shooterId: $row['shooterId'],
@@ -128,7 +135,7 @@ class MeetingRepository extends ServiceEntityRepository
                 position: $row['position'],
                 totalScore: $row['totalScore'],
                 roundsPlayed: $row['roundsPlayed'],
-                rank: $rank++
+                rank: $rank
             );
         }
 
@@ -142,8 +149,7 @@ class MeetingRepository extends ServiceEntityRepository
 
     }
 
-    public
-    function findSnapshot($id)
+    public function findSnapshot($id)
     {
         return $this->getScoresBuilder($id)->getQuery()->getResult();
     }
@@ -186,8 +192,7 @@ class MeetingRepository extends ServiceEntityRepository
      * @param $id
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public
-    function getScoresBuilder($id): \Doctrine\ORM\QueryBuilder
+    public function getScoresBuilder($id): \Doctrine\ORM\QueryBuilder
     {
         $qb = $this->createQueryBuilder('m')
             ->leftJoin('m.rounds', 'r')
@@ -213,7 +218,9 @@ class MeetingRepository extends ServiceEntityRepository
             ->where('m.id = :id')
             ->setParameter('id', $id)
             ->groupBy('mp.id, participant.id, m.id')
-            ->orderBy('totalScore', 'DESC');
+            ->orderBy('totalScore', 'DESC')
+            ->addOrderBy('participant.lastName', 'ASC')
+            ->addOrderBy('participant.firstName', 'ASC');
         return $qb;
     }
 }

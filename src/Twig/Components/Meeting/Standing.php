@@ -14,6 +14,8 @@ final class Standing
 {
     use DefaultActionTrait;
     public array $availableYears = [];
+
+    #[LiveProp(writable: true)]
     public string $year;
 
     public function __construct(
@@ -24,9 +26,10 @@ final class Standing
     {
         $this->availableYears = $this->snapshotRepository->findAvailableYears();
 
+
         if (!in_array(2025, $this->availableYears, true)) {
             $this->availableYears[] = 2025;
-            sort($this->availableYears);
+            rsort($this->availableYears);
         }
 
         $this->year = $this->availableYears[0] ?? date('Y');
@@ -38,13 +41,13 @@ final class Standing
         if ((int)$this->year === 2025) {
             $data = $this->getStaticStandings2025();
 
-            // ✅ Debug ici pour voir ce qui est retourné
             if (empty($data)) {
                 throw new \Exception('getStaticStandings2025() retourne un tableau vide !');
             }
 
             return $data;
         }
+//        dd($this->snapshotRepository->findSeasonStandings((int)$this->year));
         return $this->snapshotRepository->findSeasonStandings((int)$this->year);
     }
 

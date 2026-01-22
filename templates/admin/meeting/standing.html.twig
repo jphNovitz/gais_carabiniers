@@ -35,23 +35,37 @@
                             <th scope="col" class="px-6 py-3">
                                 {{ 'meeting.participant' |trans }}
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 {{ 'meeting.points' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
+                                {{ 'meeting.progress' |trans }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
+                                {{ 'meeting.avgHits_min' |trans }}
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% set prevRank = null %}
+                        {% set prev = null %}
                         {% for p in standing.participants %}
                             <tr class="border-b last:border-0 border-content-primary-light/20 dark:border-content-primary-dark/20">
                                 <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
-                                    {% if p.rank != prevRank %}
+                                    {% if p.rank != prev %}
                                         {{ p.rank }}
                                     {% endif %}
-                                    {% set prevRank = p.rank %}
+                                    {% set prev = p.rank %}
                                 </td>
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
+                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
+                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
+                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                                    {% if p.previousRank is defined %}
+                                    {{ previousRank - rank }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">  {{ p.averageHits ?? 'N/A' }} </td>
                             </tr>
                         {% endfor %}
                         </tbody>

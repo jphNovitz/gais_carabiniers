@@ -145,6 +145,7 @@ final class MeetingController extends AbstractController
     public function show($id): Response
     {
         $meeting = $this->meetingRepository->findWithParticipants($id);
+
         if (
             ($meeting->getStatus() === MeetingStatus::DRAFT) ||
                  ($meeting->getStatus() === MeetingStatus::READY)
@@ -156,7 +157,6 @@ final class MeetingController extends AbstractController
 
         // Séance en cours ou terminée
         $standingDto = $this->meetingRepository->findWithScores($id);
-
         return $this->render('admin/meeting/standing.html.twig', [
             'meeting' => $meeting,
             'standing' => $standingDto

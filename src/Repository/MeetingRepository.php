@@ -115,7 +115,6 @@ class MeetingRepository extends ServiceEntityRepository
         $qb = $this->getScoresBuilder($id);
 
         $results = $qb->getQuery()->getResult();
-
         $participants = [];
         $lastScore = null;
         $rank = 0;
@@ -126,6 +125,7 @@ class MeetingRepository extends ServiceEntityRepository
                 $rank++;
                 $lastScore = $score;
             }
+            ;
 
             $participants[] = new ParticipantStandingDTO(
                 participantId: $row['participantId'],
@@ -134,8 +134,8 @@ class MeetingRepository extends ServiceEntityRepository
                 lastName: $row['lastName'],
                 position: $row['position'],
                 totalScore: $row['totalScore'],
-                roundsPlayed: $row['roundsPlayed'],
-                rank: $rank
+                rank: $rank,
+                roundsPlayed: $row['roundsPlayed']
             );
         }
 
@@ -154,8 +154,7 @@ class MeetingRepository extends ServiceEntityRepository
         return $this->getScoresBuilder($id)->getQuery()->getResult();
     }
 
-    public
-    function save(Meeting $entity, bool $flush = false): void
+    public function save(Meeting $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

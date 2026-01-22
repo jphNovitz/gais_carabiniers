@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MeetingSnapshotRepository::class)]
 #[ORM\Table(name: 'meeting_snapshot')]
 #[ORM\UniqueConstraint(name: 'uniq_meeting_shooter', columns: ['meeting_id', 'participant_id'])]
-#[ORM\Index(columns: ['year', 'points'], name: 'idx_points')]
-#[ORM\Index(columns: ['meeting_id', 'meeting_position'], name: 'idx_meeting_meeting_position')]
+#[ORM\Index(columns: ['year', 'meeting_position'], name: 'idx_year_position')]
+#[ORM\Index(columns: ['year', 'total_score'], name: 'idx_year_score')]
+#[ORM\Index(columns: ['participant_id', 'year'], name: 'idx_participant_year')]
 class MeetingSnapshot
 {
     #[ORM\Id]
@@ -29,10 +30,15 @@ class MeetingSnapshot
     // Données de classement
     #[ORM\Column(type: 'integer')]
     private int $meetingPosition = 0;
+    #[ORM\Column(type: 'integer')]
+    private int $meetingPrevPosition = 0;
 
-    #[ORM\Column(type: 'float', nullable: true)]
-    private float $points = 0.0;
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+    private int $meetingCount = 0;
 
+
+    #[ORM\Column(type: 'decimal', precision: 6, scale: 2)]
+    private ?float $averageHits = null;
     #[ORM\Column(type: 'float')]
     private float $totalScore;
 
@@ -72,18 +78,6 @@ class MeetingSnapshot
     public function setMeeting(Meeting $meeting): self
     {
         $this->meeting = $meeting;
-        return $this;
-    }
-
-
-    public function getPoints(): float
-    {
-        return $this->points;
-    }
-
-    public function setPoints(float $points): self
-    {
-        $this->points = $points;
         return $this;
     }
 
@@ -176,6 +170,45 @@ class MeetingSnapshot
     public function setParticipant(?Member $participant): static
     {
         $this->participant = $participant;
+
+        return $this;
+    }
+
+    public function getAverageHits(): ?float
+    {
+        return $this->averageHits;
+    }
+
+    public function setAverageHits(?float $averageHits): static
+    {
+        $this->averageHits = $averageHits;
+
+        return $this;
+    }
+
+    public function getMeetingCount(): ?int
+    {
+        return $this->meetingCount;
+    }
+
+    public function setMeetingCount(int $meetingCount): static
+    {
+        $this->meetingCount = $meetingCount;
+
+        return $this;
+    }
+
+    public function getMeetingPrevPosition(): ?int
+    {
+        return $this->meetingPrevPosition;
+    }
+
+    public function setMeetingPrevPosition(?int $meetingPrevPosition): static
+    {
+        if ($meetingPrevPosition === null) {
+            $meetingPrevPosition = 0;
+        } else
+            $this->meetingPrevPosition = $meetingPrevPosition;
 
         return $this;
     }

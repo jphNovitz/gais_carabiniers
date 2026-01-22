@@ -15,6 +15,7 @@
                 <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark text-content-primary-light dark:text-content-primary-dark bg-opacity-90">
                 <tr>
                     <th scope="col" class="px-3 py-3">#</th>
+                    <th scope="col" class="px-3 py-3"> </th>
                     <th scope="col" class="px-3 py-3 whitespace-nowrap">Participant</th>
                     <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
                         <span class="block md:hidden">Part.</span>
@@ -24,6 +25,10 @@
                         <span class="block md:hidden">Plaq.</span>
                         <span class="hidden md:block"> {{ 'meeting.points' |trans }}</span>
                     </th>
+                    <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
+                        <span class="block md:hidden"> {{ 'meeting.avgHits_min' |trans }} </span>
+                        <span class="hidden md:block"> {{ 'meeting.avgHits' |trans }} </span>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,10 +36,23 @@
                 {% for row in this.standings %}
                     <tr class="bg-surface-light border-b border-base-light dark:bg-surface-dark dark:border-base-dark hover:bg-base-light dark:hover:bg-base-dark">
                         <td class="px-3 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
-                            {% if row.meetingPosition != prevMeetingPosition %}
-                                {{ row.meetingPosition }}
+                            {% if row.rank != prevMeetingPosition %}
+                                {{ row.rank }}
                             {% endif %}
-                            {% set prevMeetingPosition = row.meetingPosition %}
+                            {% set prevMeetingPosition = row.rank %}
+                        </td>
+                        <td class="p-3">
+                            {% set change = row.previousRank is not null and row.previousRank > 0 ? row.previousRank - row.rank : null %}
+
+                            {% if change is null %}
+                                <span class="">-</span>
+                            {% elseif change > 0 %}
+                                <span class="text-green-900 fw-bold">↗ +{{ change }}</span>
+                            {% elseif change < 0 %}
+                                <span class="text-red-900 fw-bold">↘ {{ change }}</span>
+                            {% else %}
+                                <span class="text-muted">→ =</span>
+                            {% endif %}
                         </td>
                         <td class="px-3 py-4 whitespace-nowrap">
 
@@ -43,8 +61,9 @@
                                 <span class="text-xs">*</span>
                             {% endif %}
                         </td>
-                        <td class="px-3 py-4 text-center font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.meetingCount }}</td>
-                        <td class="px-3 py-4 text-center font-semibold text-content-primary-light dark:text-content-primary-dark">{{ row.totalScore }}</td>
+                        <td class="px-3 py-4 text-center text-content-primary-light dark:text-content-primary-dark">{{ row.meetingCount }}</td>
+                        <td class="px-3 py-4 text-center text-content-primary-light dark:text-content-primary-dark">{{ row.totalScore }}</td>
+                        <td class="px-3 py-4 text-center text-content-primary-light dark:text-content-primary-dark">{{ row.averageHits }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

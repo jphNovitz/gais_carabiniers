@@ -44,7 +44,6 @@ final class Standing
             if (empty($data)) {
                 throw new \Exception('getStaticStandings2025() retourne un tableau vide !');
             }
-
             return $data;
         }
 //        dd($this->snapshotRepository->findSeasonStandings((int)$this->year));

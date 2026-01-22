@@ -12,6 +12,7 @@ class ParticipantStandingDto
         public readonly int $position,
         public readonly int $totalScore,
         public readonly int $roundsPlayed,
-        public readonly int $rank  // Position dans le classement
+        public readonly int $rank, // Position dans le classement
+
     ) {}
 }

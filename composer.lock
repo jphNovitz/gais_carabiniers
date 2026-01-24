@@ -179,16 +179,16 @@
         },
         {
             "name": "doctrine/collections",
-            "version": "2.4.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "9acfeea2e8666536edff3d77c531261c63680160"
+                "reference": "7713da39d8e237f28411d6a616a3dce5e20d5de2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/9acfeea2e8666536edff3d77c531261c63680160",
-                "reference": "9acfeea2e8666536edff3d77c531261c63680160",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/7713da39d8e237f28411d6a616a3dce5e20d5de2",
+                "reference": "7713da39d8e237f28411d6a616a3dce5e20d5de2",
                 "shasum": ""
             },
             "require": {
@@ -245,7 +245,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/2.4.0"
+                "source": "https://github.com/doctrine/collections/tree/2.6.0"
             },
             "funding": [
                 {
@@ -261,7 +261,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-10-25T09:18:13+00:00"
+            "time": "2026-01-15T10:01:58+00:00"
         },
         {
             "name": "doctrine/common",
@@ -724,16 +724,16 @@
         },
         {
             "name": "doctrine/event-manager",
-            "version": "2.0.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/event-manager.git",
-                "reference": "b680156fa328f1dfd874fd48c7026c41570b9c6e"
+                "reference": "c07799fcf5ad362050960a0fd068dded40b1e312"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/event-manager/zipball/b680156fa328f1dfd874fd48c7026c41570b9c6e",
-                "reference": "b680156fa328f1dfd874fd48c7026c41570b9c6e",
+                "url": "https://api.github.com/repos/doctrine/event-manager/zipball/c07799fcf5ad362050960a0fd068dded40b1e312",
+                "reference": "c07799fcf5ad362050960a0fd068dded40b1e312",
                 "shasum": ""
             },
             "require": {
@@ -743,10 +743,10 @@
                 "doctrine/common": "<2.9"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^12",
-                "phpstan/phpstan": "^1.8.8",
-                "phpunit/phpunit": "^10.5",
-                "vimeo/psalm": "^5.24"
+                "doctrine/coding-standard": "^14",
+                "phpdocumentor/guides-cli": "^1.4",
+                "phpstan/phpstan": "^2.1.32",
+                "phpunit/phpunit": "^10.5.58"
             },
             "type": "library",
             "autoload": {
@@ -795,7 +795,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/event-manager/issues",
-                "source": "https://github.com/doctrine/event-manager/tree/2.0.1"
+                "source": "https://github.com/doctrine/event-manager/tree/2.1.0"
             },
             "funding": [
                 {
@@ -811,7 +811,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-22T20:47:39+00:00"
+            "time": "2026-01-17T22:40:21+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -2501,16 +2501,16 @@
         },
         {
             "name": "stof/doctrine-extensions-bundle",
-            "version": "v1.15.2",
+            "version": "v1.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
-                "reference": "4f7b4b4230b1c872e77fdca90f02905da7e050f5"
+                "reference": "0f464d3e298ba97bcad219727ca1ee09ec8b30ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/4f7b4b4230b1c872e77fdca90f02905da7e050f5",
-                "reference": "4f7b4b4230b1c872e77fdca90f02905da7e050f5",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/0f464d3e298ba97bcad219727ca1ee09ec8b30ea",
+                "reference": "0f464d3e298ba97bcad219727ca1ee09ec8b30ea",
                 "shasum": ""
             },
             "require": {
@@ -2577,9 +2577,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stof/StofDoctrineExtensionsBundle/issues",
-                "source": "https://github.com/stof/StofDoctrineExtensionsBundle/tree/v1.15.2"
+                "source": "https://github.com/stof/StofDoctrineExtensionsBundle/tree/v1.15.3"
             },
-            "time": "2025-12-18T17:03:44+00:00"
+            "time": "2026-01-23T08:45:07+00:00"
         },
         {
             "name": "symfony/asset",
@@ -8989,16 +8989,16 @@
         },
         {
             "name": "twig/extra-bundle",
-            "version": "v3.22.2",
+            "version": "v3.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/twig-extra-bundle.git",
-                "reference": "09de9be7f6c0d19ede7b5a1dbfcfb2e9d1e0ea9e"
+                "reference": "7a27e784dc56eddfef5e9295829b290ce06f1682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/09de9be7f6c0d19ede7b5a1dbfcfb2e9d1e0ea9e",
-                "reference": "09de9be7f6c0d19ede7b5a1dbfcfb2e9d1e0ea9e",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/7a27e784dc56eddfef5e9295829b290ce06f1682",
+                "reference": "7a27e784dc56eddfef5e9295829b290ce06f1682",
                 "shasum": ""
             },
             "require": {
@@ -9047,7 +9047,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.22.2"
+                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.23.0"
             },
             "funding": [
                 {
@@ -9059,20 +9059,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-05T08:51:53+00:00"
+            "time": "2025-12-18T20:46:15+00:00"
         },
         {
             "name": "twig/intl-extra",
-            "version": "v3.22.1",
+            "version": "v3.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/intl-extra.git",
-                "reference": "93ac31e53cdd3f2e541f42690cd0c54ca8138ab1"
+                "reference": "32f15a38d45a8d0ec11bc8a3d97d3ac2a261499f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/93ac31e53cdd3f2e541f42690cd0c54ca8138ab1",
-                "reference": "93ac31e53cdd3f2e541f42690cd0c54ca8138ab1",
+                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/32f15a38d45a8d0ec11bc8a3d97d3ac2a261499f",
+                "reference": "32f15a38d45a8d0ec11bc8a3d97d3ac2a261499f",
                 "shasum": ""
             },
             "require": {
@@ -9111,7 +9111,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/intl-extra/tree/v3.22.1"
+                "source": "https://github.com/twigphp/intl-extra/tree/v3.23.0"
             },
             "funding": [
                 {
@@ -9123,20 +9123,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-02T11:00:49+00:00"
+            "time": "2026-01-17T13:57:47+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v3.22.2",
+            "version": "v3.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "946ddeafa3c9f4ce279d1f34051af041db0e16f2"
+                "reference": "a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/946ddeafa3c9f4ce279d1f34051af041db0e16f2",
-                "reference": "946ddeafa3c9f4ce279d1f34051af041db0e16f2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9",
+                "reference": "a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9",
                 "shasum": ""
             },
             "require": {
@@ -9190,7 +9190,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.22.2"
+                "source": "https://github.com/twigphp/Twig/tree/v3.23.0"
             },
             "funding": [
                 {
@@ -9202,7 +9202,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-14T11:28:47+00:00"
+            "time": "2026-01-23T21:00:41+00:00"
         },
         {
             "name": "vich/uploader-bundle",
@@ -9314,16 +9314,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.0.0",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "1b34b004e35a164bc5bb6ebd33c844b2d8069a54"
+                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/1b34b004e35a164bc5bb6ebd33c844b2d8069a54",
-                "reference": "1b34b004e35a164bc5bb6ebd33c844b2d8069a54",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
+                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
                 "shasum": ""
             },
             "require": {
@@ -9370,9 +9370,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.0.0"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.2"
             },
-            "time": "2025-12-16T21:36:00+00:00"
+            "time": "2026-01-13T14:02:24+00:00"
         }
     ],
     "packages-dev": [
@@ -11823,6 +11823,86 @@
             "time": "2025-12-09T15:33:45+00:00"
         },
         {
+            "name": "symfony/polyfill-php85",
+            "version": "v1.33.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php85.git",
+                "reference": "d4e5fcd4ab3d998ab16c0db48e6cbb9a01993f91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php85/zipball/d4e5fcd4ab3d998ab16c0db48e6cbb9a01993f91",
+                "reference": "d4e5fcd4ab3d998ab16c0db48e6cbb9a01993f91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php85\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.5+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php85/tree/v1.33.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-06-23T16:12:55+00:00"
+        },
+        {
             "name": "symfony/web-profiler-bundle",
             "version": "v7.3.9",
             "source": {
@@ -12026,23 +12106,24 @@
         },
         {
             "name": "zenstruck/foundry",
-            "version": "v2.8.4",
+            "version": "v2.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zenstruck/foundry.git",
-                "reference": "f76b711ec83a4c7a1ff2bd7d3abc4a6ed8f2e44e"
+                "reference": "6b2c338241148ad1e8ee980b38d40703514cd685"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zenstruck/foundry/zipball/f76b711ec83a4c7a1ff2bd7d3abc4a6ed8f2e44e",
-                "reference": "f76b711ec83a4c7a1ff2bd7d3abc4a6ed8f2e44e",
+                "url": "https://api.github.com/repos/zenstruck/foundry/zipball/6b2c338241148ad1e8ee980b38d40703514cd685",
+                "reference": "6b2c338241148ad1e8ee980b38d40703514cd685",
                 "shasum": ""
             },
             "require": {
-                "fakerphp/faker": "^1.23",
+                "fakerphp/faker": "^1.24",
                 "php": ">=8.1",
                 "symfony/deprecation-contracts": "^2.2|^3.0",
                 "symfony/polyfill-php84": "^1.32",
+                "symfony/polyfill-php85": "^1.33",
                 "symfony/property-access": "^6.4|^7.0|^8.0",
                 "symfony/property-info": "^6.4|^7.0|^8.0",
                 "symfony/var-exporter": "^6.4.9|~7.0.9|^7.1.2|^8.0",
@@ -12068,6 +12149,7 @@
                 "symfony/console": "^6.4|^7.0|^8.0",
                 "symfony/dotenv": "^6.4|^7.0|^8.0",
                 "symfony/event-dispatcher": "^6.4|^7.0|^8.0",
+                "symfony/flex": "^2.10",
                 "symfony/framework-bundle": "^6.4|^7.0|^8.0",
                 "symfony/maker-bundle": "^1.55",
                 "symfony/phpunit-bridge": "^6.4.26|^7.0|^8.0",
@@ -12083,6 +12165,9 @@
             "extra": {
                 "psalm": {
                     "pluginClass": "Zenstruck\\Foundry\\Psalm\\FoundryPlugin"
+                },
+                "symfony": {
+                    "allow-contrib": false
                 },
                 "bamarni-bin": {
                     "bin-links": true,
@@ -12129,7 +12214,7 @@
             ],
             "support": {
                 "issues": "https://github.com/zenstruck/foundry/issues",
-                "source": "https://github.com/zenstruck/foundry/tree/v2.8.4"
+                "source": "https://github.com/zenstruck/foundry/tree/v2.8.6"
             },
             "funding": [
                 {
@@ -12141,7 +12226,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-23T14:33:33+00:00"
+            "time": "2026-01-20T19:53:12+00:00"
         }
     ],
     "aliases": [],

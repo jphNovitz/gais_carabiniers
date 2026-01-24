@@ -57,7 +57,6 @@ final class Standing
         if (!is_file($path)) {
             return [];
         }
-
         $data = require $path;
         return is_array($data) ? $data : [];
     }

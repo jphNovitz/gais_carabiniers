@@ -16,7 +16,7 @@ final class Standing
     public array $availableYears = [];
 
     #[LiveProp(writable: true)]
-    public string $year;
+    public string $year = '';
 
     public function __construct(
         private MeetingSnapshotRepository $snapshotRepository,

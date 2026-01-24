@@ -6,13 +6,20 @@ export default class extends Controller {
     connect() {
         console.log('Targets controller connected');
     }
-    toggle(event) {
+
+    toggleLeft(event) {
         const index = event.currentTarget.dataset.index;
         const checkbox = event.currentTarget;
-        const targetL = this.leftTargetTargets[index];
-        const targetR = this.rightTargetTargets[index];
-        targetL.disabled = !checkbox.checked;
-        targetR.disabled = !checkbox.checked;
+        const target = this.leftTargetTargets[index];
+
+        target.disabled = !checkbox.checked;
     }
 
+    toggleRight(event) {
+        const index = event.currentTarget.dataset.index;
+        const checkbox = event.currentTarget;
+        const target = this.rightTargetTargets[index];
+
+        target.disabled = !checkbox.checked;
+    }
 }

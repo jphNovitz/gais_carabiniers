@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\TopicRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-#[ORM\Entity(repositoryClass: TopicRepository::class)]
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Category
 {
@@ -49,18 +49,18 @@ class Category
     #[Gedmo\Slug(fields: ['slugTitle'])]
     private ?string $slug = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'childrenTopics')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'childrenCategories')]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?self $parentTopic = null;
+    private ?self $parentCategory = null;
 
     /** @var Collection<int,self> */
-    #[ORM\OneToMany(mappedBy: 'parentTopic', targetEntity: self::class, cascade: ['persist'])]
-    private Collection $childrenTopics;
+    #[ORM\OneToMany(mappedBy: 'parentCategory', targetEntity: self::class, cascade: ['persist'])]
+    private Collection $childrenCategories;
 
     public function __construct()
     {
         $this->posts = new ArrayCollection();
-        $this->childrenTopics = new ArrayCollection();
+        $this->childrenCategories = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -198,44 +198,52 @@ class Category
         return $this;
     }
 
-    public function getParentTopic(): ?self
+    public function getParentCategory(): ?self
     {
-        return $this->parentTopic;
+        return $this->parentCategory;
     }
 
-    public function setParentTopic(?self $parentTopic): static
+    public function setParentCategory(?self $parentCategory): static
     {
-        $this->parentTopic = $parentTopic;
+        $this->parentCategory = $parentCategory;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Topic>
+     * @return Collection<int, Category>
      */
-    public function getChildrenTopics(): Collection
+    public function getChildrenCategories(): Collection
     {
-        return $this->childrenTopics;
+        return $this->childrenCategories;
     }
 
-    public function addChildrenTopic(Topic $childrenTopic): static
+    public function addChildrenCategory(Category $childrenCategory): static
     {
-        if (!$this->childrenTopics->contains($childrenTopic)) {
-            $this->childrenTopics->add($childrenTopic);
-            $childrenTopic->setParentTopic($this);
+        if (!$this->childrenCategories->contains($childrenCategory)) {
+            $this->childrenCategories->add($childrenCategory);
+            $childrenCategory->setParentCategory($this);
         }
 
         return $this;
     }
 
-    public function removeChildrenTopic(Topic $childrenTopic): static
+    public function removeChildrenCategory(Category $childrenCategory): static
     {
-        if ($this->childrenTopics->removeElement($childrenTopic)) {
-            if ($childrenTopic->getParentTopic() === $this) {
-                $childrenTopic->setParentTopic(null);
+        if ($this->childrenCategories->removeElement($childrenCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($childrenCategory->getParentCategory() === $this) {
+                $childrenCategory->setParentCategory(null);
             }
         }
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
+  
 }

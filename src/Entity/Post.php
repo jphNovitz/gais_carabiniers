@@ -192,7 +192,6 @@ class Post
 
         return $this;
     }
-
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function ensureSlugBase(): void
@@ -200,5 +199,32 @@ class Post
         if (!$this->slugTitle) {
             $this->slugTitle = $this->title;
         }
+    }
+
+    public function getFirstParagraph(int $count = 2): string|array
+    {
+
+        // Récupère TOUS les <p>
+        preg_match_all('/<p[^>]*>(.*?)<\/p>/is', $this->content, $matches);
+
+        // $matches[1] contient tous les contenus des <p>
+        // On prend les N premiers
+        $paragraphs = array_slice($matches[1], 0, $count);
+
+        // Nettoie chaque paragraphe (enlève les balises internes si besoin)
+        return array_map('strip_tags', $paragraphs);
+    }
+    public function getExcerpt(int $length = 150): string
+    {
+        // Convertit <p>, <br> en espaces
+        $text = str_replace(['</p>', '<br>', '<br/>'], ' ', $this->content);
+        $text = strip_tags($text);
+        $text = preg_replace('/\s+/', ' ', trim($text));
+
+        if (mb_strlen($text) <= $length) {
+            return $text;
+        }
+
+        return mb_substr($text, 0, mb_strrpos(mb_substr($text, 0, $length), ' ')) . '...';
     }
 }

@@ -36,17 +36,22 @@ module.exports = {
                 "transparent": "transparent",
                 "white": "#F8F9FA",
                 "base": {
-                    "light": "#EDE1B8", // Beige légèrement plus clair pour la base
-                    "dark": "#1B1B1B",  // Proche du noir pour une teinte de base sobre en mode sombre
+                    "light": "#F7FFF7", // Beige légèrement plus clair pour la base
+                    // "light": "#EDE1B8", // Beige légèrement plus clair pour la base
+                    "dark": "#000400",  // Proche du noir pour une teinte de base sobre en mode sombre
+                    // "dark": "#000300",  // Proche du noir pour une teinte de base sobre en mode sombre
                 },
                 "surface": {
-                    "light": "#eee9db", // Beige plus prononcé pour les sections et cartes en mode clair
-                    "dark": "#3E3E3E",  // Une teinte foncée pour le mode sombre
+                    "light": "#CED4CE", // Beige plus prononcé pour les sections et cartes en mode clair
+                    // "light": "#eee9db", // Beige plus prononcé pour les sections et cartes en mode clair
+                    "dark": "#0D110D",  // Une teinte foncée pour le mode sombre
+                    // "dark": "#3E3E3E",  // Une teinte foncée pour le mode sombre
                     "secondary": "#A53A1A", // Rouge atténué pour un contraste esthétique
                 },
                 "content": {
                     "primary": {
-                        "light": "#1B1B1B",  // Vert pour les titres et textes principaux
+                        "light": "#000400",  // Vert pour les titres et textes principaux
+                        // "light": "#1B1B1B",  // Vert pour les titres et textes principaux
                         "dark": "#eee9db",   // Version plus sombre du vert pour le mode sombre
                         // "light": "#3B7C45",  // Vert pour les titres et textes principaux
                         // "dark": "#2A5A30",   // Version plus sombre du vert pour le mode sombre

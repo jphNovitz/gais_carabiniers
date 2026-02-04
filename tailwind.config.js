@@ -36,7 +36,8 @@ module.exports = {
                 "transparent": "transparent",
                 "white": "#F8F9FA",
                 "base": {
-                    "light": "#F7FFF7", // Beige légèrement plus clair pour la base
+                    "light": "#FDFFFD",
+                    // "light": "#F7FFF7"
                     // "light": "#EDE1B8", // Beige légèrement plus clair pour la base
                     "dark": "#000400",  // Proche du noir pour une teinte de base sobre en mode sombre
                     // "dark": "#000300",  // Proche du noir pour une teinte de base sobre en mode sombre

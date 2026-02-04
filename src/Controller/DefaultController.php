@@ -28,7 +28,7 @@ class DefaultController extends AbstractController
 
         return $this->render('landing/index.html.twig', [
             'edito' => $edito,
-            'facebookEvent' => $facebookEvents[0] ?? null,
+            'facebookEvent' => $facebookEvents ?? null,
             'snapshot' => $snapshot,
         ]);
     }

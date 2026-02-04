@@ -7,7 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Club>
+ * @extends ServiceEntityRepository<FacebookEvent>
  */
 class FacebookEventRepository extends ServiceEntityRepository
 {
@@ -26,6 +26,21 @@ class FacebookEventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findNextFutureElement(): ?FacebookEvent
+    {
+        $tz = new \DateTimeZone('Europe/Brussels');
+        $now = (new \DateTimeImmutable('now', $tz))->setTime(0, 0, 0);
+
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.date >= :now')
+            ->setParameter('now', $now)
+            ->orderBy('f.date', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+
     public function findAllFutureElements(): ?array
     {
         return $this->createQueryBuilder('f')

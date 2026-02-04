@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
                           MeetingSnapshotRepository $meetingSnapshotRepository): Response
     {
         $edito = $postRepository->findHomeEdito('Edito');
-        $facebookEvents = $facebookEventRepository->findNextFutureElements(1);
+        $facebookEvents = $facebookEventRepository->findNextFutureElement();
         $snapshot = $meetingSnapshotRepository->findSeasonStandings(date('Y'));
 
 

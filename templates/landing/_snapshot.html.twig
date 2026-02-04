@@ -1,0 +1,37 @@
+<section class="w-11/12 md:w-10/12 lg:w-8/12 my-16 mx-auto">
+
+    <div class="w-2/3 md:w-1/2 mx-auto">
+        <twig:Title:H2 class="mb-8 text-left">Top 5 tireurs</twig:Title:H2>
+        <table class="table-full w-full bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-lg">
+            <thead>
+            <tr>
+                <th class="text-left p-4">N°</th>
+                <th class="text-left p-4">Nom</th>
+                <th class="text-center p-4">Plaquettes</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for shooter in snapshot |slice(0,5) %}
+                <tr class="border-t border-base-light dark:border-base-dark">
+                    <td class="py-2 px-4">{{ loop.index }}</td>
+                    <td class="py-2 px-4">{{ shooter.firstName }}</td>
+                    <td class="py-2 px-4 text-center">{{ shooter.totalScore }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <span class="my-4 pb-4 overflow-hidden text-right block">
+        <a href="{{ path('meeting_standing') }}" class="relative
+    after:content-['']
+    after:absolute
+    after:-bottom-2
+    after:left-0
+    after:w-0
+    after:h-[2px]
+    after:bg-secondary
+    hover:after:w-full
+    after:transition-[width]
+    after:duration-300
+    after:ease-out">Classement complet</a>
+        </span>
+    </div>
+</section>

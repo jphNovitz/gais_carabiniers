@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Dto\FacebookEventDto;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,9 +19,10 @@ class FacebookEventType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'event.title',
             ])
-            ->add('date', DateType::class, [
+            ->add('date', DateTimeType::class, [
                 'widget' => 'single_text',
                 'label' => 'event.date',
+                'html5' => true, // Active le picker datetime HTML5
             ])
             ->add('facebookLink', TextType::class, [
                 'label' => 'event.link',

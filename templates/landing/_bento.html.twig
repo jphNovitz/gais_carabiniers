@@ -43,52 +43,62 @@
         </div>
 
         <!-- Prochain Événement - Priority on mobile -->
-        <div {{ stimulus_controller('event-timer', {startTime: facebookEvent.date|date('c')}) }}
-                class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white">
-            <div class="flex items-start justify-between mb-4">
-                <h3 class="text-2xl font-bold max-w-sm">Prochain tir</h3>
-                <span class="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
+        {% if facebookEvent %}
+            <div {{ stimulus_controller('event-timer', {startTime: facebookEvent.date|date('c')}) }}
+                    class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white">
+                <div class="flex items-start justify-between mb-4">
+                    <h3 class="text-2xl font-bold max-w-sm">Prochain tir</h3>
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
                     {% set now = date() %}
-                    {% set diff = now.diff(facebookEvent.date) %}
-                    {% if facebookEvent.date < now %}
-                        {# Événement passé #}
-                        Il y a {{ diff.days }} jours
-                    {% elseif diff.days == 0 %}
-                        Aujourd\'hui !
-                    {% elseif diff.days == 1 %}
-                        Demain
-                    {% else %}
-                        Dans {{ diff.days }} jours
-                    {% endif %}
+                        {% set diff = now.diff(facebookEvent.date) %}
+                        {% if facebookEvent.date < now %}
+                            {# Événement passé #}
+                            Il y a {{ diff.days }} jours
+                        {% elseif diff.days == 0 %}
+                            Aujourd\'hui !
+                        {% elseif diff.days == 1 %}
+                            Demain
+                        {% else %}
+                            Dans {{ diff.days }} jours
+                        {% endif %}
                 </span>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <p class="text-3xl font-bold mb-2">
-                        <a href="{{ path('app_agenda_show', {slug: facebookEvent.slug}) }}"
-                           class="hover:underline">{{ facebookEvent.title }}</a>
-                    </p>
-                    <p class="text-white/90" {{ stimulus_target('event-timer', 'output') }}></p>
                 </div>
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                        <p class="text-white/70 text-xs mb-1">Date</p>
-                        <p class="font-semibold">{{ facebookEvent.date|format_date('long', locale='fr') }}</p>
+                <div class="space-y-4">
+                    {% if facebookEvent %}
+                    <div>
+                        <p class="text-3xl font-bold mb-2">
+                            <a href="{{ path('app_agenda_show', {slug: facebookEvent.slug}) }}"
+                               class="hover:underline">{{ facebookEvent.title }}</a>
+                        </p>
+                        <p class="text-white/90" {{ stimulus_target('event-timer', 'output') }}></p>
                     </div>
-                    <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                        <p class="text-white/70 text-xs mb-1">Heure</p>
-                        <p class="font-semibold">{{ facebookEvent.date|date('H:i') }}</p>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                            <p class="text-white/70 text-xs mb-1">Date</p>
+                            <p class="font-semibold">{{ facebookEvent.date|format_date('long', locale='fr') }}</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                            <p class="text-white/70 text-xs mb-1">Heure</p>
+                            <p class="font-semibold">{{ facebookEvent.date|date('H:i') }}</p>
+                        </div>
                     </div>
-                </div>
 
-                {#                <button class="w-full bg-white text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg font-semibold transition"> #}
-                {% if facebookEvent.facebookLink is not null %}
-                    <twig:Button:Primary class="w-full" href="{{ facebookEvent.facebookLink }}" >
-                        {{ ux_icon('flowbite:thumbs-up-outline', {class: 'w-4 mr-4'}) }} Intéressé
-                    </twig:Button:Primary>
+                    {#                <button class="w-full bg-white text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg font-semibold transition"> #}
+                    {% if facebookEvent.facebookLink is not null %}
+                        <twig:Button:Primary class="w-full" href="{{ facebookEvent.facebookLink }}">
+                            {{ ux_icon('flowbite:thumbs-up-outline', {class: 'w-4 mr-4'}) }} Intéressé
+                        </twig:Button:Primary>
+                    {% endif %}
+                    {#            </div> #}
+                </div>
+                {% else %}
+                    <p class="text-sm text-white/80">Aucun événement à venir pour le moment. Restez à l'écoute !</p>
                 {% endif %}
-                {#            </div> #}
-            </div>
 
-        </div>
+            </div>
+        {% else %}
+            <div class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white">
+                Pas d'événement à afficher pour le moment. Téléchargez notre calendrier !
+            </div>
+        {% endif %}
 </section>

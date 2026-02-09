@@ -33,7 +33,7 @@
 
         <!-- Photo -->
         <div class="bento-card md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden relative">
-            <img src="{{ asset('images/carousel/nadia_gcb.jpg') }}"
+            <img src="{{ asset('images/carousel/bento_image.webp') }}"
                  alt="Équipe du club"
                  class="w-full h-full object-cover">
             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -43,7 +43,7 @@
         </div>
 
         <!-- Prochain Événement - Priority on mobile -->
-{% if facebookEvent %}
+        {% if facebookEvent %}
             <div {{ stimulus_controller('event-timer', {startTime: facebookEvent.date|date('c')}) }}
                     class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white">
                 <div class="flex items-start justify-between mb-4">
@@ -95,13 +95,17 @@
 
             </div>
         {% else %}
-            <div class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white flex flex-col items-center justify-center">
-                <h3 class="text-2xl font-bold max-w-sm">N'hésitez pas à télécharger notre <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline mb-4">calendrier 2026</a></h3>
+            <div class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white flex flex-col items-center justify-center space-y-8">
+                <h3 class="text-2xl font-bold max-w-sm">N'hésitez pas à télécharger notre <a
+                            href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline mb-4">calendrier
+                        2026</a></h3>
                 <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline">
-                <img src="{{ asset('images/screenshot_calendrier_2026.png') }}" alt="Téléchargez le calendrier 2026 | GC Bernisasart"
-                     class="w-11/12 md:w-72 h-auto rounded-lg">
+                    <img src="{{ asset('images/screenshot_calendrier_2026.png') }}"
+                         alt="Téléchargez le calendrier 2026 | GC Bernisasart"
+                         class="w-11/12 md:w-72 h-auto rounded-lg">
                 </a>
 
             </div>
         {% endif %}
+    </div>
 </section>

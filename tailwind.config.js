@@ -37,14 +37,16 @@ module.exports = {
                 "transparent": "transparent",
                 "white": "#F8F9FA",
                 "base": {
-                    "light": "#FDFFFD",
+                    "light": "#CED4CE",
+                    // "light": "#FDFFFD",
                     // "light": "#F7FFF7"
                     // "light": "#EDE1B8", // Beige légèrement plus clair pour la base
                     "dark": "#000400",  // Proche du noir pour une teinte de base sobre en mode sombre
                     // "dark": "#000300",  // Proche du noir pour une teinte de base sobre en mode sombre
                 },
                 "surface": {
-                    "light": "#CED4CE", // Beige plus prononcé pour les sections et cartes en mode clair
+                    "light": "#FDFFFD", // Beige plus prononcé pour les sections et cartes en mode clair
+                    // "light": "#CED4CE", // Beige plus prononcé pour les sections et cartes en mode clair
                     // "light": "#eee9db", // Beige plus prononcé pour les sections et cartes en mode clair
                     "dark": "#0D110D",  // Une teinte foncée pour le mode sombre
                     // "dark": "#3E3E3E",  // Une teinte foncée pour le mode sombre

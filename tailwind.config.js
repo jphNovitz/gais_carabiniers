@@ -11,6 +11,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
+                sora: ['Sora', 'sans-serif'],
                 poppins: ['Poppins', 'sans-serif'],
                 grotesk: ['Grotesk', 'sans-serif'],
                 headland: ['Headland', 'sans-serif'],

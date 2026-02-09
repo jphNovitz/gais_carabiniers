@@ -1,4 +1,31 @@
 @font-face {
+    font-family: 'Sora';
+    src: url('../fonts/Sora/Sora-Regular.ttf') format('opentype'),
+    url('../fonts/Sora/Sora-Regular.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sora';
+    src: url('../fonts/Sora/Sora-Bold.ttf') format('opentype'),
+    url('../fonts/Sora/Sora-Bold.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sora';
+    src: url('../fonts/Sora/Sora-ExtraBold.ttf') format('opentype'),
+    url('../fonts/Sora/Sora-ExtraBold.ttf') format('ttf');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'Poppins';
     src: url('../fonts/Poppins/Poppins-Regular.ttf') format('opentype'),
     url('../fonts/Poppins/Poppins-Regular.ttf') format('ttf');
@@ -47,6 +74,9 @@
 @tailwind utilities;
 
 @layer base {
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-sora;
+    }
     p {
         @apply leading-relaxed mb-0;
     }

@@ -1,0 +1,51 @@
+{# templates/post/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="p-8 md:p-4 lg:p-0">
+        <article class="group relative rounded-3xl p-8 md:p-12
+                        bg-surface-light border border-surface-light dark:bg-surface-dark dark:border-surface-dark/90
+                        overflow-hidden
+                        flex flex-col">
+
+            <!-- Overlay gradient (optional, for consistency with card feel) -->
+{#            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-secondary/5 dark:to-secondary/10#}
+{#                        pointer-events-none"></div>#}
+
+            <div class="relative z-10">
+                <header class="mb-8">
+                    <!-- Catégorie -->
+                    {% if post.category %}
+                        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest
+                                    text-secondary font-bold mb-4">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full shadow-[0_0_10px_rgba(249,115,22,1)]"></span>
+                            {{ post.category }}
+                        </div>
+                    {% endif %}
+
+                    <h1 class="text-3xl md:text-4xl text-content-primary-light dark:text-content-primary-dark leading-tight mb-6">
+                        {{ post.title }}
+                    </h1>
+
+                    <div class="flex items-center justify-between pb-6 border-b border-zinc-800/20 dark:border-zinc-800 mb-8">
+                        <time class="text-sm text-content-primary-light/60 dark:text-content-primary-dark/40" datetime="{{ post.updatedAt|date('Y-m-d') }}">
+                            {{ post.updatedAt|format_datetime('long', 'none', locale='fr') }}
+                        </time>
+                    </div>
+
+                    {% if post.image %}
+                        <div class="rounded-2xl overflow-hidden mb-8 shadow-xl">
+                            <img src="{{ asset(post.image) }}" alt="{{ post.title }}" class="w-full h-auto object-cover">
+                        </div>
+                    {% endif %}
+                </header>
+
+                <div class="post-content text-content-primary-light/90 dark:text-content-primary-dark/90 text-lg leading-relaxed space-y-4">
+                    {{ post.content|raw }}
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock %}

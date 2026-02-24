@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\_backup;
+namespace App\Backup\Admin;
 
 use App\Entity\FacebookEvent;
 use App\Dto\FacebookEventDto;

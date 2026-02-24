@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Post;
+use App\Entity\Club;
+use App\Entity\FacebookEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -48,11 +50,14 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Club', 'fas fa-building', Club::class);
+        yield MenuItem::linkToCrud('Facebook Events', 'fab fa-facebook', FacebookEvent::class);
         yield MenuItem::submenu('Posts', 'fas fa-blog')
             ->setSubItems([
                 MenuItem::linkToCrud('Post', 'fas fa-blog', Post::class),
                 MenuItem::linkToCrud('Category', 'fas fa-blog', Category::class),
             ]);
+
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

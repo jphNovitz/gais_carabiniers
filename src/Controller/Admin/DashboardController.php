@@ -6,10 +6,15 @@ use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Club;
 use App\Entity\FacebookEvent;
+use App\Controller\Admin\Club\ClubCrudController;
+use App\Controller\Admin\FacebookEventCrudController;
+use App\Controller\Admin\Post\PostCrudController;
+use App\Controller\Admin\Category\CategoryCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
@@ -18,27 +23,6 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         return $this->redirectToRoute('admin_post_index');
-//        return parent::index();
-
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        // 1.1) If you have enabled the "pretty URLs" feature:
-        // return $this->redirectToRoute('admin_user_index');
-        //
-        // 1.2) Same example but using the "ugly URLs" that were used in previous EasyAdmin versions:
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(OneOfYourCrudController::class)->generateUrl());
-
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirectToRoute('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
-        // return $this->render('some/path/my-dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -50,12 +34,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Club', 'fas fa-building', Club::class);
-        yield MenuItem::linkToCrud('Facebook Events', 'fab fa-facebook', FacebookEvent::class);
+        yield MenuItem::linkTo('Club', 'fas fa-building', fn(AdminUrlGenerator $g) => $g->setController(ClubCrudController::class)->generateUrl());
+        yield MenuItem::linkTo('Facebook Events', 'fab fa-facebook', fn(AdminUrlGenerator $g) => $g->setController(FacebookEventCrudController::class)->generateUrl());
         yield MenuItem::submenu('Posts', 'fas fa-blog')
             ->setSubItems([
-                MenuItem::linkToCrud('Post', 'fas fa-blog', Post::class),
-                MenuItem::linkToCrud('Category', 'fas fa-blog', Category::class),
+                MenuItem::linkTo('Post', 'fas fa-blog', fn(AdminUrlGenerator $g) => $g->setController(PostCrudController::class)->generateUrl()),
+                MenuItem::linkTo('Category', 'fas fa-blog', fn(AdminUrlGenerator $g) => $g->setController(CategoryCrudController::class)->generateUrl()),
             ]);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);

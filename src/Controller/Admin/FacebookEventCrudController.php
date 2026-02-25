@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class FacebookEventCrudController extends AbstractCrudController
 {
@@ -28,19 +29,23 @@ class FacebookEventCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Facebook Event')
-            ->setEntityLabelInPlural('Facebook Events')
-            ->setDefaultSort(['date' => 'DESC']);
+            ->setFormThemes(['@FOSCKEditor/Form/ckeditor_widget.html.twig', '@EasyAdmin/crud/form_theme.html.twig'])
+            ->setEntityLabelInSingular('facebook_event')
+            ->setEntityLabelInPlural('facebook_events')
+            ->setDefaultSort(['date' => 'DESC'])
+            ->setDateFormat('long');
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')->hideOnForm();
-        yield TextField::new('title', 'Titre');
-        yield SlugField::new('slug')->setTargetFieldName('title');
+        yield TextField::new('title', 'Titre')->setColumns(12);
         yield DateTimeField::new('date', 'Date');
-        yield UrlField::new('facebookLink', 'Lien Facebook')->hideOnIndex();
-        yield TextEditorField::new('description');
+        yield UrlField::new('facebookLink', 'Lien Facebook')->hideOnIndex()->setColumns(12);
+        yield TextEditorField::new('description')
+            ->setFormType(CKEditorType::class)
+            ->setColumns(12)
+            ->hideOnIndex();
         yield DateTimeField::new('createdAt', 'Créé le')->onlyOnIndex();
         yield DateTimeField::new('updatedAt', 'Mis à jour')->onlyOnIndex();
     }

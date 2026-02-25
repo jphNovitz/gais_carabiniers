@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+
 use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Club;
@@ -9,7 +10,7 @@ use App\Entity\FacebookEvent;
 use App\Controller\Admin\Club\ClubCrudController;
 use App\Controller\Admin\FacebookEventCrudController;
 use App\Controller\Admin\Post\PostCrudController;
-use App\Controller\Admin\Category\CategoryCrudController;
+use App\Controller\Admin\Post\CategoryCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -34,12 +35,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkTo('Club', 'fas fa-building', fn(AdminUrlGenerator $g) => $g->setController(ClubCrudController::class)->generateUrl());
-        yield MenuItem::linkTo('Facebook Events', 'fab fa-facebook', fn(AdminUrlGenerator $g) => $g->setController(FacebookEventCrudController::class)->generateUrl());
+        yield MenuItem::linkTo(ClubCrudController::class, 'Le Club', 'fa fa-building');
+        yield MenuItem::linkTo(FacebookEventCrudController::class, 'Evènements Facebook', 'fab fa-facebook');
         yield MenuItem::submenu('Posts', 'fas fa-blog')
             ->setSubItems([
-                MenuItem::linkTo('Post', 'fas fa-blog', fn(AdminUrlGenerator $g) => $g->setController(PostCrudController::class)->generateUrl()),
-                MenuItem::linkTo('Category', 'fas fa-blog', fn(AdminUrlGenerator $g) => $g->setController(CategoryCrudController::class)->generateUrl()),
+                MenuItem::linkTo( PostCrudController::class, 'Post', 'fas fa-blog'),
+                MenuItem::linkTo(CategoryCrudController::class, 'Category', 'fas fa-blog'),
             ]);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);

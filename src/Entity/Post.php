@@ -201,7 +201,7 @@ class Post
         }
     }
 
-    public function getFirstParagraph(int $count = 2): string|array
+    public function getFirstParagraph(int $count = 3): string|array
     {
 
         // Récupère TOUS les <p>

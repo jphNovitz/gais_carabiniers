@@ -20,14 +20,14 @@ class PostRepository extends ServiceEntityRepository
         /**
          * @return Post Returns Post objects
          */
-        public function findHomeEdito($categoyTitle): Post
+        public function findHomeEdito($categoryTitle): Post
         {
 
                 return $this->createQueryBuilder('p')
                     ->leftJoin('p.category', 'c')
                     ->select('p')
                     ->andwhere('c.title = :categoryTitle')
-                    ->setParameter('categoryTitle', $categoyTitle)
+                    ->setParameter('categoryTitle', $categoryTitle)
                     ->orderBy('p.id', 'DESC')
                     ->setMaxResults(1)
                     ->getQuery()

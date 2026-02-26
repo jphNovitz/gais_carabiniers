@@ -1,70 +1,52 @@
 <section>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 {# bg-secondary/90 dark:bg-secondary/30 #} p-4 rounded-2xl">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-y-20 md:gap-8 p-4rounded-2xl p-4 md:p-0">
 
-        <!-- Édito du Président -->
-        <div class="bento-card md:col-span-2 bg-surface-light dark:bg-surface-dark rounded-2xl p-6 shadow-lg border  border-surface-light/50 dark:border-surface-dark/50">
-            <div class="flex items-center gap-3 mb-4">
-                {#                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0"> #}
-                {#                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"> #}
-                {#                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path> #}
-                {#                    </svg> #}
-                {#                </div> #}
-                <div>
+        <!-- colonne gauche pleine hauteur -->
+        <div class="bento-card md:col-span-2 md:row-span-2 bg-surface-light dark:bg-surface-dark rounded-2xl p-4 md:p-12 shadow-lg border border-surface-light/50 dark:border-surface-dark/50 flex flex-col justify-between">
+{#            <div class="flex items-center gap-3 mb-4">#}
+{#                <div>#}
                     <h3 class="text-lg font-bold text-content-primary-light dark:text-content-primary-dark/90">{{ edito.title }}</h3>
-                    {#                    <p class="text-gray-500 text-sm">Jean Dupont</p> #}
-                </div>
-            </div>
+{#                </div>#}
+{#            </div>#}
 
-            <p class="leading-relaxed text-content-primary-light dark:text-content-primary-dark/70">
-                {{ edito.firstParagraph[0]|raw }}
+            {% for paragraph in edito.firstParagraph   %}
+            <p class="leading-loose text-content-primary-light dark:text-content-primary-dark/70">
+                {{ paragraph |raw }}
             </p>
-            <p class="leading-relaxed text-content-primary-light dark:text-content-primary-dark/70">
-                {{ edito.firstParagraph[1]|raw }}
-            </p>
+            {% endfor %}
 
-            <a href="#"
+            <a href="{{ path('app_post_show', {'slug': edito.slug}) }}"
                class="inline-flex items-center gap-1 text-secondary hover:text-secondary/70 font-medium mt-4 text-sm">
-                Lire l'édito complet
+                Continuer la lecture
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </a>
         </div>
 
-        <!-- Photo -->
-        <div class="bento-card md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden relative">
-            <img src="{{ asset('images/carousel/bento_image.webp') }}"
-                 alt="Équipe du club"
-                 class="w-full h-full object-cover">
-            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
-                <p class="text-sm font-semibold text-gray-900">📸 Instagram</p>
-                {#                <p class="text-sm font-semibold text-gray-900">📸 Galerie</p> #}
-            </div>
-        </div>
 
-        <!-- Prochain Événement - Priority on mobile -->
+
+        <!-- Prochain Événement - en haut à droite -->
         {% if facebookEvent %}
             <div {{ stimulus_controller('event-timer', {startTime: facebookEvent.date|date('c')}) }}
                     class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white">
                 <div class="flex items-start justify-between mb-4">
                     <h3 class="text-2xl font-bold max-w-sm">Prochain tir</h3>
                     <span class="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
-                    {% set now = date() %}
+                        {% set now = date() %}
                         {% set diff = now.diff(facebookEvent.date) %}
                         {% if facebookEvent.date < now %}
-                            {# Événement passé #}
                             Il y a {{ diff.days }} jours
                         {% elseif diff.days == 0 %}
-                            Aujourd\'hui !
+                            Aujourd'hui !
                         {% elseif diff.days == 1 %}
                             Demain
                         {% else %}
                             Dans {{ diff.days }} jours
                         {% endif %}
-                </span>
+                    </span>
                 </div>
                 <div class="space-y-4">
-
                     <div>
                         <p class="text-3xl font-bold mb-2">
                             <a href="{{ path('app_agenda_show', {slug: facebookEvent.slug}) }}"
@@ -82,30 +64,40 @@
                             <p class="font-semibold">{{ facebookEvent.date|date('H:i') }}</p>
                         </div>
                     </div>
-
-                    {#                <button class="w-full bg-white text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg font-semibold transition"> #}
                     {% if facebookEvent.facebookLink is not null %}
                         <twig:Button:Primary class="w-full" href="{{ facebookEvent.facebookLink }}">
-                            {{ ux_icon('flowbite:thumbs-up-outline', {class: 'w-4 mr-4'}) }} Intéressé
+                             Intéressé ? {{ ux_icon('gg:external', {class: 'w-4 ml-6'}) }}
                         </twig:Button:Primary>
                     {% endif %}
-                    {#            </div> #}
                 </div>
-
-
             </div>
         {% else %}
             <div class="bento-card md:col-span-2 bg-gradient-to-br from-content-primary-light/20 to-content-secondary/50 rounded-2xl p-6 text-white flex flex-col items-center justify-center space-y-8">
-                <h3 class="text-2xl font-bold max-w-sm">N'hésitez pas à télécharger notre <a
-                            href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline mb-4">calendrier
-                        2026</a></h3>
+                <h3 class="text-2xl font-bold max-w-sm">
+                    N'hésitez pas à télécharger notre
+                    <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline mb-4">calendrier
+                    2026</a>
+                </h3>
                 <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline">
                     <img src="{{ asset('images/screenshot_calendrier_2026.png') }}"
-                         alt="Téléchargez le calendrier 2026 | GC Bernisasart"
+                         alt="Téléchargez le calendrier 2026 | GC Bernissart"
                          class="w-11/12 md:w-72 h-auto rounded-lg">
                 </a>
-
             </div>
         {% endif %}
+        <!-- Image - en bas à droite -->
+        <div class="bento-card md:col-span-2 rounded-2xl overflow-hidden relative max-h-screen md:max-h-72 ">
+            <img src="{{ asset('images/carousel/bento_image.webp') }}"
+                 alt="Équipe du club"
+                 class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white/40 backdrop-blur-sm px-4 py-2 rounded-full">
+                <p class="text-sm font-semibold text-gray-900">
+                    <a href="https://www.instagram.com/gcbernissart" class="hover:underline">
+                        {{ ux_icon('flowbite:instagram-solid', {class: 'inline-flex w-4 mr-4'}) }} Instagram
+                    </a>
+                </p>
+            </div>
+        </div>
+
     </div>
 </section>

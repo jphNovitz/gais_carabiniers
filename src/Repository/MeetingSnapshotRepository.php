@@ -62,6 +62,7 @@ class MeetingSnapshotRepository extends ServiceEntityRepository
             ->select('p.id AS participantId')
             ->addSelect('p.firstName AS firstName')
             ->addSelect('p.lastName AS lastName')
+            ->addSelect('p.usesSupport AS usesSupport')
             ->addSelect('ms.clubName AS club')
 //            ->addSelect('ms.meetingPosition AS meetingPosition')
             ->addSelect('ms.year AS year')

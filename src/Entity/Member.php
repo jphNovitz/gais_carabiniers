@@ -27,6 +27,9 @@ class Member
     #[ORM\Column]
     private ?bool $isActive = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $usesSupport = false;
+
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     #[Gedmo\Slug(fields: ['firstName', 'lastName'])]
     private ?string $slug = null;
@@ -129,35 +132,35 @@ class Member
         return $this;
     }
 
-    /**
-     * @return Collection<int, MeetingParticipant>
-     */
-    public function getMeetingParticipants(): Collection
-    {
-        return $this->meetingParticipants;
-    }
-
-    public function addMeetingParticipant(MeetingParticipant $meetingParticipant): static
-    {
-        if (!$this->meetingParticipants->contains($meetingParticipant)) {
-            $this->meetingParticipants->add($meetingParticipant);
-            $meetingParticipant->setShooter($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeetingParticipant(MeetingParticipant $meetingParticipant): static
-    {
-        if ($this->meetingParticipants->removeElement($meetingParticipant)) {
-            // set the owning side to null (unless already changed)
-            if ($meetingParticipant->getShooter() === $this) {
-                $meetingParticipant->setShooter(null);
-            }
-        }
-
-        return $this;
-    }
+//    /**
+//     * @return Collection<int, MeetingParticipant>
+//     */
+//    public function getMeetingParticipants(): Collection
+//    {
+//        return $this->meetingParticipants;
+//    }
+//
+//    public function addMeetingParticipant(MeetingParticipant $meetingParticipant): static
+//    {
+//        if (!$this->meetingParticipants->contains($meetingParticipant)) {
+//            $this->meetingParticipants->add($meetingParticipant);
+//            $meetingParticipant->setShooter($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeMeetingParticipant(MeetingParticipant $meetingParticipant): static
+//    {
+//        if ($this->meetingParticipants->removeElement($meetingParticipant)) {
+//            // set the owning side to null (unless already changed)
+//            if ($meetingParticipant->getShooter() === $this) {
+//                $meetingParticipant->setShooter(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection<int, MeetingParticipant>
@@ -192,5 +195,17 @@ class Member
     public function __toString(): string
     {
         return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function isUsesSupport(): ?bool
+    {
+        return $this->usesSupport;
+    }
+
+    public function setUsesSupport(bool $usesSupport): static
+    {
+        $this->usesSupport = $usesSupport;
+
+        return $this;
     }
 }

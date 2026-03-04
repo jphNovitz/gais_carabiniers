@@ -18,6 +18,7 @@ class MemberDto
         public ?string             $slug = null,
 
         public ?bool               $isActive = false,
+        public ?bool               $usesSupport = false,
 
         // public ?string             $slug = null,
         public ?\DateTimeImmutable $createdAt = null,

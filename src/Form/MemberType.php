@@ -27,6 +27,12 @@ class MemberType extends AbstractType
                     'class' => 'sr-only peer',
                 ],
             ])
+            ->add('usesSupport', CheckboxType::class, [
+                'label' => 'Support',
+                'required' => false,
+                'attr' => [
+                    'class' => 'sr-only peer',
+                ],])
 
         ;
     }

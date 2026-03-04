@@ -16,6 +16,7 @@ class MemberMapper
             lastName: $member->getLastName(),
             slug: $member->getSlug(),
             isActive: $member->isActive(),
+            usesSupport: $member->isUsesSupport(),
             createdAt: $member->getCreatedAt(),
             updatedAt: $member->getUpdatedAt()
         );
@@ -30,6 +31,7 @@ class MemberMapper
         $member->setFirstName($dto->firstName);
         $member->setLastName($dto->lastName);
         $member->setIsActive($dto->isActive);
+        $member->setUsesSupport($dto->usesSupport);
         $member->setCreatedAt($dto->createdAt);
         $member->setUpdatedAt($dto->updatedAt);
 

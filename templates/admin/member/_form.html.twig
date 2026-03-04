@@ -6,14 +6,26 @@
 <div class="w-full">
     {{ form_row(form.lastName) }}
 </div>
-<div>
-    <label class="flex flex-col items-start cursor-pointer">
-        <span  class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{ form.isActive.vars.label }}</span>
-{#        {{ form_label(form.isActive, null, {'label_attr': {'class': 'ms-3 text-sm font-medium text-gray-900 dark:text-gray-300'}}) }}#}
-            <input type="checkbox" id="member_isActive" name="member[isActive]" class="sr-only peer" value="" {% if form.isActive.vars.checked %}checked{% endif %} />
-        <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-    </label>
-    {{ form_errors(form.isActive) }}
+<div class="w-full flex justify-start space-x-8">
+    <div>
+        <label class="flex flex-col items-start cursor-pointer">
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{ form.isActive.vars.label }}</span>
+            {#        {{ form_label(form.isActive, null, {'label_attr': {'class': 'ms-3 text-sm font-medium text-gray-900 dark:text-gray-300'}}) }} #}
+            <input type="checkbox" id="member_isActive" name="member[isActive]" class="sr-only peer" value=""
+                   {% if form.isActive.vars.checked %}checked{% endif %} />
+            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+        </label>
+        {{ form_errors(form.isActive) }}
+    </div>
+    <div>
+        <label class="flex flex-col items-start cursor-pointer">
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{ form.usesSupport.vars.label }}</span>
+            <input type="checkbox" id="member_usesSupport" name="member[usesSupport]" class="sr-only peer" value=""
+                   {% if form.usesSupport.vars.checked %}checked{% endif %} />
+            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+        </label>
+        {{ form_errors(form.usesSupport) }}
+    </div>
 </div>
 {{ form_widget(form._token) }}
 <button class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90  my-8">{{ button_label|default('Save') | trans }}</button>

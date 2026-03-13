@@ -94,7 +94,6 @@ final class ParticipantList
     #[LiveAction]
     public function moveDown(#[LiveArg] int $id): void
     {
-        // ✅ Clear au début
         $this->em->clear();
 
         $participants = $this->getMeeting()->getParticipants();

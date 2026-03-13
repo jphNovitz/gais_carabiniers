@@ -40,9 +40,9 @@
                     </li>
 
                     <li>
-                        <a href="{{ path('app_about') }}"
-                           class="{{ baseClass }} {{ route == 'app_about' ? activeClass : '' }}"
-                           aria-current="{{ route == 'app_about' ? 'page' : 'false' }}">
+                        <a href="{{ path('app_category_show', {'slug': 'stand-tir-hainaut'}) }}"
+                           class="{{ baseClass }} {{ route == 'app_category_show' ? activeClass : '' }}"
+                           aria-current="{{ route == 'app_category_show' ? 'page' : 'false' }}">
                             {% trans %}nav.about{% endtrans %}
                         </a>
                     </li>

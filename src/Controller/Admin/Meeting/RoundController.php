@@ -15,6 +15,7 @@ use App\Repository\MeetingParticipantRepository;
 use App\Repository\RoundRepository;
 use App\Repository\RoundShotRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,12 +30,16 @@ final class RoundController extends AbstractController
         private RoundManagerInterface $roundManager
     ) {}
 
-    #[Route('round', name: 'app_round')]
-    public function index(): Response
+    #[Route('meetings/{id}/round', name: 'admin_round_index')]
+    public function index(Meeting $meeting): Response
     {
-        return $this->render('round/index.html.twig', [
-            'controller_name' => 'RoundController',
-        ]);
+        if ($meeting->getRounds()->count() > 0) {
+            die('vide');
+        } else {
+            return $this->render('admin/meeting/preparation.html.twig', [
+                'meeting' => $meeting,
+            ]);
+        }
     }
 
 //    #[Route('meetings/{id}/rounds/start', name: 'round_start', methods: ['GET', 'POST'])]
@@ -50,27 +55,30 @@ final class RoundController extends AbstractController
 //        ]);
 //    }
 
-    #[Route('meetings/{meeting}/rounds/start', name: 'round_start', methods: ['GET', 'POST'])]
-    public function start(Meeting $meeting, EntityManagerInterface $em): Response
-    {
-
-        $round = $this->roundManager->createNextRound($meeting);
-
-        $this->addFlash('success', 'Round démarré avec succès');
-
-        return $this->redirectToRoute('round_all_shots', [
-            'meeting' => $meeting->getId(),
-            'round' => $round->getId()
-        ]);
-    }
-    #[Route('meetings/{meeting}/rounds/{round}/all-shots', name: 'round_all_shots', methods: ['GET', 'POST'])]
+//    #[Route('meetings/{meeting}/rounds/start', name: 'admin_round_start', methods: ['GET', 'POST'])]
+//    public function start(Meeting $meeting, EntityManagerInterface $em, AdminContext $context): Response
+//    {
+//        $meeting = $context->getEntity()->getInstance();
+//
+//        $round = $this->roundManager->createNextRound($meeting);
+//
+//        $this->addFlash('success', 'Round démarré avec succès');
+//
+//        return $this->redirectToRoute('admin_round_all_shots', [
+//            'meeting' => $meeting->getId(),
+//            'round' => $round->getId()
+//        ]);
+//    }
+    #[Route('meetings/{meeting}/rounds/all-shots', name: 'admin_round_all_shots', methods: ['GET', 'POST'])]
     public function allShots(
         Meeting $meeting,
-        Round $round,
+//        Round $round,
         Request $request,
         EntityManagerInterface $em
     ): Response
     {
+        $round = $this->roundManager->createNextRound($meeting);
+
         // Créer les RoundShots s'ils n'existent pas encore
         if ($round->getRoundShots()->isEmpty()) {
             foreach ($meeting->getParticipants() as $participant) {
@@ -85,13 +93,13 @@ final class RoundController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush(); // Persist all RoundShots changes
+            $em->flush();
             $this->roundManager->closeRound($round);
 
             $this->addFlash('success', 'Scores enregistrés avec succès');
 
-            return $this->redirectToRoute('admin_meeting_show', [
-                'id' => $meeting->getId()
+            return $this->redirectToRoute('admin_meeting_detail', [
+                'entityId' => $meeting->getId()
             ]);
         }
 

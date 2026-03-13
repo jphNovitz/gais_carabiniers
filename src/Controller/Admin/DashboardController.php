@@ -3,20 +3,18 @@
 namespace App\Controller\Admin;
 
 
-use App\Entity\Category;
-use App\Entity\Post;
-use App\Entity\Club;
-use App\Entity\FacebookEvent;
+use App\Controller\Admin\Meeting\MeetingCrudController;
 use App\Controller\Admin\Club\ClubCrudController;
-use App\Controller\Admin\FacebookEventCrudController;
 use App\Controller\Admin\Post\PostCrudController;
 use App\Controller\Admin\Post\CategoryCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Controller\Admin\FacebookEventCrudController;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
@@ -42,7 +40,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkTo( PostCrudController::class, 'Post', 'fas fa-blog'),
                 MenuItem::linkTo(CategoryCrudController::class, 'Category', 'fas fa-blog'),
             ]);
-
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkTo(MeetingCrudController::class, 'nav.meetings', 'fas fa-calendar');
     }
+
 }

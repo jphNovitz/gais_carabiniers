@@ -24,8 +24,8 @@ final class ClubCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Club')
-            ->setEntityLabelInPlural('Clubs');
+            ->setEntityLabelInSingular('meeting.label.meeting')
+            ->setEntityLabelInPlural('meeting.label.meetings');
     }
 
     public function configureFields(string $pageName): iterable

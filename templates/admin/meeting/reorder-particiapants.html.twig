@@ -1,0 +1,26 @@
+{% extends '@!EasyAdmin/page/content.html.twig' %}
+
+{% block title %}{{ meeting.label }} - détails de la séance du {{ meeting.date|date('d/m/Y') }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column gap-3">
+        <div class="w-100 d-flex justify-content-between align-items-center mb-4">
+            <h1 class="title h3">Réordonner — {{ meeting.label }}</h1>
+            <a href="{{ ea_url()
+                .setController('App\\Controller\\Admin\\Meeting\\MeetingCrudController')
+                .setAction('edit')
+                .setEntityId(meeting.id)
+                .generateUrl() }}"
+               class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Retour à la modification
+            </a>
+        </div>
+
+        <section class="w-100">
+
+            <twig:Meeting:ParticipantList meeting="{{ meeting }}"/>
+
+        </section>
+    </div>
+{% endblock %}
+

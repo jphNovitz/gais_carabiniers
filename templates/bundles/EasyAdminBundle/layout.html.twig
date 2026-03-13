@@ -1,0 +1,7 @@
+{# templates/bundles/EasyAdminBundle/layout.html.twig #}
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block importmap %}
+    {{ parent() }}
+    {{ importmap('admin') }}
+{% endblock %}

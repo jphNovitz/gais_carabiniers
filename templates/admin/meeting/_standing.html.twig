@@ -1,0 +1,31 @@
+{% set standing = field.customOptions.get('meetingWithScores') %}
+{% if standing is defined and standing|length > 0 %}
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-bordered align-middle">
+            <thead class="table-light">
+            <tr>
+                <th class="text-uppercase text-center" style="width: 5rem">{{ 'meeting.rank'|trans }}</th>
+                <th class="text-uppercase">{{ 'meeting.participant'|trans }}</th>
+                <th class="text-uppercase text-center" style="width: 5rem">{{ 'meeting.points'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set prev = null %}
+            {% for p in standing.participants %}
+                <tr>
+                    <td class="text-center">
+                        {% if p.rank != prev %}
+                            {{ p.rank }}
+                        {% endif %}
+                        {% set prev = p.rank %}
+                    </td>
+                    <td class="">{{ p.firstName }} {{ p.lastName }}</td>
+                    <td class="text-center">{{ p.totalScore }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="text-muted fst-italic">Aucun classement disponible</p>
+{% endif %}

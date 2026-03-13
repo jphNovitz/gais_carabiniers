@@ -1,0 +1,27 @@
+{% set participants = field.customOptions.get('participants') %}
+{% if participants is not empty %}
+{#    {{ dump(participants) }}#}
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-bordered align-middle">
+            <thead class="table-light">
+            <tr>
+                <th class="text-uppercase text-center" style="width: 5rem">{{ 'form.meeting.position'|trans }}</th>
+                <th class="text-uppercase px-5">{{ 'meeting.participant'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set prev = null %}
+            {% for p in participants %}
+                <tr>
+                    <td class="text-center">
+                        {{ p.position }}
+                    </td>
+                    <td class="px-5">{{ p.shooter.firstName }} {{ p.shooter.lastName }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="text-muted fst-italic">Aucun classement disponible</p>
+{% endif %}

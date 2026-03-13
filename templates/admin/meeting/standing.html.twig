@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block title %}{{ meeting.label }} - détails de la séance du {{ meeting.date|date('d/m/Y') }}{% endblock %}
 
-{% block body %}
+{% block content_title %}Toto {% endblock %}
+{% block content %}
     <section class="container-fluid bg-surface-light dark:bg-surface-dark p-4">
         <twig:Title:H1
                 class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"

@@ -12,7 +12,6 @@ import { initFlowbite } from 'flowbite';
 
 
 
-
 // console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
 document.addEventListener('turbo:before-render', (event) => {

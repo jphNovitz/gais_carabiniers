@@ -2,7 +2,27 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ post.title }}{% endblock %}
-
+{% block nav_secondary %}
+    {# ── Breadcrumb ── #}
+    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+            <li>
+                <a href="{{ path('app_home') }}"
+                   class="hover:text-secondary transition-colors duration-200">
+                    Accueil
+                </a>
+            </li>
+            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
+            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+                <a href="{{ path('app_category_show', {'slug' : post.category.slug}) }}"> {{ post.category.title }}</a>
+            </li>
+            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
+            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+                {{ post.title }}
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
 {% block body %}
     <div class="p-8 md:p-4 lg:p-0">
         <article class="group relative rounded-3xl p-8 md:p-12
@@ -11,8 +31,8 @@
                         flex flex-col">
 
             <!-- Overlay gradient (optional, for consistency with card feel) -->
-{#            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-secondary/5 dark:to-secondary/10#}
-{#                        pointer-events-none"></div>#}
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-secondary/5 dark:to-secondary/10
+                        pointer-events-none"></div>
 
             <div class="relative z-10">
                 <header class="mb-8">
@@ -48,4 +68,6 @@
             </div>
         </article>
     </div>
+
+
 {% endblock %}

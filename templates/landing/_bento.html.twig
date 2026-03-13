@@ -15,7 +15,7 @@
             </p>
             {% endfor %}
 
-            <a href="{{ path('app_post_show', {'slug': edito.slug}) }}"
+            <a href="{{ path('app_post_show', {'categorySlug': edito.category.slug, 'slug': edito.slug}) }}"
                class="inline-flex items-center gap-1 text-secondary hover:text-secondary/70 font-medium mt-4 text-sm">
                 Continuer la lecture
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

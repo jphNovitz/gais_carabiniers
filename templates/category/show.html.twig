@@ -1,0 +1,87 @@
+{# templates/category/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.title }} — Mon Site{% endblock %}
+
+{% block nav_secondary %}
+    {# ── Breadcrumb ── #}
+    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+            <li>
+                <a href="{{ path('app_home') }}"
+                   class="hover:text-secondary transition-colors duration-200">
+                    Accueil
+                </a>
+            </li>
+            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
+            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+                {{ category.title }}
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+{% block body %}
+    <div class="min-h-screen bg-surface-light dark:bg-surface-dark py-12 text-content-primary-light dark:text-content-primary-dark ">
+        <header class="relative max-w-5xl mx-auto px-6 mt-6">
+            <div>
+                <h1>
+                    {{ category.title }}
+                </h1>
+                {% if category.summary %}
+                    <p class="mt-4 text-content-primary-light/70 dark:text-content-primary-dark/70 text-lg max-w-2xl leading-relaxed">
+                        {{ category.summary }}
+                    </p>
+                {% endif %}
+            </div>
+            {% if category.image %}
+            <div class="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-xl">
+                <img
+                        src="{{ asset(category.image) }}"
+                        alt="{{ category.title }}"
+                        class="w-full h-full object-cover"
+                >
+            </div>
+            {% endif %}
+        </header>
+
+
+        {% if category.content %}
+            <main class="max-w-5xl mx-auto px-6 mt-10 mb-16">
+                <div class="rounded-2xl p-8 md:p-12 shadow-md">
+                    <div class="
+                prose prose-lg max-w-none
+                prose-headings:text-content-primary-light dark:prose-headings:text-content-primary-dark
+                prose-p:text-content-primary-light/80 dark:prose-p:text-content-primary-dark/80
+                prose-a:text-secondary hover:prose-a:text-content-highlight-light
+                prose-strong:text-content-primary-light dark:prose-strong:text-content-primary-dark
+                prose-li:text-content-primary-light/80 dark:prose-li:text-content-primary-dark/80
+            ">
+                        {{ category.content|raw }}
+                    </div>
+                </div>
+            </main>
+        {% endif %}
+
+    </div>
+    {# Articles satellites — aside collant #}
+    <aside class="w-72 shrink-0">
+        <div class="sticky top-6">
+            <h2 class="text-lg font-semibold mb-4">
+                Articles de la catégorie {{ category.title }}
+            </h2>
+            <ul class="flex flex-col gap-2">
+                {% for post in posts %}
+                    <li>
+                        <a href="{{ path('app_post_show', {
+                            categorySlug: category.slug,
+                            slug: post.slug
+                        }) }}"
+                           class="block hover:text-secondary transition-colors">
+                            {{ post.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+{% endblock %}

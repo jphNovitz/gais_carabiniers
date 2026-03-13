@@ -25,7 +25,7 @@ button:
   meeting_close: "Clôturer"
 nav:
   home: "Accueil"
-  about: "Notre histoire"
+  about: "Le Club"
   contact: "Contact"
   agenda: "Agenda"
   faq: "FAQ"
@@ -33,6 +33,7 @@ nav:
   members: "Membres"
   club: "Club"
   events: "Événements"
+  meetings: "Séances de tir"
 form:
   title: "Titre"
   slug_title: "Titre pour le slug"
@@ -55,22 +56,25 @@ form:
   password: "Mot de passe"
   email: "Email"
   meeting:
+    position: "Position"
     status:
-        draft: "Brouillon"
-        ready: "Prête"
-        in_progress: "En cours"
-        closed: "Terminée"
-        archived: "Archivée"
+      draft: "Brouillon"
+      ready: "Prêt"
+      in_progress: "En cours"
+      closed: "Clôturé"
+      archived: "Archivé"
     type:
         public: "Tir Public"
         competition: "Tir du Mois"
         other: "Autre"
     label:
-      label: "Libellé"
+      label: "Nom"
       placeholder: "Séance du mois de ..."
       type: "Type de séance"
       status: "Statut de la séance"
       date: "Date de la séance"
+      meeting: "Séance de tir"
+      meetings: "Séances de tir"
 
 
 club:
@@ -191,6 +195,7 @@ meeting:
     archived:
       label: Archivée
       description: Séance clôturée et conservée pour l’historique.
+  close_success: "La séance a été clôturée avec succès"
   action:
     header: "Actions"
     view: "Voir la séance"

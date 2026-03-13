@@ -21,32 +21,51 @@ class MeetingParticipantType extends AbstractType
 //                'class' => Meeting::class,
 //                'choice_label' => 'id',
 //            ])
-            ->add('shooter', CollectionType::class, [
-                'entry_type' => EntityType::class,
-                'entry_options' => [
-                    'class' => Member::class,
-                    'choice_label' => function (Member $member) {
-                        return $member->getFirstName() . ' ' . $member->getLastName();
-                    },
-                    'label' => 'Shooter',
-                    'placeholder' => 'Select a shooter',
-                ],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => 'Participants',
+//            ->add('shooter', CollectionType::class, [
+//                'entry_type' => EntityType::class,
+//                'entry_options' => [
+//                    'class' => Member::class,
+//                    'choice_label' => function (Member $member) {
+//                        return $member->getFirstName() . ' ' . $member->getLastName();
+//                    },
+//                    'label' => 'Shooter',
+//                    'placeholder' => 'Select a shooter',
+//                ],
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'by_reference' => false,
+//                'label' => 'Participants',
+//                'attr' => [
+//                    'class' => 'participants-collection'
+//                ]
+//            ])
+//        ;
+            ->add('shooter', EntityType::class, [
+                'class' => Member::class,
+                'choice_label' => fn(Member $m) => $m->getFirstName() . ' ' . $m->getLastName(),
+
+                'placeholder' => 'Sélectionner un tireur',
                 'attr' => [
-                    'class' => 'participants-collection'
+                    'class' => 'form-select',
                 ]
-            ])
-        ;
+            ]);
+//            ->add('shooter', EntityType::class, [
+//                'class' => Member::class,
+//                'choice_label' => function (Member $member) {
+//                    return $member->getFirstName() . ' ' . $member->getLastName();
+//                },
+//                'label' => 'Shooter',
+//                'placeholder' => 'Select a shooter',
+//            ]);
 
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MeetingParticipantDto::class,
+            'data_class' => MeetingParticipant::class,
+            'ea_crud_form_type' => false
+//            'data_class' => MeetingParticipantDto::class,
         ]);
     }
 }

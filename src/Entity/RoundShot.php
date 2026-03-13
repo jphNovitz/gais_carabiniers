@@ -19,6 +19,7 @@ class RoundShot
     private ?Round $round = null;
 
     #[ORM\ManyToOne(inversedBy: 'score')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?MeetingParticipant $meetingParticipant = null;
 
     #[ORM\Column(nullable: true)]

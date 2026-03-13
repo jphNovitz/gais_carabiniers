@@ -21,6 +21,13 @@ class RoundManager implements RoundManagerInterface
     }
     public function createNextRound(Meeting $meeting): Round
     {
+        $existingRound = $meeting->getRounds()->filter(
+            fn($r) => !$r->isClosed()
+        )->last();
+
+        if ($existingRound) {
+            return $existingRound;
+        }
 
         $round = new Round();
         $round->setMeeting($meeting);

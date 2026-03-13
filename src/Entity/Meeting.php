@@ -54,12 +54,13 @@ class Meeting
      * @var Collection<int, MeetingParticipant>
      */
     #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: MeetingParticipant::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $participants;
 
     /**
      * @var Collection<int, Round>
      */
-    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: Round::class)]
+    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: Round::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rounds;
 
     public function getParticipants(): Collection

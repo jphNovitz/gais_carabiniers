@@ -2,6 +2,8 @@
 
 namespace App\Enum;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 enum MeetingStatus: string
 {
     case DRAFT = 'draft';           // Séance créée mais non encore préparée
@@ -9,5 +11,6 @@ enum MeetingStatus: string
     case IN_PROGRESS = 'in_progress'; // Séance en cours
     case CLOSED = 'closed';     // Tirs terminés, résultats disponibles
     case ARCHIVED = 'archived';     // Séance clôturée et archivée
+
 
 }

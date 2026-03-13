@@ -163,4 +163,10 @@ class MeetingParticipant
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->shooter
+            ? $this->shooter->getFirstName() . ' ' . $this->shooter->getLastName()
+            : 'Nouveau participant';
+    }
 }

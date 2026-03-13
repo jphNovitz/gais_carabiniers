@@ -42,7 +42,7 @@ class Round
     /**
      * @var Collection<int, RoundShot>
      */
-    #[ORM\OneToMany(mappedBy: 'round', targetEntity: RoundShot::class)]
+    #[ORM\OneToMany(mappedBy: 'round', targetEntity: RoundShot::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $roundShots;
 
     public function __construct()
@@ -168,5 +168,9 @@ class Round
         $this->status = $status;
 
         return $this;
+    }
+    public function isClosed(): bool
+    {
+        return $this->status === RoundStatus::COMPLETED;
     }
 }

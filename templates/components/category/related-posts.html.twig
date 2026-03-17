@@ -1,0 +1,46 @@
+<aside class="w-full shrink-0">
+    <div class="sticky top-6">
+
+        {# Lien vers la catégorie parente #}
+        {% if parentCategory %}
+            <a href="{{ path('app_category_show', { slug: parentCategory.slug }) }}"
+               class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-secondary transition-colors mb-4">
+                ← {{ parentCategory.title }}
+            </a>
+        {% endif %}
+
+        <h2 class="block text-lg font-semibold mb-8">
+            Articles de la catégorie {{ category.title }}
+        </h2>
+
+        {# Catégories enfants #}
+        {% if childCategories is not empty %}
+            <ul class="flex flex-col gap-2 mb-6">
+                {% for child in childCategories %}
+                    <li>
+                        <a href="{{ path('app_category_show', { slug: child.slug }) }}"
+                           class="block hover:text-secondary transition-colors font-medium">
+                            {{ child.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+        {% endif %}
+
+        {# Articles liés #}
+        {% if relatedPosts is not empty %}
+                {% for post in relatedPosts %}
+                    <li>
+                        <a href="{{ path('app_post_show', {
+                            categorySlug: category.slug,
+                            slug: post.slug
+                        }) }}"
+                           class="block hover:text-secondary transition-colors">
+                            {{ post.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </div>
+</aside>

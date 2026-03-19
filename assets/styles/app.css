@@ -100,7 +100,7 @@
     p:not(:first-child) {
         @apply mt-5;
     }
-    ul li {
+    ul:not(header ul, nav ul, footer ul) li {
         @apply flex items-center gap-2 before:content-['•'] before:text-secondary before:font-bold before:shrink-0;
     }
 }

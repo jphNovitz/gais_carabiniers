@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin\Meeting;
 
+use App\Contract\MeetingParticipantPositionerInterface;
 use App\Contract\RoundManagerInterface;
 use App\Entity\Meeting;
 use App\Enum\MeetingStatus;
@@ -33,11 +34,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MeetingCrudController extends AbstractCrudController
 {
-    public function __construct(protected readonly MeetingParticipantShuffler $participantShuffler,
-                                protected readonly AdminContextProvider       $contextProvider,
-                                protected readonly MeetingRepository          $meetingRepository,
-                                protected readonly TranslatorInterface        $translator,
-                                private readonly AdminContextProvider         $adminContextProvider)
+    public function __construct(private readonly MeetingParticipantShuffler $participantShuffler,
+                                private readonly AdminContextProvider       $contextProvider,
+                                private readonly MeetingRepository          $meetingRepository,
+                                private readonly TranslatorInterface        $translator,
+                                private MeetingParticipantPositionerInterface $participantPositioner,)
     {
     }
 
@@ -143,18 +144,18 @@ class MeetingCrudController extends AbstractCrudController
 //                'class' => MeetingType::class,
 //                'choice_label' => fn($case) => $this->translator->trans('form.meeting.type.' . $case->value),
 //            ]);
-//        yield AssociationField::new('participants', 'Participants')
-//            ->setFormTypeOptions([
-//                'by_reference' => false,
-//            ])
-//
-//            ->onlyOnForms();
-        yield CollectionField::new('participants', 'Participants')
-            ->setEntryType(MeetingParticipantType::class)
-            ->renderExpanded(true)
-            ->allowAdd()
-            ->allowDelete()
+        yield AssociationField::new('participants', 'Participants')
+            ->setFormTypeOptions([
+                'by_reference' => false,
+            ])
+
             ->onlyOnForms();
+//        yield CollectionField::new('participants', 'Participants')
+//            ->setEntryType(MeetingParticipantType::class)
+//            ->renderExpanded(true)
+//            ->allowAdd()
+//            ->allowDelete()
+//            ->onlyOnForms();
 
         yield ChoiceField::new('status', 'Statut')
             ->setTranslatableChoices([
@@ -201,18 +202,30 @@ class MeetingCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $em, mixed $entityInstance): void
     {
-        $participants = $entityInstance->getParticipants()
-            ->map(fn($p) => $p->getShooter())
-            ->filter(fn($shooter) => $shooter !== null) // ← ajout
-            ->toArray();
+        $this->participantPositioner->order($entityInstance);
 
-        $entityInstance->getParticipants()->clear();
-
-        if (!empty($participants)) {
-            $this->participantShuffler->addMany($entityInstance, $participants);
-        }
+        $em->persist($entityInstance);
+        $em->flush();
 
         parent::persistEntity($em, $entityInstance);
+//        $participants = $entityInstance->getParticipants()
+//            ->map(fn($p) => $p->getShooter())
+//            ->filter(fn($shooter) => $shooter !== null) // ← ajout
+//            ->toArray();
+//
+//        $entityInstance->getParticipants()->clear();
+//
+//        if (!empty($participants)) {
+//            $this->participantShuffler->addMany($entityInstance, $participants);
+//        }
+//
+//        parent::persistEntity($em, $entityInstance);
+    }
+
+    public function updateEntity(EntityManagerInterface $em, mixed $entityInstance): void
+    {
+        $this->participantPositioner->order($entityInstance);
+        parent::updateEntity($em, $entityInstance);
     }
 
 }

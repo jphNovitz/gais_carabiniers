@@ -6,8 +6,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
-use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
-use App\Repository\MeetingSnapshotRepository;
+use App\Repository\YearSnapshotRepository; // ← changé
 
 #[AsLiveComponent]
 final class Standing
@@ -20,11 +19,10 @@ final class Standing
     public ?int $year = null;
 
     public function __construct(
-        private MeetingSnapshotRepository $snapshotRepository,
+        private YearSnapshotRepository $snapshotRepository, // ← changé
         #[Autowire('%kernel.project_dir%')]
-        private string                    $projectDir
-    )
-    {
+        private string $projectDir
+    ) {
         $this->availableYears = array_map('intval', $this->snapshotRepository->findAvailableYears());
 
         $path2025 = $this->projectDir . '/data/standings_2025.php';
@@ -34,21 +32,17 @@ final class Standing
 
         rsort($this->availableYears);
 
-        $this->year ??= $this->availableYears[0] ?? (int)date('Y');
+        $this->year ??= $this->availableYears[0] ?? (int) date('Y');
     }
 
     public function getStandings(): array
     {
         if ($this->year === 2025) {
             $data = $this->getStaticStandings2025();
-            if (empty($data)) {
-                // en prod: mieux vaut fallback que crash
-                return [];
-            }
-            return $data;
+            return empty($data) ? [] : $data;
         }
 
-        return $this->snapshotRepository->findSeasonStandings($this->year ?? (int)date('Y'));
+        return $this->snapshotRepository->findSeasonStandings($this->year ?? (int) date('Y'));
     }
 
     private function getStaticStandings2025(): array
@@ -61,4 +55,3 @@ final class Standing
         return is_array($data) ? $data : [];
     }
 }
-

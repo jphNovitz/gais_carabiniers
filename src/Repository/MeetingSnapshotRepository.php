@@ -24,62 +24,10 @@ class MeetingSnapshotRepository extends ServiceEntityRepository
             ->select('ms', 'meeting', 'participant')
             ->andWhere('ms.meeting = :meetingId')
             ->setParameter('meetingId', $meetingId)
+            ->orderBy('ms.score', 'DESC')
             ->getQuery()
             ->getResult();
     }
-
-//    public function findSeasonStandings(int $year): array
-//    {
-//        return $this->createQueryBuilder('ms')
-//            ->join('ms.meeting', 'm')
-//            ->join('ms.participant', 'p')
-//
-//            ->select('p.id AS participantId')
-//            ->addSelect('p.firstName AS firstName')
-//            ->addSelect('p.lastName AS lastName')
-//            ->addSelect('ms.clubName AS club')
-//            ->addSelect('ms.meetingPosition AS meetingPosition')
-//            ->addSelect('ms.year AS year')
-//            ->addSelect('ms.meetingPosition AS rank')
-//            ->addSelect('ms.meetingPrevPosition AS previousRank')
-//            ->addSelect('ms.meetingCount AS meetingsParticipated')
-//            ->addSelect('SUM(ms.totalScore) AS totalScore')
-//            ->addSelect('COUNT(DISTINCT m.id) AS meetingCount')
-//
-//            ->where('ms.year = :year')
-//            ->groupBy('p.id', 'p.firstName', 'p.lastName', 'ms.clubName', 'ms.year', 'ms.meetingPosition')
-//            ->orderBy('ms.meetingPosition', 'ASC')
-//            ->setParameter('year', $year)
-//            ->getQuery()
-//            ->getResult();
-//    }
-
-    public function findSeasonStandings(int $year): array
-    {
-        return $this->createQueryBuilder('ms')
-            ->join('ms.participant', 'p')
-
-            ->select('p.id AS participantId')
-            ->addSelect('p.firstName AS firstName')
-            ->addSelect('p.lastName AS lastName')
-            ->addSelect('p.usesSupport AS usesSupport')
-            ->addSelect('ms.clubName AS club')
-//            ->addSelect('ms.meetingPosition AS meetingPosition')
-            ->addSelect('ms.year AS year')
-            ->addSelect('ms.meetingPosition AS rank')
-            ->addSelect('ms.meetingPrevPosition AS previousRank')
-            ->addSelect('ms.meetingCount AS meetingCount')
-            ->addSelect('ms.totalScore AS totalScore')
-            ->addSelect('ms.averageHits AS averageHits')
-
-            ->where('ms.year = :year')
-            ->orderBy('ms.meetingPosition', 'ASC')
-            ->setParameter('year', $year)
-            ->getQuery()
-            ->getResult();
-    }
-
-
 
     public function save(MeetingSnapshot $entity, bool $flush = false): void
     {
@@ -89,37 +37,4 @@ class MeetingSnapshotRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function findAvailableYears(): array
-    {
-        return $this->createQueryBuilder('ms')
-            ->select('DISTINCT ms.year')
-            ->orderBy('ms.year', 'DESC')
-            ->getQuery()
-            ->getSingleColumnResult();
-    }
-    //    /**
-    //     * @return MeetingSnapshot[] Returns an array of MeetingSnapshot objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?MeetingSnapshot
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

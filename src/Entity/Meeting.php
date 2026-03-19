@@ -53,7 +53,7 @@ class Meeting
     /**
      * @var Collection<int, MeetingParticipant>
      */
-    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: MeetingParticipant::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'meeting', targetEntity: MeetingParticipant::class, cascade: ['persist', 'remove'], orphanRemoval: true )]
     #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $participants;
 
@@ -75,6 +75,7 @@ class Meeting
 
     public function __construct()
     {
+        $this->openedAt = new \DateTimeImmutable();
         $this->participants = new ArrayCollection();
         $this->rounds = new ArrayCollection();
     }

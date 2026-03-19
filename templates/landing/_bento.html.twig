@@ -3,27 +3,29 @@
 
         <!-- colonne gauche pleine hauteur -->
         <div class="bento-card md:col-span-2 md:row-span-2 bg-surface-light dark:bg-surface-dark rounded-2xl p-4 md:p-12 shadow-lg border border-surface-light/50 dark:border-surface-dark/50 flex flex-col justify-between">
-{#            <div class="flex items-center gap-3 mb-4">#}
-{#                <div>#}
-                    <h3 class="text-lg font-bold text-content-primary-light dark:text-content-primary-dark/90">{{ edito.title }}</h3>
-{#                </div>#}
-{#            </div>#}
+            {% if edito %}
+                {# <div class="flex items-center gap-3 mb-4"> #}
+                {#                <div> #}
+                <h3 class="text-lg font-bold text-content-primary-light dark:text-content-primary-dark/90">{{ edito.title }}</h3>
+                {#                </div> #}
+                {#            </div> #}
 
-            {% for paragraph in edito.firstParagraph   %}
-            <p class="leading-loose text-content-primary-light dark:text-content-primary-dark/70">
-                {{ paragraph |raw }}
-            </p>
-            {% endfor %}
+                {% for paragraph in edito.firstParagraph %}
+                    <p class="leading-loose text-content-primary-light dark:text-content-primary-dark/70">
+                        {{ paragraph |raw }}
+                    </p>
+                {% endfor %}
 
-            <a href="{{ path('app_post_show', {'categorySlug': edito.category.slug, 'slug': edito.slug}) }}"
-               class="inline-flex items-center gap-1 text-secondary hover:text-secondary/70 font-medium mt-4 text-sm">
-                {{ "edito.more" |trans }}
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </a>
+                <a href="{{ path('app_post_show', {'categorySlug': edito.category.slug, 'slug': edito.slug}) }}"
+                   class="inline-flex items-center gap-1 text-secondary hover:text-secondary/70 font-medium mt-4 text-sm">
+                    {{ "edito.more" |trans }}
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            {% else %} <p>Pa d'edito</p>
+            {% endif %}
         </div>
-
 
 
         <!-- Prochain Événement - en haut à droite -->
@@ -66,7 +68,7 @@
                     </div>
                     {% if facebookEvent.facebookLink is not null %}
                         <twig:Button:Primary class="w-full" href="{{ facebookEvent.facebookLink }}">
-                             Intéressé ? {{ ux_icon('gg:external', {class: 'w-4 ml-6'}) }}
+                            Intéressé ? {{ ux_icon('gg:external', {class: 'w-4 ml-6'}) }}
                         </twig:Button:Primary>
                     {% endif %}
                 </div>
@@ -76,7 +78,7 @@
                 <h3 class="text-2xl font-bold max-w-sm">
                     N'hésitez pas à télécharger notre
                     <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline mb-4">calendrier
-                    2026</a>
+                        2026</a>
                 </h3>
                 <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline">
                     <img src="{{ asset('images/screenshot_calendrier_2026.png') }}"

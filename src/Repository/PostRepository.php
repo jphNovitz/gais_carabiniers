@@ -20,7 +20,7 @@ class PostRepository extends ServiceEntityRepository
         /**
          * @return Post Returns Post objects
          */
-        public function findHomeEdito($categoryTitle): Post
+        public function findHomeEdito($categoryTitle): ?Post
         {
 
                 return $this->createQueryBuilder('p')

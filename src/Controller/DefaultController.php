@@ -6,6 +6,7 @@ use App\Repository\ClubRepository;
 use App\Repository\FacebookEventRepository;
 use App\Repository\MeetingSnapshotRepository;
 use App\Repository\PostRepository;
+use App\Repository\YearSnapshotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\Cache;
@@ -19,11 +20,11 @@ class DefaultController extends AbstractController
     public function index(ClubRepository $clubRepository,
                           FacebookEventRepository $facebookEventRepository,
                           PostRepository $postRepository,
-                          MeetingSnapshotRepository $meetingSnapshotRepository): Response
+                          YearSnapshotRepository $yearSnapshotRepository): Response
     {
-        $edito = $postRepository->findHomeEdito('Edito');
+        $edito = $postRepository->findHomeEdito('Le mot du comité');
         $facebookEvents = $facebookEventRepository->findNextFutureElement();
-        $snapshot = $meetingSnapshotRepository->findSeasonStandings(date('Y'));
+        $snapshot = $yearSnapshotRepository->findSeasonStandings(date('Y'));
 
 
         return $this->render('landing/index.html.twig', [

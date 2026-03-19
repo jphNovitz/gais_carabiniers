@@ -8,8 +8,8 @@
     <div class="py-12">
         {% if standing is defined and standing|length > 0 %}
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left">
-                    <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                <table class="w-full bg-surface-light dark:bg-surface-dark text-sm text-left">
+                    <thead class="text-xs uppercase bg-base-light/50 dark:bg-base-dark/50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
                             {{ 'meeting.rank' |trans }}
@@ -25,7 +25,7 @@
                     <tbody>
                     {% set prevPosition = null %}
                     {% for line in standing %}
-                        <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark even:bg-surface-light dark:even:bg-surface-dark/10 bg-opacity-10">
+                        <tr class="border-b dark:border-surface-dark">
                             <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
                                 {% if line.meetingPosition != prevPosition %}
                                     {{ line.meetingPosition }}

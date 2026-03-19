@@ -3,90 +3,130 @@
 namespace App\Service;
 
 use App\Contract\MeetingCloserInterface;
-use App\Contract\MeetingCreatorInterface;
 use App\Entity\Meeting;
 use App\Entity\MeetingSnapshot;
+use App\Entity\YearSnapshot;
 use App\Enum\MeetingStatus;
 use App\Enum\MeetingType;
 use App\Repository\MeetingRepository;
 use App\Repository\MeetingSnapshotRepository;
+use App\Repository\YearSnapshotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class MeetingCloser implements MeetingCloserInterface
 {
-    public function __construct(private readonly MeetingRepository         $meetingRepository,
-                                private readonly MeetingSnapshotRepository $meetingSnapshotRepository)
-    {
-    }
+    public function __construct(
+        private readonly MeetingRepository         $meetingRepository,
+        private readonly MeetingSnapshotRepository $meetingSnapshotRepository,
+        private readonly YearSnapshotRepository   $yearSnapshotRepository,
+        private readonly EntityManagerInterface    $em
+    ) {}
 
     public function close(Meeting $meeting): bool
     {
         if ($meeting->getType() === MeetingType::COMPETITION) {
             $standings = $this->meetingRepository->findSnapshot($meeting->getId());
-            $year = (int)$meeting->getDate()->format('Y');
+            $year = (int) $meeting->getDate()->format('Y');
 
-            $lastScore = null;
-            $position = 0;
-
+            // ----------------------------------------------------------------
+            // ÉTAPE 1 : Créer/mettre à jour les MeetingSnapshot
+            // ----------------------------------------------------------------
             foreach ($standings as $standing) {
-                $score = (int) $standing['totalScore'];
-
-                if ($lastScore === null || $score !== $lastScore) {
-                    $position++;
-                    $lastScore = $score;
-                }
-
-                $participant = $meeting->getParticipants()->filter(function ($participant) use ($standing) {
-                    return $participant->getId() === $standing['participantId'];
+                $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
+                    return $p->getId() === $standing['participantId'];
                 })->first()->getShooter();
 
-                // Chercher le snapshot existant pour ce participant cette année
-                $snapshot = $this->meetingSnapshotRepository->findOneBy([
+                $meetingSnapshot = $this->meetingSnapshotRepository->findOneBy([
+                    'meeting'     => $meeting,
                     'participant' => $participant,
-                    'year' => $year
                 ]);
 
-                if ($snapshot) {
-                    // Sauvegarder l'ancienne position avant mise à jour
-                    $snapshot->setMeetingPrevPosition($snapshot->getMeetingPosition());
-
-                    // Mise à jour du snapshot existant (cumul)
-                    $snapshot->setTotalScore($snapshot->getTotalScore() + $standing['totalScore']);
-                    $snapshot->setMeetingCount($snapshot->getMeetingCount() + 1);
-
-                    // Calculer la moyenne
-                    $snapshot->setAverageHits($snapshot->getTotalScore() / $snapshot->getMeetingCount());
-
-                    $snapshot->setComputedAt(new \DateTimeImmutable());
-                    $snapshot->setMeetingLabel($meeting->getLabel());
-                } else {
-                    // Premier meeting de l'année pour ce participant
-                    $snapshot = new MeetingSnapshot();
-                    $snapshot->setParticipant($participant);
-                    $snapshot->setShooterName($participant);
-                    $snapshot->setYear($year);
-                    $snapshot->setTotalScore($standing['totalScore']);
-                    $snapshot->setMeetingCount(1);
-
-                    // Moyenne = score total (premier meeting)
-                    $snapshot->setAverageHits($standing['totalScore']);
-
-                    // Pas de position précédente pour le premier meeting
-                    $snapshot->setMeetingPrevPosition(null);
-
-                    $snapshot->setComputedAt(new \DateTimeImmutable());
-                    $snapshot->setMeetingLabel($meeting->getLabel());
-
-                    // ⚠️ IMPORTANT : Définir clubName si vous l'utilisez dans la requête
-                    // $snapshot->setClubName($standing['clubName'] ?? null);
+                if (!$meetingSnapshot) {
+                    $meetingSnapshot = new MeetingSnapshot();
+                    $meetingSnapshot->setMeeting($meeting);
+                    $meetingSnapshot->setParticipant($participant);
                 }
 
-                // La position est recalculée après chaque meeting dans le classement général
-                $snapshot->setMeetingPosition($position);
-                $snapshot->setMeeting($meeting); // Dernier meeting traité
+                $meetingSnapshot->setScore((int) $standing['totalScore']);
+                $meetingSnapshot->setComputedAt(new \DateTimeImmutable());
 
-                $this->meetingSnapshotRepository->save($snapshot, true);
+                $this->em->persist($meetingSnapshot);
             }
+
+            // ----------------------------------------------------------------
+            // ÉTAPE 2 : Créer/mettre à jour les YearSnapshot
+            // ----------------------------------------------------------------
+            $yearSnapshots = [];
+
+            foreach ($standings as $standing) {
+                $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
+                    return $p->getId() === $standing['participantId'];
+                })->first()->getShooter();
+
+                $yearSnapshot = $this->yearSnapshotRepository->findOneBy([
+                    'participant' => $participant,
+                    'year'        => $year,
+                ]);
+
+                if ($yearSnapshot) {
+                    $yearSnapshot->setYearPrevPosition($yearSnapshot->getYearPosition());
+                    $yearSnapshot->setTotalScore($yearSnapshot->getTotalScore() + (int) $standing['totalScore']);
+                    $yearSnapshot->setMeetingCount($yearSnapshot->getMeetingCount() + 1);
+                } else {
+                    $yearSnapshot = new YearSnapshot();
+                    $yearSnapshot->setParticipant($participant);
+                    $yearSnapshot->setYear($year);
+                    $yearSnapshot->setTotalScore((int) $standing['totalScore']);
+                    $yearSnapshot->setMeetingCount(1);
+                    $yearSnapshot->setYearPrevPosition(null);
+                }
+
+                $yearSnapshot->setAverageHits(
+                    $yearSnapshot->getTotalScore() / $yearSnapshot->getMeetingCount()
+                );
+                $yearSnapshot->setLastMeeting($meeting);
+                $yearSnapshot->setComputedAt(new \DateTimeImmutable());
+
+                $this->em->persist($yearSnapshot);
+                $yearSnapshots[] = $yearSnapshot;
+            }
+
+            // ----------------------------------------------------------------
+            // ÉTAPE 3 : Flush pour avoir les IDs, puis calculer les positions
+            // ----------------------------------------------------------------
+            $this->em->flush();
+
+            // Positions annuelles
+            usort($yearSnapshots, fn($a, $b) => $b->getTotalScore() <=> $a->getTotalScore());
+
+            $lastScore = null;
+            $position  = 0;
+
+            foreach ($yearSnapshots as $yearSnapshot) {
+                if ($lastScore === null || $yearSnapshot->getTotalScore() !== $lastScore) {
+                    $position++;
+                    $lastScore = $yearSnapshot->getTotalScore();
+                }
+                $yearSnapshot->setYearPosition($position);
+            }
+
+            // Positions par meeting
+            $meetingSnapshots = $this->meetingSnapshotRepository->findBy(['meeting' => $meeting]);
+            usort($meetingSnapshots, fn($a, $b) => $b->getScore() <=> $a->getScore());
+
+            $lastScore = null;
+            $position  = 0;
+
+            foreach ($meetingSnapshots as $meetingSnapshot) {
+                if ($lastScore === null || $meetingSnapshot->getScore() !== $lastScore) {
+                    $position++;
+                    $lastScore = $meetingSnapshot->getScore();
+                }
+                $meetingSnapshot->setMeetingPosition($position);
+            }
+
+            // Flush final pour les positions
+            $this->em->flush();
         }
 
         $meeting->setStatus(MeetingStatus::CLOSED);

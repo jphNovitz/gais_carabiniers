@@ -109,7 +109,7 @@ class MeetingCrudController extends AbstractCrudController
                     MeetingStatus::CLOSED,
                     MeetingStatus::ARCHIVED,
                 ]))
-            );;
+            );
     }
 
     public function configureFields(string $pageName): iterable
@@ -144,18 +144,18 @@ class MeetingCrudController extends AbstractCrudController
 //                'class' => MeetingType::class,
 //                'choice_label' => fn($case) => $this->translator->trans('form.meeting.type.' . $case->value),
 //            ]);
-        yield AssociationField::new('participants', 'Participants')
-            ->setFormTypeOptions([
-                'by_reference' => false,
-            ])
-
-            ->onlyOnForms();
-//        yield CollectionField::new('participants', 'Participants')
-//            ->setEntryType(MeetingParticipantType::class)
-//            ->renderExpanded(true)
-//            ->allowAdd()
-//            ->allowDelete()
+//        yield AssociationField::new('participants', 'Participants')
+//            ->setFormTypeOptions([
+//                'by_reference' => false,
+//            ])
+//
 //            ->onlyOnForms();
+        yield CollectionField::new('participants', 'Participants')
+            ->setEntryType(MeetingParticipantType::class)
+            ->renderExpanded(true)
+            ->allowAdd()
+            ->allowDelete()
+            ->onlyOnForms();
 
         yield ChoiceField::new('status', 'Statut')
             ->setTranslatableChoices([

@@ -18,10 +18,12 @@ readonly class MeetingParticipantPositioner implements MeetingParticipantPositio
     public function __construct(private readonly MeetingRepository $meetingRepository){}
     public function order(Meeting $meeting): void
     {
-        $shooters = $meeting->getParticipants()
-            ->map(fn($p) => $p->getShooter())
-            ->filter(fn($s) => $s !== null)
-            ->toArray();
+        $shooters = array_values( // ← ici
+            $meeting->getParticipants()
+                ->map(fn($p) => $p->getShooter())
+                ->filter(fn($s) => $s !== null)
+                ->toArray()
+        );
 
         $meeting->getParticipants()->clear();
         $this->meetingRepository->save($meeting, true); // ← DELETE avant INSERT

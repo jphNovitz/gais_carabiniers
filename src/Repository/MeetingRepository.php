@@ -84,7 +84,7 @@ class MeetingRepository extends ServiceEntityRepository
     public function findRawDtos(int $limit = 500): array
     {
         $results = $this->createQueryBuilder('m')
-            ->select('m.id', 'm.date', 'm.label', 'm.status', 'm.type', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
+            ->select('m.id', 'm.slug', 'm.date', 'm.label', 'm.status', 'm.type', 'm.openedAt', 'm.closedAt', 'COUNT(mp.id) AS participantCount')
             ->leftJoin('m.participants', 'mp')
             ->groupBy('m.id')
             ->orderBy('m.date', 'DESC')
@@ -134,8 +134,8 @@ class MeetingRepository extends ServiceEntityRepository
                 lastName: $row['lastName'],
                 position: $row['position'],
                 totalScore: $row['totalScore'],
-                rank: $rank,
-                roundsPlayed: $row['roundsPlayed']
+                roundsPlayed: $row['roundsPlayed'],
+                rank: $rank
             );
         }
 
@@ -163,37 +163,14 @@ class MeetingRepository extends ServiceEntityRepository
         }
     }
 
-    //    /**
-    //     * @return Meeting[] Returns an array of Meeting objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
 
-    //    public function findOneBySomeField($value): ?Meeting
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
     /**
      * @param $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getScoresBuilder($id): \Doctrine\ORM\QueryBuilder
     {
-        $qb = $this->createQueryBuilder('m')
+        return $this->createQueryBuilder('m')
             ->leftJoin('m.rounds', 'r')
             ->leftJoin('r.roundShots', 'rs')
             ->leftJoin('rs.meetingParticipant', 'mp')
@@ -220,6 +197,5 @@ class MeetingRepository extends ServiceEntityRepository
             ->orderBy('totalScore', 'DESC')
             ->addOrderBy('participant.lastName', 'ASC')
             ->addOrderBy('participant.firstName', 'ASC');
-        return $qb;
     }
 }

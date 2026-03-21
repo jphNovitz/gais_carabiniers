@@ -18,7 +18,6 @@ readonly class MeetingOrganizer implements \App\Contract\MeetingOrganizerInterfa
 
         $sorted = [];
 
-        // Votre logique optimisée (en une seule passe)
         foreach ($dtos as $dto) {
             $year = (int)$dto->date->format('Y');
 

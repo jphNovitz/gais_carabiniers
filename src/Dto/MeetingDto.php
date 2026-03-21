@@ -25,6 +25,7 @@ public ?MeetingType $type = MeetingType::COMPETITION,
 #[Assert\Length(max: 120, groups: ['create','update'])]
 public ?string $title = null,
 
+
 public array $rounds = [],
 
 #[Assert\Blank(groups: ['create','update'])] public ?string $slug = null,

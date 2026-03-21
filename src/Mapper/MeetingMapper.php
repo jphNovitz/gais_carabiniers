@@ -16,6 +16,7 @@ class MeetingMapper
             status: $data['status'],
             type: $data['type'],
             title: $data['label'],
+            slug: $data['slug'],
             openedAt: $data['openedAt'] ?? null,
             closedAt: $data['closedAt'] ?? null,
             participantCount: (int) $data['participantCount'],

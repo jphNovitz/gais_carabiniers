@@ -61,14 +61,42 @@
 {#                            <li><a>Classements</a></li>#}
 {#                        </ul>#}
 {#                    </li>#}
-
                     <li>
-                        <a href="{{ path('meeting_standing') }}"
-                           class="{{ baseClass }} {{ route == 'meeting_standing' ? activeClass : '' }}"
-                           aria-current="{{ route == 'meeting_standing' ? 'page' : 'false' }}">
+                        <button id="dropdown-standings" data-dropdown-toggle="dropdown-standings-menu"
+                                class="{{ baseClass }} flex items-center gap-1">
                             {% trans %}nav.standings{% endtrans %}
-                        </a>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div id="dropdown-standings-menu"
+                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                                <li>
+                                    <a href="{{ path('meeting_standing') }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ route == 'meeting_standing' ? activeClass : '' }}"
+                                       aria-current="{{ route == 'meeting_standing' ? 'page' : 'false' }}">
+                                        {% trans %}nav.standings.general{% endtrans %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_meeting_index') }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ route == 'meeting_standing_other' ? activeClass : '' }}"
+                                       aria-current="{{ route == 'meeting_standing_other' ? 'page' : 'false' }}">
+                                        {% trans %}nav.standings.other{% endtrans %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
+{#                    <li>#}
+{#                        <a href="{{ path('meeting_standing') }}"#}
+{#                           class="{{ baseClass }} {{ route == 'meeting_standing' ? activeClass : '' }}"#}
+{#                           aria-current="{{ route == 'meeting_standing' ? 'page' : 'false' }}">#}
+{#                            {% trans %}nav.standings{% endtrans %}#}
+{#                        </a>#}
+{#                    </li>#}
                     <li>
                         <a href="{{ path('app_faq') }}"
                            class="{{ baseClass }} {{ route == 'app_faq' ? activeClass : '' }}"

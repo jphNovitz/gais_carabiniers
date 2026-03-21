@@ -20,7 +20,7 @@ final class MeetingController extends AbstractController
     {
     }
 
-    #[Route('/competitions-de-tir/', name: 'meeting_index', methods: ['GET'])]
+    #[Route('/resultats-tir-aux-plaquettes', name: 'app_meeting_index', methods: ['GET'])]
     public function index(MeetingOrganizer $organizer): Response
     {
         $groupedMeetings = $organizer->getMeetingsGroupedByYear();
@@ -30,7 +30,7 @@ final class MeetingController extends AbstractController
         ]);
     }
 
-    #[Route('/competition-de-tir/{id}', name: 'meeting_show', methods: ['GET'])]
+    #[Route('/resultats-tir-aux-plaquettes/{slug}', name: 'app_meeting_show', methods: ['GET'])]
     public function show(Meeting $meeting): Response
     {
         $standing = $this->meetingSnapshotRepository->findByMeetingId($meeting->getId());

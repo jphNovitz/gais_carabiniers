@@ -1,26 +1,42 @@
 {% extends 'base.html.twig' %}
 
+{% block nav_secondary %}
+    {# ── Breadcrumb ── #}
+    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="w-full flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+            <li>
+                <a href="{{ path('app_home') }}"
+                   class="hover:text-secondary transition-colors duration-200">
+                    Accueil
+                </a>
+            </li>
+            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
+            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+                Résultats des tirs aux plaquettes
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+
 {% block body %}
 
+    <section class="max-w-6xl bg-surface-light dark:bg-surface-dark mx-auto p-8 space-y-12">
+        <h1>Résultats des tirs aux plaquettes : Les Gais Carabiniers de Bernissart</h1>
 
-    <section class="max-w-6xl mx-auto p-8 space-y-12">
-        <div>
-            <h2 class="text-2xl font-bold mb-6">2025</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <h3 class="font-semibold text-xl mb-1">Classement final </h3>
-            </div>
-        </div>
+        <p>Tout au long de l'année, les Gais Carabiniers organisent des rencontres pour partager notre passion du tir sur plaquettes. Pour ne manquer aucun de nos prochains rendez-vous, n'hésitez pas à consulter notre <a href="/agenda" class="underline">agenda de tirs aux plaquettes</a></p>
         {% for year, grouped in groupedMeetings %}
             <div>
-                <h2 class="text-2xl font-bold mb-6">{{ year }}</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <h2 class="text-2xl font-bold mb-6">Saison {{ year }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {% for type, meetings in grouped %}
                         <div>
-                            <h3 class="font-semibold text-xl mb-1">{{ ('meeting.type.'~type) |trans }} </h3>
+{#                            <h3 class="font-semibold text-xl mb-1">{{ ('meeting.type.'~type) |trans }} </h3>#}
                             {% for meeting in meetings %}
-                                <div class="block p-4 bg-surface-light dark:bg-surface-dark rounded-xl shadow hover:bg-base-300 transition">
-                                    <a href="{{ path('meeting_show', {'id': meeting.id}) }}"> {{ meeting.title }} </a>
-                                    <div class="grid grid-cols-2 gap-2">
+                                <div class="">
+                                    <h3>
+                                        <a href="{{ path('app_meeting_show', {'slug': meeting.slug}) }}"> {{ meeting.title }} </a>
+                                    </h3>
+                                        <div class="grid grid-cols-2 gap-2">
                                         <div class="text-sm">{{ meeting.date|format_datetime('long', 'none') }}</div>
                                         <div class="text-sm">{{ meeting.participantCount }} participants</div>
                                     </div>

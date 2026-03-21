@@ -1,23 +1,49 @@
 {% extends 'base.html.twig' %}
 
+
+{% block nav_secondary %}
+    {# ── Breadcrumb ── #}
+    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="w-full flex flex-col md:flex-row items-start md:items-center gap-2 text-xs md:text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+            <li>
+                <a href="{{ path('app_home') }}"
+                   class="hover:text-secondary transition-colors duration-200">
+                    Accueil
+                </a>
+            </li>
+            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
+                <a href="{{ path('app_meeting_index') }}">Résultats des tirs aux plaquettes</a>
+            </li>
+            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
+                {{ meeting.label }}
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+
 {% block body %}
-    <section class="min-h-screen p-2 md:p-6 lg:p-12">
-    <twig:Title:H1>{{ meeting.label }} : Classement</twig:Title:H1>
-    <p>{{ meeting.date|format_datetime('long', 'none') }}</p>
-    <p class="my-4"><a href="{{ path('meeting_index') }}" class="bg-transparent text-content-primary-light border border-content-primary-light focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 my-2.5 text-center dark:text-content-primary-dark dark:border-content-primary-dark ">liste</a></p>
+<section class="min-h-screen bg-surface-light dark:bg-surface-dark {# p-2 md:p-6 lg:p-12 #}mx-auto p-8 space-y-12">
+
+    <h1>Classement du <br class="md:hidden"/>{{ meeting.label }}</h1>
+    <div>
+        Le {{ meeting.date|format_datetime('long', 'none') }}
+        <br/>(*) Tir appuyé
+    </div>
     <div class="py-12">
         {% if standing is defined and standing|length > 0 %}
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full bg-surface-light dark:bg-surface-dark text-sm text-left">
+                <table class="w-full bg-surface-light dark:bg-surface-dark text-xs md:text-base text-left">
                     <thead class="text-xs uppercase bg-base-light/50 dark:bg-base-dark/50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        <th scope="col" class="p-4 text-content-primary-light dark:text-content-primary-dark">
                             {{ 'meeting.rank' |trans }}
                         </th>
-                        <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        <th scope="col" class="p-4 text-content-primary-light dark:text-content-primary-dark">
                             {{ 'meeting.participant' |trans }}
                         </th>
-                        <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">
+                        <th scope="col" class="p-4 py-3 text-content-primary-light dark:text-content-primary-dark">
                             {{ 'meeting.points' |trans }}
                         </th>
                     </tr>
@@ -34,6 +60,7 @@
                             </td>
                             <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
                                 {{ line.participant.firstName }} {{ line.participant.lastName|first }}.
+                                {% if line.participant.usesSupport %}* {% endif %}
                             </td>
                             <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
                                 {{ line.score }}

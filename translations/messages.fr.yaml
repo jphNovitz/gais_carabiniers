@@ -32,10 +32,13 @@ nav:
   agenda: "Agenda"
   faq: "FAQ"
   standings: "Classements"
+  standings.general: "Général"
+  standings.other: "Tirs"
   members: "Membres"
   club: "Club"
   events: "Événements"
   meetings: "Séances de tir"
+
 form:
   title: "Titre"
   slug_title: "Titre pour le slug"

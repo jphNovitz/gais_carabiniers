@@ -18,17 +18,22 @@
 {% endblock %}
 {% block nav_secondary %}
     {# ── Breadcrumb ── #}
-    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+    <nav aria-label="Fil d'Ariane" class="max-w-5xl mx-auto px-6 pt-6 pb-2">
         <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
             <li>
-                <a href="{{ path('app_home') }}"
-                   class="hover:text-secondary transition-colors duration-200">
-                    Accueil
-                </a>
+                <a href="{{ path('app_home')}}" class="hover:text-secondary transition-colors duration-200">Accueil</a>
             </li>
-            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
-            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
-                {{ category.title }}
+            {% if category.parentCategory %}
+                <li class="min-w-0 flex items-center gap-2 text-content-primary-light dark:text-content-primary-dark font-semibold">
+                    <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none" aria-hidden="true">›</span>
+                    <a href="{{ path('app_category_show', {'slug': category.parentCategory.slug}) }}" class="truncate">
+                        {{ category.parentCategory.title }}
+                    </a>
+                </li>
+            {% endif %}
+            <li aria-current="page" class="min-w-0 flex items-center gap-2 text-content-primary-light dark:text-content-primary-dark font-semibold">
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none" aria-hidden="true">›</span>
+                <span class="truncate">{{ category.title }}</span>
             </li>
         </ol>
     </nav>
@@ -47,13 +52,13 @@
                 {% endif %}
             </div>
             {% if category.image %}
-            <div class="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-                <img
-                        src="{{ asset('images/topic/' ~ category.image) }}"
-                        alt="{{ category.title }}"
-                        class="w-full h-full object-cover"
-                >
-            </div>
+                <div class="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-xl">
+                    <img
+                            src="{{ asset('images/topic/' ~ category.image) }}"
+                            alt="{{ category.title }}"
+                            class="w-full h-full object-cover"
+                    >
+                </div>
             {% endif %}
         </header>
 
@@ -77,26 +82,26 @@
 
     </div>
 
-    <twig:Category:RelatedPosts :category="category" limit="4" />
+    <twig:Category:RelatedPosts :category="category" limit="4"/>
     {# Articles satellites — aside collant #}
-{#    <aside class="w-full shrink-0">#}
-{#        <div class="sticky top-6">#}
-{#            <h2 class="block text-lg font-semibold mb-8">#}
-{#                Articles de la catégorie {{ category.title }}#}
-{#            </h2>#}
-{#            <ul class="flex flex-col gap-2">#}
-{#                {% for post in posts %}#}
-{#                    <li>#}
-{#                        <a href="{{ path('app_post_show', {#}
-{#                            categorySlug: category.slug,#}
-{#                            slug: post.slug#}
-{#                        }) }}"#}
-{#                           class="block hover:text-secondary transition-colors">#}
-{#                            {{ post.title }}#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ul>#}
-{#        </div>#}
-{#    </aside>#}
+    {#    <aside class="w-full shrink-0"> #}
+    {#        <div class="sticky top-6"> #}
+    {#            <h2 class="block text-lg font-semibold mb-8"> #}
+    {#                Articles de la catégorie {{ category.title }} #}
+    {#            </h2> #}
+    {#            <ul class="flex flex-col gap-2"> #}
+    {#                {% for post in posts %} #}
+    {#                    <li> #}
+    {#                        <a href="{{ path('app_post_show', { #}
+    {#                            categorySlug: category.slug, #}
+    {#                            slug: post.slug #}
+    {#                        }) }}" #}
+    {#                           class="block hover:text-secondary transition-colors"> #}
+    {#                            {{ post.title }} #}
+    {#                        </a> #}
+    {#                    </li> #}
+    {#                {% endfor %} #}
+    {#            </ul> #}
+    {#        </div> #}
+    {#    </aside> #}
 {% endblock %}

@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Contract\MeetingParticipantAdderInterface;
+use App\Contract\MeetingParticipantShufflerInterface;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Entity\Member;
@@ -10,7 +10,7 @@ use App\Enum\MeetingStatus;
 use App\Repository\MeetingParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class MeetingParticipantShuffler
+class MeetingParticipantShuffler implements MeetingParticipantShufflerInterface
 {
     public function __construct(
         private readonly MeetingParticipantRepository $mpRepo,

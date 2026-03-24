@@ -1,0 +1,13 @@
+<ul>
+    {% for post in posts %}
+        <li>
+            <a href="{{ path('app_post_show', {
+                categorySlug: category.slug,
+                slug: post.slug
+            }) }}"
+               class="block hover:text-secondary transition-colors">
+                {{ post.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

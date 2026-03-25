@@ -1,3 +1,4 @@
+{% if parentCategory or childCategories is not empty or relatedPosts is not empty %}
 <aside class="w-full shrink-0 p-8">
     <div class="sticky top-6">
 
@@ -32,3 +33,4 @@
         {% endif %}
     </div>
 </aside>
+{% endif %}

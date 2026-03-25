@@ -11,9 +11,16 @@
                     Accueil
                 </a>
             </li>
-            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
+            <li>
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                      aria-hidden="true">›</span>
+                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="hover:text-secondary transition-colors duration-200 truncate">
+                    Competitions de tir sportif
+                </a>
+            </li>
+            <li class="truncate">
                 <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
-                <a href="{{ path('app_meeting_index') }}">Résultats des tirs aux plaquettes</a>
+                <a href="{{ path('app_meeting_index') }}" class="hover:text-secondary transition-colors duration-200">Résultats des tirs aux plaquettes</a>
             </li>
             <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
                 <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>

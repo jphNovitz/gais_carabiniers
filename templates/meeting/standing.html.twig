@@ -1,5 +1,30 @@
 {% extends 'base.html.twig' %}
 
+
+{% block nav_secondary %}
+    {# ── Breadcrumb ── #}
+    <nav aria-label="Fil d'Ariane" class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+            <li>
+                <a href="{{ path('app_home') }}" class="hover:text-secondary transition-colors duration-200">Accueil</a>
+            </li>
+            <li>
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                      aria-hidden="true">›</span>
+                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="hover:text-secondary transition-colors duration-200 truncate">
+                    Competitions de tir sportif
+                </a>
+            </li>
+            <li aria-current="page"
+                class="min-w-0 flex items-center gap-2 text-content-primary-light dark:text-content-primary-dark font-semibold">
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                      aria-hidden="true">›</span>
+                Classement Général
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+
 {% block body %}
 
 

@@ -47,13 +47,13 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="{{ path('app_agenda') }}"
-                           class="{{ baseClass }} {{ route starts with 'app_agenda' ? activeClass : '' }}"
-                           aria-current="{{ route starts with 'app_agenda' ? 'page' : 'false' }}">
-                            {% trans %}nav.agenda{% endtrans %}
-                        </a>
-                    </li>
+{#                    <li>#}
+{#                        <a href="{{ path('app_agenda') }}"#}
+{#                           class="{{ baseClass }} {{ route starts with 'app_agenda' ? activeClass : '' }}"#}
+{#                           aria-current="{{ route starts with 'app_agenda' ? 'page' : 'false' }}">#}
+{#                            {% trans %}nav.agenda{% endtrans %}#}
+{#                        </a>#}
+{#                    </li>#}
 {#                    <li>#}
 {#                        <a>Competitions</a>#}
 {#                        <ul class="p-2">#}
@@ -64,7 +64,7 @@
                     <li>
                         <button id="dropdown-standings" data-dropdown-toggle="dropdown-standings-menu"
                                 class="{{ baseClass }} flex items-center gap-1">
-                            {% trans %}nav.standings{% endtrans %}
+                            {% trans %}nav.competitions{% endtrans %}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
@@ -73,20 +73,42 @@
                         <div id="dropdown-standings-menu"
                              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+
+                                {% set isPresentation = route == 'app_category_show' and app.request.attributes.get('slug') == 'competitions-tir-sportif' %}                                <li>
+                                    <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isPresentation ? activeClass : '' }}"
+                                       aria-current="{{ isPresentation ? 'page' : 'false' }}">
+                                        {{ 'nav.presentation'|trans }}
+                                    </a>
+                                </li>
+
+                                {% set isAgenda = route == 'app_agenda' %}
+                                <li>
+                                    <a href="{{ path('app_agenda') }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isAgenda ? activeClass : '' }}"
+                                       aria-current="{{ isAgenda ? 'page' : 'false' }}">
+                                        {{ 'nav.agenda'|trans }}
+                                    </a>
+                                </li>
+
+                                {% set isStanding = route == 'meeting_standing' %}
                                 <li>
                                     <a href="{{ path('meeting_standing') }}"
-                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ route == 'meeting_standing' ? activeClass : '' }}"
-                                       aria-current="{{ route == 'meeting_standing' ? 'page' : 'false' }}">
-                                        {% trans %}nav.standings.general{% endtrans %}
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isStanding ? activeClass : '' }}"
+                                       aria-current="{{ isStanding ? 'page' : 'false' }}">
+                                        {{ 'nav.standings.general'|trans }}
                                     </a>
                                 </li>
+
+                                {% set isMeetingIndex = route == 'app_meeting_index' %}
                                 <li>
                                     <a href="{{ path('app_meeting_index') }}"
-                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ route == 'meeting_standing_other' ? activeClass : '' }}"
-                                       aria-current="{{ route == 'meeting_standing_other' ? 'page' : 'false' }}">
-                                        {% trans %}nav.standings.other{% endtrans %}
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isMeetingIndex ? activeClass : '' }}"
+                                       aria-current="{{ isMeetingIndex ? 'page' : 'false' }}">
+                                        {{ 'nav.standings.other'|trans }}
                                     </a>
                                 </li>
+
                             </ul>
                         </div>
                     </li>

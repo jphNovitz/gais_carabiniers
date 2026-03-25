@@ -10,18 +10,40 @@
 {% block twitter_title %}Agenda des Gais Carabiniers : entraînements et compétitions{% endblock %}
 {% block twitter_description %}Découvrez les événements du club de tir : compétitions, entraînements et rencontres. Ne manquez aucune date importante !{% endblock %}
 {% block twitter_image %}https://gc-bernissart.be/images/gc-bernissart_agenda_cover_image.webp{% endblock %}
+
+{% block nav_secondary %}
+    {# ── Breadcrumb ── #}
+    <nav aria-label="Fil d'Ariane" class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+            <li>
+                <a href="{{ path('app_home') }}" class="hover:text-secondary transition-colors duration-200">Accueil</a>
+            </li>
+            <li>
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                      aria-hidden="true">›</span>
+                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="hover:text-secondary transition-colors duration-200 truncate">
+                    Competitions de tir sportif
+                </a>
+            </li>
+            <li aria-current="page"
+                class="min-w-0 flex items-center gap-2 text-content-primary-light dark:text-content-primary-dark font-semibold">
+                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                      aria-hidden="true">›</span>
+                <span class="truncate">Agenda</span>
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+
 {% block body %}
-
-
     <section
             class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
             <div class="max-w-3xl mx-auto text-left">
-                <twig:Title:H1>Agenda</twig:Title:H1>
-                <twig:Title:H2 class="mt-4">
-                    Voici la liste des événements à venir de notre club et ne manquez aucun rendez-vous.
-                </twig:Title:H2>
-                <p><a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline">Telecharger le calendrier</a></p>
+                <h1>Agenda</h1>
+                <h2>Voici la liste des événements à venir de notre club et ne manquez aucun rendez-vous.</h2>
+                <p><a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline">Telecharger le
+                        calendrier</a></p>
             </div>
 
             <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-16">
@@ -32,7 +54,8 @@
                                 {{ item.date |format_date(locale='fr', pattern='dd MMMM yyyy') }}
                             </p>
 
-                            <twig:Title:H3 class="font-semibold text-content-primary-light/90 text-content-primary-dark/90 !m-0">
+                            <twig:Title:H3
+                                    class="font-semibold text-content-primary-light/90 text-content-primary-dark/90 !m-0">
                                 {#                            <h3 class="text-lg font-semibold text-content-primary-light/90 text-content-primary-dark/90"> #}
                                 <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="hover:underline">
                                     {{ item.title }}
@@ -53,7 +76,7 @@
                     {% for item in facebookEventsPast %}
                         <twig:Title:H3 class="space-x-8">
                             <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="hover:underline">
-                            {{ item.date |format_date(locale='fr', pattern='MMMM Y') }} {{ item.title }}
+                                {{ item.date |format_date(locale='fr', pattern='MMMM Y') }} {{ item.title }}
                             </a>
                         </twig:Title:H3>
                     {% else %}

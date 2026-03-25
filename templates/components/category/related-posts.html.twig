@@ -15,32 +15,20 @@
 
         {# Catégories enfants #}
         {% if childCategories is not empty %}
-            <ul class="flex flex-col gap-2 mb-6">
+            <ul class="flex flex-col gap-2 mb-6 list-none">
                 {% for child in childCategories %}
-                    <li>
-                        <a href="{{ path('app_category_show', { slug: child.slug }) }}"
-                           class="block hover:text-secondary transition-colors font-medium">
-                            {{ child.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-        {% endif %}
-
-        {# Articles liés #}
-        {% if relatedPosts is not empty %}
-                {% for post in relatedPosts %}
-                    <li>
-                        <a href="{{ path('app_post_show', {
-                            categorySlug: category.slug,
-                            slug: post.slug
-                        }) }}"
-                           class="block hover:text-secondary transition-colors">
-                            {{ post.title }}
-                        </a>
-                    </li>
+                    <li>...</li>
                 {% endfor %}
             </ul>
         {% endif %}
 
+        {# Articles liés #}
+        {% if relatedPosts is not empty %}
+            <ul class="flex flex-col gap-2 mb-6 list-none">
+                {% for post in relatedPosts %}
+                    <li>...</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </aside>

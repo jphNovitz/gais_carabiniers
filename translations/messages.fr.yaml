@@ -38,6 +38,8 @@ nav:
   club: "Club"
   events: "Événements"
   meetings: "Séances de tir"
+  presentation: "Présentation"
+  competitions: "Nos Compétitions"
 
 form:
   title: "Titre"
@@ -172,7 +174,7 @@ meeting:
   participant: "Participant"
   participants: "Participants"
   progress: "Progression"
-  avgHits: "% plaquettes moyennes"
+  avgHits: "Plaquettes moyennes"
   avgHits_min: "%ppt"
   rounds: "Passes"
   rank: "Rang"

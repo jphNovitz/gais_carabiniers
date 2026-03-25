@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class FacebookEventController extends AbstractController
 {
-    #[Route('/agenda', name: 'app_agenda')]
+    #[Route('/competitions-tir-sportif/agenda', name: 'app_agenda')]
     public function agenda(FacebookEventRepository $facebookEventRepository): Response
     {
         return $this->render('facebook/index.html.twig', [
@@ -19,7 +19,7 @@ class FacebookEventController extends AbstractController
             'facebookEventsPast' => $facebookEventRepository->findAllPastElements()
         ]);
     }
-    #[Route('/agenda/{slug}', name: 'app_agenda_show')]
+    #[Route('/competitions-tir-sportif/agenda/{slug}', name: 'app_agenda_show')]
     public function show(FacebookEvent $facebookEvent, FacebookEventMapper $facebookEventMapper): Response
     {
         $facebookEventDto = $facebookEventMapper->fromEntity($facebookEvent);

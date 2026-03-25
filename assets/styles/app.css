@@ -100,9 +100,20 @@
     p:not(:first-child) {
         @apply mt-5;
     }
-    ul:not(header ul, nav ul, footer ul) li {
-        @apply flex items-center gap-2 before:content-['•'] before:text-secondary before:font-bold before:shrink-0;
+    ul:not(header ul, nav ul, footer ul)  {
+    @apply ml-8 my-8 space-y-8;
     }
+    ul:not(header ul, nav ul, footer ul) li {
+        @apply list-disc ml-4;
+    }
+
+    ul:not(header ul, nav ul, footer ul) li::marker {
+        color: theme('colors.secondary');
+        font-weight: bold;
+    }
+    /*ul:not(header ul, nav ul, footer ul) li {*/
+    /*    @apply flex  gap-4 before:content-['•'] before:text-secondary before:font-bold before:shrink-0;*/
+    /*}*/
 }
 
 .bento-card {

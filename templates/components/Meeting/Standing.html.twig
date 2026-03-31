@@ -35,7 +35,11 @@
                 {% for row in standings %}
                     {% set previousRank = row.previousRank|default(null) %}
                     {% set change = (previousRank is not null and previousRank > 0) ? (previousRank - row.rank) : null %}
-                    <tr class="border-b border-base-light dark:border-base-dark">
+                    <tr class="border-b border-base-light dark:border-base-dark
+                            {% if loop.index == 1 %} bg-yellow-400 bg-opacity-25
+                            {% elseif loop.index == 2 %} bg-gray-400 bg-opacity-25
+                            {% elseif loop.index == 3 %} bg-amber-700 bg-opacity-25
+                            {% else %} bg-transparent {% endif %}">
                         <td class="px-3 py-4 font-medium whitespace-nowrap">
                             {% if row.rank != prevMeetingPosition %}
                                 {{ row.rank }}

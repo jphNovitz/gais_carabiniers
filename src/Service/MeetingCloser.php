@@ -24,40 +24,40 @@ class MeetingCloser implements MeetingCloserInterface
 
     public function close(Meeting $meeting): bool
     {
-        if ($meeting->getType() === MeetingType::COMPETITION) {
-            $standings = $this->meetingRepository->findSnapshot($meeting->getId());
-            $year = (int) $meeting->getDate()->format('Y');
+        $standings = $this->meetingRepository->findSnapshot($meeting->getId());
+        $year = (int) $meeting->getDate()->format('Y');
 
-            // ----------------------------------------------------------------
-            // ÉTAPE 1 : Créer/mettre à jour les MeetingSnapshot
-            // ----------------------------------------------------------------
-            foreach ($standings as $standing) {
-                $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
-                    return $p->getId() === $standing['participantId'];
-                })->first()->getShooter();
+        // ----------------------------------------------------------------
+        // ÉTAPE 1 : Créer/mettre à jour les MeetingSnapshot (tous types)
+        // ----------------------------------------------------------------
+        foreach ($standings as $standing) {
+            $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
+                return $p->getId() === $standing['participantId'];
+            })->first()->getShooter();
 
-                $meetingSnapshot = $this->meetingSnapshotRepository->findOneBy([
-                    'meeting'     => $meeting,
-                    'participant' => $participant,
-                ]);
+            $meetingSnapshot = $this->meetingSnapshotRepository->findOneBy([
+                'meeting'     => $meeting,
+                'participant' => $participant,
+            ]);
 
-                if (!$meetingSnapshot) {
-                    $meetingSnapshot = new MeetingSnapshot();
-                    $meetingSnapshot->setMeeting($meeting);
-                    $meetingSnapshot->setParticipant($participant);
-                }
-
-                $meetingSnapshot->setScore((int) $standing['totalScore']);
-                $meetingSnapshot->setComputedAt(new \DateTimeImmutable());
-
-                $this->em->persist($meetingSnapshot);
+            if (!$meetingSnapshot) {
+                $meetingSnapshot = new MeetingSnapshot();
+                $meetingSnapshot->setMeeting($meeting);
+                $meetingSnapshot->setParticipant($participant);
             }
 
-            // ----------------------------------------------------------------
-            // ÉTAPE 2 : Créer/mettre à jour les YearSnapshot
-            // ----------------------------------------------------------------
-            $yearSnapshots = [];
+            $meetingSnapshot->setScore((int) $standing['totalScore']);
+            $meetingSnapshot->setComputedAt(new \DateTimeImmutable());
 
+            $this->em->persist($meetingSnapshot);
+        }
+
+        // ----------------------------------------------------------------
+        // ÉTAPE 2 : YearSnapshot (COMPETITION uniquement)
+        // ----------------------------------------------------------------
+        $yearSnapshots = [];
+
+        if ($meeting->getType() === MeetingType::COMPETITION) {
             foreach ($standings as $standing) {
                 $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
                     return $p->getId() === $standing['participantId'];
@@ -90,13 +90,30 @@ class MeetingCloser implements MeetingCloserInterface
                 $this->em->persist($yearSnapshot);
                 $yearSnapshots[] = $yearSnapshot;
             }
+        }
 
-            // ----------------------------------------------------------------
-            // ÉTAPE 3 : Flush pour avoir les IDs, puis calculer les positions
-            // ----------------------------------------------------------------
-            $this->em->flush();
+        // ----------------------------------------------------------------
+        // ÉTAPE 3 : Flush, puis calcul des positions
+        // ----------------------------------------------------------------
+        $this->em->flush();
 
-            // Positions annuelles
+        // Positions par meeting (tous types)
+        $meetingSnapshots = $this->meetingSnapshotRepository->findBy(['meeting' => $meeting]);
+        usort($meetingSnapshots, fn($a, $b) => $b->getScore() <=> $a->getScore());
+
+        $lastScore = null;
+        $position  = 0;
+
+        foreach ($meetingSnapshots as $meetingSnapshot) {
+            if ($lastScore === null || $meetingSnapshot->getScore() !== $lastScore) {
+                $position++;
+                $lastScore = $meetingSnapshot->getScore();
+            }
+            $meetingSnapshot->setMeetingPosition($position);
+        }
+
+        // Positions annuelles (COMPETITION uniquement)
+        if (!empty($yearSnapshots)) {
             usort($yearSnapshots, fn($a, $b) => $b->getTotalScore() <=> $a->getTotalScore());
 
             $lastScore = null;
@@ -109,25 +126,10 @@ class MeetingCloser implements MeetingCloserInterface
                 }
                 $yearSnapshot->setYearPosition($position);
             }
-
-            // Positions par meeting
-            $meetingSnapshots = $this->meetingSnapshotRepository->findBy(['meeting' => $meeting]);
-            usort($meetingSnapshots, fn($a, $b) => $b->getScore() <=> $a->getScore());
-
-            $lastScore = null;
-            $position  = 0;
-
-            foreach ($meetingSnapshots as $meetingSnapshot) {
-                if ($lastScore === null || $meetingSnapshot->getScore() !== $lastScore) {
-                    $position++;
-                    $lastScore = $meetingSnapshot->getScore();
-                }
-                $meetingSnapshot->setMeetingPosition($position);
-            }
-
-            // Flush final pour les positions
-            $this->em->flush();
         }
+
+        // Flush final pour les positions
+        $this->em->flush();
 
         $meeting->setStatus(MeetingStatus::CLOSED);
         $meeting->setClosedAt(new \DateTimeImmutable());

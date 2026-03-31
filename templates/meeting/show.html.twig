@@ -14,13 +14,15 @@
             <li>
                 <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
                       aria-hidden="true">›</span>
-                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="hover:text-secondary transition-colors duration-200 truncate">
+                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
+                   class="hover:text-secondary transition-colors duration-200 truncate">
                     Competitions de tir sportif
                 </a>
             </li>
             <li class="truncate">
                 <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
-                <a href="{{ path('app_meeting_index') }}" class="hover:text-secondary transition-colors duration-200">Résultats des tirs aux plaquettes</a>
+                <a href="{{ path('app_meeting_index') }}" class="hover:text-secondary transition-colors duration-200">Résultats
+                    des tirs aux plaquettes</a>
             </li>
             <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
                 <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
@@ -58,7 +60,11 @@
                     <tbody>
                     {% set prevPosition = null %}
                     {% for line in standing %}
-                        <tr class="border-b dark:border-surface-dark">
+                        <tr class="border-b dark:border-surface-dark
+                            {% if loop.index == 1 %} bg-yellow-400 bg-opacity-25
+                            {% elseif loop.index == 2 %} bg-gray-400 bg-opacity-25
+                            {% elseif loop.index == 3 %} bg-amber-700 bg-opacity-25
+                            {% else %} bg-transparent {% endif %}">
                             <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
                                 {% if line.meetingPosition != prevPosition %}
                                     {{ line.meetingPosition }}

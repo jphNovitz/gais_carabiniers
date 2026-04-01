@@ -61,9 +61,9 @@
                     {% set prevPosition = null %}
                     {% for line in standing %}
                         <tr class="border-b dark:border-surface-dark
-                            {% if loop.index == 1 %} bg-yellow-400 bg-opacity-25
-                            {% elseif loop.index == 2 %} bg-gray-400 bg-opacity-25
-                            {% elseif loop.index == 3 %} bg-amber-700 bg-opacity-25
+                            {% if line.meetingPosition == 1 %} bg-yellow-400 bg-opacity-25
+                            {% elseif line.meetingPosition == 2 %} bg-gray-400 bg-opacity-25
+                            {% elseif line.meetingPosition == 3 %} bg-amber-700 bg-opacity-25
                             {% else %} bg-transparent {% endif %}">
                             <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
                                 {% if line.meetingPosition != prevPosition %}

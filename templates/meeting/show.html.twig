@@ -3,30 +3,24 @@
 
 {% block nav_secondary %}
     {# ── Breadcrumb ── #}
-    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
-        <ol class="w-full flex flex-col md:flex-row items-start md:items-center gap-2 text-xs md:text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+    <nav aria-label="Fil d'Ariane" class="max-w-5xl mx-auto px-6 pt-6 pb-2">
+        <ol class="flex flex-col md:flex-row flex-wrap items-start md:items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
             <li>
                 <a href="{{ path('app_home') }}"
-                   class="hover:text-secondary transition-colors duration-200">
-                    Accueil
-                </a>
+                   class="hover:text-secondary transition-colors duration-200">Accueil</a>
             </li>
-            <li>
-                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
-                      aria-hidden="true">›</span>
-                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
+            <li class="flex items-center gap-2">
+            <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                  aria-hidden="true">›</span>
+                <a href="/competitions-tir-sportif"
                    class="hover:text-secondary transition-colors duration-200 truncate">
                     Competitions de tir sportif
                 </a>
             </li>
-            <li class="truncate">
-                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
-                <a href="{{ path('app_meeting_index') }}" class="hover:text-secondary transition-colors duration-200">Résultats
-                    des tirs aux plaquettes</a>
-            </li>
-            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
-                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</span>
-                {{ meeting.label }}
+            <li aria-current="page" class="flex items-center gap-2 min-w-0 text-content-primary-light dark:text-content-primary-dark font-semibold">
+            <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
+                  aria-hidden="true">›</span>
+                <span class="truncate">Classement Général</span>
             </li>
         </ol>
     </nav>

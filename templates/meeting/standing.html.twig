@@ -4,7 +4,7 @@
 {% block nav_secondary %}
     {# ── Breadcrumb ── #}
     <nav aria-label="Fil d'Ariane" class="max-w-5xl mx-auto px-6 pt-6 pb-2">
-        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+        <ol class="flex flex-col md:flex-row flex-wrap items-start md:items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
             <li>
                 <a href="{{ path('app_home') }}" class="hover:text-secondary transition-colors duration-200">Accueil</a>
             </li>

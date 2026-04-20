@@ -33,6 +33,9 @@ class YearSnapshotRepository extends ServiceEntityRepository
             ->addSelect('ys.averageHits AS averageHits')
             ->where('ys.year = :year')
             ->orderBy('ys.yearPosition', 'ASC')
+            ->addOrderBy('ys.totalScore', 'DESC')
+            ->addOrderBy('p.lastName', 'ASC')
+            ->addOrderBy('p.firstName', 'ASC')
             ->setParameter('year', $year)
             ->getQuery()
             ->getResult();

@@ -1,21 +1,33 @@
 <div{{ attributes }}>
-    <select data-model="year" class="mb-4 p-2 border border-base-light rounded bg-surface-light text-content-primary-light dark:bg-surface-dark dark:text-content-primary-dark dark:border-base-dark">
-        {% for availableYear in this.availableYears %}
-            <option value="{{ availableYear }}" {% if availableYear == (year|default('')) %}selected{% endif %}>
-                {{ availableYear }}
-            </option>
-        {% endfor %}
-    </select>
+    <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+            <p class="text-sm font-semibold text-content-primary-light dark:text-content-primary-dark">Saison</p>
+            <p class="mt-1 text-xs text-content-secondary-light dark:text-content-secondary-dark">
+                Le tableau s'adapte automatiquement a l'annee selectionnee.
+            </p>
+        </div>
+        <label class="inline-flex items-center gap-3">
+            <span class="text-sm font-medium text-content-primary-light dark:text-content-primary-dark">Annee</span>
+            <select data-model="year" class="min-w-28 rounded-lg border border-base-light bg-base-light/40 px-3 py-2 text-sm text-content-primary-light dark:border-base-dark dark:bg-base-dark/40 dark:text-content-primary-dark">
+                {% for availableYear in this.availableYears %}
+                    <option value="{{ availableYear }}" {% if availableYear == this.year %}selected{% endif %}>
+                        {{ availableYear }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
 
     {% set standings = this.standings|default([]) %}
     {% if standings is not empty %}
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="table-auto w-full bg-surface-light dark:bg-surface-dark text-sm text-left rtl:text-right text-content-primary-light dark:text-content-primary-dark">
-                <thead class="text-xs uppercase bg-base-light/50 dark:bg-base-dark/50 text-content-primary-light dark:text-content-primary-dark">
+        <div class="overflow-hidden rounded-xl border border-base-light/70 bg-surface-light shadow-sm dark:border-base-dark/70 dark:bg-surface-dark">
+            <div class="overflow-x-auto">
+            <table class="min-w-full table-auto text-xs text-left md:text-sm text-content-primary-light dark:text-content-primary-dark">
+                <thead class="bg-base-light/50 text-xs uppercase text-content-primary-light dark:bg-base-dark/50 dark:text-content-primary-dark">
                 <tr>
-                    <th scope="col" class="px-3 py-3">#</th>
-                    <th scope="col" class="px-3 py-3"> </th>
-                    <th scope="col" class="px-3 py-3 whitespace-nowrap">Participant</th>
+                    <th scope="col" class="w-14 px-3 py-3">#</th>
+                    <th scope="col" class="hidden w-20 px-3 py-3 text-center sm:table-cell">Evol.</th>
+                    <th scope="col" class="px-3 py-3">Participant</th>
                     <th scope="col" class="px-3 py-3 text-center whitespace-nowrap">
                         <span class="block md:hidden">Part.</span>
                         <span class="hidden md:block">Participations</span>
@@ -35,7 +47,7 @@
                 {% for row in standings %}
                     {% set previousRank = row.previousRank|default(null) %}
                     {% set change = (previousRank is not null and previousRank > 0) ? (previousRank - row.rank) : null %}
-                    <tr class="border-b border-base-light dark:border-base-dark
+                    <tr class="border-b border-base-light/70 dark:border-base-dark/70
                             {% if row.rank == 1 %} bg-yellow-400 bg-opacity-25
                             {% elseif row.rank == 2 %} bg-gray-400 bg-opacity-25
                             {% elseif row.rank == 3 %} bg-amber-700 bg-opacity-25
@@ -46,22 +58,26 @@
                             {% endif %}
                             {% set prevMeetingPosition = row.rank %}
                         </td>
-                        <td class="p-3">
+                        <td class="hidden p-3 text-center sm:table-cell">
                             {% if change is null %}
                                 <span>-</span>
                             {% elseif change > 0 %}
-                                <span class="text-green-900">↗ +{{ change }}</span>
+                                <span class="font-medium text-green-900">↗ +{{ change }}</span>
                             {% elseif change < 0 %}
-                                <span class="text-red-900">↘ {{ change }}</span>
+                                <span class="font-medium text-red-900">↘ {{ change }}</span>
                             {% else %}
                                 <span>→ =</span>
                             {% endif %}
                         </td>
-                        <td class="px-3 py-4 whitespace-nowrap">
-                            {{ row.firstName }} {{ row.lastName|first }}.
+                        <td class="px-3 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="min-w-0 break-words">
+                                    {{ row.firstName }} {{ row.lastName|first }}.
+                                </span>
                             {% if row.usesSupport|default(false) %}
-                                <span class="text-xs">*</span>
+                                    <span class="shrink-0 text-xs">*</span>
                             {% endif %}
+                            </div>
                         </td>
                         <td class="px-3 py-4 text-center">{{ row.meetingCount|default('—') }}</td>
                         <td class="px-3 py-4 text-center">{{ row.totalScore|default('—') }}</td>
@@ -70,10 +86,10 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            <div class="mt-2 text-xs text-content-secondary-light dark:text-content-secondary-dark">
-                <p class="md:hidden">Plaq. : nombre de plaquettes abattues<br>Part. : nombre de participations</p>
-                <p>* Tir réalisé avec appui</p>
+            </div>
+            <div class="border-t border-base-light/70 px-3 py-3 text-xs text-content-secondary-light dark:border-base-dark/70 dark:text-content-secondary-dark md:px-4">
+                <p class="mt-0 md:hidden">Plaq. : nombre de plaquettes abattues. Part. : nombre de participations.</p>
+                <p class="mt-2 md:mt-1">* Tir realise avec appui</p>
             </div>
         </div>
     {% else %}

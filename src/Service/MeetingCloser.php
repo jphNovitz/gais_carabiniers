@@ -55,8 +55,6 @@ class MeetingCloser implements MeetingCloserInterface
         // ----------------------------------------------------------------
         // ÉTAPE 2 : YearSnapshot (COMPETITION uniquement)
         // ----------------------------------------------------------------
-        $yearSnapshots = [];
-
         if ($meeting->getType() === MeetingType::COMPETITION) {
             foreach ($standings as $standing) {
                 $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
@@ -88,7 +86,6 @@ class MeetingCloser implements MeetingCloserInterface
                 $yearSnapshot->setComputedAt(new \DateTimeImmutable());
 
                 $this->em->persist($yearSnapshot);
-                $yearSnapshots[] = $yearSnapshot;
             }
         }
 
@@ -113,8 +110,39 @@ class MeetingCloser implements MeetingCloserInterface
         }
 
         // Positions annuelles (COMPETITION uniquement)
-        if (!empty($yearSnapshots)) {
-            usort($yearSnapshots, fn($a, $b) => $b->getTotalScore() <=> $a->getTotalScore());
+        if ($meeting->getType() === MeetingType::COMPETITION) {
+            $yearSnapshots = $this->yearSnapshotRepository->findBy(['year' => $year]);
+
+            foreach ($yearSnapshots as $yearSnapshot) {
+                $yearSnapshot->setYearPrevPosition(
+                    $yearSnapshot->getYearPosition() > 0 ? $yearSnapshot->getYearPosition() : null
+                );
+            }
+
+            usort($yearSnapshots, static function (YearSnapshot $a, YearSnapshot $b): int {
+                $scoreComparison = $b->getTotalScore() <=> $a->getTotalScore();
+                if ($scoreComparison !== 0) {
+                    return $scoreComparison;
+                }
+
+                $averageComparison = $b->getAverageHits() <=> $a->getAverageHits();
+                if ($averageComparison !== 0) {
+                    return $averageComparison;
+                }
+
+                $lastNameComparison = strcmp(
+                    $a->getParticipant()?->getLastName() ?? '',
+                    $b->getParticipant()?->getLastName() ?? ''
+                );
+                if ($lastNameComparison !== 0) {
+                    return $lastNameComparison;
+                }
+
+                return strcmp(
+                    $a->getParticipant()?->getFirstName() ?? '',
+                    $b->getParticipant()?->getFirstName() ?? ''
+                );
+            });
 
             $lastScore = null;
             $position  = 0;

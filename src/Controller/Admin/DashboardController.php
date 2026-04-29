@@ -33,6 +33,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkTo(MemberCrudController::class, 'Membres', 'fa fa-users');
         yield MenuItem::linkTo(ClubCrudController::class, 'Le Club', 'fa fa-building');
         yield MenuItem::linkTo(FacebookEventCrudController::class, 'Evènements Facebook', 'fab fa-facebook');
         yield MenuItem::submenu('Posts', 'fas fa-blog')

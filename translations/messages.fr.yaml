@@ -71,9 +71,9 @@ form:
       closed: "Clôturé"
       archived: "Archivé"
     type:
-        public: "Tir Public"
-        competition: "Tir du Mois"
-        other: "Autre"
+      public: "Tir Public"
+      competition: "Tir du Mois"
+      other: "Autre"
     label:
       label: "Nom"
       placeholder: "Séance du mois de ..."
@@ -82,7 +82,6 @@ form:
       date: "Date de la séance"
       meeting: "Séance de tir"
       meetings: "Séances de tir"
-
 
 club:
   about: "À propos du club"
@@ -158,6 +157,7 @@ member:
   list: "Liste des membres"
   na: "Aucun membre"
   isActive: "Actif"
+  usesSupport: "Tir appuyé"
   new: "Nouveau  membre"
   name: "Nom"
   firstname: "Prénom"

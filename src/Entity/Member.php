@@ -49,9 +49,18 @@ class Member
     #[ORM\OneToMany(mappedBy: 'shooter', targetEntity: MeetingParticipant::class)]
     private Collection $participations;
 
+    /**
+     * @var Collection<int, ClubMembership>
+     */
+    #[ORM\OneToMany(mappedBy: 'shooter', targetEntity: ClubMembership::class)]
+    private Collection $clubMemberships;
+
     public function __construct()
     {
         $this->participations = new ArrayCollection();
+        $this->club = new ArrayCollection();
+        $this->memberships = new ArrayCollection();
+        $this->clubMemberships = new ArrayCollection();
     }
 
 
@@ -208,4 +217,34 @@ class Member
 
         return $this;
     }
-}
+
+    /**
+     * @return Collection<int, ClubMembership>
+     */
+    public function getClubMemberships(): Collection
+    {
+        return $this->clubMemberships;
+    }
+
+    public function addClubMembership(ClubMembership $clubMembership): static
+    {
+        if (!$this->clubMemberships->contains($clubMembership)) {
+            $this->clubMemberships->add($clubMembership);
+            $clubMembership->setShooter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClubMembership(ClubMembership $clubMembership): static
+    {
+        if ($this->clubMemberships->removeElement($clubMembership)) {
+            // set the owning side to null (unless already changed)
+            if ($clubMembership->getShooter() === $this) {
+                $clubMembership->setShooter(null);
+            }
+        }
+
+        return $this;
+    }
+    }

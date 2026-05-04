@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClubRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -81,13 +83,23 @@ class Club
     private ?string $slug = null;
 
     #[ORM\Column]
-    private ?bool $isHome = null;
+    private ?bool $isHome = false;
+
+    #[ORM\Column]
+    private ?bool $isowner = false;
+
+    /**
+     * @var Collection<int, ClubMembership>
+     */
+    #[ORM\OneToMany(mappedBy: 'club', targetEntity: ClubMembership::class)]
+    private Collection $clubMemberships;
 
     public function __construct()
     {
-        $this->isHome(false);
+        $this->clubMemberships = new ArrayCollection();
     }
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -317,6 +329,48 @@ class Club
     public function setIsHome(bool $isHome): static
     {
         $this->isHome = $isHome;
+
+        return $this;
+    }
+
+    public function isowner(): ?bool
+    {
+        return $this->isowner;
+    }
+
+    public function setIsowner(bool $isowner): static
+    {
+        $this->isowner = $isowner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClubMembership>
+     */
+    public function getClubMemberships(): Collection
+    {
+        return $this->clubMemberships;
+    }
+
+    public function addClubMembership(ClubMembership $clubMembership): static
+    {
+        if (!$this->clubMemberships->contains($clubMembership)) {
+            $this->clubMemberships->add($clubMembership);
+            $clubMembership->setClub($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClubMembership(ClubMembership $clubMembership): static
+    {
+        if ($this->clubMemberships->removeElement($clubMembership)) {
+            // set the owning side to null (unless already changed)
+            if ($clubMembership->getClub() === $this) {
+                $clubMembership->setClub(null);
+            }
+        }
 
         return $this;
     }

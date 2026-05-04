@@ -80,9 +80,12 @@ class Club
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
+    #[ORM\Column]
+    private ?bool $isHome = null;
+
     public function __construct()
     {
-        // $this->openingHours = new ArrayCollection();
+        $this->isHome(false);
     }
 
     public function getId(): ?int
@@ -302,6 +305,18 @@ class Club
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function isHome(): ?bool
+    {
+        return $this->isHome;
+    }
+
+    public function setIsHome(bool $isHome): static
+    {
+        $this->isHome = $isHome;
 
         return $this;
     }

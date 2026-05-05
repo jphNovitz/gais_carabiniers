@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Club;
 use App\Entity\Club;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -62,5 +63,6 @@ final class ClubCrudController extends AbstractCrudController
             ->setBasePath('uploads/images')
             ->setUploadDir('public/uploads/images')
             ->onlyOnIndex();
+        yield BooleanField::new('isOwner', 'Club propriétaire du site') ;
     }
 }

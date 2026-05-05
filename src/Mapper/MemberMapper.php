@@ -14,6 +14,8 @@ class MemberMapper
             id: $member->getId(),
             firstName: $member->getFirstName(),
             lastName: $member->getLastName(),
+            email: $member->getEmail(),
+            phone: $member->getPhone(),
             slug: $member->getSlug(),
             isActive: $member->isActive(),
             usesSupport: $member->isUsesSupport(),
@@ -30,6 +32,8 @@ class MemberMapper
 
         $member->setFirstName($dto->firstName);
         $member->setLastName($dto->lastName);
+        $member->setEmail($dto->email);
+        $member->setPhone($dto->phone);
         $member->setIsActive($dto->isActive);
         $member->setUsesSupport($dto->usesSupport);
         $member->setCreatedAt($dto->createdAt);

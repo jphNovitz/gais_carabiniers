@@ -163,6 +163,7 @@ member:
   firstname: "Prénom"
   lastname: "Nom"
   email: "Email"
+  phone: "Téléphone"
 meeting:
   label: "Label"
   list: "Liste des réunions"

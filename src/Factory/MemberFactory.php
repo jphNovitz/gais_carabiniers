@@ -35,6 +35,8 @@ final class MemberFactory extends PersistentProxyObjectFactory
             'isActive' => self::faker()->boolean(),
             'firstName' => self::faker()->firstName(),
             'lastName' => self::faker()->lastName(),
+            'email' => self::faker()->optional()->safeEmail(),
+            'phone' => self::faker()->optional()->phoneNumber(),
         ];
     }
 

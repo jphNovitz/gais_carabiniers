@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Dto\MemberDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,6 +20,14 @@ class MemberType extends AbstractType
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'member.lastname',
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'member.email',
+                'required' => false,
+            ])
+            ->add('phone', TextType::class, [
+                'label' => 'member.phone',
+                'required' => false,
             ])
             ->add('isActive', CheckboxType::class, [
                 'label' => 'Actif',

@@ -5,7 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class MemberCrudController extends AbstractCrudController
 {
@@ -21,6 +24,13 @@ class MemberCrudController extends AbstractCrudController
             TextField::new('firstName')->setLabel('member.firstname')->setColumns(6),
             TextField::new('lastName')->setLabel('member.lastname')->setColumns(6),
             TextField::new('email')->setLabel('member.email')->setColumns(6),
+            Field::new('profileImageFile')->setLabel('member.profileImage')
+                ->setFormType(VichImageType::class)
+                ->onlyOnForms()
+                ->setColumns(12),
+            ImageField::new('profileImageName')->setLabel('member.profileImage')
+                ->setBasePath('images/members')
+                ->onlyOnIndex(),
             TextField::new('phone')->setLabel('member.phone')->setColumns(6)->hideOnIndex(),
             TextField::new('street')->setLabel('member.street')->setColumns(8)->hideOnIndex(),
             TextField::new('streetNumber')->setLabel('member.streetNumber')->setColumns(4)->hideOnIndex(),

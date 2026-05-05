@@ -168,6 +168,7 @@ member:
   streetNumber: "Numéro"
   postalCode: "Code postal"
   city: "Localité"
+  profileImage: "Photo de profil"
 meeting:
   label: "Label"
   list: "Liste des réunions"

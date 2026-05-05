@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
 #[ORM\Table(name: '`member`')]
+#[Vich\Uploadable]
 class Member
 {
     #[ORM\Id]
@@ -41,6 +44,15 @@ class Member
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
+
+    #[Vich\UploadableField(mapping: 'member_profile', fileNameProperty: 'profileImageName', size: 'profileImageSize')]
+    private ?File $profileImageFile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profileImageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $profileImageSize = null;
 
     #[ORM\Column]
     private ?bool $isActive = false;
@@ -179,6 +191,44 @@ class Member
     public function setCity(?string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function setProfileImageFile(?File $profileImageFile = null): void
+    {
+        $this->profileImageFile = $profileImageFile;
+
+        if (null !== $profileImageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getProfileImageFile(): ?File
+    {
+        return $this->profileImageFile;
+    }
+
+    public function getProfileImageName(): ?string
+    {
+        return $this->profileImageName;
+    }
+
+    public function setProfileImageName(?string $profileImageName): static
+    {
+        $this->profileImageName = $profileImageName;
+
+        return $this;
+    }
+
+    public function getProfileImageSize(): ?int
+    {
+        return $this->profileImageSize;
+    }
+
+    public function setProfileImageSize(?int $profileImageSize): static
+    {
+        $this->profileImageSize = $profileImageSize;
 
         return $this;
     }

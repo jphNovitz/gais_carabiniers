@@ -86,7 +86,7 @@ class Club
     private ?bool $isHome = false;
 
     #[ORM\Column]
-    private ?bool $isowner = false;
+    private ?bool $isOwner = false;
 
     /**
      * @var Collection<int, ClubMembership>
@@ -333,18 +333,6 @@ class Club
         return $this;
     }
 
-    public function isowner(): ?bool
-    {
-        return $this->isowner;
-    }
-
-    public function setIsowner(bool $isowner): static
-    {
-        $this->isowner = $isowner;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, ClubMembership>
      */
@@ -371,6 +359,18 @@ class Club
                 $clubMembership->setClub(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isOwner(): ?bool
+    {
+        return $this->isOwner;
+    }
+
+    public function setIsOwner(bool $isOwner): static
+    {
+        $this->isOwner = $isOwner;
 
         return $this;
     }

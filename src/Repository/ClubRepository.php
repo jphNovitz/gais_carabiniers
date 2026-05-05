@@ -16,7 +16,19 @@ class ClubRepository extends ServiceEntityRepository
         parent::__construct($registry, Club::class);
     }
 
-    //    /**
+    /**
+    * @return Club[] Returns an array of Club objects
+    */
+    public function findOwnedClub(): ?Club
+    {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.isOwner = true')
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+    }
+
+    //**
     //     * @return Club[] Returns an array of Club objects
     //     */
     //    public function findByExampleField($value): array

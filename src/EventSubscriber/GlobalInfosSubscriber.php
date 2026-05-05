@@ -36,7 +36,7 @@ class GlobalInfosSubscriber implements EventSubscriberInterface
 
         if ($route !== 'app_fallback' /*|| !str_contains($route, 'admin_')*/) {
 
-            $infos = $this->clubRepository->findAll()[0];
+            $infos = $this->clubRepository->findOwnedClub();
 
 //            if (null === $infos) {
 //                $event->stopPropagation();

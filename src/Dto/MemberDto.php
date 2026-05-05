@@ -22,6 +22,18 @@ class MemberDto
         #[Assert\Length(max: 50, maxMessage: 'The phone cannot exceed 50 characters.')]
         public ?string             $phone = null,
 
+        #[Assert\Length(max: 255, maxMessage: 'The street cannot exceed 255 characters.')]
+        public ?string             $street = null,
+
+        #[Assert\Length(max: 50, maxMessage: 'The street number cannot exceed 50 characters.')]
+        public ?string             $streetNumber = null,
+
+        #[Assert\Length(max: 50, maxMessage: 'The postal code cannot exceed 50 characters.')]
+        public ?string             $postalCode = null,
+
+        #[Assert\Length(max: 255, maxMessage: 'The city cannot exceed 255 characters.')]
+        public ?string             $city = null,
+
         public ?string             $slug = null,
 
         public ?bool               $isActive = false,

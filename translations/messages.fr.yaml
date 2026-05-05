@@ -164,6 +164,10 @@ member:
   lastname: "Nom"
   email: "Email"
   phone: "Téléphone"
+  street: "Rue"
+  streetNumber: "Numéro"
+  postalCode: "Code postal"
+  city: "Localité"
 meeting:
   label: "Label"
   list: "Liste des réunions"

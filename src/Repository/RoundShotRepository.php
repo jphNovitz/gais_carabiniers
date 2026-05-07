@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Round;
 use App\Entity\RoundShot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,6 +17,17 @@ class RoundShotRepository extends ServiceEntityRepository
         parent::__construct($registry, RoundShot::class);
     }
 
+    public function findRoundShotsOrderedFromLastHit(Round $round): array
+    {
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.meetingParticipant', 'mp')
+            ->andWhere('r.round = :round')
+            ->andWhere('r.leftTarget IS NOT NULL OR r.rightTarget IS NOT NULL')
+            ->setParameter('round', $round)
+            ->orderBy('mp.position', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
     // Dans RoundRepository et RoundShotRepository
     public function save(object $entity, bool $flush = false): void

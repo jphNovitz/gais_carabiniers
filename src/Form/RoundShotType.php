@@ -19,18 +19,6 @@ class RoundShotType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-//            ->add('score', NumberType::class, [
-//                'label' => 'Nombre de plaquettes abattues',
-//                'html5' => true,
-//                'attr' => [
-//                    'default' => 0,
-//                    'min' => 0,
-//                    'max' => 5,
-//                    'step' => 1,
-//                    'width' => '10'
-//                ],
-//            ])
             ->add('leftHit', CheckboxType::class, [
                 'required' => false,
                 'label' => false,
@@ -43,7 +31,7 @@ class RoundShotType extends AbstractType
                 'placeholder' => '🎯',
                 'attr' => [
                     'class' => 'w-12 disabled:opacity-30 disabled:cursor-not-allowed'
-                    ]
+                ],
             ])
             ->add('rightHit', CheckboxType::class, [
                 'required' => false,
@@ -58,9 +46,7 @@ class RoundShotType extends AbstractType
                 'attr' => [
                     'class' => 'w-12 disabled:opacity-30 disabled:cursor-not-allowed'
                 ]
-            ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

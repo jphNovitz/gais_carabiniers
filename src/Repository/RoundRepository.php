@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Meeting;
 use App\Entity\Round;
+use App\Enum\RoundStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,17 +18,29 @@ class RoundRepository extends ServiceEntityRepository
         parent::__construct($registry, Round::class);
     }
 
-    public function findCurrentRound(Meeting $meeting): ?Round
+    public function findLastCompletedRound(Meeting $meeting): ?Round
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.meeting = :meeting')
             ->andWhere('r.status = :status')
             ->setParameter('meeting', $meeting)
-            ->setParameter('status', 'running')
+            ->setParameter('status', RoundStatus::COMPLETED->value)
+            ->orderBy('r.number', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
+//    public function findCurrentRound(Meeting $meeting): ?Round
+//    {
+//        return $this->createQueryBuilder('r')
+//            ->andWhere('r.meeting = :meeting')
+//            ->andWhere('r.status = :status')
+//            ->setParameter('meeting', $meeting)
+//            ->setParameter('status', 'running')
+//            ->setMaxResults(1)
+//            ->getQuery()
+//            ->getOneOrNullResult();
+//    }
 
     // Dans RoundRepository et RoundShotRepository
     public function save(object $entity, bool $flush = false): void

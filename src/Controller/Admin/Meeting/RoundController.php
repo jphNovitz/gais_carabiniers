@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Meeting;
 
 
 use App\Contract\RoundManagerInterface;
+use App\Contract\TargetManagerInterface;
 use App\Entity\Meeting;
 use App\Entity\Round;
 use App\Entity\RoundShot;
@@ -27,7 +28,8 @@ final class RoundController extends AbstractController
     public function __construct(
         private RoundRepository $roundRepository,
         private RoundShotRepository $roundShotRepository,
-        private RoundManagerInterface $roundManager
+        private RoundManagerInterface $roundManager,
+        private TargetManagerInterface $targetManager
     ) {}
 
     #[Route('meetings/{id}/round', name: 'admin_round_index')]
@@ -77,6 +79,8 @@ final class RoundController extends AbstractController
         EntityManagerInterface $em
     ): Response
     {
+
+        $lastTargets = $this->targetManager->getLastHitTargets($meeting);
         $round = $this->roundManager->createNextRound($meeting);
 
         // Créer les RoundShots s'ils n'existent pas encore
@@ -89,7 +93,9 @@ final class RoundController extends AbstractController
             }
         }
 
-        $form = $this->createForm(RoundType::class, $round);
+        $form = $this->createForm(RoundType::class, $round, [
+            'last_hit_targets' => $lastTargets,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

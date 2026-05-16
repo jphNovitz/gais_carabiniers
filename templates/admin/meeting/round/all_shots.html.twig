@@ -5,7 +5,6 @@
 {% block title %}Saisie des tirs{% endblock %}
 
 {% block content %}
-
     <div class="d-flex flex-column gap-3">
         <div class="w-100 d-flex justify-content-between align-items-center mb-4">
             <h1 class="title h3">{{ meeting.label }} - Passe {{ round.number }}</h1>
@@ -53,17 +52,21 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex flex-column align-items-center gap-2">
-                                    <input
-                                            type="checkbox"
-                                            id="{{ roundShotForm.leftHit.vars.id }}"
-                                            name="{{ roundShotForm.leftHit.vars.full_name }}"
-                                            value="{{ roundShotForm.leftHit.vars.value }}"
-                                            data-index="{{ loop.index0 }}"
-                                            {% if roundShotForm.leftHit.vars.checked %}checked{% endif %}
-                                            class="form-check-input fs-5"
-                                            {{ stimulus_target('toggle-target', 'leftHit') }}
-                                            {{ stimulus_action('toggle-target', 'toggleLeft') }}
-                                    />
+                                    <div class="form-check form-switch d-flex justify-content-center ps-0">
+                                        <input
+                                                type="checkbox"
+                                                id="{{ roundShotForm.leftHit.vars.id }}"
+                                                name="{{ roundShotForm.leftHit.vars.full_name }}"
+                                                value="{{ roundShotForm.leftHit.vars.value }}"
+                                                data-index="{{ loop.index0 }}"
+                                                {% if roundShotForm.leftHit.vars.checked %}checked{% endif %}
+                                                class="form-check-input"
+                                                role="switch"
+                                                {{ stimulus_target('toggle-target', 'leftHit') }}
+                                                {{ stimulus_action('toggle-target', 'toggleLeft') }}
+                                        />
+                                    </div>
+
                                     {% do roundShotForm.leftHit.setRendered %}
                                     {{ form_widget(roundShotForm.leftTarget, {
                                         attr: {
@@ -76,17 +79,19 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex flex-column align-items-center gap-2">
-                                    <input
-                                            type="checkbox"
-                                            id="{{ roundShotForm.rightHit.vars.id }}"
-                                            name="{{ roundShotForm.rightHit.vars.full_name }}"
-                                            value="{{ roundShotForm.rightHit.vars.value }}"
-                                            data-index="{{ loop.index0 }}"
-                                            {% if roundShotForm.rightHit.vars.checked %}checked{% endif %}
-                                            class="form-check-input fs-5"
-                                            {{ stimulus_target('toggle-target', 'rightHit') }}
-                                            {{ stimulus_action('toggle-target', 'toggleRight') }}
-                                    />
+                                    <div class="form-check form-switch d-flex justify-content-center ps-0">
+                                        <input
+                                                type="checkbox"
+                                                id="{{ roundShotForm.rightHit.vars.id }}"
+                                                name="{{ roundShotForm.rightHit.vars.full_name }}"
+                                                value="{{ roundShotForm.rightHit.vars.value }}"
+                                                data-index="{{ loop.index0 }}"
+                                                {% if roundShotForm.rightHit.vars.checked %}checked{% endif %}
+                                                class="form-check-input fs-5"
+                                                {{ stimulus_target('toggle-target', 'rightHit') }}
+                                                {{ stimulus_action('toggle-target', 'toggleRight') }}
+                                        />
+                                    </div>
                                     {% do roundShotForm.rightHit.setRendered %}
                                     {{ form_widget(roundShotForm.rightTarget, {
                                         attr: {
@@ -103,7 +108,7 @@
                 </table>
             </div>
             <div class="my-12 text-right">
-               <input type="submit" value="{{ 'button.submit'|trans }}" class="btn btn-primary" />
+                <input type="submit" value="{{ 'button.submit'|trans }}" class="btn btn-primary"/>
             </div>
             {{ form_end(form) }}
         </section>

@@ -81,6 +81,7 @@ final class RoundController extends AbstractController
     {
 
         $lastTargets = $this->targetManager->getLastHitTargets($meeting);
+//        dd($lastTargets);
         $round = $this->roundManager->createNextRound($meeting);
 
         // Créer les RoundShots s'ils n'existent pas encore

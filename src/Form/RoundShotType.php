@@ -52,7 +52,7 @@ class RoundShotType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => RoundShot::class,
+            'data_class' => RoundShot::class
         ]);
     }
 }

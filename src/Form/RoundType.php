@@ -17,10 +17,6 @@ class RoundType extends AbstractType
         $builder
             ->add('roundShots', CollectionType::class, [
                 'entry_type' => RoundShotType::class,
-                'entry_options' => [
-                    'label' => false,
-                    'last_hit_targets' => $options['last_hit_targets']
-                ],
                 'allow_add' => false,
                 'allow_delete' => false,
                 'by_reference' => false,

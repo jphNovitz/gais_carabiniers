@@ -21,13 +21,21 @@ class TargetManager implements TargetManagerInterface
         $lastRound = $this->roundRepository->findLastCompletedRound($meeting);
         if ($lastRound !== null) {
             $orderedRoundShots = $this->roundShotRepository->findRoundShotsOrderedFromLastHit($lastRound);
-            $lastHitTargets = [];
+            $lastHitTargets = ['right'=> 0, 'left' => 0];
+//            dd($orderedRoundShots);
+
             foreach ($orderedRoundShots as $shot) {
                 if ($shot->getRightTarget() !== null) {
-                    $lastHitTargets['right'] = $shot->getRightTarget();
+                    if ($shot->getRightTarget() > $lastHitTargets['right'])     {
+                        $lastHitTargets['right'] = $shot->getRightTarget();
+                    }
+//                    $lastHitTargets['right'] = $shot->getRightTarget();
                 }
                 if ($shot->getLeftTarget() !== null) {
-                    $lastHitTargets['left'] = $shot->getLeftTarget();
+                    if ($shot->getLeftTarget() > $lastHitTargets['left'])     {
+                        $lastHitTargets['left'] = $shot->getLeftTarget();
+                    }
+//                    $lastHitTargets['left'] = $shot->getLeftTarget();
                 }
                 if (count($lastHitTargets) === 2) break;
             }

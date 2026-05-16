@@ -1,3 +1,5 @@
+{% set lastHitTargets = form.vars.last_hit_targets %}
+
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block title %}Saisie des tirs{% endblock %}
@@ -21,7 +23,10 @@
             {{ form_start(form) }}
             {{ form_errors(form) }}
 
-            <div class="table-responsive mt-3" {{ stimulus_controller('toggle_target') }}>
+            <div class="table-responsive mt-3" {{ stimulus_controller('toggle_target', {
+                lastLeft: lastHitTargets.left,
+                lastRight: lastHitTargets.right
+            }) }}>
                 <table class="table table-sm table-hover table-bordered align-middle">
                     <thead class="table-light">
                     <tr>

@@ -19,26 +19,27 @@ class TargetManager implements TargetManagerInterface
     public function getLastHitTargets(Meeting $meeting): array
     {
         $lastRound = $this->roundRepository->findLastCompletedRound($meeting);
-        if ($lastRound !== null) {
-            $orderedRoundShots = $this->roundShotRepository->findRoundShotsOrderedFromLastHit($lastRound);
-            $lastHitTargets = ['right'=> 0, 'left' => 0];
-
-            foreach ($orderedRoundShots as $shot) {
-                if ($shot->getRightTarget() !== null) {
-                    if ($shot->getRightTarget() > $lastHitTargets['right'])     {
-                        $lastHitTargets['right'] = $shot->getRightTarget();
-                    }
-                }
-                if ($shot->getLeftTarget() !== null) {
-                    if ($shot->getLeftTarget() > $lastHitTargets['left'])     {
-                        $lastHitTargets['left'] = $shot->getLeftTarget();
-                    }
-                }
-            }
-            
-        } else {
-            $lastHitTargets = ['right'=> 0, 'left' => 0];
+        if ($lastRound === null) {
+            return ['right' => 0, 'left' => 0];
         }
+
+        $orderedRoundShots = $this->roundShotRepository->findRoundShotsOrderedFromLastHit($lastRound);
+        $lastHitTargets = ['right' => 0, 'left' => 0];
+
+        foreach ($orderedRoundShots as $shot) {
+            if ($lastHitTargets['right'] === 0 && $shot->getRightTarget() !== null) {
+                $lastHitTargets['right'] = $shot->getRightTarget();
+            }
+
+            if ($lastHitTargets['left'] === 0 && $shot->getLeftTarget() !== null) {
+                $lastHitTargets['left'] = $shot->getLeftTarget();
+            }
+
+            if ($lastHitTargets['right'] !== 0 && $lastHitTargets['left'] !== 0) {
+                break;
+            }
+        }
+
         return $lastHitTargets;
     }
 

@@ -1,0 +1,46 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block title %}Présences{% endblock %}
+
+{% block content %}
+    <div class="content-panel">
+        <div class="content-panel-header">
+            <a href="{{ ea_url()
+                .setController('App\\Controller\\Admin\\MemberCrudController')
+                .setAction('index')
+                .generateUrl() }}"
+               class="btn btn-secondary">
+                Retour
+            </a>
+            <h1 class="title">
+                Présences de {{ member.firstName }} {{ member.lastName }}
+            </h1>
+
+        </div>
+
+        <div class="{#content-panel-body#}">
+            {% if attendances is empty %}
+                <p>Aucune présence enregistrée.</p>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table datagrid">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Séance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for attendance in attendances %}
+                            <tr>
+                                <td>{{ attendance.date|date('d/m/Y') }}</td>
+                                <td>{{ attendance.label }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

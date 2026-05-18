@@ -39,6 +39,18 @@ class MeetingParticipantRepository extends ServiceEntityRepository
         }
     }
 
+    public function findMemberAttendance(int $memberId): array
+    {
+        return $this->createQueryBuilder('mp')
+            ->innerJoin('mp.meeting', 'm')
+            ->andWhere('mp.shooter = :memberId')
+            ->setParameter('memberId', $memberId)
+            ->select('mp.id, m.date, m.label')
+            ->orderBy('m.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return MeetingParticipant[] Returns an array of MeetingParticipant objects
     //     */

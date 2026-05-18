@@ -169,6 +169,8 @@ member:
   postalCode: "Code postal"
   city: "Localité"
   profileImage: "Photo de profil"
+  attendance: "Présence"
+  attendances: "Présences"
 meeting:
   label: "Label"
   list: "Liste des réunions"

@@ -28,3 +28,4 @@ services:
 
   App\Contract\MeetingCreatorInterface: '@App\Service\MeetingCreator'
   App\Contract\MeetingParticipantAdderInterface: '@App\Service\MeetingParticipantAdder'
+  App\Contract\CategorizedStandingBuilderInterface: '@App\Service\CategorizedStandingBuilder'

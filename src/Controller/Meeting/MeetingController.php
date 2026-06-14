@@ -2,13 +2,10 @@
 
 namespace App\Controller\Meeting;
 
-use App\Dto\MeetingDto;
 use App\Entity\Meeting;
-use App\Mapper\MeetingMapper;
-use App\Repository\MeetingRepository;
 use App\Repository\MeetingSnapshotRepository;
 use App\Service\MeetingOrganizer;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use App\Contract\CategorizedStandingBuilderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,9 +13,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class MeetingController extends AbstractController
 {
 
-    public function __construct(private readonly MeetingSnapshotRepository $meetingSnapshotRepository)
-    {
-    }
+    public function __construct(
+        private readonly MeetingSnapshotRepository $meetingSnapshotRepository,
+        private readonly CategorizedStandingBuilderInterface $categorizedStandingBuilder,
+    ) {}
 
     #[Route('/resultats-tir-aux-plaquettes', name: 'app_meeting_index', methods: ['GET'])]
     public function index(MeetingOrganizer $organizer): Response
@@ -34,9 +32,11 @@ final class MeetingController extends AbstractController
     public function show(Meeting $meeting): Response
     {
         $standing = $this->meetingSnapshotRepository->findByMeetingId($meeting->getId());
+
         return $this->render('meeting/show.html.twig', [
             'meeting' => $meeting,
             'standing' => $standing,
+            'categorizedStanding' => $this->categorizedStandingBuilder->categorizeMeetingStanding($standing),
         ]);
     }
 

@@ -77,16 +77,16 @@
 
 	<section class="min-h-screen bg-surface-light dark:bg-surface-dark {# p-2 md:p-6 lg:p-12 #}mx-auto p-8 space-y-12">
 
-    <h1>Classement du <br class="md:hidden"/>{{ meeting.label }}</h1>
+    <h1>{#Classement du <br class="md:hidden"/>#}{{ meeting.label }}</h1>
     <div>
         Le {{ meeting.date|format_datetime('long', 'none') }}
 
     </div>
-    <div class="py-12">
+    <div class="py-8">
         {% if categorizedStanding is defined and (categorizedStanding.standard is not empty or categorizedStanding.supported is not empty) %}
             <div class="space-y-10">
-                {{ standingMacros.standing_table('Catégorie standard', categorizedStanding.standard) }}
-                {{ standingMacros.standing_table('Tir appuyé', categorizedStanding.supported) }}
+                {{ standingMacros.standing_table('Tir plaquettes', categorizedStanding.standard) }}
+                {{ standingMacros.standing_table('Tir plaquettes - appuyé', categorizedStanding.supported) }}
             </div>
         {% else %}
             <p class="text-content-primary-light dark:text-content-primary-dark">Aucun participant n'a encore été

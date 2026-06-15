@@ -9,11 +9,14 @@ final class CategorizedStandingBuilder implements CategorizedStandingBuilderInte
     public function categorizeMeetingStanding(array $standing): array
     {
         $categorized = [
+            'overall' => [],
             'standard' => [],
             'supported' => [],
         ];
 
         foreach ($standing as $line) {
+            $categorized['overall'][] = $line;
+
             if ($line->getParticipant()?->isUsesSupport()) {
                 $categorized['supported'][] = $line;
                 continue;
@@ -22,6 +25,7 @@ final class CategorizedStandingBuilder implements CategorizedStandingBuilderInte
             $categorized['standard'][] = $line;
         }
 
+        $categorized['overall'] = $this->rankCategory($categorized['overall']);
         $categorized['standard'] = $this->rankCategory($categorized['standard']);
         $categorized['supported'] = $this->rankCategory($categorized['supported']);
 

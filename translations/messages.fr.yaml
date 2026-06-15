@@ -172,6 +172,10 @@ member:
   attendance: "Présence"
   attendances: "Présences"
 meeting:
+  tab:
+    overall: "Général"
+    standard: "Standard"
+    supported: "Appuyé"
   label: "Label"
   list: "Liste des réunions"
   na: "Aucune réunion"

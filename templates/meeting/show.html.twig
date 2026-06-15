@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% macro standing_table(title, rows) %}
+{% macro standing_table(title, rows, markSupported) %}
     {% if rows is not empty %}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 md:p-8">
             <h2 class="mt-0 mb-6">{{ title }}</h2>
@@ -34,7 +34,7 @@
                             {% set prevPosition = row.rank %}
                         </td>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
-                            {{ line.participant.firstName }} {{ line.participant.lastName|first }}.
+                            {{ line.participant.firstName }} {{ line.participant.lastName|first }}. {% if markSupported and line.participant.usesSupport %} * {% endif %}
                         </td>
                         <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
                             {{ line.score }}
@@ -63,7 +63,8 @@
                     Competitions de tir sportif
                 </a>
             </li>
-            <li aria-current="page" class="flex items-center gap-2 min-w-0 text-content-primary-light dark:text-content-primary-dark font-semibold">
+            <li aria-current="page"
+                class="flex items-center gap-2 min-w-0 text-content-primary-light dark:text-content-primary-dark font-semibold">
             <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
                   aria-hidden="true">›</span>
                 <span class="truncate">Classement Général</span>
@@ -74,19 +75,84 @@
 
 {% block body %}
     {% import _self as standingMacros %}
+<section class="min-h-screen bg-surface-light dark:bg-surface-dark {# p-2 md:p-6 lg:p-12 #}mx-auto p-8 space-y-12">
 
-	<section class="min-h-screen bg-surface-light dark:bg-surface-dark {# p-2 md:p-6 lg:p-12 #}mx-auto p-8 space-y-12">
-
-    <h1>{#Classement du <br class="md:hidden"/>#}{{ meeting.label }}</h1>
+    <h1>{# Classement du <br class="md:hidden"/> #}{{ meeting.label }}</h1>
     <div>
         Le {{ meeting.date|format_datetime('long', 'none') }}
 
     </div>
     <div class="py-8">
-        {% if categorizedStanding is defined and (categorizedStanding.standard is not empty or categorizedStanding.supported is not empty) %}
-            <div class="space-y-10">
-                {{ standingMacros.standing_table('Tir plaquettes', categorizedStanding.standard) }}
-                {{ standingMacros.standing_table('Tir plaquettes - appuyé', categorizedStanding.supported) }}
+        {% if categorizedStanding is defined and (categorizedStanding.standard is not empty or categorizedStanding.supported is not empty or categorizedStanding.overall is not empty) %}
+            <div class="text-sm font-medium text-center text-body border-b border-default">
+                <ul class="flex flex-wrap -mb-px"
+                    id="default-tab"
+                    data-tabs-toggle="#default-tab-content"
+                    role="tablist">
+
+                    <li class="me-2" role="presentation">
+                        <button
+                                class="inline-block mt-6 p-4 border-b border-transparent rounded-t-base hover:text-fg-brand-500 hover:border-brand-500"
+                                id="overall-tab"
+                                data-tabs-target="#overall"
+                                type="button"
+                                role="tab"
+                                aria-controls="overall"
+                                aria-selected="true">
+                            {{ 'meeting.tab.overall' |trans }}
+                        </button>
+                    </li>
+                    <li class="me-2" role="presentation">
+                        <button
+                                class="inline-block p-4 border-b border-transparent rounded-t-base hover:text-fg-brand hover:border-brand"
+                                id="standard-tab"
+                                data-tabs-target="#standard"
+                                type="button"
+                                role="tab"
+                                aria-controls="standard"
+                                aria-selected="false">
+                            {{ 'meeting.tab.standard' |trans }}
+                        </button>
+                    </li>
+                    <li class="me-2" role="presentation">
+                        <button
+                                class="inline-block p-4 border-b border-transparent rounded-t-base hover:text-fg-brand hover:border-brand"
+                                id="supported-tab"
+                                data-tabs-target="#supported"
+                                type="button"
+                                role="tab"
+                                aria-controls="supported"
+                                aria-selected="false">
+                            {{ 'meeting.tab.supported' |trans }}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div id="default-tab-content">
+                <div
+                        class="p-4 rounded-base"
+                        id="overall"
+                        role="tabpanel"
+                        aria-labelledby="overall-tab">
+
+                    {{ standingMacros.standing_table('Tir plaquettes - Général', categorizedStanding.overall, true) }}
+                </div>
+                <div
+                        class="hidden p-4 rounded-base"
+                        id="standard"
+                        role="tabpanel"
+                        aria-labelledby="standard-tab">
+                    {{ standingMacros.standing_table('Tir plaquettes standard', categorizedStanding.standard, false) }}
+                </div>
+                <div
+                        class="hidden p-4 rounded-base"
+                        id="supported"
+                        role="tabpanel"
+                        aria-labelledby="supported-tab">
+
+                    {{ standingMacros.standing_table('Tir plaquettes appuyé', categorizedStanding.supported, true) }}
+                </div>
+
             </div>
         {% else %}
             <p class="text-content-primary-light dark:text-content-primary-dark">Aucun participant n'a encore été

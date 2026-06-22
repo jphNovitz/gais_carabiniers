@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="-mx-4 -my-4 lg:-my-16 min-h-screen bg-base-100 text-base-content transition-colors duration-300">
+        <nav aria-label="Fil d'Ariane" class="border-b border-black/10 bg-primary dark:bg-base-200">
+            <ol class="mx-auto flex h-9 max-w-[980px] items-center gap-2 overflow-hidden px-4 text-xs text-primary-content/60 dark:text-base-content/60 md:px-8">
+                <li>
+                    <a href="{{ path('app_home') }}"
+                       class="whitespace-nowrap transition-colors duration-200 hover:text-warning">Accueil</a>
+                </li>
+                <li class="min-w-0 flex items-center gap-2">
+                    <span class="select-none text-primary-content/25 dark:text-base-content/25" aria-hidden="true">›</span>
+                    <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
+                       class="truncate transition-colors duration-200 hover:text-warning">
+                        Compétitions de tir sportif
+                    </a>
+                </li>
+                <li aria-current="page"
+                    class="flex min-w-0 items-center gap-2 font-bold uppercase tracking-[0.06em] text-primary-content/90 dark:text-base-content">
+                    <span class="select-none text-primary-content/25 dark:text-base-content/25" aria-hidden="true">›</span>
+                    <span class="truncate">{{ meeting.label }}</span>
+                </li>
+            </ol>
+        </nav>
+
+        <section class="bg-primary px-4 py-10 text-primary-content dark:bg-base-200 dark:text-base-content md:px-8 md:pb-12">
+            <div class="relative mx-auto max-w-[980px]">
+                <div class="relative z-10 min-w-0">
+                    <div class="mb-3 flex items-center gap-3">
+                        <span class="h-[22px] w-[3px] rounded-full bg-warning"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-warning">
+                            Compétition mensuelle · Bernissart
+                        </span>
+                    </div>
+                    <h1 class="m-0 text-4xl font-black uppercase leading-none tracking-normal text-base-100 dark:text-base-content md:text-5xl lg:text-[52px]">
+                        {{ meeting.label }}
+                    </h1>
+                    <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-base-100/60 dark:text-base-content/60">
+                        <span>{{ meeting.date|format_datetime('long', 'none') }}</span>
+                        <span class="h-1 w-1 rounded-full bg-warning/70"></span>
+                        <span>Tir plaquettes</span>
+                    </div>
+                </div>
+
+                <svg class="absolute bottom-0 right-0 hidden h-[90px] w-[90px] opacity-15 md:block" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+                    <circle cx="45" cy="45" r="43" stroke="currentColor" class="text-warning" stroke-width="1.5"/>
+                    <circle cx="45" cy="45" r="32" stroke="currentColor" class="text-warning" stroke-width="1.5"/>
+                    <circle cx="45" cy="45" r="20" stroke="currentColor" class="text-accent" stroke-width="1.5"/>
+                    <circle cx="45" cy="45" r="9" stroke="currentColor" class="text-accent" stroke-width="1.5"/>
+                    <circle cx="45" cy="45" r="3" fill="currentColor" class="text-accent"/>
+                    <line x1="45" y1="2" x2="45" y2="88" stroke="currentColor" class="text-warning" stroke-width="0.7" stroke-dasharray="3,6"/>
+                    <line x1="2" y1="45" x2="88" y2="45" stroke="currentColor" class="text-warning" stroke-width="0.7" stroke-dasharray="3,6"/>
+                </svg>
+            </div>
+        </section>
+
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

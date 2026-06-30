@@ -8,6 +8,7 @@ use App\Entity\MeetingSnapshot;
 use App\Entity\YearSnapshot;
 use App\Enum\MeetingStatus;
 use App\Enum\MeetingType;
+use App\Enum\ShootingCategory;
 use App\Repository\MeetingRepository;
 use App\Repository\MeetingSnapshotRepository;
 use App\Repository\YearSnapshotRepository;
@@ -46,7 +47,12 @@ class MeetingCloser implements MeetingCloserInterface
                 $meetingSnapshot->setParticipant($participant);
             }
 
+            $shootingCategory = $standing['shootingCategory'] instanceof ShootingCategory
+                ? $standing['shootingCategory']
+                : ShootingCategory::from($standing['shootingCategory']);
+
             $meetingSnapshot->setScore((int) $standing['totalScore']);
+            $meetingSnapshot->setShootingCategory($shootingCategory);
             $meetingSnapshot->setComputedAt(new \DateTimeImmutable());
 
             $this->em->persist($meetingSnapshot);

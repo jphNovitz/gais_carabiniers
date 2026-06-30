@@ -82,6 +82,8 @@ form:
       date: "Date de la séance"
       meeting: "Séance de tir"
       meetings: "Séances de tir"
+    participant:
+      shooting_category: "Catégorie de tir"
 
 club:
   about: "À propos du club"
@@ -174,7 +176,10 @@ member:
 meeting:
   tab:
     overall: "Général"
-    standard: "Standard"
+    standard: "Classique"
+    supported: "Appuyé"
+  shooting_category:
+    classic: "Classique"
     supported: "Appuyé"
   label: "Label"
   list: "Liste des réunions"

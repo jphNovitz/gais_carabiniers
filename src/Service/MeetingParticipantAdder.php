@@ -5,10 +5,9 @@ namespace App\Service;
 use App\Contract\MeetingParticipantAdderInterface;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
-use App\Entity\Member;
 use App\Enum\MeetingStatus;
+use App\Enum\ShootingCategory;
 use App\Repository\MeetingParticipantRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 class MeetingParticipantAdder implements MeetingParticipantAdderInterface
 {
@@ -39,6 +38,7 @@ class MeetingParticipantAdder implements MeetingParticipantAdderInterface
             $mp = (new MeetingParticipant())
                 ->setMeeting($meeting)
                 ->setShooter($member)
+                ->setShootingCategory(ShootingCategory::fromUsesSupport($member->isUsesSupport()))
                 ->setPosition($pos++);
 
             $meeting->addParticipant($mp);

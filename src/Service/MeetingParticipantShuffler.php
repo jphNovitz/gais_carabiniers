@@ -5,10 +5,9 @@ namespace App\Service;
 use App\Contract\MeetingParticipantShufflerInterface;
 use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
-use App\Entity\Member;
 use App\Enum\MeetingStatus;
+use App\Enum\ShootingCategory;
 use App\Repository\MeetingParticipantRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 class MeetingParticipantShuffler implements MeetingParticipantShufflerInterface
 {
@@ -41,6 +40,7 @@ class MeetingParticipantShuffler implements MeetingParticipantShufflerInterface
             $mp = (new MeetingParticipant())
                 ->setMeeting($meeting)
                 ->setShooter($member)
+                ->setShootingCategory(ShootingCategory::fromUsesSupport($member->isUsesSupport()))
                 ->setPosition($pos++);
 
             $meeting->addParticipant($mp);
@@ -89,6 +89,7 @@ class MeetingParticipantShuffler implements MeetingParticipantShufflerInterface
             $mp = (new MeetingParticipant())
                 ->setMeeting($meeting)
                 ->setShooter($member)
+                ->setShootingCategory(ShootingCategory::fromUsesSupport($member->isUsesSupport()))
                 ->setPosition($pos++);
 
             $meeting->addParticipant($mp);

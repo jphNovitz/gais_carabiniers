@@ -184,6 +184,7 @@ class MeetingRepository extends ServiceEntityRepository
                 'm.closedAt',
                 'mp.id as participantId',
                 'mp.position',
+                'mp.shootingCategory',
                 'participant.id as shooterId',
                 'participant.firstName',
                 'participant.lastName',
@@ -193,7 +194,7 @@ class MeetingRepository extends ServiceEntityRepository
             )
             ->where('m.id = :id')
             ->setParameter('id', $id)
-            ->groupBy('mp.id, participant.id, m.id')
+            ->groupBy('mp.id, mp.shootingCategory, participant.id, m.id')
             ->orderBy('totalScore', 'DESC')
             ->addOrderBy('participant.lastName', 'ASC')
             ->addOrderBy('participant.firstName', 'ASC');

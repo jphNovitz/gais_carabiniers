@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Contract\CategorizedStandingBuilderInterface;
+use App\Enum\ShootingCategory;
 
 final class CategorizedStandingBuilder implements CategorizedStandingBuilderInterface
 {
@@ -17,7 +18,7 @@ final class CategorizedStandingBuilder implements CategorizedStandingBuilderInte
         foreach ($standing as $line) {
             $categorized['overall'][] = $line;
 
-            if ($line->getParticipant()?->isUsesSupport()) {
+            if ($this->usesSupport($line)) {
                 $categorized['supported'][] = $line;
                 continue;
             }
@@ -53,5 +54,14 @@ final class CategorizedStandingBuilder implements CategorizedStandingBuilderInte
         }
 
         return $rankedStanding;
+    }
+
+    private function usesSupport(object $line): bool
+    {
+        if (method_exists($line, 'getShootingCategory')) {
+            return $line->getShootingCategory() === ShootingCategory::SUPPORTED;
+        }
+
+        return (bool) $line->getParticipant()?->isUsesSupport();
     }
 }

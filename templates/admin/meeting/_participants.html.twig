@@ -7,6 +7,7 @@
             <tr>
                 <th class="text-uppercase text-center" style="width: 5rem">{{ 'form.meeting.position'|trans }}</th>
                 <th class="text-uppercase px-5">{{ 'meeting.participant'|trans }}</th>
+                <th class="text-uppercase px-5">{{ 'form.meeting.participant.shooting_category'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                         {{ p.position }}
                     </td>
                     <td class="px-5">{{ p.shooter.firstName }} {{ p.shooter.lastName }}</td>
+                    <td class="px-5">{{ ('meeting.shooting_category.' ~ p.shootingCategory.value)|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

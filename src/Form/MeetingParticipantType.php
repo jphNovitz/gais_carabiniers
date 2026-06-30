@@ -2,13 +2,12 @@
 
 namespace App\Form;
 
-use App\Dto\MeetingParticipantDto;
-use App\Entity\Meeting;
 use App\Entity\MeetingParticipant;
 use App\Entity\Member;
+use App\Enum\ShootingCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -43,11 +42,22 @@ class MeetingParticipantType extends AbstractType
             ->add('shooter', EntityType::class, [
                 'class' => Member::class,
                 'choice_label' => fn(Member $m) => $m->getFirstName() . ' ' . $m->getLastName(),
-
+//                'expanded' => true,
                 'placeholder' => 'Sélectionner un tireur',
                 'attr' => [
                     'class' => 'form-select',
                 ]
+            ])
+            ->add('shootingCategory', EnumType::class, [
+                'class' => ShootingCategory::class,
+                'label' => 'form.meeting.participant.shooting_category',
+                'choice_label' => fn(ShootingCategory $choice) => match ($choice) {
+                    ShootingCategory::CLASSIC => 'meeting.shooting_category.classic',
+                    ShootingCategory::SUPPORTED => 'meeting.shooting_category.supported',
+                },
+                'attr' => [
+                    'class' => 'form-select',
+                ],
             ]);
 //            ->add('shooter', EntityType::class, [
 //                'class' => Member::class,

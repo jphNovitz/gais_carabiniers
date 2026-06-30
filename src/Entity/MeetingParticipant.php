@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ShootingCategory;
 use App\Repository\MeetingParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -32,6 +33,9 @@ class MeetingParticipant
 
     #[ORM\Column]
     private ?bool $present = true;
+
+    #[ORM\Column(type: 'string', enumType: ShootingCategory::class)]
+    private ShootingCategory $shootingCategory = ShootingCategory::CLASSIC;
 
     #[ORM\Column(nullable: true)]
     #[Gedmo\Timestampable(on: 'create')]
@@ -78,6 +82,10 @@ class MeetingParticipant
     {
         $this->shooter = $shooter;
 
+        if ($shooter !== null && $this->shootingCategory === ShootingCategory::CLASSIC) {
+            $this->shootingCategory = ShootingCategory::fromUsesSupport($shooter->isUsesSupport());
+        }
+
         return $this;
     }
 
@@ -103,6 +111,23 @@ class MeetingParticipant
         $this->present = $present;
 
         return $this;
+    }
+
+    public function getShootingCategory(): ShootingCategory
+    {
+        return $this->shootingCategory;
+    }
+
+    public function setShootingCategory(ShootingCategory $shootingCategory): static
+    {
+        $this->shootingCategory = $shootingCategory;
+
+        return $this;
+    }
+
+    public function isUsesSupport(): bool
+    {
+        return $this->shootingCategory === ShootingCategory::SUPPORTED;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

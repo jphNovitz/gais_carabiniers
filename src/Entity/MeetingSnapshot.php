@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ShootingCategory;
 use App\Repository\MeetingSnapshotRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,6 +30,9 @@ class MeetingSnapshot
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $score = 0;
+
+    #[ORM\Column(type: 'string', enumType: ShootingCategory::class)]
+    private ShootingCategory $shootingCategory = ShootingCategory::CLASSIC;
 
     // Gardé temporairement, supprimé quand l'entité Club sera en place
     #[ORM\Column(length: 255, nullable: true)]
@@ -70,6 +74,22 @@ class MeetingSnapshot
     {
         $this->score = $score;
         return $this;
+    }
+
+    public function getShootingCategory(): ShootingCategory
+    {
+        return $this->shootingCategory;
+    }
+
+    public function setShootingCategory(ShootingCategory $shootingCategory): static
+    {
+        $this->shootingCategory = $shootingCategory;
+        return $this;
+    }
+
+    public function isUsesSupport(): bool
+    {
+        return $this->shootingCategory === ShootingCategory::SUPPORTED;
     }
 
     public function getClubName(): ?string { return $this->clubName; }

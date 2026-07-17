@@ -1,65 +1,372 @@
+@import "tailwindcss";
+/*@plugin "../vendor/daisyui/daisyui.index.js";*/
+@plugin "daisyui" {
+    themes: gais-v2 --default, gais-v2-dark --prefersdark;
+}
+/*
+ * Sources à scanner.
+ * Remplace l'ancien "content" de tailwind.config.js.
+ */
+@source "../../assets/**/*.js";
+@source "../../templates/**/*.html.twig";
+@source "../../vendor/symfony/twig-bridge/Resources/views/Form/*.html.twig";
+@source "../../vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig";
+
+/*
+ * Thème Tailwind v4.
+ * Ces variables génèrent les classes Tailwind correspondantes :
+ * font-sora, bg-hero, bg-primary-500, text-secondary, bg-surface-light, etc.
+ */
+@theme {
+    /* Fonts */
+    --font-sora: "Sora", sans-serif;
+    --font-poppins: "Poppins", sans-serif;
+    --font-grotesk: "Grotesk", sans-serif;
+    --font-headland: "Headland", sans-serif;
+    --font-teko: "Teko", sans-serif;
+    --font-nunito: "Nunito", sans-serif;
+
+    /* Background images */
+    --background-image-hero: url("/images/gais-carabinier-hero-01-1280.webp");
+    --background-image-hero-sm: url("/images/gais-carabinier-hero-01-mobile.webp");
+    --background-image-footer: url("/images/logo-gais-carabiniers-bernissart.webp");
+
+    /* Transition properties */
+    --transition-property-spacing: margin, padding, display;
+    --transition-property-width: width;
+
+    /* Transition durations */
+    --duration-2000: 2000ms;
+    --duration-5000: 5000ms;
+
+    /* Translate */
+    --translate-1\/6: 16.666667%;
+    --translate-1\/12: 8.33333%;
+
+    /* Colors */
+    --color-primary-500: #3B7C45;
+    --color-primary-600: #3B7C45;
+
+    --color-transparent: transparent;
+    --color-white: #F8F9FA;
+
+    --color-base-light: #CED4CE;
+    --color-base-dark: #000400;
+
+    --color-surface-light: #FDFFFD;
+    --color-surface-dark: #0D110D;
+    --color-surface-secondary: #A53A1A;
+
+    --color-content-primary-light: #000400;
+    --color-content-primary-dark: #eee9db;
+
+    --color-content-secondary: #3B7C45;
+
+    --color-content-highlight-light: #3B7C45;
+    --color-content-highlight-dark: #F2C029;
+
+    --color-secondary: #3B7C45;
+}
+
+/*
+ * Font faces
+ */
 @font-face {
-    font-family: 'Sora';
-    src: url('../fonts/Sora/Sora-Regular.ttf') format('opentype'),
-    url('../fonts/Sora/Sora-Regular.ttf') format('ttf');
+    font-family: "Sora";
+    src: url("../fonts/Sora/Sora-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Sora';
-    src: url('../fonts/Sora/Sora-Bold.ttf') format('opentype'),
-    url('../fonts/Sora/Sora-Bold.ttf') format('ttf');
+    font-family: "Sora";
+    src: url("../fonts/Sora/Sora-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Sora';
-    src: url('../fonts/Sora/Sora-ExtraBold.ttf') format('opentype'),
-    url('../fonts/Sora/Sora-ExtraBold.ttf') format('ttf');
+    font-family: "Sora";
+    src: url("../fonts/Sora/Sora-ExtraBold.ttf") format("truetype");
     font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('../fonts/Poppins/Poppins-Regular.ttf') format('opentype'),
-    url('../fonts/Poppins/Poppins-Regular.ttf') format('ttf');
+    font-family: "Poppins";
+    src: url("../fonts/Poppins/Poppins-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('../fonts/Poppins/Poppins-Black.ttf') format('opentype'),
-    url('../fonts/Poppins/Poppins-Black.ttf') format('opentype');
+    font-family: "Poppins";
+    src: url("../fonts/Poppins/Poppins-Black.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Headland';
-    src: url('../fonts/Headland_One/HeadlandOne-Regular.ttf') format('opentype'),
-    url('../fonts/Headland_One/HeadlandOne-Regular.ttf') format('opentype');
+    font-family: "Headland";
+    src: url("../fonts/Headland_One/HeadlandOne-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Grotesk';
-    src: url('../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf') format('opentype'),
-    url('../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf') format('opentype');
+    font-family: "Grotesk";
+    src: url("../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
+
+/*
+ * Base
+ */
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-sora;
+        word-spacing: 0.15em;
+    }
+
+    h1,
+    h2 {
+        @apply tracking-tighter;
+    }
+
+    #brand {
+        @apply text-secondary;
+    }
+
+    h1 {
+        @apply text-2xl md:text-3xl font-black mt-12 mb-6;
+    }
+
+    h2 {
+        @apply text-xl md:text-2xl font-bold mt-10 mb-4;
+    }
+
+    h3 {
+        @apply text-lg md:text-xl font-semibold mt-8 mb-3;
+    }
+
+    h4 {
+        @apply text-base md:text-lg font-medium mt-6 mb-2;
+    }
+
+    h5 {
+        @apply text-sm md:text-base font-medium mt-4 mb-2;
+    }
+
+    h6 {
+        @apply text-xs md:text-sm font-normal mt-3 mb-1;
+    }
+
+    p {
+        @apply leading-loose mb-0;
+    }
+
+    p:not(:first-child) {
+        @apply mt-5;
+    }
+
+    ul:not(header ul, nav ul, footer ul) {
+        @apply ml-8 my-8 space-y-6;
+    }
+
+    ul:not(header ul, nav ul, footer ul) li {
+        @apply list-disc ml-4;
+    }
+
+    ul:not(header ul, nav ul, footer ul) li::marker {
+        color: var(--color-secondary);
+        font-weight: bold;
+    }
+}
+
+/*
+ * Components
+ */
+@layer components {
+    .bento-card {
+        @apply bg-surface-light dark:bg-surface-dark border-surface-light/50 dark:border-surface-dark/50 text-content-primary-light dark:text-content-primary-dark;
+    }
+
+    .gc-header {
+        background: var(--color-primary);
+        border-bottom: 1px solid color-mix(in srgb, var(--color-secondary) 16%, transparent);
+        color: color-mix(in srgb, var(--color-primary-content) 92%, transparent);
+        transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+    }
+
+    .gc-header__bar {
+        background: inherit;
+    }
+
+    .gc-header__inner {
+        @apply mx-auto flex h-14 max-w-[980px] items-center justify-between gap-4 px-4 md:px-8;
+    }
+
+    .gc-header__brand {
+        @apply flex min-w-0 items-center gap-3 no-underline;
+    }
+
+    .gc-header__logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 9999px;
+        object-fit: cover;
+        border: 2px solid color-mix(in srgb, var(--color-primary-content) 30%, transparent);
+        flex-shrink: 0;
+        transition: border-color 0.35s ease;
+    }
+
+    .gc-header__brand-name {
+        font-family: var(--font-teko);
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--color-primary-content) 90%, transparent);
+        white-space: nowrap;
+        transition: color 0.35s ease;
+    }
+
+    .gc-header__actions {
+        @apply flex items-center gap-2 lg:order-2;
+    }
+
+    .gc-header__menu-toggle {
+        @apply inline-flex h-10 w-10 items-center justify-center rounded-full transition-opacity hover:opacity-70 focus:outline-none lg:hidden;
+        border: 1px solid color-mix(in srgb, var(--color-primary-content) 15%, transparent);
+        color: var(--color-base-100);
+    }
+
+    .gc-header__menu {
+        @apply absolute left-0 top-14 z-20 w-full lg:static lg:w-auto lg:border-t-0 lg:bg-transparent;
+        border-top: 1px solid color-mix(in srgb, var(--color-secondary) 14%, transparent);
+        background: color-mix(in srgb, var(--color-primary) 84%, var(--color-base-300));
+        transition: background-color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .gc-header__nav {
+        @apply flex flex-col px-4 py-3 lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:py-0;
+    }
+
+    .gc-header__link {
+        font-family: var(--font-nunito);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: color-mix(in srgb, var(--color-primary-content) 68%, transparent);
+        transition: color 0.18s ease, opacity 0.18s ease;
+        @apply flex items-center gap-1 py-2;
+    }
+
+    .gc-header__link:hover,
+    .gc-header__dropdown-trigger:hover {
+        color: var(--color-warning);
+    }
+
+    .gc-header__link--active {
+        color: var(--color-base-100);
+    }
+
+    .gc-header__dropdown-wrap {
+        @apply relative;
+    }
+
+    .gc-header__dropdown-trigger {
+        @apply w-full justify-between lg:w-auto;
+    }
+
+    .gc-header__dropdown {
+        @apply mt-2 rounded-md shadow-[0_8px_28px_rgba(0,0,0,0.12)] lg:mt-3 lg:min-w-[220px];
+        border: 1px solid var(--color-base-300);
+        background: var(--color-base-100);
+        transition: background-color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .gc-header__dropdown-list {
+        @apply py-2;
+    }
+
+    .gc-header__dropdown-link {
+        font-family: var(--font-nunito);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--color-base-content);
+        @apply block px-4 py-2 transition-colors;
+    }
+
+    .gc-header__dropdown-link:hover {
+        background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+        color: var(--color-primary);
+    }
+
+    .gc-header__dropdown-link--active {
+        color: var(--color-primary);
+        background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+    }
+
+    @media (min-width: 1024px) {
+        .gc-header__menu {
+            border-top: 0;
+            background: transparent;
+        }
+    }
+}
+
+
+/*@import "./tailwind.css";*/
+
+/*@font-face {*/
+/*    font-family: 'Sora';*/
+/*    src: url('../fonts/Sora/Sora-Regular.ttf') format('opentype'),*/
+/*    url('../fonts/Sora/Sora-Regular.ttf') format('ttf');*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: 'Sora';*/
+/*    src: url('../fonts/Sora/Sora-Bold.ttf') format('opentype'),*/
+/*    url('../fonts/Sora/Sora-Bold.ttf') format('ttf');*/
+/*    font-weight: 700;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: 'Sora';*/
+/*    src: url('../fonts/Sora/Sora-ExtraBold.ttf') format('opentype'),*/
+/*    url('../fonts/Sora/Sora-ExtraBold.ttf') format('ttf');*/
+/*    font-weight: 900;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: 'Poppins';*/
+/*    src: url('../fonts/Poppins/Poppins-Regular.ttf') format('opentype'),*/
+/*    url('../fonts/Poppins/Poppins-Regular.ttf') format('ttf');*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
 
 /*@font-face {*/
 /*    font-family: 'Poppins';*/
@@ -67,56 +374,176 @@
 /*    url('../fonts/Poppins/Poppins-Black.ttf') format('opentype');*/
 /*    font-weight: 700;*/
 /*    font-style: normal;*/
+/*    font-display: swap;*/
 /*}*/
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*@font-face {*/
+/*    font-family: 'Headland';*/
+/*    src: url('../fonts/Headland_One/HeadlandOne-Regular.ttf') format('opentype'),*/
+/*    url('../fonts/Headland_One/HeadlandOne-Regular.ttf') format('opentype');*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
 
-@layer base {
-    h1, h2, h3, h4, h5, h6 {
-        @apply font-sora;
-        word-spacing: 0.15em;
+/*@font-face {*/
+/*    font-family: 'Grotesk';*/
+/*    src: url('../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf') format('opentype'),*/
+/*    url('../fonts/Host_Grotesk/HostGrotesk-VariableFont_wght.ttf') format('opentype');*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
+
+
+/*@layer base {*/
+/*    h1, h2, h3, h4, h5, h6 {*/
+/*        @apply font-sora;*/
+/*        word-spacing: 0.15em;*/
+/*    }*/
+
+/*    h1, h2{*/
+/*        @apply tracking-tighter;*/
+/*    }*/
+
+/*    !*h3, h4{*!*/
+/*    !*    @apply tracking-tight;*!*/
+/*    !*}*!*/
+/*    #brand { @apply text-secondary; }*/
+/*    h1 { @apply text-2xl md:text-3xl font-black  mt-12 mb-6; }*/
+/*    h2 { @apply text-xl  md:text-2xl font-bold    mt-10 mb-4; }*/
+/*    h3 { @apply text-lg  md:text-xl  font-semibold mt-8 mb-3; }*/
+/*    h4 { @apply text-base md:text-lg font-medium   mt-6 mb-2; }*/
+/*    h5 { @apply text-sm  md:text-base font-medium  mt-4 mb-2; }*/
+/*    h6 { @apply text-xs  md:text-sm   font-normal  mt-3 mb-1; }*/
+
+/*    p {*/
+/*        @apply leading-loose mb-0;*/
+/*    }*/
+
+/*    p:not(:first-child) {*/
+/*        @apply mt-5;*/
+/*    }*/
+/*    ul:not(header ul, nav ul, footer ul)  {*/
+/*    @apply ml-8 my-8 space-y-6;*/
+/*    }*/
+/*    ul:not(header ul, nav ul, footer ul) li {*/
+/*        @apply list-disc ml-4;*/
+/*    }*/
+
+/*    ul:not(header ul, nav ul, footer ul) li::marker {*/
+/*        color: theme('colors.secondary');*/
+/*        font-weight: bold;*/
+/*    }*/
+/*    !*ul:not(header ul, nav ul, footer ul) li {*!*/
+/*    !*    @apply flex  gap-4 before:content-['•'] before:text-secondary before:font-bold before:shrink-0;*!*/
+/*    !*}*!*/
+/*}*/
+
+/*.bento-card {*/
+/*    @apply bg-surface-light dark:bg-surface-dark border-surface-light/50 dark:border-surface-dark/50 text-content-primary-light dark:text-content-primary-dark;*/
+/*}*/
+
+/* ================================================================
+   DaisyUI v4 — Thème gais-v2 (clair)
+   Vert forêt / Crème tradition / Rouge cible / Or héraldique
+   ================================================================ */
+
+@plugin "daisyui/theme" {
+    name: "gais-v2";
+    default: true;
+    prefersdark: false;
+    color-scheme: "light";
+
+        /* Base */
+        --color-base-100: #F5F1DC;
+        --color-base-200: #EAE4C8;
+        --color-base-300: #D5CEB0;
+        --color-base-content: #1E1E1C;
+
+        /* Primary — vert forêt */
+        --color-primary: #2C6B35;
+        --color-primary-content: #FFFFFF;
+
+        /* Secondary — anthracite */
+        --color-secondary: #1E1E1C;
+        --color-secondary-content: #F5F1DC;
+
+        /* Accent — rouge cible */
+        --color-accent: #C82020;
+        --color-accent-content: #FFFFFF;
+
+        /* Neutral — olive / kaki */
+        --color-neutral: #5A6050;
+        --color-neutral-content: #FFFFFF;
+
+        /* États */
+        --color-info: #2E78B0;
+        --color-info-content: #FFFFFF;
+        --color-success: #2C6B35;
+        --color-success-content: #FFFFFF;
+        --color-warning: #D4A818;
+        --color-warning-content: #1E1E1C;
+        --color-error: #C82020;
+        --color-error-content: #FFFFFF;
+
+        /* Forme */
+        --radius-selector: 0.5rem;
+        --radius-field: 0.5rem;
+        --radius-box: 0.75rem;
+        --size-selector: 0.25rem;
+        --size-field: 0.25rem;
+        --border: 1px;
+        --depth: 1;
+        --noise: 0;
     }
+/* ================================================================
+   DaisyUI v4 — Thème gais-v2-dark
+   Vert nuit / Crème sombre / Rouge vif / Or lumineux
+   ================================================================ */
+@plugin "daisyui/theme" {
+    name: "gais-v2-dark";
+    prefersdark: true;
+    color-scheme: "dark";
+    /* Base */
+    --color-base-100: #0C140E;
+    --color-base-200: #141E16;
+    --color-base-300: #1C2A1E;
+    --color-base-content: #C4C0A8;
 
-    h1, h2{
-        @apply tracking-tighter;
-    }
+    /* Primary — vert forêt */
+    --color-primary: #4CAF68;
+    --color-primary-content: #0A150C;
 
-    /*h3, h4{*/
-    /*    @apply tracking-tight;*/
-    /*}*/
+    /* Secondary — crème */
+    --color-secondary: #E8E3CC;
+    --color-secondary-content: #1E1E1C;
 
-    h1 { @apply text-2xl md:text-3xl font-black  mt-12 mb-6; }
-    h2 { @apply text-xl  md:text-2xl font-bold    mt-10 mb-4; }
-    h3 { @apply text-lg  md:text-xl  font-semibold mt-8 mb-3; }
-    h4 { @apply text-base md:text-lg font-medium   mt-6 mb-2; }
-    h5 { @apply text-sm  md:text-base font-medium  mt-4 mb-2; }
-    h6 { @apply text-xs  md:text-sm   font-normal  mt-3 mb-1; }
+    /* Accent — rouge cible */
+    --color-accent: #E54040;
+    --color-accent-content: #1E1E1C;
 
-    p {
-        @apply leading-relaxed mb-0;
-    }
+    /* Neutral — olive / kaki */
+    --color-neutral: #484E3E;
+    --color-neutral-content: #C4C0A8;
 
-    p:not(:first-child) {
-        @apply mt-5;
-    }
-    ul:not(header ul, nav ul, footer ul)  {
-    @apply ml-8 my-8 space-y-6;
-    }
-    ul:not(header ul, nav ul, footer ul) li {
-        @apply list-disc ml-4;
-    }
+    /* États */
+    --color-info: #60A5FA;
+    --color-info-content: #0C140E;
+    --color-success: #4CAF68;
+    --color-success-content: #0A150C;
+    --color-warning: #E8C240;
+    --color-warning-content: #1E1E1C;
+    --color-error: #E54040;
+    --color-error-content: #1E1E1C;
 
-    ul:not(header ul, nav ul, footer ul) li::marker {
-        color: theme('colors.secondary');
-        font-weight: bold;
-    }
-    /*ul:not(header ul, nav ul, footer ul) li {*/
-    /*    @apply flex  gap-4 before:content-['•'] before:text-secondary before:font-bold before:shrink-0;*/
-    /*}*/
-}
-
-.bento-card {
-    @apply bg-surface-light dark:bg-surface-dark border-surface-light/50 dark:border-surface-dark/50 text-content-primary-light dark:text-content-primary-dark;
+    /* Forme */
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.75rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
 }

@@ -3,11 +3,11 @@
 namespace App\Twig\Components\Meeting;
 
 use App\Enum\ShootingCategory;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use App\Repository\YearSnapshotRepository;
+use App\Service\Static2025AnnualStandingProvider;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
-use App\Repository\YearSnapshotRepository; // ← changé
 
 #[AsLiveComponent]
 final class Standing
@@ -19,17 +19,16 @@ final class Standing
     #[LiveProp(writable: true)]
     public ?int $year = null;
 
+    #[LiveProp]
     public string $category = 'standard';
 
     public function __construct(
-        private YearSnapshotRepository $snapshotRepository, // ← changé
-        #[Autowire('%kernel.project_dir%')]
-        private string $projectDir
+        private YearSnapshotRepository $snapshotRepository,
+        private Static2025AnnualStandingProvider $static2025AnnualStandingProvider,
     ) {
         $this->availableYears = array_map('intval', $this->snapshotRepository->findAvailableYears());
 
-        $path2025 = $this->projectDir . '/data/standings_2025.php';
-        if (is_file($path2025) && !in_array(2025, $this->availableYears, true)) {
+        if ($this->static2025AnnualStandingProvider->isAvailable() && !in_array(2025, $this->availableYears, true)) {
             $this->availableYears[] = 2025;
         }
 
@@ -42,9 +41,8 @@ final class Standing
     {
         $shootingCategory = $this->shootingCategory();
 
-        if ($this->year === 2025) {
-            $data = $this->getStaticStandings2025();
-            return empty($data) ? [] : $this->filterAndRankStaticStandings($data, $shootingCategory);
+        if ((int) $this->year === 2025) {
+            return $this->static2025AnnualStandingProvider->findByCategory($shootingCategory);
         }
 
         return $this->snapshotRepository->findSeasonStandings($this->year ?? (int) date('Y'), $shootingCategory);
@@ -57,45 +55,8 @@ final class Standing
             : 'Classement annuel standard';
     }
 
-    private function getStaticStandings2025(): array
-    {
-        $path = $this->projectDir . '/data/standings_2025.php';
-        if (!is_file($path)) {
-            return [];
-        }
-        $data = require $path;
-        return is_array($data) ? $data : [];
-    }
-
     private function shootingCategory(): ShootingCategory
     {
         return $this->category === 'appuye' ? ShootingCategory::SUPPORTED : ShootingCategory::CLASSIC;
-    }
-
-    private function filterAndRankStaticStandings(array $standings, ShootingCategory $shootingCategory): array
-    {
-        $filtered = array_values(array_filter(
-            $standings,
-            static fn (array $row): bool => ((bool) ($row['usesSupport'] ?? false)) === ($shootingCategory === ShootingCategory::SUPPORTED)
-        ));
-
-        $ranked = [];
-        $rank = 0;
-        $lastScore = null;
-
-        foreach ($filtered as $row) {
-            $score = $row['totalScore'] ?? null;
-
-            if ($lastScore === null || $score !== $lastScore) {
-                $rank++;
-                $lastScore = $score;
-            }
-
-            $row['rank'] = $rank;
-            $row['previousRank'] = null;
-            $ranked[] = $row;
-        }
-
-        return $ranked;
     }
 }

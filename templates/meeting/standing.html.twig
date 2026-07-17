@@ -29,7 +29,7 @@
     <section class="min-h-screen mx-auto max-w-5xl px-3 md:px-6 lg:px-8">
         <div class="rounded-2xl bg-surface-light dark:bg-surface-dark p-4 md:p-8 shadow-sm">
             <h1 class="mt-0">{{ standingTitle }}</h1>
-            <twig:Meeting:Standing category="{{ category }}" />
+            <twig:Meeting:Standing :category="category" />
         </div>
     </section>
 {% endblock %}

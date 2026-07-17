@@ -33,6 +33,8 @@ nav:
   faq: "FAQ"
   standings: "Classements"
   standings.general: "Général"
+  standings.standard: "Classement standard"
+  standings.supported: "Classement appuyé"
   standings.other: "Tirs"
   members: "Membres"
   club: "Club"

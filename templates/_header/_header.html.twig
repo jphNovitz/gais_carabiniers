@@ -74,7 +74,7 @@
                         </button>
 
                         <div id="dropdown-standings-menu"
-                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-52 dark:bg-gray-700">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
 
                                 {% set isPresentation = route == 'app_category_show' and app.request.attributes.get('slug') == 'competitions-tir-sportif' %}                                <li>
@@ -94,12 +94,21 @@
                                     </a>
                                 </li>
 
-                                {% set isStanding = route == 'meeting_standing' %}
+                                {% set isStandardStanding = route in ['meeting_standing', 'meeting_standing_category'] and app.request.attributes.get('category') != 'appuye' %}
                                 <li>
-                                    <a href="{{ path('meeting_standing') }}"
-                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isStanding ? activeClass : '' }}"
-                                       aria-current="{{ isStanding ? 'page' : 'false' }}">
-                                        {{ 'nav.standings.general'|trans }}
+                                    <a href="{{ path('meeting_standing_category', {'category': 'standard'}) }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isStandardStanding ? activeClass : '' }}"
+                                       aria-current="{{ isStandardStanding ? 'page' : 'false' }}">
+                                        {{ 'nav.standings.standard'|trans }}
+                                    </a>
+                                </li>
+
+                                {% set isSupportedStanding = route == 'meeting_standing_category' and app.request.attributes.get('category') == 'appuye' %}
+                                <li>
+                                    <a href="{{ path('meeting_standing_category', {'category': 'appuye'}) }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ isSupportedStanding ? activeClass : '' }}"
+                                       aria-current="{{ isSupportedStanding ? 'page' : 'false' }}">
+                                        {{ 'nav.standings.supported'|trans }}
                                     </a>
                                 </li>
 

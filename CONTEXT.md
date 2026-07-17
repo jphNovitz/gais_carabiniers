@@ -32,6 +32,10 @@ _Avoid_: Supporté, supported
 Le classement d'un tir aux plaquettes qui regroupe les participations standard et appuyées.
 _Avoid_: Toute catégorie
 
+**Classement annuel par catégorie**:
+Le classement d'une saison qui agrège séparément les participations standard et les participations appuyées d'un membre. Un même membre peut donc apparaître dans les deux classements annuels si ses participations de la saison relèvent des deux catégories.
+_Avoid_: Classement annuel par profil de membre
+
 **Classement figé**:
 Un classement dont les résultats et les catégories ne changent plus après clôture du tir.
 _Avoid_: Classement dynamique

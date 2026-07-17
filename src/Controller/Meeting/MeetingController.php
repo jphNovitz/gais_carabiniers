@@ -67,9 +67,25 @@ final class MeetingController extends AbstractController
     }
 
     #[Route('/classement', name: 'meeting_standing', methods: ['GET'])]
-    public function standing(): Response
+    public function standing(): RedirectResponse
     {
+        return $this->redirectToRoute('meeting_standing_category', [
+            'category' => 'standard',
+        ]);
+    }
+
+    #[Route('/classement/{category}', name: 'meeting_standing_category', requirements: ['category' => 'standard|appuye|classique'], methods: ['GET'])]
+    public function standingCategory(string $category): Response
+    {
+        if ($category === 'classique') {
+            return $this->redirectToRoute('meeting_standing_category', [
+                'category' => 'standard',
+            ], Response::HTTP_MOVED_PERMANENTLY);
+        }
+
         return $this->render('meeting/standing.html.twig', [
+            'category' => $category,
+            'standingTitle' => $category === 'appuye' ? 'Classement annuel appuyé' : 'Classement annuel standard',
         ]);
     }
 

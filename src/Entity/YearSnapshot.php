@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
+use App\Enum\ShootingCategory;
 use App\Repository\YearSnapshotRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: YearSnapshotRepository::class)]
 #[ORM\Table(name: 'year_snapshot')]
-#[ORM\UniqueConstraint(name: 'uniq_year_participant', columns: ['year', 'participant_id'])]
+#[ORM\UniqueConstraint(name: 'uniq_year_participant_category', columns: ['year', 'participant_id', 'shooting_category'])]
 #[ORM\Index(columns: ['year', 'year_position'], name: 'idx_year_position')]
 #[ORM\Index(columns: ['year', 'total_score'], name: 'idx_year_score')]
+#[ORM\Index(columns: ['year', 'shooting_category', 'year_position'], name: 'idx_year_category_position')]
 class YearSnapshot
 {
     #[ORM\Id]
@@ -28,6 +30,9 @@ class YearSnapshot
 
     #[ORM\Column(type: 'integer')]
     private int $year;
+
+    #[ORM\Column(type: 'string', enumType: ShootingCategory::class)]
+    private ShootingCategory $shootingCategory = ShootingCategory::CLASSIC;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $yearPosition = 0;
@@ -76,6 +81,13 @@ class YearSnapshot
     public function setYear(int $year): static
     {
         $this->year = $year;
+        return $this;
+    }
+
+    public function getShootingCategory(): ShootingCategory { return $this->shootingCategory; }
+    public function setShootingCategory(ShootingCategory $shootingCategory): static
+    {
+        $this->shootingCategory = $shootingCategory;
         return $this;
     }
 

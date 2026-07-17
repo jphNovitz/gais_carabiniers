@@ -19,7 +19,7 @@
                 class="min-w-0 flex items-center gap-2 text-content-primary-light dark:text-content-primary-dark font-semibold">
                 <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
                       aria-hidden="true">›</span>
-                Classement Général
+                {{ standingTitle }}
             </li>
         </ol>
     </nav>
@@ -28,8 +28,8 @@
 {% block body %}
     <section class="min-h-screen mx-auto max-w-5xl px-3 md:px-6 lg:px-8">
         <div class="rounded-2xl bg-surface-light dark:bg-surface-dark p-4 md:p-8 shadow-sm">
-            <h1 class="mt-0">Classement Général</h1>
-        <twig:Meeting:Standing />
+            <h1 class="mt-0">{{ standingTitle }}</h1>
+            <twig:Meeting:Standing category="{{ category }}" />
         </div>
     </section>
 {% endblock %}

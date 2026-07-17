@@ -66,10 +66,14 @@ class MeetingCloser implements MeetingCloserInterface
                 $participant = $meeting->getParticipants()->filter(function ($p) use ($standing) {
                     return $p->getId() === $standing['participantId'];
                 })->first()->getShooter();
+                $shootingCategory = $standing['shootingCategory'] instanceof ShootingCategory
+                    ? $standing['shootingCategory']
+                    : ShootingCategory::from($standing['shootingCategory']);
 
                 $yearSnapshot = $this->yearSnapshotRepository->findOneBy([
-                    'participant' => $participant,
-                    'year'        => $year,
+                    'participant'      => $participant,
+                    'year'             => $year,
+                    'shootingCategory' => $shootingCategory,
                 ]);
 
                 if ($yearSnapshot) {
@@ -80,6 +84,7 @@ class MeetingCloser implements MeetingCloserInterface
                     $yearSnapshot = new YearSnapshot();
                     $yearSnapshot->setParticipant($participant);
                     $yearSnapshot->setYear($year);
+                    $yearSnapshot->setShootingCategory($shootingCategory);
                     $yearSnapshot->setTotalScore((int) $standing['totalScore']);
                     $yearSnapshot->setMeetingCount(1);
                     $yearSnapshot->setYearPrevPosition(null);
@@ -125,40 +130,47 @@ class MeetingCloser implements MeetingCloserInterface
                 );
             }
 
-            usort($yearSnapshots, static function (YearSnapshot $a, YearSnapshot $b): int {
-                $scoreComparison = $b->getTotalScore() <=> $a->getTotalScore();
-                if ($scoreComparison !== 0) {
-                    return $scoreComparison;
-                }
-
-                $averageComparison = $b->getAverageHits() <=> $a->getAverageHits();
-                if ($averageComparison !== 0) {
-                    return $averageComparison;
-                }
-
-                $lastNameComparison = strcmp(
-                    $a->getParticipant()?->getLastName() ?? '',
-                    $b->getParticipant()?->getLastName() ?? ''
-                );
-                if ($lastNameComparison !== 0) {
-                    return $lastNameComparison;
-                }
-
-                return strcmp(
-                    $a->getParticipant()?->getFirstName() ?? '',
-                    $b->getParticipant()?->getFirstName() ?? ''
-                );
-            });
-
-            $lastScore = null;
-            $position  = 0;
-
+            $yearSnapshotsByCategory = [];
             foreach ($yearSnapshots as $yearSnapshot) {
-                if ($lastScore === null || $yearSnapshot->getTotalScore() !== $lastScore) {
-                    $position++;
-                    $lastScore = $yearSnapshot->getTotalScore();
+                $yearSnapshotsByCategory[$yearSnapshot->getShootingCategory()->value][] = $yearSnapshot;
+            }
+
+            foreach ($yearSnapshotsByCategory as $categorySnapshots) {
+                usort($categorySnapshots, static function (YearSnapshot $a, YearSnapshot $b): int {
+                    $scoreComparison = $b->getTotalScore() <=> $a->getTotalScore();
+                    if ($scoreComparison !== 0) {
+                        return $scoreComparison;
+                    }
+
+                    $averageComparison = $b->getAverageHits() <=> $a->getAverageHits();
+                    if ($averageComparison !== 0) {
+                        return $averageComparison;
+                    }
+
+                    $lastNameComparison = strcmp(
+                        $a->getParticipant()?->getLastName() ?? '',
+                        $b->getParticipant()?->getLastName() ?? ''
+                    );
+                    if ($lastNameComparison !== 0) {
+                        return $lastNameComparison;
+                    }
+
+                    return strcmp(
+                        $a->getParticipant()?->getFirstName() ?? '',
+                        $b->getParticipant()?->getFirstName() ?? ''
+                    );
+                });
+
+                $lastScore = null;
+                $position  = 0;
+
+                foreach ($categorySnapshots as $yearSnapshot) {
+                    if ($lastScore === null || $yearSnapshot->getTotalScore() !== $lastScore) {
+                        $position++;
+                        $lastScore = $yearSnapshot->getTotalScore();
+                    }
+                    $yearSnapshot->setYearPosition($position);
                 }
-                $yearSnapshot->setYearPosition($position);
             }
         }
 

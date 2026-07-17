@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components\Meeting;
 
+use App\Enum\ShootingCategory;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -17,6 +18,8 @@ final class Standing
 
     #[LiveProp(writable: true)]
     public ?int $year = null;
+
+    public string $category = 'standard';
 
     public function __construct(
         private YearSnapshotRepository $snapshotRepository, // ← changé
@@ -37,12 +40,21 @@ final class Standing
 
     public function getStandings(): array
     {
+        $shootingCategory = $this->shootingCategory();
+
         if ($this->year === 2025) {
             $data = $this->getStaticStandings2025();
-            return empty($data) ? [] : $data;
+            return empty($data) ? [] : $this->filterAndRankStaticStandings($data, $shootingCategory);
         }
 
-        return $this->snapshotRepository->findSeasonStandings($this->year ?? (int) date('Y'));
+        return $this->snapshotRepository->findSeasonStandings($this->year ?? (int) date('Y'), $shootingCategory);
+    }
+
+    public function getTitle(): string
+    {
+        return $this->shootingCategory() === ShootingCategory::SUPPORTED
+            ? 'Classement annuel appuyé'
+            : 'Classement annuel standard';
     }
 
     private function getStaticStandings2025(): array
@@ -53,5 +65,37 @@ final class Standing
         }
         $data = require $path;
         return is_array($data) ? $data : [];
+    }
+
+    private function shootingCategory(): ShootingCategory
+    {
+        return $this->category === 'appuye' ? ShootingCategory::SUPPORTED : ShootingCategory::CLASSIC;
+    }
+
+    private function filterAndRankStaticStandings(array $standings, ShootingCategory $shootingCategory): array
+    {
+        $filtered = array_values(array_filter(
+            $standings,
+            static fn (array $row): bool => ((bool) ($row['usesSupport'] ?? false)) === ($shootingCategory === ShootingCategory::SUPPORTED)
+        ));
+
+        $ranked = [];
+        $rank = 0;
+        $lastScore = null;
+
+        foreach ($filtered as $row) {
+            $score = $row['totalScore'] ?? null;
+
+            if ($lastScore === null || $score !== $lastScore) {
+                $rank++;
+                $lastScore = $score;
+            }
+
+            $row['rank'] = $rank;
+            $row['previousRank'] = null;
+            $ranked[] = $row;
+        }
+
+        return $ranked;
     }
 }

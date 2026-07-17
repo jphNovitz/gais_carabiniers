@@ -38,7 +38,7 @@
                     <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-base-100/60 dark:text-base-content/60">
                         <span>{{ meeting.date|format_datetime('long', 'none') }}</span>
                         <span class="h-1 w-1 rounded-full bg-warning/70"></span>
-                        <span>Tir plaquettes</span>
+                        <span>{{ currentCategoryTitle|default('Tir plaquettes') }}</span>
                     </div>
                 </div>
 

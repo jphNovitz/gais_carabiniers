@@ -17,19 +17,19 @@ L'inscription d'un membre à un tir aux plaquettes précis. Elle porte la catég
 _Avoid_: Présence, inscription générique
 
 **Catégorie de tir**:
-La catégorie dans laquelle une participation est classée pour un tir donné: classique ou appuyé.
+La catégorie dans laquelle une participation est classée pour un tir donné: standard ou appuyé.
 _Avoid_: Type de membre, statut du membre
 
-**Tir classique**:
+**Tir standard**:
 Une participation réalisée sans appui.
-_Avoid_: Standard, sans support
+_Avoid_: Tir classique, sans support
 
 **Tir appuyé**:
 Une participation réalisée avec appui.
 _Avoid_: Supporté, supported
 
 **Classement général**:
-Le classement d'un tir aux plaquettes qui regroupe les participations classiques et appuyées.
+Le classement d'un tir aux plaquettes qui regroupe les participations standard et appuyées.
 _Avoid_: Toute catégorie
 
 **Classement figé**:

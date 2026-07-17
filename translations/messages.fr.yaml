@@ -176,10 +176,10 @@ member:
 meeting:
   tab:
     overall: "Général"
-    standard: "Classique"
+    standard: "Standard"
     supported: "Appuyé"
   shooting_category:
-    classic: "Classique"
+    classic: "Standard"
     supported: "Appuyé"
   label: "Label"
   list: "Liste des réunions"

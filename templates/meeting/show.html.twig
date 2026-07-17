@@ -2,7 +2,7 @@
 
 {% macro standing_table(title, rows, markSupported) %}
     {% if rows is not empty %}
-        <h2 class="mb-5 mt-0 text-3xl font-black uppercase tracking-normal text-base-content">
+        <h2 class="mb-6 mt-8 text-3xl font-black uppercase tracking-normal text-base-content">
             {{ title }}
         </h2>
 
@@ -55,77 +55,10 @@
 {% block content %}
     {% import _self as standingMacros %}
     <main class="mx-auto max-w-[980px] px-4 pb-20 md:px-8">
-        {% if categorizedStanding is defined and (categorizedStanding.standard is not empty or categorizedStanding.supported is not empty or categorizedStanding.overall is not empty) %}
-            <div class="mb-8 border-b border-base-300">
-                <ul class="-mb-px flex overflow-x-auto"
-                    id="default-tab"
-                    data-tabs-toggle="#default-tab-content"
-                    data-tabs-active-classes="text-base-content border-primary font-bold"
-                    data-tabs-inactive-classes="text-neutral border-transparent font-semibold hover:text-base-content"
-                    role="tablist">
-                    <li class="me-2" role="presentation">
-                        <button
-                                class="inline-block border-b-2 px-5 py-[18px] pb-3.5 text-sm transition-colors duration-200"
-                                id="overall-tab"
-                                data-tabs-target="#overall"
-                                type="button"
-                                role="tab"
-                                aria-controls="overall"
-                                aria-selected="false">
-                            {{ 'meeting.tab.overall' |trans }}
-                        </button>
-                    </li>
-                    <li class="me-2" role="presentation">
-                        <button
-                                class="inline-block border-b-2 px-5 py-[18px] pb-3.5 text-sm transition-colors duration-200"
-                                id="standard-tab"
-                                data-tabs-target="#standard"
-                                type="button"
-                                role="tab"
-                                aria-controls="standard"
-                                aria-selected="false">
-                            {{ 'meeting.tab.standard' |trans }}
-                        </button>
-                    </li>
-                    <li class="me-2" role="presentation">
-                        <button
-                                class="inline-block border-b-2 px-5 py-[18px] pb-3.5 text-sm transition-colors duration-200"
-                                id="supported-tab"
-                                data-tabs-target="#supported"
-                                type="button"
-                                role="tab"
-                                aria-controls="supported"
-                                aria-selected="true">
-                            {{ 'meeting.tab.supported' |trans }}
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div id="default-tab-content">
-                <div
-                        class="hidden"
-                        id="overall"
-                        role="tabpanel"
-                        aria-labelledby="overall-tab">
-                    {{ standingMacros.standing_table('Tir plaquettes général', categorizedStanding.overall, true) }}
-                </div>
-                <div
-                        class="hidden"
-                        id="standard"
-                        role="tabpanel"
-                        aria-labelledby="standard-tab">
-                    {{ standingMacros.standing_table('Tir plaquettes standard', categorizedStanding.standard, false) }}
-                </div>
-                <div
-                        class=""
-                        id="supported"
-                        role="tabpanel"
-                        aria-labelledby="supported-tab">
-                    {{ standingMacros.standing_table('Tir plaquettes appuyé', categorizedStanding.supported, true) }}
-                </div>
-            </div>
+        {% if standingRows is not empty %}
+            {{ standingMacros.standing_table(currentCategoryTitle, standingRows, false) }}
         {% else %}
-            <p class="rounded-box bg-base-200 p-6 text-base-content">Aucun participant n'a encore été ajouté.</p>
+            <p class="rounded-box bg-base-200 p-6 text-base-content">{{ emptyCategoryMessage }}</p>
         {% endif %}
     </main>
 {% endblock %}

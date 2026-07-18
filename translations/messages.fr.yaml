@@ -32,7 +32,7 @@ nav:
   agenda: "Agenda"
   faq: "FAQ"
   standings: "Classements"
-  standings.general: "Général"
+  standings.general: "Classement général"
   standings.standard: "Classement standard"
   standings.supported: "Classement appuyé"
   standings.other: "Tirs"

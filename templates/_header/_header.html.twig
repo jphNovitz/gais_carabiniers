@@ -1,36 +1,42 @@
 {% set route = app.request.attributes.get('_route') %}
-{% set baseClass = 'gc-header__link' %}
-{% set activeClass = 'gc-header__link--active' %}
+{% set active = 'font-semibold' %}
+{% set inactive = 'hover:underline' %}
+
 {% set clubName = globalInfos and globalInfos.name ? globalInfos.name : 'Club' %}
 
-<header class="gc-header">
-    <nav class="gc-header__bar">
-        <div class="gc-header__inner">
-            <a href="{{ path('app_home') }}" class="gc-header__brand" aria-label="{{ clubName }}">
+<header>
+    <nav class="bg-base-header text-base-header-content border-gray-200 px-4 lg:px-6 py-2.5">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl lg:relative">
+            <a href="#" class="flex items-center">
                 {% if globalInfos and globalInfos.logoName %}
-                    <img src="/images/{{ globalInfos.logoName }}" class="gc-header__logo" alt="{{ clubName }}"/>
+                    <img src="/images/{{ globalInfos.logoName }}" class="hidden md:inline-block mr-3 h-9 sm:h-12"
+                         alt="{{ clubName }}"/>
                 {% endif %}
-                <span class="gc-header__brand-name">{{ clubName }}</span>
+                <span class="self-center text-lg lg:text-2xl font-teko font-teko text-3xl leading-none tracking-wide">{{ clubName }}</span>
             </a>
-
-            <div class="gc-header__actions">
+            <div class="flex items-center lg:order-2">
                 <button data-collapse-toggle="mobile-menu-2" type="button"
-                        class="gc-header__menu-toggle"
+                        class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="mobile-menu-2" aria-expanded="false">
                     <span class="sr-only">{% trans %}button.open_main_menu {% endtrans %}</span>
-                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                               d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                               clip-rule="evenodd"></path>
                     </svg>
+                    <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
                 </button>
             </div>
-
-            <div id="mobile-menu-2" class="gc-header__menu hidden lg:block">
-                <ul class="gc-header__nav">
+            <div id="mobile-menu-2" class="hidden jusftify-between items-center w-full lg:flex lg:w-auto lg:order-1">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
                         <a href="{{ path('app_home') }}"
-                           class="{{ baseClass }} {{ route == 'app_home' ? activeClass : '' }}"
+                           class="{{ route == 'app_home' ? active : inactive }}"
                            aria-current="{{ route == 'app_home' ? 'page' : 'false' }}">
                             {% trans %}nav.home{% endtrans %}
                         </a>
@@ -38,28 +44,30 @@
 
                     <li>
                         <a href="{{ path('app_category_show', {'slug': 'stand-tir-hainaut'}) }}"
-                           class="{{ baseClass }} {{ (route == 'app_category_show' and app.request.get('slug') == 'stand-tir-hainaut') ? activeClass : '' }}"
+                           class="{{ route == 'app_category_show' ? active : inactive }}"
                            aria-current="{{ (route == 'app_category_show' and app.request.get('slug') == 'stand-tir-hainaut') ? 'page' : 'false' }}">
                             {% trans %}nav.about{% endtrans %}
                         </a>
                     </li>
 
-                    <li class="gc-header__dropdown-wrap">
+                    <li>
                         <button id="dropdown-standings" data-dropdown-toggle="dropdown-standings-menu"
-                                class="{{ baseClass }} gc-header__dropdown-trigger">
+                                class="flex items-center gap-1 cursor-pointer">
                             {% trans %}nav.competitions{% endtrans %}
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
 
-                        <div id="dropdown-standings-menu" class="gc-header__dropdown z-10 hidden">
-                            <ul class="gc-header__dropdown-list">
-                                {% set isPresentation = route == 'app_category_show' and app.request.attributes.get('slug') == 'competitions-tir-sportif' %}
+                        <div id="dropdown-standings-menu"
+                             class="z-10 hidden bg-base-header text-base-header-content bg-opacity-70 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-sm">
                                 <li>
+                                    {% set slug = app.request.attributes.get('slug') %}
                                     <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
-                                       class="gc-header__dropdown-link {{ isPresentation ? 'gc-header__dropdown-link--active' : '' }}"
-                                       aria-current="{{ isPresentation ? 'page' : 'false' }}">
+                                       class="block px-4 py-2  {{ route == 'app_category_show' and slug=='competitions-tir-sportif' ? active : inactive }}"
+                                    >
                                         {{ 'nav.presentation'|trans }}
                                     </a>
                                 </li>
@@ -67,45 +75,41 @@
                                 {% set isAgenda = route == 'app_agenda' %}
                                 <li>
                                     <a href="{{ path('app_agenda') }}"
-                                       class="gc-header__dropdown-link {{ isAgenda ? 'gc-header__dropdown-link--active' : '' }}"
+                                       class="block px-4 py-2 {{ route == 'app_agenda' ? active : inactive }}"
                                        aria-current="{{ isAgenda ? 'page' : 'false' }}">
                                         {{ 'nav.agenda'|trans }}
                                     </a>
                                 </li>
 
-                                {% set isStandardStanding = route in ['meeting_standing', 'meeting_standing_category'] and app.request.attributes.get('category') != 'appuye' %}
                                 <li>
-                                    <a href="{{ path('meeting_standing_category', {'category': 'standard'}) }}"
-                                       class="gc-header__dropdown-link {{ isStandardStanding ? 'gc-header__dropdown-link--active' : '' }}"
-                                       aria-current="{{ isStandardStanding ? 'page' : 'false' }}">
-                                        {{ 'nav.standings.standard'|trans }}
+                                    {% set category = app.request.attributes.get('category') %}
+                                    <a href="{{ path('meeting_standing_category', {category: 'standard'}) }}"
+                                       class="block px-4 py-2 {{ route == 'meeting_standing_category' and category == 'standard' ? active : inactive }}">
+                                        {{ 'nav.standings.general'|trans }}
                                     </a>
                                 </li>
-
-                                {% set isSupportedStanding = route == 'meeting_standing_category' and app.request.attributes.get('category') == 'appuye' %}
                                 <li>
-                                    <a href="{{ path('meeting_standing_category', {'category': 'appuye'}) }}"
-                                       class="gc-header__dropdown-link {{ isSupportedStanding ? 'gc-header__dropdown-link--active' : '' }}"
-                                       aria-current="{{ isSupportedStanding ? 'page' : 'false' }}">
+                                    {% set category = app.request.attributes.get('category') %}
+                                    <a href="{{ path('meeting_standing_category', {category: 'appuye'}) }}"
+                                       class="block px-4 py-2 {{ route == 'meeting_standing_category' and category == 'appuye' ? active : inactive }}">
                                         {{ 'nav.standings.supported'|trans }}
                                     </a>
                                 </li>
 
-                                {% set isMeetingIndex = route == 'app_meeting_index' %}
                                 <li>
                                     <a href="{{ path('app_meeting_index') }}"
-                                       class="gc-header__dropdown-link {{ isMeetingIndex ? 'gc-header__dropdown-link--active' : '' }}"
-                                       aria-current="{{ isMeetingIndex ? 'page' : 'false' }}">
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 {{ route == 'app_meeting_index' ? active : inactive }}">
                                         {{ 'nav.standings.other'|trans }}
                                     </a>
                                 </li>
+
                             </ul>
                         </div>
                     </li>
 
                     <li>
                         <a href="{{ path('app_faq') }}"
-                           class="{{ baseClass }} {{ route == 'app_faq' ? activeClass : '' }}"
+                           class="{{ route == 'app_faq' ? active : inactive }}"
                            aria-current="{{ route == 'app_faq' ? 'page' : 'false' }}">
                             {% trans %}nav.faq{% endtrans %}
                         </a>
@@ -113,12 +117,14 @@
 
                     <li>
                         <a href="{{ path('app_contact') }}"
-                           class="{{ baseClass }} {{ route == 'app_contact' ? activeClass : '' }}"
+                           class="{{ route == 'app_contact' ? active : inactive }}"
                            aria-current="{{ route == 'app_contact' ? 'page' : 'false' }}">
                             {% trans %}nav.contact{% endtrans %}
                         </a>
                     </li>
+
                 </ul>
+
             </div>
         </div>
     </nav>

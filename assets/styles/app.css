@@ -12,6 +12,27 @@
 @source "../../vendor/symfony/twig-bridge/Resources/views/Form/*.html.twig";
 @source "../../vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig";
 
+@font-face {
+    font-family: "Barlow";
+    src: url("../fonts/Barlow/Barlow-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Barlow";
+    src: url("../fonts/Barlow/Barlow-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Barlow";
+    src: url("../fonts/Barlow/Barlow-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-display: swap;
+}
+
 /*
  * Thème Tailwind v4.
  * Ces variables génèrent les classes Tailwind correspondantes :
@@ -19,8 +40,10 @@
  */
 @theme {
     /* Fonts */
+    --font-barlow: "Barlow, sans-serif";
+
     --font-sora: "Sora", sans-serif;
-    --font-poppins: "Poppins", sans-serif;
+    /*--font-poppins: "Poppins", sans-serif;*/
     --font-grotesk: "Grotesk", sans-serif;
     --font-headland: "Headland", sans-serif;
     --font-teko: "Teko", sans-serif;
@@ -131,18 +154,15 @@
  * Base
  */
 @layer base {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-sora;
+    body {
+        @apply font-barlow;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-teko;
         word-spacing: 0.15em;
     }
 
-    h1,
-    h2 {
+    h1, h2 {
         @apply tracking-tighter;
     }
 
@@ -203,131 +223,8 @@
     .bento-card {
         @apply bg-surface-light dark:bg-surface-dark border-surface-light/50 dark:border-surface-dark/50 text-content-primary-light dark:text-content-primary-dark;
     }
-
-    .gc-header {
-        background: var(--color-primary);
-        border-bottom: 1px solid color-mix(in srgb, var(--color-secondary) 16%, transparent);
-        color: color-mix(in srgb, var(--color-primary-content) 92%, transparent);
-        transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
-    }
-
-    .gc-header__bar {
-        background: inherit;
-    }
-
-    .gc-header__inner {
-        @apply mx-auto flex h-14 max-w-[980px] items-center justify-between gap-4 px-4 md:px-8;
-    }
-
-    .gc-header__brand {
-        @apply flex min-w-0 items-center gap-3 no-underline;
-    }
-
-    .gc-header__logo {
-        width: 38px;
-        height: 38px;
-        border-radius: 9999px;
-        object-fit: cover;
-        border: 2px solid color-mix(in srgb, var(--color-primary-content) 30%, transparent);
-        flex-shrink: 0;
-        transition: border-color 0.35s ease;
-    }
-
-    .gc-header__brand-name {
-        font-family: var(--font-teko);
-        font-size: 1.125rem;
-        font-weight: 500;
-        line-height: 1;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: color-mix(in srgb, var(--color-primary-content) 90%, transparent);
-        white-space: nowrap;
-        transition: color 0.35s ease;
-    }
-
-    .gc-header__actions {
-        @apply flex items-center gap-2 lg:order-2;
-    }
-
-    .gc-header__menu-toggle {
-        @apply inline-flex h-10 w-10 items-center justify-center rounded-full transition-opacity hover:opacity-70 focus:outline-none lg:hidden;
-        border: 1px solid color-mix(in srgb, var(--color-primary-content) 15%, transparent);
-        color: var(--color-base-100);
-    }
-
-    .gc-header__menu {
-        @apply absolute left-0 top-14 z-20 w-full lg:static lg:w-auto lg:border-t-0 lg:bg-transparent;
-        border-top: 1px solid color-mix(in srgb, var(--color-secondary) 14%, transparent);
-        background: color-mix(in srgb, var(--color-primary) 84%, var(--color-base-300));
-        transition: background-color 0.35s ease, border-color 0.35s ease;
-    }
-
-    .gc-header__nav {
-        @apply flex flex-col px-4 py-3 lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:py-0;
-    }
-
-    .gc-header__link {
-        font-family: var(--font-nunito);
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: color-mix(in srgb, var(--color-primary-content) 68%, transparent);
-        transition: color 0.18s ease, opacity 0.18s ease;
-        @apply flex items-center gap-1 py-2;
-    }
-
-    .gc-header__link:hover,
-    .gc-header__dropdown-trigger:hover {
-        color: var(--color-warning);
-    }
-
-    .gc-header__link--active {
-        color: var(--color-base-100);
-    }
-
-    .gc-header__dropdown-wrap {
-        @apply relative;
-    }
-
-    .gc-header__dropdown-trigger {
-        @apply w-full justify-between lg:w-auto;
-    }
-
-    .gc-header__dropdown {
-        @apply mt-2 rounded-md shadow-[0_8px_28px_rgba(0,0,0,0.12)] lg:mt-3 lg:min-w-[220px];
-        border: 1px solid var(--color-base-300);
-        background: var(--color-base-100);
-        transition: background-color 0.35s ease, border-color 0.35s ease;
-    }
-
-    .gc-header__dropdown-list {
-        @apply py-2;
-    }
-
-    .gc-header__dropdown-link {
-        font-family: var(--font-nunito);
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: var(--color-base-content);
-        @apply block px-4 py-2 transition-colors;
-    }
-
-    .gc-header__dropdown-link:hover {
-        background: color-mix(in srgb, var(--color-primary) 8%, transparent);
-        color: var(--color-primary);
-    }
-
-    .gc-header__dropdown-link--active {
-        color: var(--color-primary);
-        background: color-mix(in srgb, var(--color-primary) 8%, transparent);
-    }
-
-    @media (min-width: 1024px) {
-        .gc-header__menu {
-            border-top: 0;
-            background: transparent;
-        }
-    }
 }
+
 
 
 /*@import "./tailwind.css";*/
@@ -455,37 +352,39 @@
     prefersdark: false;
     color-scheme: "light";
 
-        /* Base */
-        --color-base-100: #F5F1DC;
-        --color-base-200: #EAE4C8;
-        --color-base-300: #D5CEB0;
-        --color-base-content: #1E1E1C;
+    /* Base */
+    --color-base-100: hsl(50 56% 91%);
+    --color-base-200: hsl(49 45% 85%);
+    --color-base-300: hsl(49 31% 76%);
+    --header: hsl(128.6 41.7% 29.6%);
+    --header-content: hsl(132 18.5% 89.4%);
+    --color-base-content: hsl(60 3% 11%);
 
-        /* Primary — vert forêt */
-        --color-primary: #2C6B35;
-        --color-primary-content: #FFFFFF;
+    /* Primary — vert forêt */
+    --color-primary: hsl(129 42% 30%);
+    --color-primary-content: hsl(0 0% 100%);
 
-        /* Secondary — anthracite */
-        --color-secondary: #1E1E1C;
-        --color-secondary-content: #F5F1DC;
+    /* Secondary — anthracite */
+    --color-secondary: hsl(60 3% 11%);
+    --color-secondary-content: hsl(50 56% 91%);
 
-        /* Accent — rouge cible */
-        --color-accent: #C82020;
-        --color-accent-content: #FFFFFF;
+    /* Accent — rouge cible */
+    --color-accent: hsl(0 72% 45%);
+    --color-accent-content: hsl(0 0% 100%);
 
-        /* Neutral — olive / kaki */
-        --color-neutral: #5A6050;
-        --color-neutral-content: #FFFFFF;
+    /* Neutral — olive / kaki */
+    --color-neutral: hsl(83 9% 35%);
+    --color-neutral-content: hsl(0 0% 100%);
 
-        /* États */
-        --color-info: #2E78B0;
-        --color-info-content: #FFFFFF;
-        --color-success: #2C6B35;
-        --color-success-content: #FFFFFF;
-        --color-warning: #D4A818;
-        --color-warning-content: #1E1E1C;
-        --color-error: #C82020;
-        --color-error-content: #FFFFFF;
+    /* États */
+    --color-info: hsl(206 59% 44%);
+    --color-info-content: hsl(0 0% 100%);
+    --color-success: hsl(129 42% 30%);
+    --color-success-content: hsl(0 0% 100%);
+    --color-warning: hsl(46 80% 46%);
+    --color-warning-content: hsl(60 3% 11%);
+    --color-error: hsl(0 72% 45%);
+    --color-error-content: hsl(0 0% 100%);
 
         /* Forme */
         --radius-selector: 0.5rem;
@@ -506,36 +405,38 @@
     prefersdark: true;
     color-scheme: "dark";
     /* Base */
-    --color-base-100: #0C140E;
-    --color-base-200: #141E16;
-    --color-base-300: #1C2A1E;
-    --color-base-content: #C4C0A8;
+    --color-base-100: hsl(135 25% 6%);
+    --color-base-200: hsl(132 20% 10%);
+    --color-base-300: hsl(129 20% 14%);
+    --color-base-content: hsl(51 19% 71%);
+    --header: hsl(128.6 30.4% 4.5%);
+    --header-content: hsl(54.8 11.2% 59.8%);
 
     /* Primary — vert forêt */
-    --color-primary: #4CAF68;
-    --color-primary-content: #0A150C;
+    --color-primary: hsl(137 39% 49%);
+    --color-primary-content: hsl(131 35% 6%);
 
     /* Secondary — crème */
-    --color-secondary: #E8E3CC;
-    --color-secondary-content: #1E1E1C;
+    --color-secondary: hsl(49 38% 85%);
+    --color-secondary-content: hsl(60 3% 11%);
 
     /* Accent — rouge cible */
-    --color-accent: #E54040;
-    --color-accent-content: #1E1E1C;
+    --color-accent: hsl(0 76% 57%);
+    --color-accent-content: hsl(60 3% 11%);
 
     /* Neutral — olive / kaki */
-    --color-neutral: #484E3E;
-    --color-neutral-content: #C4C0A8;
+    --color-neutral: hsl(83 11% 27%);
+    --color-neutral-content: hsl(51 19% 71%);
 
     /* États */
-    --color-info: #60A5FA;
-    --color-info-content: #0C140E;
-    --color-success: #4CAF68;
-    --color-success-content: #0A150C;
-    --color-warning: #E8C240;
-    --color-warning-content: #1E1E1C;
-    --color-error: #E54040;
-    --color-error-content: #1E1E1C;
+    --color-info: hsl(213 94% 68%);
+    --color-info-content: hsl(135 25% 6%);
+    --color-success: hsl(137 39% 49%);
+    --color-success-content: hsl(131 35% 6%);
+    --color-warning: hsl(46 79% 58%);
+    --color-warning-content: hsl(60 3% 11%);
+    --color-error: hsl(0 76% 57%);
+    --color-error-content: hsl(60 3% 11%);
 
     /* Forme */
     --radius-selector: 0.5rem;
@@ -546,4 +447,8 @@
     --border: 1px;
     --depth: 1;
     --noise: 0;
+}
+@theme inline {
+    --color-base-header: var(--header);
+    --color-base-header-content: var(--header-content);
 }

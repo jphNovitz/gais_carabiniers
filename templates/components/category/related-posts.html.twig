@@ -1,50 +1,48 @@
 {% if parentCategory or childCategories is not empty or relatedPosts is not empty %}
-    <aside class="w-full shrink-0 p-8">
-        <div class="sticky top-6">
-
-            {# Lien vers la catégorie parente #}
-            {% if parentCategory %}
-                <a href="{{ path('app_category_show', { slug: parentCategory.slug }) }}"
-                   class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-secondary transition-colors mb-4">
-                    ← {{ parentCategory.title }}
-                </a>
-            {% endif %}
-
-            <h2 class="block text-lg font-semibold mb-8">
-                Articles de la catégorie {{ category.title }}
-            </h2>
-
-            {# Catégories enfants #}
-            {% if childCategories is not empty %}
-                <ul class="flex flex-col gap-2 mb-6 list-none">
-                    {% for child in childCategories %}
-                        <li>
-                            <a href="{{ path('app_category_show', { slug: child.slug }) }}"
-                               class="block hover:text-secondary transition-colors font-medium">
-                                {{ child.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            {# Articles liés #}
-            {% if relatedPosts is not empty %}
-                <ul class="flex flex-col gap-2 mb-6 list-none">
-                    {% for post in relatedPosts %}
-                        <li>
-                            <a href="{{ path('app_post_show', {
-                                categorySlug: category.slug,
-                                slug: post.slug
-                            }) }}"
-                               class="block hover:text-secondary transition-colors">
-                                {{ post.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
+    <aside class="max-w-[61rem] mx-auto  mt-8 mb-12 px-4 md:px-6 pt-8 md:pt-10 border-l-2 border-gold rounded-md">
+        {#        <div class="flex flex-col gap-8"> #}
+        <div class="max-w-2xl">
+            <p class="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-primary">
+                <b>Aller plus loin</b>
+            </p>
         </div>
+        <ul>
+
+            {% if parentCategory %}
+
+                <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] before:ml-1 before:text-primary">
+                    <a href="{{ path('app_category_show', { slug: parentCategory.slug }) }}"
+                       class="block text-lg font-semibold text-base-content transition-colors hover:text-primary">
+                        {{ parentCategory.title }}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if childCategories is not empty %}
+                {% for child in childCategories %}
+                    <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] before:ml-1 before:text-primary">
+                        <a href="{{ path('app_category_show', { slug: child.slug }) }}"
+                           class="font-medium text-base-content transition-colors hover:text-primary">
+                            {{ child.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+            {% if relatedPosts is not empty %}
+                {% for post in relatedPosts %}
+                    <span class="text-primary">→</span>
+                    <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] before:ml-1 before:text-primary">
+                        <a href="{{ path('app_post_show', {
+                            categorySlug: category.slug,
+                            slug: post.slug
+                        }) }}"
+                           class="block font-medium text-base-content transition-colors hover:text-primary">
+                            {{ post.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
     </aside>
 {% endif %}

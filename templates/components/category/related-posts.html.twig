@@ -7,12 +7,10 @@
             </p>
         </div>
         <ul>
-
             {% if parentCategory %}
-
-                <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] before:ml-1 before:text-primary">
+                <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] -before:ml-8 before:text-primary">
                     <a href="{{ path('app_category_show', { slug: parentCategory.slug }) }}"
-                       class="block text-lg font-semibold text-base-content transition-colors hover:text-primary">
+                       class="ml-4 font-medium text-base-content transition-colors hover:text-primary">
                         {{ parentCategory.title }}
                     </a>
                 </li>
@@ -20,9 +18,9 @@
 
             {% if childCategories is not empty %}
                 {% for child in childCategories %}
-                    <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] before:ml-1 before:text-primary">
+                    <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] -before:ml-8 before:text-primary">
                         <a href="{{ path('app_category_show', { slug: child.slug }) }}"
-                           class="font-medium text-base-content transition-colors hover:text-primary">
+                           class="ml-4 font-medium text-base-content transition-colors hover:text-primary">
                             {{ child.title }}
                         </a>
                     </li>
@@ -31,13 +29,13 @@
 
             {% if relatedPosts is not empty %}
                 {% for post in relatedPosts %}
-                    <span class="text-primary">→</span>
-                    <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] before:ml-1 before:text-primary">
+
+                    <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] -before:ml-8 before:text-primary">
                         <a href="{{ path('app_post_show', {
                             categorySlug: category.slug,
                             slug: post.slug
                         }) }}"
-                           class="block font-medium text-base-content transition-colors hover:text-primary">
+                           class="ml-4 font-medium text-base-content transition-colors hover:text-primary">
                             {{ post.title }}
                         </a>
                     </li>

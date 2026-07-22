@@ -3,6 +3,7 @@
 
 {% block title %}{{ post.title }}{% endblock %}
 {% block nav_secondary %}
+    {% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
     {# ── Breadcrumb ── #}
     <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
         <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
@@ -14,7 +15,9 @@
             </li>
             <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
             <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
-                <a href="{{ path('app_category_show', {'slug' : post.category.slug}) }}"> {{ post.category.title }}</a>
+                {% if urlCategory %}
+                    <a href="{{ path('app_category_show', {'slug' : urlCategory.slug}) }}"> {{ urlCategory.title }}</a>
+                {% endif %}
             </li>
             <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
             <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
@@ -68,6 +71,14 @@
             </div>
         </article>
     </div>
-
+    {# Articles satellites — aside collant #}
+{#    <aside class="w-full shrink-0">#}
+{#        <div class="sticky top-6">#}
+{#            <h2 class="block text-lg font-semibold mb-8">#}
+{#                Articles de la catégorie {{ category.title }}#}
+{#            </h2>#}
+{#            {{ component('RelatedPosts', { post: post, limit: 5 }) }}#}
+{#        </div>#}
+{#    </aside>#}
 
 {% endblock %}

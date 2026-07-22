@@ -9,6 +9,7 @@
    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 p-8 md:p-4 lg:p-0 gap-8">
         {% for post in posts %}
+            {% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
             <article class="group relative rounded-3xl p-8
                             bg-surface-light/70 border border-surface-light dark:bg-surface-dark/70 dark:border-surface-dark/90
                             transition-all duration-400 hover:-translate-y-1
@@ -42,11 +43,16 @@
                     <!-- Footer -->
                     <div class="flex items-center justify-between pt-6 border-t border-zinc-800 mt-auto">
                         <span class="text-sm text-content-primary-light/60 dark:text-content-primary-dark/40">{{ post.updatedAt|format_datetime('long', 'none', locale='fr') }}</span>
-                        <a href="{{ path('app_post_show', {slug: post.slug}) }}" class="inline-flex items-center gap-2 text-content-primary-light/80 dark:text-content-primary-dark/70 font-semibold text-sm
-                                         hover:text-content-primary-light hover:dark:text-content-primary-dark/90 transition-all group/link">
-                            Lire l'article
-                            <span class="transition-transform group-hover/link:translate-x-1">→</span>
-                        </a>
+                        {% if urlCategory %}
+                            <a href="{{ path('app_post_show', {
+                                categorySlug: urlCategory.slug,
+                                slug: post.slug
+                            }) }}" class="inline-flex items-center gap-2 text-content-primary-light/80 dark:text-content-primary-dark/70 font-semibold text-sm
+                                             hover:text-content-primary-light hover:dark:text-content-primary-dark/90 transition-all group/link">
+                                Lire l'article
+                                <span class="transition-transform group-hover/link:translate-x-1">→</span>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </article>

@@ -1,13 +1,16 @@
 <ul>
     {% for post in posts %}
+        {% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
         <li>
-            <a href="{{ path('app_post_show', {
-                categorySlug: category.slug,
-                slug: post.slug
-            }) }}"
-               class="block hover:text-secondary transition-colors">
-                {{ post.title }}
-            </a>
+            {% if urlCategory %}
+                <a href="{{ path('app_post_show', {
+                    categorySlug: urlCategory.slug,
+                    slug: post.slug
+                }) }}"
+                   class="block hover:text-secondary transition-colors">
+                    {{ post.title }}
+                </a>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

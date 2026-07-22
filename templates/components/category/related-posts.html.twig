@@ -29,7 +29,6 @@
 
             {% if relatedPosts is not empty %}
                 {% for post in relatedPosts %}
-
                     <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] -before:ml-8 before:text-primary">
                         <a href="{{ path('app_post_show', {
                             categorySlug: category.slug,

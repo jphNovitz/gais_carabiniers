@@ -1,84 +1,59 @@
 {# templates/post/show.html.twig #}
-{% extends 'base.html.twig' %}
+{% extends '_layout/page_detail.html.twig' %}
 
 {% block title %}{{ post.title }}{% endblock %}
-{% block nav_secondary %}
-    {% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
-    {# ── Breadcrumb ── #}
-    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
-        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
+{% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
+
+{% block page_breadcrumb %}
+    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+        <li>
+            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">
+                Accueil
+            </a>
+        </li>
+        {% if urlCategory %}
+            <li class="text-base-content/30" aria-hidden="true">›</li>
             <li>
-                <a href="{{ path('app_home') }}"
-                   class="hover:text-secondary transition-colors duration-200">
-                    Accueil
+                <a href="{{ path('app_category_show', {'slug': urlCategory.slug}) }}"
+                   class="transition-colors hover:text-primary">
+                    {{ urlCategory.title }}
                 </a>
             </li>
-            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
-            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
-                {% if urlCategory %}
-                    <a href="{{ path('app_category_show', {'slug' : urlCategory.slug}) }}"> {{ urlCategory.title }}</a>
-                {% endif %}
-            </li>
-            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
-            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
-                {{ post.title }}
-            </li>
-        </ol>
-    </nav>
+        {% endif %}
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold tracking-[0.08em] text-base-content/95">
+            {{ post.title }}
+        </li>
+    </ol>
 {% endblock %}
-{% block body %}
-    <div class="p-8 md:p-4 lg:p-0">
-        <article class="group relative rounded-3xl p-8 md:p-12
-                        bg-surface-light border border-surface-light dark:bg-surface-dark dark:border-surface-dark/90
-                        overflow-hidden
-                        flex flex-col">
 
-            <!-- Overlay gradient (optional, for consistency with card feel) -->
-            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-secondary/5 dark:to-secondary/10
-                        pointer-events-none"></div>
+{% block page_header_top %}
+    {% if post.category %}
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-primary font-bold mb-4">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            {{ post.category }}
+        </div>
+    {% endif %}
+{% endblock %}
 
-            <div class="relative z-10">
-                <header class="mb-8">
-                    <!-- Catégorie -->
-                    {% if post.category %}
-                        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest
-                                    text-secondary font-bold mb-4">
-                            <span class="w-2 h-2 bg-orange-500 rounded-full shadow-[0_0_10px_rgba(249,115,22,1)]"></span>
-                            {{ post.category }}
-                        </div>
-                    {% endif %}
+{% block page_title %}{{ post.title }}{% endblock %}
 
-                    <h1 class="text-3xl md:text-4xl text-content-primary-light dark:text-content-primary-dark leading-tight mb-6">
-                        {{ post.title }}
-                    </h1>
+{% block page_summary %}
+    {{ post.summary }}
+{% endblock %}
 
-                    <div class="flex items-center justify-between pb-6 border-b border-zinc-800/20 dark:border-zinc-800 mb-8">
-                        <time class="text-sm text-content-primary-light/60 dark:text-content-primary-dark/40" datetime="{{ post.updatedAt|date('Y-m-d') }}">
-                            {{ post.updatedAt|format_datetime('long', 'none', locale='fr') }}
-                        </time>
-                    </div>
+{% block page_media %}
+    {% if post.image %}
+        <figure class="mb-8 overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-md">
+            <img src="{{ asset(post.image) }}" alt="{{ post.title }}" class="h-72 w-full object-cover md:h-[32rem]">
+        </figure>
+    {% endif %}
+{% endblock %}
 
-                    {% if post.image %}
-                        <div class="rounded-2xl overflow-hidden mb-8 shadow-xl">
-                            <img src="{{ asset(post.image) }}" alt="{{ post.title }}" class="w-full h-auto object-cover">
-                        </div>
-                    {% endif %}
-                </header>
+{% block page_content %}
+    {{ post.content|raw }}
+{% endblock %}
 
-                <div class="post-content text-content-primary-light/90 dark:text-content-primary-dark/90 text-lg leading-relaxed space-y-4">
-                    {{ post.content|raw }}
-                </div>
-            </div>
-        </article>
-    </div>
-    {# Articles satellites — aside collant #}
-{#    <aside class="w-full shrink-0">#}
-{#        <div class="sticky top-6">#}
-{#            <h2 class="block text-lg font-semibold mb-8">#}
-{#                Articles de la catégorie {{ category.title }}#}
-{#            </h2>#}
-{#            {{ component('RelatedPosts', { post: post, limit: 5 }) }}#}
-{#        </div>#}
-{#    </aside>#}
-
+{% block page_aside_content %}
+    <twig:Post:RelatedPosts :post="post" limit="4"/>
 {% endblock %}

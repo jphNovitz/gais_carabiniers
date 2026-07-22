@@ -1,5 +1,5 @@
 {# templates/category/show.html.twig #}
-{% extends 'base.html.twig' %}
+{% extends '_layout/page_detail.html.twig' %}
 
 {% block title %}{{ category.title }} — Mon Site{% endblock %}
 {% block json_ld %}
@@ -16,86 +16,49 @@
         }
     </script>
 {% endblock %}
-{% block nav_secondary %}
+{% block page_breadcrumb %}
+    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+        <li>
+            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">Accueil</a>
+        </li>
+        {% if category.parentCategory %}
+            <li class="text-base-content/30" aria-hidden="true">›</li>
+            <li>
+                <a href="{{ path('app_category_show', {'slug': category.parentCategory.slug}) }}"
+                   class="transition-colors hover:text-primary">
+                    {{ category.parentCategory.title }}
+                </a>
+            </li>
+        {% endif %}
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold  tracking-[0.08em] text-base-content/95">
+            {{ category.title }}
+        </li>
+    </ol>
 {% endblock %}
-{% block body %}
-    <article class="min-h-screen py-8 md:py-12">
-        <header class="w-full absolute inset-0 left-0 top-[68px] ">
-            <div class="relative overflow-hidden  border-b-2 border-gold bg-base-200 text-base-content shadow-lg">
-                <div class="absolute inset-y-0 right-0 hidden w-40 items-end justify-end md:flex">
-                    <div class="translate-x-8 translate-y-8 opacity-20">
-                        <svg width="160" height="160" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-                            <circle cx="60" cy="60" r="54" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="60" cy="60" r="38" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="60" cy="60" r="22" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="60" cy="60" r="8" class="fill-accent stroke-accent" stroke-width="2"/>
-                            <path d="M60 8V0M60 120v-8M8 60H0m120 0h-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="mx-auto w-full max-w-7xl px-6 py-10 md:px-0 md:py-14">
-                    <nav aria-label="Fil d'Ariane" class="mb-8 pb-4">
-                        <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
-                            <li>
-                                <a href="{{ path('app_home') }}" class="transition-colors hover:text-warning">Accueil</a>
-                            </li>
-                            {% if category.parentCategory %}
-                                <li class="text-base-content/30" aria-hidden="true">›</li>
-                                <li>
-                                    <a href="{{ path('app_category_show', {'slug': category.parentCategory.slug}) }}"
-                                       class="transition-colors hover:text-warning">
-                                        {{ category.parentCategory.title }}
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="text-base-content/30" aria-hidden="true">›</li>
-                            <li aria-current="page" class="font-semibold uppercase tracking-[0.08em] text-base-content/95">
-                                {{ category.title }}
-                            </li>
-                        </ol>
-                    </nav>
 
-                    <div class="max-w-7xl">
-                        <h1 class="mt-0 mb-0 text-base-content">{{ category.title }}</h1>
-                        {% if category.summary %}
-                            <p class="mt-5 max-w-5xl text-lg leading-relaxed text-base-content/72 md:text-xl">
-                                {{ category.summary }}
-                            </p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </header>
-        <section class="max-w-5xl mx-auto  mt-80 mb-12 px-4 md:px-6 pt-8 md:pt-10">
-            {% if category.image %}
-                <figure class="mb-8 overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-md">
-                    <img
-                        src="{{ asset('images/topic/' ~ category.image) }}"
-                        alt="{{ category.title }}"
-                        class="h-72 w-full object-cover md:h-[32rem]"
-                    >
-                </figure>
-            {% endif %}
+{% block page_title %}{{ category.title }}{% endblock %}
 
-            {% if category.content %}
-                <article class="border-l border-base-content/50 bg-base-100 p-6 md:p-10 lg:p-12">
-                    <div class="
-                        prose prose-lg max-w-none
-                        prose-headings:text-base-content
-                        prose-p:text-base-content/80
-                        prose-a:text-primary hover:prose-a:text-warning
-                        prose-strong:text-base-content
-                        prose-li:text-base-content/80
-                    ">
-                        {{ category.content|raw }}
-                    </div>
-                </article>
-            {% endif %}
-        </section>
+{% block page_summary %}
+    {{ category.summary }}
+{% endblock %}
 
-{#        <section class="max-w-5xl mx-auto px-4 md:px-6 pt-10 md:pt-14">#}
-            <twig:Category:RelatedPosts :category="category" limit="4"/>
-{#        </section>#}
-    </article>
-{#    <twig:Category:RelatedPosts :category="category" limit="4"/>#}
+{% block page_media %}
+    {% if category.image %}
+        <figure class="mb-8 overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-md">
+            <img
+                src="{{ asset('images/topic/' ~ category.image) }}"
+                alt="{{ category.title }}"
+                class="h-72 w-full object-cover md:h-[32rem]"
+            >
+        </figure>
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+    {{ category.content|raw }}
+{% endblock %}
+
+{% block page_aside_content %}
+    <twig:Category:RelatedPosts :category="category" limit="4"/>
 {% endblock %}

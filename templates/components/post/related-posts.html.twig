@@ -1,0 +1,37 @@
+{% if category or relatedPosts is not empty %}
+    <div class="max-w-[61rem] mx-auto mt-8 mb-12 border-l-2 border-gold rounded-md px-4 pt-8 md:px-6 md:pt-10">
+        <div class="max-w-2xl">
+            <p class="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-primary">
+                <b>Aller plus loin</b>
+            </p>
+        </div>
+        <ul>
+            {% if category %}
+                {% set urlCategory = category.parentCategory ?? category %}
+                <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] -before:ml-8 before:text-primary">
+                    <a href="{{ path('app_category_show', { slug: urlCategory.slug }) }}"
+                       class="ml-4 font-medium text-base-content transition-colors hover:text-primary">
+                        {{ urlCategory.title }}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if relatedPosts is not empty %}
+                {% for relatedPost in relatedPosts %}
+                    {% set urlCategory = relatedPost.category ? (relatedPost.category.parentCategory ?? relatedPost.category) : null %}
+                    {% if urlCategory %}
+                        <li class="list-none ml-0 border-b border-base-300/70 pb-3 last:border-b-0 last:pb-0 before:content-['→'] -before:ml-8 before:text-primary">
+                            <a href="{{ path('app_post_show', {
+                                categorySlug: urlCategory.slug,
+                                slug: relatedPost.slug
+                            }) }}"
+                               class="ml-4 font-medium text-base-content transition-colors hover:text-primary">
+                                {{ relatedPost.title }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

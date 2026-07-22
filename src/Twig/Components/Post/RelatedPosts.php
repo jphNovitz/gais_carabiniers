@@ -7,10 +7,9 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent(template: 'components/Topic/RelatedPosts.html.twig')]
-class RelatedChildPosts
+#[AsTwigComponent(template: 'components/post/related-posts.html.twig')]
+class RelatedPosts
 {
-    public Post $post;
     public int $limit = 5;
     public array $relatedPosts = [];
     public ?Category $category = null;
@@ -19,9 +18,13 @@ class RelatedChildPosts
         private PostRepository $postRepository,
     ) {}
 
-    public function mount(): void
+    public function mount(?Post $post = null): void
     {
-        $this->category = $this->post->getCategory();
+        if ($post === null) {
+            return;
+        }
+
+        $this->category = $post->getCategory();
 
         if ($this->category === null) {
             return;
@@ -29,7 +32,7 @@ class RelatedChildPosts
 
         $this->relatedPosts = $this->postRepository->findRelated(
             category: $this->category,
-            excludePost: $this->post,
+            excludePost: $post,
             limit: $this->limit,
         );
     }

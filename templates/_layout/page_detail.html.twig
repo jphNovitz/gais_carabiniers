@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_secondary %}{% endblock %}
+
+{% block body %}
+    <article class="{% block page_article_class %}min-h-screen py-8 md:py-12{% endblock %}">
+        {% block page_header %}
+            <header class="{% block page_header_class %}w-full absolute inset-0 left-0 top-[68px]{% endblock %}">
+                <div class="{% block page_header_shell_class %}relative overflow-hidden border-b-2 border-gold bg-base-200 text-base-content shadow-lg{% endblock %}">
+                    {% block page_header_artwork %}
+                        <div class="absolute inset-y-0 right-0 hidden w-40 items-end justify-end md:flex">
+                            <div class="translate-x-8 translate-y-8 opacity-20">
+                                <svg width="160" height="160" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+                                    <circle cx="60" cy="60" r="54" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="60" cy="60" r="38" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="60" cy="60" r="22" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="60" cy="60" r="8" class="fill-accent stroke-accent" stroke-width="2"/>
+                                    <path d="M60 8V0M60 120v-8M8 60H0m120 0h-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                    <div class="{% block page_header_inner_class %}mx-auto w-full max-w-7xl px-6 py-10 md:px-0 md:py-14{% endblock %}">
+                        {% if block('page_breadcrumb')|trim is not empty %}
+                            <nav aria-label="Fil d'Ariane" class="{% block page_breadcrumb_class %}mb-8 pb-4{% endblock %}">
+                                {% block page_breadcrumb %}{% endblock %}
+                            </nav>
+                        {% endif %}
+
+                        <div class="{% block page_header_content_class %}max-w-7xl{% endblock %}">
+                            {% if block('page_header_top')|trim is not empty %}
+                                {% block page_header_top %}{% endblock %}
+                            {% endif %}
+
+                            <h1 class="{% block page_title_class %}mt-0 mb-0 text-base-content{% endblock %}">
+                                {% block page_title %}{% endblock %}
+                            </h1>
+
+                            {% if block('page_summary')|trim is not empty %}
+                                <div class="{% block page_summary_wrapper_class %}mt-5 max-w-5xl text-lg leading-relaxed text-base-content/72 md:text-xl{% endblock %}">
+                                    {% block page_summary %}{% endblock %}
+                                </div>
+                            {% endif %}
+
+                            {% if block('page_meta')|trim is not empty %}
+                                <div class="{% block page_meta_wrapper_class %}mt-6{% endblock %}">
+                                    {% block page_meta %}{% endblock %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+
+        {% block page_main %}
+            <section class="{% block page_section_class %}max-w-5xl mx-auto mt-80 mb-12 px-4 md:px-6 pt-8 md:pt-10{% endblock %}">
+                {% if block('page_media')|trim is not empty %}
+                    {% block page_media %}{% endblock %}
+                {% endif %}
+
+                {% if block('page_content')|trim is not empty %}
+                    {% block page_content_container %}
+                        <article class="{% block page_content_container_class %}border-l border-base-content/50 bg-base-100 p-6 md:p-10 lg:p-12{% endblock %}">
+                            <div class="{% block page_content_class %}prose prose-lg max-w-none prose-headings:text-base-content prose-p:text-base-content/80 prose-a:text-primary hover:prose-a:text-warning prose-strong:text-base-content prose-li:text-base-content/80{% endblock %}">
+                                {% block page_content %}{% endblock %}
+                            </div>
+                        </article>
+                    {% endblock %}
+                {% endif %}
+            </section>
+        {% endblock %}
+
+        {% if block('page_aside_content')|trim is not empty %}
+            {% block page_aside %}
+                <aside class="{% block page_aside_class %}max-w-5xl mx-auto px-4 md:px-6 pt-10 md:pt-14{% endblock %}">
+                    {% block page_aside_content %}{% endblock %}
+                </aside>
+            {% endblock %}
+        {% endif %}
+    </article>
+{% endblock %}

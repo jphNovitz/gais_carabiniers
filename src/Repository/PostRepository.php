@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -42,6 +43,26 @@ class PostRepository extends ServiceEntityRepository
                 ->orderBy('p.createdAt', 'DESC')
                 ->getQuery()
                 ->getResult();
+        }
+
+        /**
+         * @return Post[]
+         */
+        public function findRelated(Category $category, ?Post $excludePost = null, int $limit = 5): array
+        {
+            $qb = $this->createQueryBuilder('p')
+                ->andWhere('p.category = :category')
+                ->setParameter('category', $category)
+                ->orderBy('p.createdAt', 'DESC')
+                ->setMaxResults($limit);
+
+            if ($excludePost !== null && $excludePost->getId() !== null) {
+                $qb
+                    ->andWhere('p != :excludePost')
+                    ->setParameter('excludePost', $excludePost);
+            }
+
+            return $qb->getQuery()->getResult();
         }
 
     //    /**

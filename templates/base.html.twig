@@ -51,17 +51,17 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body class="w-full overflow-x-hidden min-h-screen h-auto bg-base-100 p-0">
+<body class="w-full overflow-x-hidden min-h-screen h-auto bg-base-100 text-base-content p-0">
 {% include '_header/_header.html.twig' %}
 <div class="w-full md:max-w-screen-xl mx-auto text-base leading-relaxed">
-    <div class="w-full py-4">
+    <div class="w-full">
 {#        breadcrumb#}
         {% block nav_secondary %} {% endblock %}
 {#        end breadcrumb#}
     </div>
-    <div class="w-full py-4 lg:py-16 text-content-primary-light dark:text-content-primary-dark/70  ">
+    <main class="w-full p-0">
         {% block body %}{% endblock %}
-    </div>
+    </main>
 </div>
 {% include '_footer/_footer.html.twig' %}
 {% block js %}

@@ -1,41 +1,115 @@
-{% extends 'base.html.twig' %}
+{% extends '_layout/page_detail.html.twig' %}
 
-{% block title %}{% trans %}club.about {% endtrans %}{% endblock %}
+{% set club = globalInfos ?? null %}
+{% set clubName = club and club.name ? club.name : 'Les Gais Carabiniers de Bernissart' %}
+{% set address = club and club.street ? [club.street, club.streetNumber]|filter(v => v)|join(' ') : 'Rue Lotard 16' %}
+{% set locality = club and club.postCode ? [club.postCode, club.city]|filter(v => v)|join(' ') : '7320 Bernissart' %}
+{% set jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SportsActivityLocation',
+    'name': clubName,
+    'url': url('app_contact'),
+    'address': {
+        '@type': 'PostalAddress',
+        'streetAddress': address,
+        'postalCode': club and club.postCode ? club.postCode : '7320',
+        'addressLocality': club and club.city ? club.city : 'Bernissart',
+        'addressCountry': 'BE'
+    },
+    'geo': {
+        '@type': 'GeoCoordinates',
+        'latitude': latitude,
+        'longitude': longitude
+    },
+    'hasMap': mapDirectionsUrl
+} %}
 
-{% block body %}
-
-    <section id="nous-contacter"
-             class="w-full bg-surface-light dark:bg-surface-dark pt-4 pb-8 px-4 rounded-lg flex flex-col lg:flex-row">
-        <article class="w-full lg:w-1/2 sm:p-16 xl:p-24">
-            <h2 class="text-4xl font-headland font-extrabold text-content-highlight-light/70 dark:text-content-highlight-dark/70">
-                Nous trouver, <br/>nous contacter, <br/>nous
-                rencontrer </h2>
-            <h3 class="my-4 text-xl font-headland font-semibold text-content-highlight-light/70 dark:text-content-highlight-dark/70">Comment se rendre chez Les Gais Carabiniers de Bernissart ?</h3>
-            <p class="font-black text-lg  text-content-primary-light/50 lg:text-xl  dark:text-content-primary-dark/40 leading-loose">
-                Notre club n'est pas visible de la rue. <br class="hidden md:block"/> Une fois arrivés dans la rue Lotard, suivez les panneaux "ALE".
-                Nous sommes situés juste derrière le Musée de l'Iguanodon de Bernissart.
-
-            </p>
-            <p class="font-black text-lg  text-content-primary-light/50 lg:text-xl  dark:text-content-primary-dark/40 leading-loose">
-                Voici les <a href="https://www.google.com/maps?q=50.475936,3.6499715" class="text-content-highlight-light/70 dark:text-content-highlight-dark/70 underline">coordonnées GPS de GC Bernissart</a> pour vous aider à nous localiser :
-            </p>
-            <ul class="font-black text-lg  text-content-primary-light/50 lg:text-xl  dark:text-content-primary-dark/40 leading-loose">
-                    <li>Latitude: 50.4758127</li>
-                    <li>Longitude: 3.6487768</li>
-            </ul>
-
-            <p class="my-8 text-lg font-normal text-content-primary-light/50 lg:text-xl {# sm:px-16 xl:px-48 #} dark:text-content-primary-dark/40 leading-loose">
-                Que vous veniez de Bernissart, Péruwelz, Saint-Ghislain ou Condé-sur-l'Escaut, profitez
-                d'une ambiance
-                conviviale et découvrez les joies du tir sportif. Une expérience unique à partager en toute
-                sécurité
-                !
-            </p>
-        </article>
-        <article class="w-full lg:w-1/2 p-4">
-            {{ ux_map(myMap, { class: 'w-full  aspect-video lg:aspect-square mx-auto' }) }}
-        </article>
-    </section>
-
+{% block title %}Contact et accès | {{ clubName }}{% endblock %}
+{% block seo_content %}contact club de tir, adresse Gais Carabiniers, itinéraire Bernissart, tir sportif Hainaut{% endblock %}
+{% block seo_description %}Contactez les Gais Carabiniers de Bernissart et préparez votre venue au club de tir : adresse, itinéraire, e-mail et téléphone.{% endblock %}
+{% block og_title %}Contact et accès | {{ clubName }}{% endblock %}
+{% block og_description %}Trouvez l'adresse, l'itinéraire et les coordonnées des Gais Carabiniers de Bernissart.{% endblock %}
+{% block og_image %}{{ absolute_url(asset('images/gais-carabiniers-bernissart-1500.webp')) }}{% endblock %}
+{% block og_url %}{{ url('app_contact') }}{% endblock %}
+{% block twitter_title %}Contact et accès | {{ clubName }}{% endblock %}
+{% block twitter_description %}Adresse, itinéraire et coordonnées des Gais Carabiniers de Bernissart.{% endblock %}
+{% block twitter_image %}{{ absolute_url(asset('images/gais-carabiniers-bernissart-1500.webp')) }}{% endblock %}
+{% block json_ld %}
+    <script type="application/ld+json">
+        {{ jsonLd|json_encode(constant('JSON_HEX_TAG'))|raw }}
+    </script>
 {% endblock %}
 
+{% block page_breadcrumb %}
+    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+        <li>
+            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">Accueil</a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold tracking-[0.08em] text-base-content/95">Contact</li>
+    </ol>
+{% endblock %}
+
+{% block page_title %}Nous trouver et nous contacter{% endblock %}
+
+{% block page_summary %}
+    Préparez votre venue aux Gais Carabiniers de Bernissart : adresse, itinéraire et coordonnées du club.
+{% endblock %}
+
+{% block page_header_content_class %}max-w-4xl{% endblock %}
+{% block page_section_class %}max-w-screen-xl mx-auto mb-12 px-4 md:px-6 pt-8 md:pt-10{% endblock %}
+
+{% block page_content_container %}
+    <div class="mt-80 grid overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-md lg:grid-cols-2">
+        <section class="p-6 md:p-10 lg:p-12" aria-labelledby="directions-title">
+            <h2 id="directions-title" class="text-2xl font-bold text-base-content md:text-3xl">Venir au club</h2>
+            <p class="mt-5 text-lg leading-relaxed text-base-content/80">
+                Notre club n'est pas visible depuis la rue. Une fois dans la rue Lotard, suivez les panneaux
+                « ALE ». Nous sommes situés juste derrière le Musée de l'Iguanodon de Bernissart.
+            </p>
+
+            <address class="mt-8 not-italic text-base-content/85">
+                <p class="font-semibold text-base-content">{{ clubName }}</p>
+                <p>{{ address }}</p>
+                <p>{{ locality }}</p>
+            </address>
+
+            <a href="{{ mapDirectionsUrl }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-primary mt-8">
+                Ouvrir l'itinéraire
+            </a>
+
+            {% if club and (club.email or club.phoneNumber) %}
+                <div class="mt-10 border-t border-base-300 pt-8">
+                    <h2 class="text-xl font-bold text-base-content">Nous contacter</h2>
+                    <dl class="mt-4 space-y-3 text-base-content/80">
+                        {% if club.email %}
+                            <div>
+                                <dt class="font-semibold text-base-content">E-mail</dt>
+                                <dd><a href="mailto:{{ club.email }}" class="link link-primary">{{ club.email }}</a></dd>
+                            </div>
+                        {% endif %}
+                        {% if club.phoneNumber %}
+                            <div>
+                                <dt class="font-semibold text-base-content">Téléphone</dt>
+                                <dd><a href="tel:{{ club.phoneNumber|replace({' ': ''}) }}" class="link link-primary">{{ club.phoneNumber }}</a></dd>
+                            </div>
+                        {% endif %}
+                    </dl>
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="min-h-80 bg-base-200 p-4 md:p-6" aria-labelledby="map-title">
+            <h2 id="map-title" class="sr-only">Carte d'accès au club</h2>
+            {{ ux_map(myMap, { class: 'h-full min-h-80 w-full rounded-box' }) }}
+            <noscript>
+                <p class="mt-4 text-base-content/80">
+                    La carte nécessite JavaScript. <a href="{{ mapDirectionsUrl }}" class="link link-primary">Ouvrir l'itinéraire vers le club</a>.
+                </p>
+            </noscript>
+        </section>
+    </div>
+{% endblock %}

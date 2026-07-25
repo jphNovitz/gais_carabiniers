@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '_layout/page_detail.html.twig' %}
 
 {% block title %}Agenda des événements – Gais Carabiniers de Bernissart | Compétitions & Activités{% endblock %}
 {% block seo_content %}agenda, événements, compétitions, tir sportif, club de tir, Gais Carabiniers, Bernissart, activités, calendrier, concours de tir, entraînement, rencontres, URSTB-F{% endblock %}
@@ -6,87 +6,84 @@
 {% block og_title %}Découvrez les événements du club de tir – Gais Carabiniers de Bernissart{% endblock %}
 {% block og_description %}Ne manquez aucun événement du club de tir des Gais Carabiniers de Bernissart ! Découvrez les compétitions et activités à venir.{% endblock %}
 {% block og_image %}https://gc-bernissart.be/images/gc-bernissart_agenda_cover_image.webp{% endblock %}
-{% block og_url %}https://gc-bernissart.be/agenda{% endblock %}
+{% block og_url %}{{ app.request.uri }}{% endblock %}
 {% block twitter_title %}Agenda des Gais Carabiniers : entraînements et compétitions{% endblock %}
 {% block twitter_description %}Découvrez les événements du club de tir : compétitions, entraînements et rencontres. Ne manquez aucune date importante !{% endblock %}
 {% block twitter_image %}https://gc-bernissart.be/images/gc-bernissart_agenda_cover_image.webp{% endblock %}
 
-{% block nav_secondary %}
-    {# ── Breadcrumb ── #}
-    <nav aria-label="Fil d'Ariane" class="max-w-5xl mx-auto px-6 pt-6 pb-2">
-        <ol class="flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
-            <li>
-                <a href="{{ path('app_home') }}" class="hover:text-secondary transition-colors duration-200">Accueil</a>
-            </li>
-            <li>
-                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
-                      aria-hidden="true">›</span>
-                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="hover:text-secondary transition-colors duration-200 truncate">
-                    Competitions de tir sportif
-                </a>
-            </li>
-            <li aria-current="page"
-                class="min-w-0 flex items-center gap-2 text-content-primary-light dark:text-content-primary-dark font-semibold">
-                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
-                      aria-hidden="true">›</span>
-                <span class="truncate">Agenda</span>
-            </li>
-        </ol>
-    </nav>
+{% block page_breadcrumb %}
+    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+        <li>
+            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">Accueil</a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li>
+            <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
+               class="transition-colors hover:text-primary">
+                Compétitions de tir sportif
+            </a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold tracking-[0.08em] text-base-content/95">Agenda</li>
+    </ol>
 {% endblock %}
 
-{% block body %}
-    <section
-            class="bg-surface-light/90 dark:bg-surface-dark/40 dark:text-content-primary-dark/70 py-8 px-4 sm:px-16 lg:py-16 lg:px-48 space-y-16 antialiased">
-        <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
-            <div class="max-w-3xl mx-auto text-left">
-                <h1>Agenda</h1>
-                <h2>Voici la liste des événements à venir de notre club et ne manquez aucun rendez-vous.</h2>
-                <p><a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="underline">Telecharger le
-                        calendrier</a></p>
-            </div>
+{% block page_title %}Agenda{% endblock %}
 
-            <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-16">
-                <div class="-my-4 border-y border-content-primary-light/30 dark:border-content-primary-dark/70">
-                    {% for item in facebook_events %}
-                        <div class="flex flex-col gap-2 py-4 sm:gap-6 sm:flex-row sm:items-center">
-                            <p class="w-32 text-lg font-normal text-content-primary-light-60 sm:text-right dark:text-content-primary-dark/60 shrink-0">
-                                {{ item.date |format_date(locale='fr', pattern='dd MMMM yyyy') }}
-                            </p>
+{% block page_summary %}
+    <p>Retrouvez les prochains rendez-vous du club et les événements déjà passés.</p>
+    <a href="{{ asset('calendrier-gc-bernissart_2026.pdf') }}" class="link link-primary font-semibold">
+        Télécharger le calendrier 2026
+    </a>
+{% endblock %}
 
-                            <twig:Title:H3
-                                    class="font-semibold text-content-primary-light/90 text-content-primary-dark/90 !m-0">
-                                {#                            <h3 class="text-lg font-semibold text-content-primary-light/90 text-content-primary-dark/90"> #}
-                                <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="hover:underline">
-                                    {{ item.title }}
-                                </a>
-                            </twig:Title:H3>
-                            {#                            </h3> #}
-                        </div>
-                    {% else %}
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Aucun évènements
-                        </h3>
-                    {% endfor %}
-                </div>
-            </div>
-            <div id="events-past" class="py-8 opacity-80">
-                <twig:Title:H2>{{ 'event.past' | trans }}</twig:Title:H2>
-                <div class="pl-4">
-                    {% for item in facebookEventsPast %}
-                        <twig:Title:H3 class="space-x-8">
-                            <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="hover:underline">
-                                {{ item.date |format_date(locale='fr', pattern='MMMM Y') }} {{ item.title }}
-                            </a>
-                        </twig:Title:H3>
-                    {% else %}
-                        <p class="italic">Pas d'événements passés.</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+{% block page_content %}
+    <h2>Événements à venir</h2>
+    {% if facebook_events is not empty %}
+        <ul class="not-prose mt-6 divide-y divide-base-300 border-y border-base-300">
+            {% for item in facebook_events %}
+                <li class="relative py-5 pl-7 before:absolute before:left-0 before:top-5 before:text-primary before:content-['→']">
+                    <time datetime="{{ item.date|date('Y-m-d') }}" class="block text-sm font-semibold uppercase tracking-[0.12em] text-base-content/55">
+                        {{ item.date|format_date(locale='fr', pattern='dd MMMM yyyy') }}
+                    </time>
+                    <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="mt-1 inline-block text-lg font-semibold text-base-content transition-colors hover:text-primary">
+                        {{ item.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="not-prose mt-6 rounded-box border border-dashed border-base-300 p-5 text-base-content/70">
+            Aucun événement à venir.
+        </p>
+    {% endif %}
+
+    <h2>Événements passés</h2>
+    {% if facebookEventsPast is not empty %}
+        <ul class="not-prose mt-6 divide-y divide-base-300 border-y border-base-300 text-base-content/75">
+            {% for item in facebookEventsPast %}
+                <li class="relative py-4 pl-7 before:absolute before:left-0 before:top-4 before:text-primary before:content-['→']">
+                    <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="transition-colors hover:text-primary">
+                        <time datetime="{{ item.date|date('Y-m-d') }}" class="font-semibold text-base-content/55">
+                            {{ item.date|format_date(locale='fr', pattern='MMMM Y') }}
+                        </time>
+                        <span class="ml-2 font-semibold text-base-content">{{ item.title }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="not-prose mt-6 rounded-box border border-dashed border-base-300 p-5 text-base-content/70">
+            Pas d'événements passés.
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block page_aside_content %}
+    <section class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8" aria-labelledby="agenda-contact-title">
+        <h2 id="agenda-contact-title" class="mt-0 text-2xl text-base-content">Une question sur un événement ?</h2>
+        <p class="mt-3 text-base-content/75">
+            N'hésitez pas à <a href="{{ path('app_contact') }}" class="link link-primary font-semibold">nous contacter</a> pour plus d'informations.
+        </p>
     </section>
-
-
 {% endblock %}
-

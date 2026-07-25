@@ -48,6 +48,9 @@
     --font-headland: "Headland", sans-serif;
     --font-teko: "Teko", sans-serif;
     --font-nunito: "Nunito", sans-serif;
+    --text-sm: 0.9375rem;
+    --text-base: 1.0625rem;
+    --text-lg: 1.1875rem;
 
     /* Background images */
     --background-image-hero: url("/images/gais-carabinier-hero-01-1280.webp");

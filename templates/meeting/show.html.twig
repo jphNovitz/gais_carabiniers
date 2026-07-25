@@ -1,4 +1,4 @@
-{% extends '_layout/meeting_html.twig' %}
+{% extends '_layout/page_detail.html.twig' %}
 
 {% macro standing_table(title, rows, markSupported) %}
     {% if rows is not empty %}
@@ -50,15 +50,51 @@
     {% endif %}
 {% endmacro %}
 
-{% block nav_secondary %}{% endblock %}
+{% block page_breadcrumb %}
+    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+        <li>
+            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">Accueil</a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li>
+            <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="transition-colors hover:text-primary">
+                Compétitions de tir sportif
+            </a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li>
+            <a href="{{ path('app_meeting_index') }}" class="transition-colors hover:text-primary">
+                Résultats des tirs aux plaquettes
+            </a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold tracking-[0.08em] text-base-content/95">{{ meeting.label }}</li>
+    </ol>
+{% endblock %}
 
-{% block content %}
+{% block page_header_top %}
+    <div class="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-primary">
+        <span class="h-2 w-2 rounded-full bg-primary"></span>
+        Résultats du tir
+    </div>
+{% endblock %}
+
+{% block page_title %}{{ meeting.label }}{% endblock %}
+
+{% block page_meta %}
+    <div class="flex flex-wrap items-center gap-3 text-sm text-base-content/65">
+        <time datetime="{{ meeting.date|date('Y-m-d') }}">{{ meeting.date|format_datetime('long', 'none') }}</time>
+        <span class="h-1 w-1 rounded-full bg-primary/70"></span>
+        <span>{{ currentCategoryTitle }}</span>
+    </div>
+{% endblock %}
+
+{% block page_content %}
     {% import _self as standingMacros %}
-    <main class="mx-auto max-w-[980px] px-4 pb-20 md:px-8">
-        {% if standingRows is not empty %}
-            {{ standingMacros.standing_table(currentCategoryTitle, standingRows, false) }}
-        {% else %}
-            <p class="rounded-box bg-base-200 p-6 text-base-content">{{ emptyCategoryMessage }}</p>
-        {% endif %}
-    </main>
+
+    {% if standingRows is not empty %}
+        {{ standingMacros.standing_table(currentCategoryTitle, standingRows, false) }}
+    {% else %}
+        <p class="not-prose rounded-box bg-base-200 p-6 text-base-content">{{ emptyCategoryMessage }}</p>
+    {% endif %}
 {% endblock %}

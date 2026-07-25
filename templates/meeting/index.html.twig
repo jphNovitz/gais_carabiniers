@@ -1,71 +1,74 @@
-{% extends 'base.html.twig' %}
+{% extends '_layout/page_detail.html.twig' %}
 
-{% block nav_secondary %}
-    {# ── Breadcrumb ── #}
-    <nav class="max-w-5xl mx-auto px-6 pt-6 pb-2">
-        <ol class="w-full flex items-center gap-2 text-sm font-medium text-content-primary-light/60 dark:text-content-primary-dark/60">
-            <li>
-                <a href="{{ path('app_home') }}"
-                   class="hover:text-secondary transition-colors duration-200">
-                    Accueil
-                </a>
-            </li>
-            <li>
-                <span class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none"
-                      aria-hidden="true">›</span>
-                <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="hover:text-secondary transition-colors duration-200 truncate">
-                    Competitions de tir sportif
-                </a>
-            </li>
-            <li class="text-content-primary-light/30 dark:text-content-primary-dark/30 select-none">›</li>
-            <li class="text-content-primary-light dark:text-content-primary-dark font-semibold truncate">
-                Résultats des tirs aux plaquettes
-            </li>
-        </ol>
-    </nav>
+{% block page_breadcrumb %}
+    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+        <li>
+            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">Accueil</a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li>
+            <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}" class="transition-colors hover:text-primary">
+                Compétitions de tir sportif
+            </a>
+        </li>
+        <li class="text-base-content/30" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold tracking-[0.08em] text-base-content/95">
+            Résultats des tirs aux plaquettes
+        </li>
+    </ol>
 {% endblock %}
 
-{% block body %}
+{% block page_title %}Résultats des tirs aux plaquettes{% endblock %}
 
-    <section class="max-w-6xl bg-surface-light dark:bg-surface-dark mx-auto p-8 space-y-12">
-        <h1>Résultats des tirs aux plaquettes : Les Gais Carabiniers de Bernissart</h1>
+{% block page_summary %}
+    Tout au long de l'année, les Gais Carabiniers organisent des rencontres pour partager notre passion du tir sur plaquettes.
+    Consultez aussi notre <a href="{{ path('app_agenda') }}" class="link link-primary font-semibold">agenda des tirs aux plaquettes</a>.
+{% endblock %}
 
-        <p>Tout au long de l'année, les Gais Carabiniers organisent des rencontres pour partager notre passion du tir sur plaquettes. Pour ne manquer aucun de nos prochains rendez-vous, n'hésitez pas à consulter notre <a href="/agenda" class="underline">agenda de tirs aux plaquettes</a></p>
+{% block page_content %}
+    {% set meetingTypeLabels = {
+        competition: 'Tirs du mois',
+        public: 'Tir public',
+        other: 'Autres tirs'
+    } %}
+
+    <div class="not-prose space-y-12">
         {% for year, grouped in groupedMeetings %}
-            <div>
-                <h2 class="text-2xl font-bold mb-6">Saison {{ year }}</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section>
+                <h2 class="mb-6 text-2xl font-bold">Saison {{ year }}</h2>
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                     {% for type, meetings in grouped %}
-                        <div>
-{#                            <h3 class="font-semibold text-xl mb-1">{{ ('meeting.type.'~type) |trans }} </h3>#}
-                            {% for meeting in meetings %}
-                                <div class="">
-                                    <h3>
-                                        {{ meeting.title }}
-                                    </h3>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <div class="text-sm">{{ meeting.date|format_datetime('long', 'none') }}</div>
-                                        <div class="text-sm">{{ meeting.participantCount }} participants</div>
-                                    </div>
-                                    <div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
-                                        <a href="{{ path('app_meeting_show_category', {'slug': meeting.slug, 'category': 'standard'}) }}"
-                                           class="inline-flex w-full items-center justify-center rounded-md border border-content-primary-light/20 px-3 py-2 text-center text-sm font-semibold hover:border-secondary hover:text-secondary md:text-[11px] xl:text-sm dark:border-content-primary-dark/20">
-                                            Résultats standard
-                                        </a>
-                                        <a href="{{ path('app_meeting_show_category', {'slug': meeting.slug, 'category': 'appuye'}) }}"
-                                           class="inline-flex w-full items-center justify-center rounded-md border border-content-primary-light/20 px-3 py-2 text-center text-sm font-semibold hover:border-secondary hover:text-secondary md:text-[11px] xl:text-sm dark:border-content-primary-dark/20">
-                                            Résultats appuyés
-                                        </a>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
+                        <section class="overflow-hidden rounded-box border border-base-300 bg-base-200/60">
+                            <h3 class="border-b border-base-300 px-4 py-3 text-xl font-bold text-base-content">
+                                {{ meetingTypeLabels[type]|default('Autre tir') }}
+                            </h3>
+                            <div class="divide-y divide-base-300 px-4">
+                                {% for meeting in meetings %}
+                                    <article class="py-4">
+                                        <h4 class="text-lg font-bold text-base-content">{{ meeting.title }}</h4>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <div class="text-sm">{{ meeting.date|format_datetime('long', 'none') }}</div>
+                                            <div class="text-sm">{{ meeting.participantCount }} participants</div>
+                                        </div>
+                                        <div class="mt-3 grid grid-cols-1 gap-2 lg:grid-cols-2">
+                                            <a href="{{ path('app_meeting_show_category', {'slug': meeting.slug, 'category': 'standard'}) }}"
+                                               class="inline-flex w-full items-center justify-center whitespace-nowrap rounded-md border border-content-primary-light/20 px-3 py-2 text-center text-sm font-semibold hover:border-secondary hover:text-secondary md:text-[11px] xl:text-sm dark:border-content-primary-dark/20">
+                                                Résultats standard
+                                            </a>
+                                            <a href="{{ path('app_meeting_show_category', {'slug': meeting.slug, 'category': 'appuye'}) }}"
+                                               class="inline-flex w-full items-center justify-center whitespace-nowrap rounded-md border border-content-primary-light/20 px-3 py-2 text-center text-sm font-semibold hover:border-secondary hover:text-secondary md:text-[11px] xl:text-sm dark:border-content-primary-dark/20">
+                                                Résultats appuyés
+                                            </a>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            </div>
+                        </section>
                     {% endfor %}
                 </div>
-            </div>
+            </section>
         {% else %}
-            <p>Pas de compétition</p>
+            <p class="rounded-box border border-dashed border-base-300 p-5 text-base-content/70">Pas de compétition.</p>
         {% endfor %}
-    </section>
-
+    </div>
 {% endblock %}

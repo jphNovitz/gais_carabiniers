@@ -15,13 +15,6 @@ class ClubController extends AbstractController
     private const CLUB_LATITUDE = 50.47707987702586;
     private const CLUB_LONGITUDE = 3.6501962312217797;
 
-    #[Route('/notre-histoire', name: 'app_about')]
-    public function about(): Response
-    {
-        return $this->render('club/about.html.twig', [
-        ]);
-    }
-
     #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
     {

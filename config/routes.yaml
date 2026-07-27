@@ -1,3 +1,38 @@
+legacy_notre_histoire:
+    path: /notre-histoire
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /stand-tir-hainaut
+        permanent: true
+
+legacy_agenda:
+    path: /agenda
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_agenda
+        permanent: true
+
+legacy_tir_mars:
+    path: /agenda/tir-du-mois-de-mars
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /competitions-tir-sportif/agenda/tir-du-mois-de-mars
+        permanent: true
+
+legacy_tir_public_mars:
+    path: /agenda/tir-public-du-mois-de-mars
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /competitions-tir-sportif/agenda/tir-public-du-mois-de-mars
+        permanent: true
+
+legacy_criterium_weekend_1:
+    path: /agenda/32e-criterium-daniel-manfroid-week-end-1
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /competitions-tir-sportif/agenda/32e-criterium-daniel-manfroid-week-end-1
+        permanent: true
+
 controllers:
     resource:
         path: ../src/Controller/

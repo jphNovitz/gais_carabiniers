@@ -40,9 +40,9 @@
 {% block page_content %}
     <h2>Événements à venir</h2>
     {% if facebook_events is not empty %}
-        <ul class="not-prose mt-6 divide-y divide-base-300 border-y border-base-300">
+        <ul class="not-prose mt-6 divide-y divide-base-300/50 border-y border-base-300">
             {% for item in facebook_events %}
-                <li class="relative py-5 pl-7 before:absolute before:left-0 before:top-5 before:text-primary before:content-['→']">
+                <li class="list-none relative py-5 pl-7 before:absolute before:left-0 before:top-5 before:text-primary before:content-['→']">
                     <time datetime="{{ item.date|date('Y-m-d') }}" class="block text-sm font-semibold uppercase tracking-[0.12em] text-base-content/55">
                         {{ item.date|format_date(locale='fr', pattern='dd MMMM yyyy') }}
                     </time>
@@ -60,9 +60,9 @@
 
     <h2>Événements passés</h2>
     {% if facebookEventsPast is not empty %}
-        <ul class="not-prose mt-6 divide-y divide-base-300 border-y border-base-300 text-base-content/75">
+        <ul class="not-prose mt-6 divide-y divide-base-300/50 border-y border-base-300 text-base-content/75">
             {% for item in facebookEventsPast %}
-                <li class="relative py-4 pl-7 before:absolute before:left-0 before:top-4 before:text-primary before:content-['→']">
+                <li class="list-none relative py-4 pl-7 before:absolute before:left-0 before:top-4 before:text-primary before:content-['→']">
                     <a href="{{ path('app_agenda_show', {'slug': item.slug}) }}" class="transition-colors hover:text-primary">
                         <time datetime="{{ item.date|date('Y-m-d') }}" class="font-semibold text-base-content/55">
                             {{ item.date|format_date(locale='fr', pattern='MMMM Y') }}

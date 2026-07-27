@@ -1,8 +1,11 @@
 {# templates/post/show.html.twig #}
 {% extends '_layout/page_detail.html.twig' %}
 
-{% block title %}{{ post.title }}{% endblock %}
 {% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
+
+{% block page_seo_image %}
+    {% if post.image %}{{ absolute_url(asset(post.image)) }}{% endif %}
+{% endblock %}
 
 {% block page_breadcrumb %}
     <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">

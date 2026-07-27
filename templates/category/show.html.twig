@@ -1,7 +1,10 @@
 {# templates/category/show.html.twig #}
 {% extends '_layout/page_detail.html.twig' %}
 
-{% block title %}{{ category.title }} {% endblock %}
+{% block page_seo_image %}
+    {% if category.image %}{{ absolute_url(asset('images/topic/' ~ category.image)) }}{% endif %}
+{% endblock %}
+
 {% block json_ld %}
     <script type="application/ld+json">
         {
@@ -11,7 +14,7 @@
     "description": "{{ category.summary|e('js') }}",
     "url": "{{ url('app_category_show', { slug: category.slug }) }}"
         {% if category.image is not null %}
-        ,"image": "{{ absolute_url(asset(category.image)) }}"
+        ,"image": "{{ absolute_url(asset('images/topic/' ~ category.image)) }}"
         {% endif %}
         }
     </script>

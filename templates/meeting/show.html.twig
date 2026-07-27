@@ -81,6 +81,10 @@
 
 {% block page_title %}{{ meeting.label }}{% endblock %}
 
+{% block page_seo_description %}
+    Résultats du {{ meeting.label }} du {{ meeting.date|format_datetime('long', 'none', locale='fr') }}, catégorie {{ currentCategoryTitle|lower }}.
+{% endblock %}
+
 {% block page_meta %}
     <div class="flex flex-wrap items-center gap-3 text-sm text-base-content/65">
         <time datetime="{{ meeting.date|date('Y-m-d') }}">{{ meeting.date|format_datetime('long', 'none') }}</time>

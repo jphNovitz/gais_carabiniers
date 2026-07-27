@@ -1,5 +1,51 @@
 {% extends 'base.html.twig' %}
 
+{% block page_seo_title %}{{ block('page_title')|striptags|trim }}{% endblock %}
+{% block page_seo_description %}{{ block('page_summary')|striptags|trim }}{% endblock %}
+{% block page_seo_image %}{% endblock %}
+
+{% block title %}
+    {% set seoTitle = block('page_seo_title')|striptags|trim %}
+    {{ seoTitle is not empty ? seoTitle ~ ' | Gais Carabiniers de Bernissart' : parent() }}
+{% endblock %}
+
+{% block seo_description %}
+    {% set seoDescription = block('page_seo_description')|striptags|trim %}
+    {{ seoDescription is not empty ? seoDescription|slice(0, 160) : parent() }}
+{% endblock %}
+
+{% block og_title %}
+    {% set seoTitle = block('page_seo_title')|striptags|trim %}
+    {{ seoTitle is not empty ? seoTitle ~ ' | Gais Carabiniers de Bernissart' : parent() }}
+{% endblock %}
+
+{% block og_description %}
+    {% set seoDescription = block('page_seo_description')|striptags|trim %}
+    {{ seoDescription is not empty ? seoDescription|slice(0, 160) : parent() }}
+{% endblock %}
+
+{% block og_image %}
+    {% set seoImage = block('page_seo_image')|trim %}
+    {{ seoImage is not empty ? seoImage : parent() }}
+{% endblock %}
+
+{% block og_url %}{{ app.request.uri }}{% endblock %}
+
+{% block twitter_title %}
+    {% set seoTitle = block('page_seo_title')|striptags|trim %}
+    {{ seoTitle is not empty ? seoTitle ~ ' | Gais Carabiniers de Bernissart' : parent() }}
+{% endblock %}
+
+{% block twitter_description %}
+    {% set seoDescription = block('page_seo_description')|striptags|trim %}
+    {{ seoDescription is not empty ? seoDescription|slice(0, 160) : parent() }}
+{% endblock %}
+
+{% block twitter_image %}
+    {% set seoImage = block('page_seo_image')|trim %}
+    {{ seoImage is not empty ? seoImage : parent() }}
+{% endblock %}
+
 {% block nav_secondary %}{% endblock %}
 
 {% block body %}

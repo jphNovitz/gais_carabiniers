@@ -2,7 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Meeting;
+use App\Entity\MeetingSnapshot;
 use App\Entity\YearSnapshot;
+use App\Enum\MeetingStatus;
+use App\Enum\MeetingType;
 use App\Enum\ShootingCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -46,7 +50,17 @@ class YearSnapshotRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        return $this->rankRows($rows);
+        $rows = $this->rankRows($rows);
+        $previousRanks = $this->findPreviousRanks($year, $shootingCategory);
+
+        foreach ($rows as &$row) {
+            if ($row['previousRank'] === null && isset($previousRanks[$row['participantId']])) {
+                $row['previousRank'] = $previousRanks[$row['participantId']];
+            }
+        }
+        unset($row);
+
+        return $rows;
     }
 
     public function findAvailableYears(): array
@@ -86,5 +100,63 @@ class YearSnapshotRepository extends ServiceEntityRepository
         }
 
         return $rankedRows;
+    }
+
+    /**
+     * Rebuilds the rank from the competition immediately preceding the latest
+     * closed competition of the selected season. This also keeps the evolution
+     * available for snapshots created before yearPrevPosition was populated.
+     *
+     * @return array<int, int> keyed by participant id
+     */
+    private function findPreviousRanks(int $year, ShootingCategory $shootingCategory): array
+    {
+        $seasonStart = new \DateTimeImmutable(sprintf('%d-01-01 00:00:00', $year));
+        $seasonEnd = $seasonStart->modify('+1 year');
+        $closedStatuses = [MeetingStatus::CLOSED, MeetingStatus::ARCHIVED];
+
+        $latestMeetingDate = $this->getEntityManager()->createQueryBuilder()
+            ->select('MAX(m.date)')
+            ->from(Meeting::class, 'm')
+            ->where('m.date >= :seasonStart')
+            ->andWhere('m.date < :seasonEnd')
+            ->andWhere('m.type = :competitionType')
+            ->andWhere('m.status IN (:closedStatuses)')
+            ->setParameter('seasonStart', $seasonStart)
+            ->setParameter('seasonEnd', $seasonEnd)
+            ->setParameter('competitionType', MeetingType::COMPETITION)
+            ->setParameter('closedStatuses', $closedStatuses)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        if ($latestMeetingDate === null) {
+            return [];
+        }
+
+        $rows = $this->getEntityManager()->createQueryBuilder()
+            ->select('IDENTITY(ms.participant) AS participantId')
+            ->addSelect('SUM(ms.score) AS totalScore')
+            ->from(MeetingSnapshot::class, 'ms')
+            ->join('ms.meeting', 'm')
+            ->where('m.date >= :seasonStart')
+            ->andWhere('m.date < :latestMeetingDate')
+            ->andWhere('m.type = :competitionType')
+            ->andWhere('m.status IN (:closedStatuses)')
+            ->andWhere('ms.shootingCategory = :shootingCategory')
+            ->groupBy('ms.participant')
+            ->setParameter('seasonStart', $seasonStart)
+            ->setParameter('latestMeetingDate', new \DateTimeImmutable($latestMeetingDate))
+            ->setParameter('competitionType', MeetingType::COMPETITION)
+            ->setParameter('closedStatuses', $closedStatuses)
+            ->setParameter('shootingCategory', $shootingCategory)
+            ->getQuery()
+            ->getResult();
+
+        $previousRanks = [];
+        foreach ($this->rankRows($rows) as $row) {
+            $previousRanks[$row['participantId']] = $row['rank'];
+        }
+
+        return $previousRanks;
     }
 }

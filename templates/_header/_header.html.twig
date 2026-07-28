@@ -4,9 +4,9 @@
 
 {% set clubName = globalInfos and globalInfos.name ? globalInfos.name : 'Club' %}
 
-<header>
+<header class="relative z-50">
     <nav class="bg-base-header text-base-header-content border-gray-200 px-4 lg:px-6 py-2.5">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl lg:relative">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl relative">
             <a href="#" class="flex items-center">
                 {% if globalInfos and globalInfos.logoName %}
                     <img src="/images/{{ globalInfos.logoName }}" class="hidden md:inline-block mr-3 h-9 sm:h-12"
@@ -32,7 +32,7 @@
                     </svg>
                 </button>
             </div>
-            <div id="mobile-menu-2" class="hidden jusftify-between items-center w-full lg:flex lg:w-auto lg:order-1">
+            <div id="mobile-menu-2" class="absolute left-1/2 top-full hidden w-screen -translate-x-1/2 bg-base-header px-4 pb-4 lg:static lg:flex lg:w-auto lg:translate-x-0 lg:bg-transparent lg:p-0 lg:order-1">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
                         <a href="{{ path('app_home') }}"

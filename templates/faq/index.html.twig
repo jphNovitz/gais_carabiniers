@@ -1,51 +1,33 @@
 {% extends '_layout/page_detail.html.twig' %}
 
-{% block title %}FAQ – Gais Carabiniers de Bernissart | Questions Fréquentes{% endblock %}
-{% block seo_content %}FAQ, questions fréquentes, Gais Carabiniers, Bernissart, club de tir, informations, aide{% endblock %}
-{% block seo_description %}Consultez les questions fréquentes des Gais Carabiniers de Bernissart. Trouvez rapidement les réponses à vos questions sur notre club de tir.{% endblock %}
-{% block og_title %}FAQ – Questions Fréquentes | Gais Carabiniers de Bernissart{% endblock %}
-{% block og_description %}Trouvez les réponses à vos questions sur le club de tir des Gais Carabiniers de Bernissart dans notre FAQ.{% endblock %}
+{% block title %}FAQ club de tir à Bernissart : tarifs, âge et initiation{% endblock %}
+{% block seo_description %}Tarifs, âge minimum, première visite, matériel et adhésion : retrouvez les réponses aux questions fréquentes sur notre club de tir à Bernissart.{% endblock %}
+{% block og_title %}FAQ club de tir à Bernissart : tarifs, âge et initiation{% endblock %}
+{% block og_description %}Tarifs, âge minimum, première visite, matériel et adhésion : retrouvez les réponses aux questions fréquentes sur notre club de tir à Bernissart.{% endblock %}
 {% block og_image %}https://gc-bernissart.be/images/gc_bernissart_faq_image.webp{% endblock %}
 {% block og_url %}https://gc-bernissart.be/faq{% endblock %}
-{% block twitter_title %}FAQ – Gais Carabiniers de Bernissart{% endblock %}
-{% block twitter_description %}Questions fréquentes et réponses sur le club de tir des Gais Carabiniers de Bernissart.{% endblock %}
+{% block twitter_title %}FAQ club de tir à Bernissart : tarifs, âge et initiation{% endblock %}
+{% block twitter_description %}Tarifs, âge minimum, première visite, matériel et adhésion : retrouvez les réponses aux questions fréquentes sur notre club de tir à Bernissart.{% endblock %}
 {% block twitter_image %}https://gc-bernissart.be/images/gc_bernissart_faq_image.webp{% endblock %}
-{% block json_ld %}
-    <script type="application/ld+json">
-        {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {% for faq in faqs %}
-        {
-            "@type": "Question",
-            "name": "{{ faq.question|raw }}",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "{{ faq.answer|raw }}"
-            }
-        }{% if not loop.last %}{% endif %}
-        {% endfor %}
-        ]
-    }
-    </script>
-{% endblock %}
 {% block page_breadcrumb %}
-    <ol class="flex flex-wrap items-center gap-2 text-sm text-base-content/65">
+    <ol class="flex flex-wrap items-center gap-2 text-sm">
         <li>
-            <a href="{{ path('app_home') }}" class="transition-colors hover:text-primary">Accueil</a>
+            <a href="{{ path('app_home') }}" class="">Accueil</a>
         </li>
-        <li class="text-base-content/30" aria-hidden="true">›</li>
-        <li aria-current="page" class="font-semibold tracking-[0.08em] text-base-content/95">
+        <li class="" aria-hidden="true">›</li>
+        <li aria-current="page" class="font-semibold tracking-[0.08em]">
             FAQ
         </li>
     </ol>
 {% endblock %}
 
-{% block page_title %}Questions fréquentes{% endblock %}
+{% block page_title %}Questions fréquentes sur notre club de tir à Bernissart{% endblock %}
 
 {% block page_summary %}
-    Trouvez rapidement les réponses à vos questions sur notre club de tir.
+    Vous souhaitez découvrir le tir sportif ou rejoindre les Gais Carabiniers de Bernissart ?
+    Retrouvez ici les réponses aux questions que l’on nous pose le plus souvent concernant
+    une première visite, l’âge minimum, les tarifs, l’adhésion, le matériel et le déroulement
+    de nos séances.
 {% endblock %}
 
 {% block page_header_content_class %}max-w-3xl{% endblock %}
@@ -57,43 +39,54 @@
         {% if faqs|length > 0 %}
             <div id="accordion-collapse" data-accordion="collapse" class="space-y-4">
                 {% for faq in faqs %}
-                    <div class="rounded-lg border border-surface-dark/20 bg-base-light shadow-sm dark:bg-base-dark">
-                        <h2 id="accordion-collapse-heading-{{ loop.index }}">
-                            <button type="button"
-                                    class="flex w-full items-center justify-between rounded-t-lg border-b border-surface-dark/20 p-5 text-left font-medium text-content-primary-light hover:bg-surface-light/50 focus:ring-4 focus:ring-content-secondary/30 dark:text-content-primary-dark dark:hover:bg-surface-dark/50"
-                                    data-accordion-target="#accordion-collapse-body-{{ loop.index }}"
-                                    aria-expanded="false"
-                                    aria-controls="accordion-collapse-body-{{ loop.index }}">
-                                <span class="text-lg font-semibold">{{ faq.question }}</span>
-                                <svg data-accordion-icon class="h-3 w-3 shrink-0 rotate-180" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2" d="m1 1 4 4 4-4"/>
-                                </svg>
-                            </button>
-                        </h2>
-                        <div id="accordion-collapse-body-{{ loop.index }}"
-                             class="hidden"
-                             aria-labelledby="accordion-collapse-heading-{{ loop.index }}">
-                            <div class="border-b border-surface-dark/20 p-5">
-                                <div class="prose prose-lg max-w-none text-content-primary-light dark:prose-invert dark:text-content-primary-dark">
-                                    {{ faq.answer|raw }}
-                                </div>
-                                {% if faq.category %}
-                                    <div class="mt-4">
-                                        <span class="inline-flex items-center rounded-full bg-content-secondary/10 px-2.5 py-0.5 text-xs font-medium text-content-secondary dark:bg-content-secondary/20 dark:text-content-secondary/80">
-                                            {{ faq.category.name }}
-                                        </span>
-                                    </div>
-                                {% endif %}
+                    <div class="collapse collapse-arrow bg-base-100 border-b border-base-300">
+                        <input type="radio" name="my-accordion-2" checked="checked"/>
+                        <h2 class="collapse-title font-semibold">{{ faq.question }}</h2>
+                        <div class="collapse-content leading-xl">
+                            {{ faq.answer|raw }}
                             </div>
-                        </div>
                     </div>
                 {% endfor %}
+
+{#                                {% for faq in faqs %} #}
+                {#                    <div class="border-b border-base-content/10"> #}
+                {#                        <h2 id="accordion-collapse-heading-{{ loop.index }}"> #}
+                {#                            <button type="button" #}
+                {#                                    class="flex w-full items-center justify-between p-5 text-left font-medium" #}
+                {#                                    data-accordion-target="#accordion-collapse-body-{{ loop.index }}" #}
+                {#                                    aria-expanded="false" #}
+                {#                                    aria-controls="accordion-collapse-body-{{ loop.index }}"> #}
+                {#                                <span class="text-lg font-semibold">{{ faq.question }}</span> #}
+                {#                                <svg data-accordion-icon class="h-3 w-3 shrink-0 rotate-180" aria-hidden="true" #}
+                {#                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"> #}
+                {#                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" #}
+                {#                                          stroke-width="2" d="m1 1 4 4 4-4"/> #}
+                {#                                </svg> #}
+                {#                            </button> #}
+                {#                        </h2> #}
+                {#                        <div id="accordion-collapse-body-{{ loop.index }}" #}
+                {#                             class="hidden p-4.5 leading-xl" #}
+                {#                             aria-labelledby="accordion-collapse-heading-{{ loop.index }}"> #}
+                {#                            <div class="border-b border-surface-dark/20 p-5"> #}
+                {#                                <div class="prose prose-lg max-w-none"> #}
+
+                {#                                    {{ faq.answer|raw }} #}
+                {#                                </div> #}
+                {#                                {% if faq.category %} #}
+                {#                                    <div class="mt-4"> #}
+                {#                                        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"> #}
+                {#                                            {{ faq.category.name }} #}
+                {#                                        </span> #}
+                {#                                    </div> #}
+                {#                                {% endif %} #}
+                {#                            </div> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                {% endfor %} #}
             </div>
         {% else %}
             <div class="py-12 text-center">
-                <div class="text-content-primary-light/60 dark:text-content-primary-dark/60">
+                <div class="">
                     <svg class="mx-auto mb-4 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>

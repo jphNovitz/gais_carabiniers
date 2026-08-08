@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\Meeting\MeetingCrudController;
 use App\Controller\Admin\Club\ClubCrudController;
+use App\Controller\Admin\Faq\FaqCrudController;
 use App\Controller\Admin\Post\PostCrudController;
 use App\Controller\Admin\Post\CategoryCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
@@ -41,6 +42,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkTo( PostCrudController::class, 'Post', 'fas fa-blog'),
                 MenuItem::linkTo(CategoryCrudController::class, 'Category', 'fas fa-blog'),
             ]);
+        yield MenuItem::linkTo(FaqCrudController::class, 'FAQ', 'fas fa-question-circle');
         yield MenuItem::linkTo(MeetingCrudController::class, 'nav.meetings', 'fas fa-calendar');
     }
 

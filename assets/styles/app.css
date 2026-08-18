@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/*@plugin "../vendor/daisyui/daisyui.index.js";*/
 @plugin "daisyui" {
     themes: gais-v2 --default, gais-v2-dark --prefersdark;
 }
@@ -17,6 +16,7 @@
     src: url("../fonts/Barlow/Barlow-Regular.woff2") format("woff2");
     font-weight: 400;
     font-display: swap;
+    size-adjust: 105%;
 }
 
 @font-face {
@@ -24,6 +24,7 @@
     src: url("../fonts/Barlow/Barlow-SemiBold.woff2") format("woff2");
     font-weight: 600;
     font-display: swap;
+    size-adjust: 105%;
 }
 
 @font-face {
@@ -31,6 +32,7 @@
     src: url("../fonts/Barlow/Barlow-Black.woff2") format("woff2");
     font-weight: 900;
     font-display: swap;
+    size-adjust: 105%;
 }
 
 /*
@@ -51,7 +53,6 @@
     --text-sm: 0.9375rem;
     --text-base: 1.0625rem;
     --text-lg: 1.1875rem;
-
     /* Background images */
     --background-image-hero: url("/images/gais-carabinier-hero-01-1280.webp");
     --background-image-hero-sm: url("/images/gais-carabinier-hero-01-mobile.webp");
@@ -91,7 +92,7 @@
     --color-content-highlight-light: #3B7C45;
     --color-content-highlight-dark: #F2C029;
 
-    --color-secondary: #3B7C45;
+
 }
 
 /*
@@ -166,7 +167,7 @@
     }
 
     h1, h2 {
-        @apply tracking-tighter;
+        @apply tracking-tight;
     }
 
     #brand {
@@ -389,6 +390,11 @@
     --color-error: hsl(0 72% 45%);
     --color-error-content: hsl(0 0% 100%);
 
+    /* custom */
+    --color-gold: hsl(46 80% 46%);
+    --color-gold-focus: hsl(43 84% 38%);
+    --color-gold-content: hsl(60 3% 11%);
+
         /* Forme */
         --radius-selector: 0.5rem;
         --radius-field: 0.5rem;
@@ -416,8 +422,10 @@
     --header-content: hsl(54.8 11.2% 59.8%);
 
     /* Primary — vert forêt */
-    --color-primary: hsl(137 39% 49%);
-    --color-primary-content: hsl(131 35% 6%);
+    --color-primary: hsl(137 31% 37%);
+    --color-primary-content: hsl(0 0% 100% / 0.7);
+    /*--color-primary: hsl(137 39% 49%);*/
+    /*--color-primary-content: hsl(131 35% 6%);*/
 
     /* Secondary — crème */
     --color-secondary: hsl(49 38% 85%);
@@ -450,8 +458,16 @@
     --border: 1px;
     --depth: 1;
     --noise: 0;
+
+    /* custom */
+    --color-gold: hsl(46 80% 46%);
+    --color-gold-focus: hsl(43 84% 38%);
+    --color-gold-content: hsl(60 3% 11%);
 }
 @theme inline {
     --color-base-header: var(--header);
     --color-base-header-content: var(--header-content);
+    --color-gold: var(--color-gold);
+    --color-gold-focus: var(--color-gold-focus);
+    --color-gold-content: var(--color-gold-content);
 }

@@ -55,27 +55,7 @@ return [
     'turbo-view-transitions' => [
         'version' => '0.3.0',
     ],
-    'flowbite/plugin' => [
-        'version' => '2.5.2',
-    ],
-    'mini-svg-data-uri' => [
-        'version' => '1.4.4',
-    ],
-    'tailwindcss/plugin' => [
-        'version' => '3.4.13',
-    ],
-    'tailwindcss/defaultTheme' => [
-        'version' => '3.4.13',
-    ],
-    'tailwindcss/colors' => [
-        'version' => '3.4.13',
-    ],
-    'picocolors' => [
-        'version' => '1.1.0',
-    ],
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
-
 ];
-

@@ -20,6 +20,19 @@
             'name': facebookEvent.title,
             'description': facebookEvent.description|striptags,
             'startDate': facebookEvent.date|date('c'),
+            'endDate': facebookEvent.date|date('c'),
+            'eventStatus': 'https://schema.org/EventScheduled',
+            'image': absolute_url(asset('images/gc-bernissart_agenda_cover_image.webp')),
+            'organizer': {
+                '@type': 'Organization',
+                'name': 'Les Gais Carabiniers de Bernissart',
+                'url': url('app_home')
+            },
+            'offers': {
+                '@type': 'Offer',
+                'url': app.request.uri,
+                'availability': 'https://schema.org/InStock'
+            },
             'url': app.request.uri
         }|json_encode(constant('JSON_HEX_TAG'))|raw }}
     </script>

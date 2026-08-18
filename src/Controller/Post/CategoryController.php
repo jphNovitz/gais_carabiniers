@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class CategoryController extends AbstractController
 {
     #[Route('/{slug}', name: 'app_category_show')]
-    #[Cache(maxage: 31536000, public: true, mustRevalidate: true)]
+    #[Cache(maxage: 0, public: false, mustRevalidate: true)]
     public function show(string $slug, CategoryRepository $categoryRepository): Response
     {
         $category = $categoryRepository->findOneBy(['slug' => $slug]);

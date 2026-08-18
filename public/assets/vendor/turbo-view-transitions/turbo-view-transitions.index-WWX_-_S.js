@@ -1,0 +1,7 @@
+/**
+ * Bundled by jsDelivr using Rollup v2.79.1 and Terser v5.19.2.
+ * Original file: /npm/turbo-view-transitions@0.3.0/index.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+function t(){return!!("undefined"!=typeof document&&document.head&&document.startViewTransition&&document.head.querySelector('meta[name="view-transition"]'))}const e=(t,e)=>{t=t||document;let{activeAttr:i}=e;t.querySelectorAll(`[${i}]`).forEach((t=>{t.style.viewTransitionName="",t.removeAttribute(i)}))};async function i(t,i,r,n={}){n.activeAttr=n.activeAttr||"data-turbo-transition-active",n.transitionAttr=n.transitionAttr||"data-turbo-transition",e(t,n),((t,e,i)=>{let{transitionAttr:r,activeAttr:n}=i,a=Array.from(t.querySelectorAll(`[${r}]`)).reduce(((t,e)=>{let i=e.id||"0",n=e.getAttribute(r)||`__${i}`;return t[n]||(t[n]={ids:{},active:!1,discarded:!1}),t[n].ids[i]=e,t}),{});Array.from(e.querySelectorAll(`[${r}]`)).forEach((t=>{let e=t.id||"0",i=t.getAttribute(r)||`__${e}`;if(a[i]&&a[i].ids[e]){if(a[i].active)return void(a[i].discarded=!0);a[i].newEl=t,a[i].oldEl=a[i].ids[e],a[i].active=!0}}));for(let t in a){let{newEl:e,oldEl:i,active:r,discarded:o}=a[t];!o&&r&&(i.style.viewTransitionName=t,e.style.viewTransitionName=t,i.setAttribute(n,""),e.setAttribute(n,""))}})(t,i,n),await document.startViewTransition(r).finished.then((()=>{e(t,n),e(i,n)}))}export{i as performTransition,t as shouldPerformTransition};export default null;

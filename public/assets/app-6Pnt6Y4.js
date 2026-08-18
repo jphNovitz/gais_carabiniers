@@ -22,8 +22,11 @@ document.addEventListener('turbo:before-render', (event) => {
     }
 });
 document.addEventListener('turbo:load', () => {
-    // View Transitions don't play nicely with Turbo cache
-    if (shouldPerformTransition()) Turbo.cache.exemptPageFromCache();
+    // A cached Turbo snapshot does not preserve JavaScript event listeners.
+    // Always render a fresh page so Stimulus and Flowbite are initialized on
+    // the current DOM, including in browsers without View Transitions.
+    Turbo.cache.exemptPageFromCache();
+    initFlowbite();
 });
 
 document.addEventListener('turbo:before-frame-render', (event) => {
@@ -34,9 +37,6 @@ document.addEventListener('turbo:before-frame-render', (event) => {
         });
     }
 });
-document.addEventListener('turbo:render', () => {
-    initFlowbite();
-});
-document.addEventListener('turbo:frame-render', () => {
+document.addEventListener('turbo:frame-load', () => {
     initFlowbite();
 });

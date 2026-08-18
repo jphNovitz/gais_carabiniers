@@ -50,8 +50,12 @@
                         </a>
                     </li>
 
-                    <li>
-                        <button id="dropdown-standings" data-dropdown-toggle="dropdown-standings-menu"
+                    <li class="relative" data-controller="navigation-dropdown"
+                        data-action="click@document->navigation-dropdown#closeOnOutsideClick keydown.esc@document->navigation-dropdown#close">
+                        <button id="dropdown-standings" type="button"
+                                data-navigation-dropdown-target="toggle"
+                                data-action="click->navigation-dropdown#toggle"
+                                aria-controls="dropdown-standings-menu" aria-expanded="false"
                                 class="flex items-center gap-1 cursor-pointer">
                             {% trans %}nav.competitions{% endtrans %}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,8 +64,8 @@
                             </svg>
                         </button>
 
-                        <div id="dropdown-standings-menu"
-                             class="z-10 hidden bg-base-header text-base-header-content bg-opacity-70 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <div id="dropdown-standings-menu" data-navigation-dropdown-target="menu" aria-hidden="true"
+                             class="absolute left-0 top-full z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-base-header bg-opacity-70 text-base-header-content shadow dark:bg-gray-700">
                             <ul class="py-2 text-sm">
                                 <li>
                                     {% set slug = app.request.attributes.get('slug') %}

@@ -11,6 +11,7 @@
     "\/assets\/@symfony\/ux-live-component\/live.min.css",
     "\/assets\/@symfony\/ux-turbo\/turbo_controller.js",
     "\/assets\/controllers\/event_timer_controller.js",
+    "\/assets\/controllers\/navigation_dropdown_controller.js",
     "\/assets\/controllers\/hello_controller.js",
     "\/assets\/controllers\/toggle_target_controller.js",
     "\/assets\/controllers\/active_controller.js"

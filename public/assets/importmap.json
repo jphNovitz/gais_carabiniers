@@ -1,6 +1,6 @@
 {
     "app": {
-        "path": "\/assets\/app-txu26Z9.js",
+        "path": "\/assets\/app-6Pnt6Y4.js",
         "type": "js"
     },
     "\/assets\/bootstrap.js": {
@@ -8,7 +8,7 @@
         "type": "js"
     },
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
-        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-kTJsaH5.js",
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-S--i7Zf.js",
         "type": "js"
     },
     "\/assets\/@symfony\/ux-live-component\/live_controller.js": {
@@ -24,7 +24,11 @@
         "type": "js"
     },
     "\/assets\/controllers\/event_timer_controller.js": {
-        "path": "\/assets\/controllers\/event_timer_controller-CfkrcSU.js",
+        "path": "\/assets\/controllers\/event_timer_controller-okPXpZM.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/navigation_dropdown_controller.js": {
+        "path": "\/assets\/controllers\/navigation_dropdown_controller-jHufR2n.js",
         "type": "js"
     },
     "\/assets\/controllers\/hello_controller.js": {

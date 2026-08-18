@@ -3,13 +3,13 @@
 namespace App\Controller\Admin\Meeting;
 
 use App\Contract\MeetingParticipantPositionerInterface;
+use App\Contract\MeetingParticipantShufflerInterface;
 use App\Contract\RoundManagerInterface;
 use App\Entity\Meeting;
 use App\Enum\MeetingStatus;
 use App\Enum\MeetingType;
 use App\Form\MeetingParticipantType;
 use App\Repository\MeetingRepository;
-use App\Service\MeetingParticipantShuffler;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -34,7 +34,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MeetingCrudController extends AbstractCrudController
 {
-    public function __construct(private readonly MeetingParticipantShuffler $participantShuffler,
+    public function __construct(private readonly MeetingParticipantShufflerInterface $participantShuffler,
                                 private readonly AdminContextProvider       $contextProvider,
                                 private readonly MeetingRepository          $meetingRepository,
                                 private readonly TranslatorInterface        $translator,

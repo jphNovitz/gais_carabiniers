@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@plugin "daisyui" {
+@plugin "../vendor/daisyui/daisyui.index.js" {
     themes: gais-v2 --default, gais-v2-dark --prefersdark;
 }
 /*
@@ -346,11 +346,11 @@
 /*}*/
 
 /* ================================================================
-   DaisyUI v4 — Thème gais-v2 (clair)
+   DaisyUI v5 — Thème gais-v2 (clair)
    Vert forêt / Crème tradition / Rouge cible / Or héraldique
    ================================================================ */
 
-@plugin "daisyui/theme" {
+@plugin "../vendor/daisyui/theme.js" {
     name: "gais-v2";
     default: true;
     prefersdark: false;
@@ -406,10 +406,10 @@
         --noise: 0;
     }
 /* ================================================================
-   DaisyUI v4 — Thème gais-v2-dark
+   DaisyUI v5 — Thème gais-v2-dark
    Vert nuit / Crème sombre / Rouge vif / Or lumineux
    ================================================================ */
-@plugin "daisyui/theme" {
+@plugin "../vendor/daisyui/theme.js" {
     name: "gais-v2-dark";
     prefersdark: true;
     color-scheme: "dark";

@@ -58,4 +58,14 @@ return [
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
+    'daisyui' => [
+        'version' => '5.5.23',
+    ],
+    'daisyui/daisyui.min.css' => [
+        'version' => '5.5.23',
+        'type' => 'css',
+    ],
+    'daisyui/theme' => [
+        'version' => '5.5.23',
+    ],
 ];

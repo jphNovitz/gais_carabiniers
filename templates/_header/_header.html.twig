@@ -50,23 +50,21 @@
                         </a>
                     </li>
 
-                    <li class="relative" data-controller="navigation-dropdown"
-                        data-action="click@document->navigation-dropdown#closeOnOutsideClick keydown.esc@document->navigation-dropdown#close">
-                        <button id="dropdown-standings" type="button"
-                                data-navigation-dropdown-target="toggle"
-                                data-action="click->navigation-dropdown#toggle"
-                                aria-controls="dropdown-standings-menu" aria-expanded="false"
-                                class="flex items-center gap-1 cursor-pointer">
-                            {% trans %}nav.competitions{% endtrans %}
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
+                    <li>
+                        <details id="competitions-menu" class="group relative" data-controller="navigation-dropdown"
+                                 data-action="click@document->navigation-dropdown#closeOnOutsideClick keydown.esc@document->navigation-dropdown#close turbo:before-cache@document->navigation-dropdown#close">
+                            <summary id="dropdown-standings"
+                                     class="flex list-none items-center gap-1 cursor-pointer">
+                                {% trans %}nav.competitions{% endtrans %}
+                                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </summary>
 
-                        <div id="dropdown-standings-menu" data-navigation-dropdown-target="menu" aria-hidden="true"
-                             class="absolute left-0 top-full z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-base-header bg-opacity-70 text-base-header-content shadow dark:bg-gray-700">
-                            <ul class="py-2 text-sm">
+                            <div id="dropdown-standings-menu"
+                                 class="absolute left-0 top-full z-10 w-44 divide-y divide-gray-100 rounded-lg bg-base-header bg-opacity-70 text-base-header-content shadow dark:bg-gray-700">
+                                <ul class="py-2 text-sm">
                                 <li>
                                     {% set slug = app.request.attributes.get('slug') %}
                                     <a href="{{ path('app_category_show', {'slug': 'competitions-tir-sportif'}) }}"
@@ -107,8 +105,9 @@
                                     </a>
                                 </li>
 
-                            </ul>
-                        </div>
+                                </ul>
+                            </div>
+                        </details>
                     </li>
 
                     <li>

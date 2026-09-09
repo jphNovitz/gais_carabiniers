@@ -1,6 +1,6 @@
 {% if status.value == 'closed' %}
     <a href="{{ path('admin_meeting_show', {id: id}) }}"
-       class="inline-flex items-center rounded-lg bg-content-secondary px-3 py-2 text-sm font-medium text-white hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30">
+       class="inline-flex items-center rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-content hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/30">
         <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -11,7 +11,7 @@
 {% else %}
 <button id="dropdownActionsButton-{{ this.uid }}"
         data-dropdown-toggle="dropdownActions-{{ this.uid }}" type="button"
-        class="inline-flex items-center rounded-lg bg-content-secondary px-3 py-2 text-sm font-medium text-white hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30">
+        class="inline-flex items-center rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-content hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/30">
     <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
          fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"

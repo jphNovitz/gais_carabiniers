@@ -3,7 +3,7 @@
 {% block body %}
    <div class="flex gap-4 items-left p-8 md:p-4 lg:p-0 mb-8">
        {% for category in categories %}
-           <span class="bg-secondary/30 rounded-3xl p-1.5 min-w-24 text-center">{{ category }}</span>
+           <span class="bg-primary/30 rounded-3xl p-1.5 min-w-24 text-center">{{ category }}</span>
            {% else %}
        {% endfor %}
    </div>
@@ -11,44 +11,44 @@
         {% for post in posts %}
             {% set urlCategory = post.category ? (post.category.parentCategory ?? post.category) : null %}
             <article class="group relative rounded-3xl p-8
-                            bg-surface-light/70 border border-surface-light dark:bg-surface-dark/70 dark:border-surface-dark/90
+                            bg-base-100/70 border border-base-300
                             transition-all duration-400 hover:-translate-y-1
                             hover:shadow-[0_20px_60px_rgba(59,124,69,0.1)]
                             overflow-hidden
                             flex flex-col min-h-[350px]">
 
                 <!-- Overlay gradient au hover -->
-                <div class="absolute inset-0 bg-gradient-to-br from-transparent to-secondary/20 dark:to-secondary/30
+                <div class="absolute inset-0 bg-gradient-to-br from-transparent to-primary/20 dark:to-primary/30
                             opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
 
                 <!-- Contenu -->
                 <div class="relative z-10 flex flex-col flex-grow">
                     <!-- Catégorie -->
                     <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest
-                                text-secondary font-bold mb-4">
+                                text-primary font-bold mb-4">
                         <span class="w-2 h-2 bg-orange-500 rounded-full shadow-[0_0_10px_rgba(249,115,22,1)]"></span>
                         {{ post.category }}
                     </div>
 
                     <!-- Titre -->
-                    <h2 class="text-2xl text-content-primary-light dark:text-content-primary-dark leading-tight mb-4">
+                    <h2 class="text-2xl text-base-content leading-tight mb-4">
                         {{ post.title }}
                     </h2>
 
                     <!-- Extrait -->
-                    <p class="text-content-primary-light/90 dark:text-content-primary-dark/90 text-[15px] leading-relaxed mb-6 flex-grow">
+                    <p class="text-base-content/90 text-[15px] leading-relaxed mb-6 flex-grow">
                         {{ post.summary }}
                     </p>
 
                     <!-- Footer -->
                     <div class="flex items-center justify-between pt-6 border-t border-zinc-800 mt-auto">
-                        <span class="text-sm text-content-primary-light/60 dark:text-content-primary-dark/40">{{ post.updatedAt|format_datetime('long', 'none', locale='fr') }}</span>
+                        <span class="text-sm text-base-content/60 dark:text-base-content/40">{{ post.updatedAt|format_datetime('long', 'none', locale='fr') }}</span>
                         {% if urlCategory %}
                             <a href="{{ path('app_post_show', {
                                 categorySlug: urlCategory.slug,
                                 slug: post.slug
-                            }) }}" class="inline-flex items-center gap-2 text-content-primary-light/80 dark:text-content-primary-dark/70 font-semibold text-sm
-                                             hover:text-content-primary-light hover:dark:text-content-primary-dark/90 transition-all group/link">
+                            }) }}" class="inline-flex items-center gap-2 text-base-content/80 dark:text-base-content/70 font-semibold text-sm
+                                             hover:text-base-content hover:dark:text-base-content/90 transition-all group/link">
                                 Lire l'article
                                 <span class="transition-transform group-hover/link:translate-x-1">→</span>
                             </a>

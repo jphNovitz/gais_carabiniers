@@ -21,5 +21,5 @@
     {{ form_errors(form.isPublished) }}
 </div>
 {{ form_widget(form._token) }}
-<button class="text-white bg-content-secondary/90 hover:bg-content-secondary/90 focus:outline-none focus:ring-4 focus:ring-content-secondary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-content-secondary/70 dark:hover:bg-content-secondary/80 dark:focus:ring-content-secondary/90  my-8">{{ button_label|default('Save') | trans }}</button>
+<button class="text-primary-content bg-primary/90 hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-primary/70 dark:hover:bg-primary/80 dark:focus:ring-primary/90  my-8">{{ button_label|default('Save') | trans }}</button>
 {{ form_end(form, {'render_rest': false}) }} 

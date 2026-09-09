@@ -35,11 +35,14 @@
     size-adjust: 105%;
 }
 
-/*
- * Thème Tailwind v4.
- * Ces variables génèrent les classes Tailwind correspondantes :
- * font-sora, bg-hero, bg-primary-500, text-secondary, bg-surface-light, etc.
- */
+/* ================================================================
+ * Thème historique (legacy) — Tailwind v4
+ *
+ * Conservé temporairement pour les polices, images et utilitaires non liés
+ * aux couleurs. Les anciens tokens de couleur (surface-*, content-*,
+ * base-light/base-dark) ne doivent plus être utilisés dans les templates.
+ * Les thèmes applicatifs actifs sont les deux thèmes DaisyUI définis plus bas.
+ * ================================================================ */
 @theme {
     /* Fonts */
     --font-barlow: "Barlow, sans-serif";
@@ -171,7 +174,7 @@
     }
 
     #brand {
-        @apply text-secondary;
+        @apply text-primary;
     }
 
     h1 {
@@ -225,7 +228,7 @@
  */
 @layer components {
     .bento-card {
-        @apply bg-surface-light dark:bg-surface-dark border-surface-light/50 dark:border-surface-dark/50 text-content-primary-light dark:text-content-primary-dark;
+        @apply bg-base-100 border-base-300/50 text-base-content;
     }
 }
 

@@ -28,7 +28,7 @@
             {{ 'event.landing.next' | trans }}
         </twig:Title:H2>
 
-        <ul class="w-full flex flex-col gap-4  bg-surface-light dark:bg-surface-dark bg-opacity-20 my-8 p-4">
+        <ul class="w-full flex flex-col gap-4  bg-base-100 bg-opacity-20 my-8 p-4">
             {% for event in facebookEvents |slice(1) %}
                 <li class="w-full border-b border-border-light/30 dark:border-border-dark/30 ">
                     <twig:Title:H3>{{ event.title }}</twig:Title:H3>

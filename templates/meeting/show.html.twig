@@ -18,9 +18,9 @@
                 {% set line = row.line %}
                 {% set isRepeatedRank = row.rank == prevPosition %}
                 <div class="grid grid-cols-[48px_1fr_82px] items-center gap-2 border-b border-base-200 px-4 py-3 last:border-b-0 md:grid-cols-[64px_1fr_120px] md:px-6
-                    {% if row.rank == 1 %} bg-warning/10 shadow-[inset_3px_0_0_var(--color-warning)]
-                    {% elseif row.rank == 2 %} bg-[#8E9298]/10 shadow-[inset_3px_0_0_#8E9298]
-                    {% elseif row.rank == 3 %} bg-[#9A6543]/10 shadow-[inset_3px_0_0_#9A6543]
+                    {% if row.rank == 1 %} bg-warning/20 shadow-[inset_3px_0_0_var(--color-warning)]
+                    {% elseif row.rank == 2 %} bg-[#8E9298]/20 shadow-[inset_3px_0_0_#8E9298]
+                    {% elseif row.rank == 3 %} bg-[#9A6543]/20 shadow-[inset_3px_0_0_#9A6543]
                     {% endif %}">
                     <div class="flex items-center">
                         {% if not isRepeatedRank %}

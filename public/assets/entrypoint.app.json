@@ -2,8 +2,6 @@
     "@hotwired\/turbo",
     "\/assets\/bootstrap.js",
     "\/assets\/styles\/app.css",
-    "turbo-view-transitions",
-    "flowbite",
     "@symfony\/stimulus-bundle",
     "@hotwired\/stimulus",
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js",

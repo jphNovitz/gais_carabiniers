@@ -1,6 +1,6 @@
 {
     "app": {
-        "path": "\/assets\/app-6Pnt6Y4.js",
+        "path": "\/assets\/app-Oqrwsur.js",
         "type": "js"
     },
     "\/assets\/bootstrap.js": {
@@ -8,7 +8,7 @@
         "type": "js"
     },
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
-        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-S--i7Zf.js",
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-OK75MV1.js",
         "type": "js"
     },
     "\/assets\/@symfony\/ux-live-component\/live_controller.js": {
@@ -28,7 +28,7 @@
         "type": "js"
     },
     "\/assets\/controllers\/navigation_dropdown_controller.js": {
-        "path": "\/assets\/controllers\/navigation_dropdown_controller-jHufR2n.js",
+        "path": "\/assets\/controllers\/navigation_dropdown_controller-61ouzLT.js",
         "type": "js"
     },
     "\/assets\/controllers\/hello_controller.js": {
@@ -48,7 +48,7 @@
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-vsu015Z.css",
+        "path": "\/assets\/styles\/app-iMlTblh.css",
         "type": "css"
     },
     "admin": {
@@ -61,10 +61,6 @@
     },
     "@symfony\/stimulus-bundle": {
         "path": "\/assets\/@symfony\/stimulus-bundle\/loader-IOzBDLu.js",
-        "type": "js"
-    },
-    "@hotwired\/turbo": {
-        "path": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-gQ9E7xo.js",
         "type": "js"
     },
     "flowbite": {
@@ -101,6 +97,22 @@
     },
     "@symfony\/ux-live-component": {
         "path": "\/assets\/@symfony\/ux-live-component\/live_controller-L12cPdP.js",
+        "type": "js"
+    },
+    "@hotwired\/turbo": {
+        "path": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-gQ9E7xo.js",
+        "type": "js"
+    },
+    "daisyui": {
+        "path": "\/assets\/vendor\/daisyui\/daisyui.index-djhVla7.js",
+        "type": "js"
+    },
+    "daisyui\/daisyui.min.css": {
+        "path": "\/assets\/vendor\/daisyui\/daisyui.min-n8VrtR_.css",
+        "type": "css"
+    },
+    "daisyui\/theme": {
+        "path": "\/assets\/vendor\/daisyui\/theme-VveELrI.js",
         "type": "js"
     }
 }

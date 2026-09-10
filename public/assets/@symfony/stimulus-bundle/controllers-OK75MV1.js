@@ -8,4 +8,4 @@ import controller_5 from "../../controllers/toggle_target_controller.js";
 import controller_6 from "../../controllers/active_controller.js";
 export const eagerControllers = {"live": controller_0, "symfony--ux-turbo--turbo-core": controller_1, "event-timer": controller_2, "navigation-dropdown": controller_3, "hello": controller_4, "toggle-target": controller_5, "active": controller_6};
 export const lazyControllers = {"symfony--ux-leaflet-map--map": () => import("../ux-leaflet-map/map_controller.js")};
-export const isApplicationDebug = false;
+export const isApplicationDebug = true;

@@ -31,7 +31,7 @@ final class NavigationControllerTest extends WebTestCase
             $requestStack->pop();
         }
 
-        self::assertCount(1, $crawler->filter('details#mobile-main-menu > summary'));
+        self::assertCount(1, $crawler->filter('details#mobile-main-menu > summary.swap.swap-rotate'));
         self::assertCount(1, $crawler->filter('details#mobile-main-menu > #mobile-menu-2'));
         self::assertCount(0, $crawler->filter('[data-collapse-toggle="mobile-menu-2"]'));
     }

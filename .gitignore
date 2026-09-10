@@ -32,3 +32,9 @@ yarn-error.log
 ###< symfony/asset-mapper ###
 
 /data/standings_2025.php
+
+# Local Codex workspace mount
+/.codex
+
+# Generated Symfony configuration reference
+/config/reference.php

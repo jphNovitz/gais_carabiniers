@@ -1,0 +1,58 @@
+/* ================================================================
+   DaisyUI v4 — Thème gais-v2 (clair)
+   Vert forêt / Crème tradition / Rouge cible / Or héraldique
+   ================================================================ */
+
+@plugin "daisyui/theme" {
+  name: "gais-v2";
+  default: true;
+
+  /* ── Base — Fond crème tradition ───────────────────────── */
+  --color-base-100: oklch(95% 0.024 98);       /* #F5F1DC crème principale   */
+  --color-base-200: oklch(91% 0.030 97);       /* #EAE4C8 crème teintée      */
+  --color-base-300: oklch(85% 0.033 93);       /* #D5CEB0 bordures / sépar.  */
+  --color-base-content: oklch(13% 0.003 100);  /* #1E1E1C texte principal    */
+
+  /* ── Primary — Vert forêt ──────────────────────────────── */
+  --color-primary: oklch(43% 0.113 144);       /* #2C6B35 */
+  --color-primary-content: oklch(100% 0 0);    /* #FFFFFF */
+
+  /* ── Secondary — Anthracite chaud ─────────────────────── */
+  --color-secondary: oklch(13% 0.003 100);     /* #1E1E1C */
+  --color-secondary-content: oklch(95% 0.024 98); /* #F5F1DC crème */
+
+  /* ── Accent — Rouge cible ──────────────────────────────── */
+  --color-accent: oklch(47% 0.216 28);         /* #C82020 */
+  --color-accent-content: oklch(100% 0 0);     /* #FFFFFF */
+
+  /* ── Neutral — Olive / kaki ────────────────────────────── */
+  --color-neutral: oklch(40% 0.021 130);       /* #5A6050 */
+  --color-neutral-content: oklch(100% 0 0);    /* #FFFFFF */
+
+  /* ── États sémantiques ─────────────────────────────────── */
+  --color-info: oklch(50% 0.123 245);          /* #2E78B0 bleu institutionnel */
+  --color-info-content: oklch(100% 0 0);       /* #FFFFFF */
+
+  --color-success: oklch(43% 0.113 144);       /* #2C6B35 = primary          */
+  --color-success-content: oklch(100% 0 0);    /* #FFFFFF */
+
+  --color-warning: oklch(72% 0.168 84);        /* #D4A818 or héraldique       */
+  --color-warning-content: oklch(13% 0.003 100); /* #1E1E1C */
+
+  --color-error: oklch(47% 0.216 28);          /* #C82020 = accent            */
+  --color-error-content: oklch(100% 0 0);      /* #FFFFFF */
+
+  /* ── Géométrie ─────────────────────────────────────────── */
+  --radius-selector: 0rem;
+  --radius-field:    0rem;
+  --radius-box:      0.25rem;
+
+  /* ── Taille des champs ─────────────────────────────────── */
+  --size-selector:   0.25rem;
+  --size-field:      0.25rem;
+
+  /* ── Bordure / effets ──────────────────────────────────── */
+  --border:          1px;
+  --depth:           0;
+  --noise:           0;
+}

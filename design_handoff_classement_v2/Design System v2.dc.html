@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+  </style>
+</helmet>
+
+<div id="ds2-root" style="min-height: 100vh; background: {{ pageBg }}; font-family: 'Nunito', sans-serif; transition: background 0.3s; color: {{ bodyColor }};">
+
+  <!-- HEADER — Vert forêt -->
+  <header style="background: {{ headerBg }}; transition: background 0.3s;">
+    <div style="max-width: 1040px; margin: 0 auto; padding: 0 36px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+
+      <!-- Logo + title -->
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <img src="assets/logo.webp" alt="Les Gais Carabiniers" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0;"/>
+        <div>
+          <div style="font-family: 'Teko', sans-serif; font-size: 18px; font-weight: 600; color: {{ headerTitle }}; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1;">Design Tokens v2</div>
+          <div style="font-size: 10px; color: {{ headerSub }}; letter-spacing: 0.08em; font-weight: 500; text-transform: uppercase;">Les Gais Carabiniers · 1947</div>
+        </div>
+      </div>
+
+      <!-- Version badge + toggle -->
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 10px; font-weight: 700; color: {{ headerSub }}; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border: 1px solid {{ headerBorder }}; border-radius: 20px;">Vert · Crème · Rouge</span>
+        <button onClick="{{ toggleTheme }}" style="background: none; border: 1px solid {{ headerBorder }}; border-radius: 20px; cursor: pointer; padding: 6px 12px; display: flex; align-items: center; gap: 6px; outline: none; transition: opacity 0.2s;" style-hover="opacity: 0.65;">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" stroke="{{ accentColor }}" stroke-width="1.3"/><line x1="7" y1="0.5" x2="7" y2="2.2" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="7" y1="11.8" x2="7" y2="13.5" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="0.5" y1="7" x2="2.2" y2="7" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="11.8" y1="7" x2="13.5" y2="7" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="2.6" y1="2.6" x2="3.8" y2="3.8" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="10.2" y1="10.2" x2="11.4" y2="11.4" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="11.4" y1="2.6" x2="10.2" y2="3.8" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/><line x1="3.8" y1="10.2" x2="2.6" y2="11.4" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M12 8A6 6 0 0 1 6 2a6 6 0 1 0 6 6z" stroke="{{ accentColor }}" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </sc-if>
+          <span style="font-size: 10.5px; font-weight: 600; color: {{ headerSub }}; letter-spacing: 0.07em; text-transform: uppercase;">{{ themeLabel }}</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HERO BAND -->
+  <div style="background: {{ heroBg }}; border-bottom: 3px solid {{ heroAccent }}; padding: 32px 36px 36px; transition: background 0.3s;">
+    <div style="max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 32px;">
+
+      <!-- Text -->
+      <div style="flex: 1;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <div style="width: 3px; height: 28px; background: {{ heroAccent }};"></div>
+          <span style="font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: {{ heroAccent }}; font-weight: 600;">Nomenclature DaisyUI</span>
+        </div>
+        <h1 style="font-family: 'Teko', sans-serif; font-size: 46px; font-weight: 600; color: {{ heroTitle }}; margin: 0 0 10px; letter-spacing: 0.02em; line-height: 1; text-transform: uppercase;">Palette de couleurs</h1>
+        <p style="font-size: 13.5px; color: {{ heroText }}; margin: 0; max-width: 560px; line-height: 1.65;">Tokens extraits du logo du club — vert forêt, crème tradition, rouge cible, or héraldique. Utilisez <code style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{ accentColor }}; background: {{ codeBg }}; padding: 2px 6px; border-radius: 4px;">var(--primary)</code> dans vos styles.</p>
+      </div>
+
+      <!-- Logo large -->
+      <div style="flex-shrink: 0; text-align: center;">
+        <img src="assets/logo.webp" alt="Logo Les Gais Carabiniers" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 20px rgba(0,0,0,0.2);"/>
+        <div style="font-size: 10px; color: {{ heroText }}; margin-top: 8px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7;">Fondé en 1947</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div style="max-width: 1040px; margin: 0 auto; padding: 44px 36px 80px;">
+
+    <!-- COLOR SECTIONS -->
+    <sc-for list="{{ sections }}" as="section" hint-placeholder-count="5">
+      <div style="margin-bottom: 48px;">
+
+        <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid {{ borderColor }};">
+          <h2 style="font-family: 'Teko', sans-serif; font-size: 22px; font-weight: 600; color: {{ headingColor }}; margin: 0; letter-spacing: 0.04em; text-transform: uppercase;">{{ section.title }}</h2>
+          <span style="font-size: 12px; color: {{ mutedColor }};">{{ section.subtitle }}</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px;">
+          <sc-for list="{{ section.swatches }}" as="sw" hint-placeholder-count="3">
+            <div style="border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06);">
+              <div style="height: 72px; background: {{ sw.hex }}; position: relative; display: flex; align-items: flex-end; padding: 8px 10px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; color: {{ sw.tc }}; letter-spacing: 0.01em; opacity: 0.9;">{{ sw.hex }}</span>
+              </div>
+              <div style="padding: 8px 10px 10px; background: {{ cardBg }}; border-top: 1px solid {{ borderColor }};">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500; color: {{ labelColor }}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ sw.label }}</div>
+                <div style="font-size: 10px; color: {{ mutedColor }}; margin-top: 2px;">{{ sw.usage }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+    </sc-for>
+
+    <!-- DIVIDER -->
+    <div style="height: 1px; background: {{ borderColor }}; margin: 8px 0 48px;"></div>
+
+    <!-- COMPOSANTS -->
+    <h2 style="font-family: 'Teko', sans-serif; font-size: 22px; font-weight: 600; color: {{ headingColor }}; margin: 0 0 4px; letter-spacing: 0.04em; text-transform: uppercase;">Aperçu composants</h2>
+    <p style="font-size: 12px; color: {{ mutedColor }}; margin: 0 0 28px;">Application des tokens sur des éléments d'interface</p>
+
+    <!-- Buttons -->
+    <div style="margin-bottom: 32px;">
+      <p style="font-family: 'Teko', sans-serif; font-size: 14px; font-weight: 500; color: {{ mutedColor }}; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 12px;">Boutons</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+        <button style="background: {{ primaryBg }}; color: #FFFFFF; border: none; padding: 9px 22px; border-radius: 5px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 0.03em;" style-hover="opacity: 0.85;">Primary</button>
+        <button style="background: {{ secondaryBg }}; color: {{ secondaryText }}; border: none; padding: 9px 22px; border-radius: 5px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer;" style-hover="opacity: 0.85;">Secondary</button>
+        <button style="background: {{ accentBg }}; color: #FFFFFF; border: none; padding: 9px 22px; border-radius: 5px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer;" style-hover="opacity: 0.85;">Accent</button>
+        <button style="background: {{ goldBg }}; color: {{ goldText }}; border: none; padding: 9px 22px; border-radius: 5px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer;" style-hover="opacity: 0.85;">Or héraldique</button>
+        <button style="background: transparent; color: {{ primaryBg }}; border: 2px solid {{ primaryBg }}; padding: 7px 22px; border-radius: 5px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer;" style-hover="background: rgba(44,107,53,0.08);">Ghost</button>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div style="margin-bottom: 32px;">
+      <p style="font-family: 'Teko', sans-serif; font-size: 14px; font-weight: 500; color: {{ mutedColor }}; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 12px;">Badges</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+        <span style="background: {{ primaryBg }}; color: #FFFFFF; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">primary</span>
+        <span style="background: {{ accentBg }}; color: #FFFFFF; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">accent</span>
+        <span style="background: {{ goldBg }}; color: {{ goldText }}; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">or</span>
+        <span style="background: {{ infoBg }}; color: #FFFFFF; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">info</span>
+        <span style="background: {{ successBg }}; color: #FFFFFF; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">success</span>
+        <span style="background: {{ warningBg }}; color: {{ warningText }}; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">warning</span>
+        <span style="background: {{ errorBg }}; color: #FFFFFF; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; font-family: 'Nunito', sans-serif;">error</span>
+      </div>
+    </div>
+
+    <!-- Typographie -->
+    <div>
+      <p style="font-family: 'Teko', sans-serif; font-size: 14px; font-weight: 500; color: {{ mutedColor }}; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Typographie</p>
+      <div style="background: {{ cardBg }}; border-radius: 8px; padding: 28px 32px; border: 1px solid {{ borderColor }}; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span style="font-family: 'Teko', sans-serif; font-size: 48px; font-weight: 700; color: {{ headingColor }}; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase;">Classement 2026</span>
+          <span style="font-size: 11px; color: {{ mutedColor }}; font-family: 'JetBrains Mono', monospace; flex-shrink: 0;">Teko 700 · 48px</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span style="font-family: 'Teko', sans-serif; font-size: 26px; font-weight: 500; color: {{ headingColor }}; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase;">Tir plaquettes appuyé</span>
+          <span style="font-size: 11px; color: {{ mutedColor }}; font-family: 'JetBrains Mono', monospace; flex-shrink: 0;">Teko 500 · 26px</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span style="font-size: 15px; color: {{ bodyColor }}; line-height: 1.65; font-family: 'Nunito', sans-serif;">Texte courant — Le tir sportif est une discipline de précision et de concentration.</span>
+          <span style="font-size: 11px; color: {{ mutedColor }}; font-family: 'JetBrains Mono', monospace; flex-shrink: 0;">Nunito 400 · 15px</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span style="font-size: 10.5px; font-weight: 700; color: {{ mutedColor }}; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Nunito', sans-serif;">Étiquette · Rang · Plaquettes</span>
+          <span style="font-size: 11px; color: {{ mutedColor }}; font-family: 'JetBrains Mono', monospace; flex-shrink: 0;">Nunito 700 · 10.5px · uppercase</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <code style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: {{ accentColor }}; background: {{ codeBg }}; padding: 2px 8px; border-radius: 4px;">var(--primary)</code>
+          <span style="font-size: 11px; color: {{ mutedColor }}; font-family: 'JetBrains Mono', monospace;">JetBrains Mono 400 · 12px</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparaison avec v1 -->
+    <div style="margin-top: 48px; padding: 20px 24px; background: {{ cardBg }}; border-radius: 8px; border: 1px solid {{ borderColor }}; display: flex; align-items: center; gap: 20px;">
+      <div style="width: 4px; height: 40px; background: {{ primaryBg }}; border-radius: 2px; flex-shrink: 0;"></div>
+      <div>
+        <div style="font-family: 'Teko', sans-serif; font-size: 15px; font-weight: 600; color: {{ headingColor }}; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 3px;">v2 vs v1 — deux identités distinctes</div>
+        <p style="font-size: 12.5px; color: {{ mutedColor }}; margin: 0; line-height: 1.6;">La <strong style="color: {{ headingColor }};">v1</strong> (or/anthracite) évoque la précision et la modernité sportive. La <strong style="color: {{ primaryBg }};">v2</strong> (vert forêt/crème) s'ancre dans l'héritage du club fondé en 1947 — couleurs du blason, du terrain de tir, de la nature de Bernissart.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { theme: 'light' };
+
+  ct(hex) {
+    if (!hex || !hex.startsWith('#')) return '#1E1E1C';
+    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return (0.299*r + 0.587*g + 0.114*b)/255 > 0.55 ? '#1E1E1C' : '#F5F1DC';
+  }
+
+  get LIGHT() {
+    return {
+      'primary':'#2C6B35','primary-focus':'#1F5229','primary-content':'#FFFFFF',
+      'secondary':'#1E1E1C','secondary-focus':'#2C2C28','secondary-content':'#F5F1DC',
+      'accent':'#C82020','accent-focus':'#A51818','accent-content':'#FFFFFF',
+      'neutral':'#5A6050','neutral-focus':'#464C3C','neutral-content':'#FFFFFF',
+      'base-100':'#F5F1DC','base-200':'#EAE4C8','base-300':'#D5CEB0','base-content':'#1E1E1C',
+      'gold':'#D4A818','gold-focus':'#B88E10','gold-content':'#1E1E1C',
+      'info':'#2E78B0','info-content':'#FFFFFF',
+      'success':'#2C6B35','success-content':'#FFFFFF',
+      'warning':'#D4A818','warning-content':'#1E1E1C',
+      'error':'#C82020','error-content':'#FFFFFF',
+    };
+  }
+
+  get DARK() {
+    return {
+      'primary':'#4CAF68','primary-focus':'#5EC47B','primary-content':'#0A150C',
+      'secondary':'#E8E3CC','secondary-focus':'#F5F1DC','secondary-content':'#1E1E1C',
+      'accent':'#E54040','accent-focus':'#F05252','accent-content':'#1E1E1C',
+      'neutral':'#484E3E','neutral-focus':'#585E4E','neutral-content':'#C4C0A8',
+      'base-100':'#0C140E','base-200':'#141E16','base-300':'#1C2A1E','base-content':'#C4C0A8',
+      'gold':'#E8C240','gold-focus':'#F0D060','gold-content':'#1E1E1C',
+      'info':'#60A5FA','info-content':'#0C140E',
+      'success':'#4CAF68','success-content':'#0C140E',
+      'warning':'#E8C240','warning-content':'#1E1E1C',
+      'error':'#E54040','error-content':'#1E1E1C',
+    };
+  }
+
+  renderVals() {
+    const isDark = this.state.theme === 'dark';
+    const C = isDark ? this.DARK : this.LIGHT;
+    const sw = (token, usage) => ({ label:`--${token}`, hex: C[token]||'#888', tc: this.ct(C[token]||'#888'), usage });
+
+    const sections = [
+      { title:'Primary', subtitle:'Vert forêt — couleur du club', swatches:[
+        sw('primary','Fond principal'), sw('primary-focus','Hover / focus'), sw('primary-content','Texte sur primary'),
+      ]},
+      { title:'Secondary', subtitle:'Anthracite chaud — fond sombre', swatches:[
+        sw('secondary','Fond secondaire'), sw('secondary-focus','Hover / focus'), sw('secondary-content','Texte sur secondary'),
+      ]},
+      { title:'Accent', subtitle:'Rouge cible — mise en valeur', swatches:[
+        sw('accent','Fond accent'), sw('accent-focus','Hover / focus'), sw('accent-content','Texte sur accent'),
+      ]},
+      { title:'Or héraldique', subtitle:'Blason de Bernissart — support', swatches:[
+        sw('gold','Or du blason'), sw('gold-focus','Hover / focus'), sw('gold-content','Texte sur gold'),
+      ]},
+      { title:'Neutral', subtitle:'Olive / kaki — tons naturels', swatches:[
+        sw('neutral','Fond neutre'), sw('neutral-focus','Hover / focus'), sw('neutral-content','Texte sur neutral'),
+      ]},
+      { title:'Base', subtitle:'Crème tradition — fond de page et textes', swatches:[
+        sw('base-100','Fond principal'), sw('base-200','Fond teinté'), sw('base-300','Bordures'), sw('base-content','Texte principal'),
+      ]},
+      { title:'États', subtitle:'Feedback sémantique', swatches:[
+        sw('info','Information'), sw('success','Succès'), sw('warning','Avertissement'), sw('error','Erreur'),
+      ]},
+    ];
+
+    const pageBg      = isDark ? C['base-100']  : C['base-100'];
+    const cardBg      = isDark ? C['base-200']  : '#FFFFFF';
+    const borderColor = isDark ? C['base-300']  : '#DDD7BC';
+    const headingColor= isDark ? C['base-content'] : C['secondary'];
+    const bodyColor   = C['base-content'];
+    const mutedColor  = isDark ? '#484E3E'  : '#8A8470';
+    const labelColor  = isDark ? C['primary'] : C['secondary'];
+    const codeBg      = isDark ? C['base-300'] : '#EAE4C8';
+    const accentColor = C['gold'];
+
+    const headerBg    = isDark ? '#080F09'  : C['primary'];
+    const heroBg      = isDark ? '#0C1A0E'  : '#EFF5E8';
+    const heroAccent  = C['gold'];
+    const heroTitle   = isDark ? C['base-content'] : C['secondary'];
+    const heroText    = isDark ? '#4A5040'  : '#3A4A3A';
+    const headerTitle = isDark ? C['base-content'] : '#FFFFFF';
+    const headerSub   = isDark ? '#2C6B35'  : 'rgba(255,255,255,0.55)';
+    const headerBorder= isDark ? 'rgba(44,107,53,0.3)' : 'rgba(255,255,255,0.18)';
+
+    return {
+      sections, isDark, isLight: !isDark,
+      themeLabel: isDark ? 'Clair' : 'Sombre',
+      toggleTheme: () => this.setState({ theme: isDark ? 'light' : 'dark' }),
+      pageBg, cardBg, borderColor, headingColor, bodyColor, mutedColor, labelColor, codeBg,
+      accentColor, headerBg, heroBg, heroAccent, heroTitle, heroText, headerTitle, headerSub, headerBorder,
+      primaryBg:   C['primary'],
+      secondaryBg: C['secondary'], secondaryText: C['secondary-content'],
+      accentBg:    C['accent'],
+      goldBg:      C['gold'],      goldText: C['gold-content'],
+      infoBg:      C['info'],
+      successBg:   C['success'],
+      warningBg:   C['warning'],   warningText: C['warning-content'],
+      errorBg:     C['error'],
+    };
+  }
+}
+</script>
+</body>
+</html>

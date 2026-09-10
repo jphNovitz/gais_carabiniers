@@ -1,0 +1,57 @@
+/* ================================================================
+   DaisyUI v4 — Thème gais-v2-dark
+   Vert nuit / Crème sombre / Rouge vif / Or lumineux
+   ================================================================ */
+
+@plugin "daisyui/theme" {
+  name: "gais-v2-dark";
+
+  /* ── Base — Fond vert nuit ─────────────────────────────── */
+  --color-base-100: oklch(8% 0.012 145);       /* #0C140E fond principal     */
+  --color-base-200: oklch(12% 0.013 145);      /* #141E16 fond teinté        */
+  --color-base-300: oklch(17% 0.016 145);      /* #1C2A1E bordures / sépar.  */
+  --color-base-content: oklch(78% 0.022 95);   /* #C4C0A8 texte principal    */
+
+  /* ── Primary — Vert clair (lisible sur fond sombre) ────── */
+  --color-primary: oklch(65% 0.138 152);       /* #4CAF68 */
+  --color-primary-content: oklch(8% 0.010 145); /* #0A150C */
+
+  /* ── Secondary — Crème claire ──────────────────────────── */
+  --color-secondary: oklch(91% 0.022 97);      /* #E8E3CC */
+  --color-secondary-content: oklch(13% 0.003 100); /* #1E1E1C */
+
+  /* ── Accent — Rouge vif ────────────────────────────────── */
+  --color-accent: oklch(56% 0.215 28);         /* #E54040 */
+  --color-accent-content: oklch(13% 0.003 100); /* #1E1E1C */
+
+  /* ── Neutral — Olive nuit ──────────────────────────────── */
+  --color-neutral: oklch(33% 0.020 125);       /* #484E3E */
+  --color-neutral-content: oklch(78% 0.022 95); /* #C4C0A8 */
+
+  /* ── États sémantiques ─────────────────────────────────── */
+  --color-info: oklch(68% 0.155 254);          /* #60A5FA bleu clair          */
+  --color-info-content: oklch(8% 0.012 145);   /* #0C140E */
+
+  --color-success: oklch(65% 0.138 152);       /* #4CAF68 = primary           */
+  --color-success-content: oklch(8% 0.010 145); /* #0A150C */
+
+  --color-warning: oklch(80% 0.165 82);        /* #E8C240 or lumineux          */
+  --color-warning-content: oklch(13% 0.003 100); /* #1E1E1C */
+
+  --color-error: oklch(56% 0.215 28);          /* #E54040 = accent             */
+  --color-error-content: oklch(13% 0.003 100); /* #1E1E1C */
+
+  /* ── Géométrie ─────────────────────────────────────────── */
+  --radius-selector: 0rem;
+  --radius-field:    0rem;
+  --radius-box:      0.25rem;
+
+  /* ── Taille des champs ─────────────────────────────────── */
+  --size-selector:   0.25rem;
+  --size-field:      0.25rem;
+
+  /* ── Bordure / effets ──────────────────────────────────── */
+  --border:          1px;
+  --depth:           0;
+  --noise:           0;
+}

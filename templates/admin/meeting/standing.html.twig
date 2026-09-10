@@ -4,9 +4,9 @@
 
 {% block content_title %}Toto {% endblock %}
 {% block content %}
-    <section class="container-fluid bg-surface-light dark:bg-surface-dark p-4">
+    <section class="container-fluid bg-base-100 p-4">
         <twig:Title:H1
-                class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-dark dark:after:border-base-light after:text-base-dark dark:after:text-base-light after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
+                class="after:content-[attr(data-status)] after:block after:p-1  after:border after:border-base-200 dark:after:border-base-200 after:text-base-200 dark:after:text-base-200 after:text-center after:text-sm after:font-semibold after:absolute after:left-0 after:-bottom-8 relative"
                 data-status="{{ ('meeting.status.' ~ meeting.status.value ~ '.label')|trans }}">
             {{ meeting.label ?? ('Séance du ' ~ (meeting.date ? meeting.date|date('d/m/Y') : '')) }}
         </twig:Title:H1>
@@ -27,8 +27,8 @@
                 Classement {% if meeting.status.value == 'closed' %} final {% endif %}</h2>
             {% if standing is defined and standing|length > 0 %}
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left border border-base-light dark:border-base-dark">
-                        <thead class="text-xs uppercase bg-base-light dark:bg-base-dark text-content-primary-light dark:text-content-primary-dark">
+                    <table class="w-full text-sm text-left border border-base-200 dark:border-base-200">
+                        <thead class="text-xs uppercase bg-base-200 text-base-content dark:text-base-content">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 {{ 'meeting.rank' |trans }}
@@ -50,30 +50,30 @@
                         <tbody>
                         {% set prev = null %}
                         {% for p in standing.participants %}
-                            <tr class="border-b last:border-0 border-content-primary-light/20 dark:border-content-primary-dark/20">
-                                <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark w-24">
+                            <tr class="border-b last:border-0 border-base-content/20 dark:border-base-content/20">
+                                <td class="px-6 py-4 text-base-content w-24">
                                     {% if p.rank != prev %}
                                         {{ p.rank }}
                                     {% endif %}
                                     {% set prev = p.rank %}
                                 </td>
-                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">{{ p.firstName }} {{ p.lastName }}</td>
-                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">  {{ p.totalScore }} </td>
-                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                                <td class="px-6 py-4 text-center text-base-content dark:text-base-content">{{ p.firstName }} {{ p.lastName }}</td>
+                                <td class="px-6 py-4 text-center text-base-content dark:text-base-content">  {{ p.totalScore }} </td>
+                                <td class="px-6 py-4 text-center text-base-content dark:text-base-content">
                                     {% if p.previousRank is defined %}
                                     {{ previousRank - rank }}
                                     {% else %}
                                         N/A
                                     {% endif %}
                                 </td>
-                                <td class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">  {{ p.averageHits ?? 'N/A' }} </td>
+                                <td class="px-6 py-4 text-center text-base-content dark:text-base-content">  {{ p.averageHits ?? 'N/A' }} </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
             {% else %}
-                <p class="text-content-primary-light dark:text-content-primary-dark font-semibold">
+                <p class="text-base-content font-semibold">
                     Aucun participant n'a encore été ajouté.
                 </p>
             {% endif %}

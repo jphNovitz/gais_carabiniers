@@ -1,0 +1,95 @@
+/* ============================================================
+   DESIGN TOKENS v2 — Les Gais Carabiniers
+   Palette inspirée du logo : vert forêt, crème, rouge cible
+   Nomenclature DaisyUI
+   ============================================================ */
+
+:root {
+  /* ── Primary (Vert forêt) ─────────────────────────────── */
+  --primary:          #2C6B35;
+  --primary-focus:    #1F5229;
+  --primary-content:  #FFFFFF;
+
+  /* ── Secondary (Anthracite chaud) ────────────────────── */
+  --secondary:        #1E1E1C;
+  --secondary-focus:  #2C2C28;
+  --secondary-content:#F5F1DC;
+
+  /* ── Accent (Rouge cible) ─────────────────────────────── */
+  --accent:           #C82020;
+  --accent-focus:     #A51818;
+  --accent-content:   #FFFFFF;
+
+  /* ── Neutral (Olive / kaki) ───────────────────────────── */
+  --neutral:          #5A6050;
+  --neutral-focus:    #464C3C;
+  --neutral-content:  #FFFFFF;
+
+  /* ── Base (Crème — fond du médaillon) ────────────────── */
+  --base-100:         #F5F1DC;
+  --base-200:         #EAE4C8;
+  --base-300:         #D5CEB0;
+  --base-content:     #1E1E1C;
+
+  /* ── Or héraldique (blason) ───────────────────────────── */
+  --gold:             #D4A818;
+  --gold-focus:       #B88E10;
+  --gold-content:     #1E1E1C;
+
+  /* ── États sémantiques ────────────────────────────────── */
+  --info:             #2E78B0;
+  --info-content:     #FFFFFF;
+  --success:          #2C6B35;
+  --success-content:  #FFFFFF;
+  --warning:          #D4A818;
+  --warning-content:  #1E1E1C;
+  --error:            #C82020;
+  --error-content:    #FFFFFF;
+
+  /* ── Typographie ──────────────────────────────────────── */
+  --font-display:     'Teko', sans-serif;
+  --font-body:        'Nunito', sans-serif;
+
+  /* ── Radius ───────────────────────────────────────────── */
+  --radius-sm:        3px;
+  --radius-md:        6px;
+  --radius-lg:        10px;
+  --radius-full:      9999px;
+}
+
+/* ── Thème sombre ─────────────────────────────────────────── */
+[data-theme="dark"] {
+  --primary:          #4CAF68;
+  --primary-focus:    #5EC47B;
+  --primary-content:  #0A150C;
+
+  --secondary:        #E8E3CC;
+  --secondary-focus:  #F5F1DC;
+  --secondary-content:#1E1E1C;
+
+  --accent:           #E54040;
+  --accent-focus:     #F05252;
+  --accent-content:   #1E1E1C;
+
+  --neutral:          #484E3E;
+  --neutral-focus:    #585E4E;
+  --neutral-content:  #C4C0A8;
+
+  --base-100:         #0C140E;
+  --base-200:         #141E16;
+  --base-300:         #1C2A1E;
+  --base-content:     #C4C0A8;
+
+  --gold:             #E8C240;
+  --gold-focus:       #F0D060;
+  --gold-content:     #1E1E1C;
+
+  --info:             #60A5FA;
+  --info-content:     #0C140E;
+  --success:          #4CAF68;
+  --success-content:  #0C140E;
+  --warning:          #E8C240;
+  --warning-content:  #1E1E1C;
+  --error:            #E54040;
+  --error-content:    #1E1E1C;
+}

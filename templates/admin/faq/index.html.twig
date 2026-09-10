@@ -5,46 +5,46 @@
 {% block body %}
     <div class="container-fluid p-4">
         <div class="mb-4 flex justify-between items-center">
-            <h3 class="text-xl font-semibold text-content-primary-light dark:text-content-primary-dark">{{ 'faq.list' | trans }}</h3>
+            <h3 class="text-xl font-semibold text-base-content dark:text-base-content">{{ 'faq.list' | trans }}</h3>
             <a href="{{ path('admin_faq_new') }}"
-               class="px-4 py-2 bg-content-secondary text-white rounded-lg hover:bg-content-secondary/80">
+               class="px-4 py-2 bg-primary text-primary-content rounded-lg hover:bg-primary/80">
                 <i class="fa fa-plus"></i> {{ 'button.add' |trans }}
             </a>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left">
-                <thead class="text-xs uppercase bg-surface-light dark:bg-surface-dark">
+                <thead class="text-xs uppercase bg-base-100 dark:bg-base-100">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Question</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Catégorie</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Position</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Publié</th>
-                    <th scope="col" class="px-6 py-3 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">Modifié le</th>
-                    <th scope="col" class="px-6 py-3 text-content-primary-light dark:text-content-primary-dark">Actions</th>
+                    <th scope="col" class="px-6 py-3 text-base-content dark:text-base-content">Question</th>
+                    <th scope="col" class="px-6 py-3 text-base-content dark:text-base-content">Catégorie</th>
+                    <th scope="col" class="px-6 py-3 text-base-content dark:text-base-content">Position</th>
+                    <th scope="col" class="px-6 py-3 text-base-content dark:text-base-content">Publié</th>
+                    <th scope="col" class="px-6 py-3 hidden md:table-cell text-base-content dark:text-base-content">Modifié le</th>
+                    <th scope="col" class="px-6 py-3 text-base-content dark:text-base-content">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in faqs %}
-                    <tr class="bg-base-light border-b dark:bg-base-dark dark:border-surface-dark hover:bg-surface-light dark:hover:bg-surface-dark">
-                        <th scope="row" class="px-6 py-4 font-medium text-content-primary-light whitespace-nowrap dark:text-content-primary-dark">
+                    <tr class="bg-base-200 border-b border-base-300 hover:bg-base-100">
+                        <th scope="row" class="px-6 py-4 font-medium text-base-content whitespace-nowrap dark:text-base-content">
                             {{ item.question }}
                         </th>
-                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                        <td class="px-6 py-4 text-base-content dark:text-base-content">
                             {{ item.category ? item.category.name : '-' }}
                         </td>
-                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                        <td class="px-6 py-4 text-base-content dark:text-base-content">
                             {{ item.position }}
                         </td>
-                        <td class="px-6 py-4 text-content-primary-light dark:text-content-primary-dark">
+                        <td class="px-6 py-4 text-base-content dark:text-base-content">
                             {{ item.isPublished ? 'Oui' : 'Non' }}
                         </td>
-                        <td class="px-6 py-4 hidden md:table-cell text-content-primary-light dark:text-content-primary-dark">
+                        <td class="px-6 py-4 hidden md:table-cell text-base-content dark:text-base-content">
                             {{ item.updatedAt ? item.updatedAt|date('d/m/Y') : '' }}
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex space-x-2">
                                 <a href="{{ path('admin_faq_edit', {'id': item.id}) }}"
-                                   class="px-3 py-1.5 bg-content-highlight-light dark:bg-content-highlight-dark/70 text-content-primary-dark dark:text-content-primary-light rounded hover:bg-content-highlight-light/60 dark:hover:bg-content-highlight-dark/50">
+                                   class="px-3 py-1.5 bg-gold dark:bg-gold/70 text-gold-content rounded hover:bg-gold/60 dark:hover:bg-gold/50">
                                     <i class="fas fa-edit">{% trans %}button.edit{% endtrans %}</i>
                                 </a>
                                 {{ include('admin/faq/_delete_form.html.twig', {faq: item}) }}
@@ -52,8 +52,8 @@
                         </td>
                     </tr>
                 {% else %}
-                    <tr class="bg-base-light dark:bg-base-dark">
-                        <td colspan="6" class="px-6 py-4 text-center text-content-primary-light dark:text-content-primary-dark">
+                    <tr class="bg-base-200 dark:bg-base-200">
+                        <td colspan="6" class="px-6 py-4 text-center text-base-content dark:text-base-content">
                             {{ 'faq.na' |trans }}
                         </td>
                     </tr>
@@ -62,4 +62,4 @@
             </table>
         </div>
     </div>
-{% endblock %} 
+{% endblock %}

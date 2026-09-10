@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class PostController extends AbstractController
 {
     #[Route('/{categorySlug}/{slug}', name: 'app_post_show')]
-    #[Cache(maxage: 31536000, public: true, mustRevalidate: true)]
+    #[Cache(maxage: 0, public: false, mustRevalidate: true)]
     public function show(string $categorySlug, Post $post): Response
     {
         $category = $post->getCategory();

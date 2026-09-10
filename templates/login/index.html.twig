@@ -2,24 +2,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="my-16 p-16 m-auto w-full md:max-w-screen-md bg-surface-light dark:bg-surface-dark border border-base-light/70 dark:border-surface-dark/10">
-        <h1 class="mb-8 text-2xl font-extrabold leading-none tracking-tight text-content-primary-light md:text-5xl lg:text-6xl dark:text-content-primary-dark/70">{% trans %}title.login{% endtrans %}</h1>
+    <div class="my-16 p-16 m-auto w-full md:max-w-screen-md bg-base-100 border border-base-300">
+        <h1 class="mb-8 text-2xl font-extrabold leading-none tracking-tight text-base-content md:text-5xl lg:text-6xl dark:text-base-content/70">{% trans %}title.login{% endtrans %}</h1>
         {% if error %}
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         <form action="{{ path('app_login') }}" method="post" class="flex flex-col  my-8 space-y-8">
 
-            <label for="email" class="text-content-primary-light dark:text-content-primary-dark/80">{% trans %}form.email{% endtrans %}:</label>
-            <input type="text" id="email" name="_username" class="p-2 bg-base-light/40 dark:bg-base-dark/30 text-content-primary-light dark:text-content-primary-dark/80" value="{{ email }}">
+            <label for="email" class="text-base-content dark:text-base-content/80">{% trans %}form.email{% endtrans %}:</label>
+            <input type="text" id="email" name="_username" class="p-2 bg-base-200/40 dark:bg-base-200/30 text-base-content dark:text-base-content/80" value="{{ email }}">
 
-            <label for="password" class="text-content-primary-light dark:text-content-primary-dark/80">{% trans %}form.password{% endtrans %}:</label>
-            <input type="password" id="password" name="_password" class="p-2 bg-base-light/40 dark:bg-base-dark/30 text-content-primary-light dark:text-content-primary-dark/80" >
+            <label for="password" class="text-base-content dark:text-base-content/80">{% trans %}form.password{% endtrans %}:</label>
+            <input type="password" id="password" name="_password" class="p-2 bg-base-200/40 dark:bg-base-200/30 text-base-content dark:text-base-content/80" >
 
             {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"> #}
 
-            <button type="submit" class="bg-base-light/90 dark:bg-base-dark/90 text-content-primary-light dark:text-content-primary-dark/80 rounded-xl border border-base-dark dark:border-base-light/70  p-4 my-4 w-full md:w-fit">
+            <button type="submit" class="bg-base-200/90 dark:bg-base-200/90 text-base-content dark:text-base-content/80 rounded-xl border border-base-200 dark:border-base-200/70  p-4 my-4 w-full md:w-fit">
                 {% trans %}button.login{% endtrans %}
             </button>
         </form>

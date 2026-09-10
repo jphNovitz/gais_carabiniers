@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    #cv2 {
+      --page-bg:      #F5F1DC;
+      --nav-bg:       #2C6B35;
+      --nav-border:   rgba(0,0,0,0.12);
+      --hero-bg:      #1F5229;
+      --hero-title:   #F5F1DC;
+      --hero-sub:     rgba(245,241,220,0.5);
+      --hero-accent:  #D4A818;
+      --card-bg:      #FFFFFF;
+      --card-hdr-bg:  #F5F1DC;
+      --card-border:  #E0D8BE;
+      --row-sep:      #F0EAD6;
+      --col-hdr:      #8A8470;
+      --text-primary: #1E1E1C;
+      --text-muted:   #9A9280;
+      --tab-border:   #D5CEB0;
+      --tab-active:   #2C6B35;
+      --section-title:#1E1E1C;
+      --crumb:        rgba(255,255,255,0.6);
+      --crumb-sep:    rgba(255,255,255,0.25);
+      --crumb-final:  rgba(255,255,255,0.9);
+      --logo-border:  rgba(255,255,255,0.3);
+      --tgl-border:   rgba(255,255,255,0.2);
+      --tgl-text:     rgba(255,255,255,0.55);
+      --badge-e-bg:   #EAE4C8;
+      --badge-e-tc:   #6A6455;
+      --note-color:   #9A9280;
+    }
+    @keyframes fadeRow {
+      from { opacity: 0; transform: translateY(5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</helmet>
+
+<div id="cv2" style="min-height: 100vh; background: var(--page-bg); font-family: 'Nunito', sans-serif; color: var(--text-primary); transition: background 0.35s, color 0.35s;">
+
+  <!-- NAV -->
+  <nav style="background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); transition: background 0.35s;">
+    <div style="max-width: 980px; margin: 0 auto; padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+
+      <!-- Logo + nom club -->
+      <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+        <img src="assets/logo.webp" alt="Logo" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--logo-border); flex-shrink: 0;"/>
+        <span style="font-family: 'Teko', sans-serif; font-size: 16px; font-weight: 500; color: var(--crumb-final); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.35s;">Les Gais Carabiniers</span>
+      </div>
+
+      <!-- Toggle -->
+      <button onClick="{{ toggleTheme }}" style="background: none; border: 1px solid var(--tgl-border); border-radius: 20px; cursor: pointer; padding: 5px 12px; display: flex; align-items: center; gap: 6px; outline: none; flex-shrink: 0; transition: opacity 0.2s;" style-hover="opacity: 0.65;">
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" stroke="#D4A818" stroke-width="1.3"/><line x1="7" y1="0.5" x2="7" y2="2.2" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="7" y1="11.8" x2="7" y2="13.5" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="0.5" y1="7" x2="2.2" y2="7" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="11.8" y1="7" x2="13.5" y2="7" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="2.6" y1="2.6" x2="3.8" y2="3.8" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="10.2" y1="10.2" x2="11.4" y2="11.4" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="11.4" y1="2.6" x2="10.2" y2="3.8" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/><line x1="3.8" y1="10.2" x2="2.6" y2="11.4" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M12 8A6 6 0 0 1 6 2a6 6 0 1 0 6 6z" stroke="#D4A818" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </sc-if>
+        <span style="font-size: 10.5px; font-weight: 700; color: var(--tgl-text); letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.35s;">{{ themeLabel }}</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div style="background: var(--hero-bg); border-bottom: 1px solid rgba(0,0,0,0.12); transition: background 0.35s;">
+    <div style="max-width: 980px; margin: 0 auto; padding: 0 32px; height: 36px; display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--crumb); white-space: nowrap; overflow: hidden; min-width: 0;">
+      <span style="cursor: pointer; flex-shrink: 0; transition: color 0.15s;" style-hover="color: #D4A818;">Accueil</span>
+      <span style="color: var(--crumb-sep); flex-shrink: 0;">›</span>
+      <span style="cursor: pointer; overflow: hidden; text-overflow: ellipsis; transition: color 0.15s;" style-hover="color: #D4A818;">Compétitions</span>
+      <span style="color: var(--crumb-sep); flex-shrink: 0;">›</span>
+      <span style="color: var(--crumb-final); font-weight: 700; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0;">Classement Général</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header style="background: var(--hero-bg); padding: 40px 0 48px; transition: background 0.35s;">
+    <div style="max-width: 980px; margin: 0 auto; padding: 0 32px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <div style="width: 3px; height: 22px; background: var(--hero-accent); border-radius: 2px;"></div>
+          <span style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hero-accent); font-weight: 700; font-family: 'Nunito', sans-serif;">Compétition mensuelle · Bernissart</span>
+        </div>
+        <h1 style="font-family: 'Teko', sans-serif; font-size: 56px; font-weight: 600; color: var(--hero-title); letter-spacing: 0.02em; line-height: 1; margin: 0; text-transform: uppercase; text-wrap: balance; transition: color 0.35s;">Tir du mois de mai 2026</h1>
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 14px;">
+          <span style="font-size: 13px; color: var(--hero-sub); letter-spacing: 0.04em;">8 mai 2026</span>
+          <span style="width: 4px; height: 4px; border-radius: 50%; background: var(--hero-accent); opacity: 0.6;"></span>
+          <span style="font-size: 13px; color: var(--hero-sub);">Tir à la plaquette</span>
+        </div>
+      </div>
+
+      <!-- Cible décorative -->
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none" style="opacity: 0.12; flex-shrink: 0; margin-bottom: 4px; transition: opacity 0.35s;">
+        <circle cx="45" cy="45" r="43" stroke="#D4A818" stroke-width="1.5"/>
+        <circle cx="45" cy="45" r="32" stroke="#D4A818" stroke-width="1.5"/>
+        <circle cx="45" cy="45" r="20" stroke="#C82020" stroke-width="1.5"/>
+        <circle cx="45" cy="45" r="9"  stroke="#C82020" stroke-width="1.5"/>
+        <circle cx="45" cy="45" r="3"  fill="#C82020"/>
+        <line x1="45" y1="2"  x2="45" y2="88" stroke="#D4A818" stroke-width="0.7" stroke-dasharray="3,6"/>
+        <line x1="2"  y1="45" x2="88" y2="45" stroke="#D4A818" stroke-width="0.7" stroke-dasharray="3,6"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main style="max-width: 980px; margin: 0 auto; padding: 0 32px 80px;">
+
+    <!-- TABS -->
+    <div style="display: flex; border-bottom: 1px solid var(--tab-border); margin-bottom: 30px; transition: border-color 0.35s;">
+      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="3">
+        <button onClick="{{ tab.click }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </div>
+
+    <!-- SECTION TITLE -->
+    <h2 style="font-family: 'Teko', sans-serif; font-size: 28px; font-weight: 500; color: var(--section-title); letter-spacing: 0.03em; text-transform: uppercase; margin: 0 0 20px; transition: color 0.35s;">{{ title }}</h2>
+
+    <!-- TABLE -->
+    <div style="background: var(--card-bg); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.07); transition: background 0.35s, box-shadow 0.35s;">
+
+      <!-- Column headers -->
+      <div style="display: grid; grid-template-columns: 64px 1fr 120px; padding: 10px 22px; background: var(--card-hdr-bg); border-bottom: 1px solid var(--card-border); transition: background 0.35s, border-color 0.35s;">
+        <span style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--col-hdr); font-weight: 700; font-family: 'Nunito', sans-serif; transition: color 0.35s;">Rang</span>
+        <span style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--col-hdr); font-weight: 700; font-family: 'Nunito', sans-serif; transition: color 0.35s;">Participant</span>
+        <span style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--col-hdr); font-weight: 700; font-family: 'Nunito', sans-serif; text-align: right; transition: color 0.35s;">Plaquettes</span>
+      </div>
+
+      <!-- Rows -->
+      <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
+        <div style="display: grid; grid-template-columns: 64px 1fr 120px; align-items: center; padding: 13px 22px; border-bottom: 1px solid var(--row-sep); background: {{ row.rowBg }}; box-shadow: {{ row.insetShadow }}; animation: fadeRow 0.25s ease both; animation-delay: {{ row.delay }}; transition: border-color 0.35s;">
+          <div style="display: flex; align-items: center;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: {{ row.badgeBg }}; border: {{ row.badgeBorder }}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-family: 'Teko', sans-serif; font-size: 15px; font-weight: 600; color: {{ row.badgeColor }}; line-height: 1;">{{ row.rang }}</span>
+            </div>
+          </div>
+          <span style="font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: 0.01em; transition: color 0.35s;">{{ row.participant }}</span>
+          <span style="font-family: 'Teko', sans-serif; font-size: 26px; font-weight: 500; color: var(--text-primary); text-align: right; letter-spacing: 0.02em; transition: color 0.35s;">{{ row.plaquettes }}</span>
+        </div>
+      </sc-for>
+
+    </div>
+
+    <p style="margin-top: 12px; font-size: 12px; color: var(--note-color); letter-spacing: 0.02em; transition: color 0.35s;">* Membre du club</p>
+
+  </main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { activeTab: 'appuye', theme: 'light' };
+
+  get darkVars() {
+    return {
+      '--page-bg':      '#0C140E',
+      '--nav-bg':       '#071009',
+      '--nav-border':   'rgba(0,0,0,0.3)',
+      '--hero-bg':      '#071009',
+      '--hero-title':   '#C4C0A8',
+      '--hero-sub':     'rgba(196,192,168,0.45)',
+      '--hero-accent':  '#E8C240',
+      '--card-bg':      '#141E16',
+      '--card-hdr-bg':  '#0C140E',
+      '--card-border':  '#1C2A1E',
+      '--row-sep':      '#141E16',
+      '--col-hdr':      '#3A4A3A',
+      '--text-primary': '#C4C0A8',
+      '--text-muted':   '#3A4A3A',
+      '--tab-border':   '#1C2A1E',
+      '--tab-active':   '#4CAF68',
+      '--section-title':'#C4C0A8',
+      '--crumb':        'rgba(196,192,168,0.45)',
+      '--crumb-sep':    'rgba(196,192,168,0.2)',
+      '--crumb-final':  'rgba(196,192,168,0.9)',
+      '--logo-border':  'rgba(196,192,168,0.2)',
+      '--tgl-border':   'rgba(196,192,168,0.15)',
+      '--tgl-text':     'rgba(196,192,168,0.45)',
+      '--badge-e-bg':   '#1C2A1E',
+      '--badge-e-tc':   '#4A5A4A',
+      '--note-color':   '#3A4A3A',
+    };
+  }
+
+  applyTheme() {
+    const el = document.getElementById('cv2');
+    if (!el) return;
+    const isDark = this.state.theme === 'dark';
+    Object.entries(this.darkVars).forEach(([k, v]) => {
+      isDark ? el.style.setProperty(k, v) : el.style.removeProperty(k);
+    });
+  }
+
+  componentDidMount()  { this.applyTheme(); }
+  componentDidUpdate() { this.applyTheme(); }
+
+  get allData() {
+    return {
+      general: {
+        title: 'Tir plaquettes général',
+        rows: [
+          { rang: 1, participant: 'David D. *',      plaquettes: 12 },
+          { rang: 2, participant: 'Marie-Jo S. *',   plaquettes: 9  },
+          { rang: 3, participant: 'Felipe S. *',     plaquettes: 7  },
+          { rang: 4, participant: 'Anastasios P. *', plaquettes: 5  },
+          { rang: 5, participant: 'Thomas B.',       plaquettes: 3  },
+        ]
+      },
+      standard: {
+        title: 'Tir plaquettes standard',
+        rows: [
+          { rang: 1, participant: 'Felipe S. *',     plaquettes: 6 },
+          { rang: 2, participant: 'David D. *',      plaquettes: 5 },
+          { rang: 3, participant: 'Anastasios P. *', plaquettes: 4 },
+          { rang: 4, participant: 'Marie-Jo S. *',   plaquettes: 2 },
+        ]
+      },
+      appuye: {
+        title: 'Tir plaquettes appuyé',
+        rows: [
+          { rang: 1, participant: 'David D. *',      plaquettes: 7 },
+          { rang: 2, participant: 'Felipe S. *',     plaquettes: 4 },
+          { rang: 3, participant: 'Marie-Jo S. *',   plaquettes: 3 },
+          { rang: 4, participant: 'Anastasios P. *', plaquettes: 0 },
+        ]
+      }
+    };
+  }
+
+  renderVals() {
+    const { activeTab, theme } = this.state;
+    const isDark  = theme === 'dark';
+    const current = this.allData[activeTab];
+
+    // Médailles : or héraldique, argent, bronze
+    const MEDALS = [
+      {
+        badgeBg:     '#D4A818',
+        badgeBorder: '2px solid #B88E10',
+        badgeColor:  '#1E1E1C',
+        rowBg:       isDark ? 'rgba(212,168,24,0.10)' : 'rgba(212,168,24,0.08)',
+        insetShadow: 'inset 3px 0 0 #D4A818',
+      },
+      {
+        badgeBg:     '#8E9298',
+        badgeBorder: '2px solid #767A80',
+        badgeColor:  '#FFFFFF',
+        rowBg:       isDark ? 'rgba(142,146,152,0.08)' : 'rgba(142,146,152,0.06)',
+        insetShadow: 'inset 3px 0 0 #8E9298',
+      },
+      {
+        badgeBg:     '#9A6543',
+        badgeBorder: '2px solid #7E5235',
+        badgeColor:  '#FFFFFF',
+        rowBg:       isDark ? 'rgba(154,101,67,0.10)' : 'rgba(154,101,67,0.07)',
+        insetShadow: 'inset 3px 0 0 #9A6543',
+      },
+    ];
+    const PLAIN = {
+      badgeBg:     'var(--badge-e-bg)',
+      badgeBorder: 'none',
+      badgeColor:  'var(--badge-e-tc)',
+      rowBg:       'transparent',
+      insetShadow: 'none',
+    };
+
+    const rows = current.rows.map((r, i) => {
+      const m = i < 3 ? MEDALS[i] : PLAIN;
+      return {
+        rang:        r.rang,
+        participant: r.participant,
+        plaquettes:  r.plaquettes,
+        badgeBg:     m.badgeBg,
+        badgeBorder: m.badgeBorder,
+        badgeColor:  m.badgeColor,
+        rowBg:       m.rowBg,
+        insetShadow: m.insetShadow,
+        delay:       (i * 0.05) + 's',
+      };
+    });
+
+    const tabActive   = isDark ? '#C4C0A8' : '#1E1E1C';
+    const tabInactive = isDark ? '#3A4A3A' : '#8A8470';
+    const tabActiveLine = isDark ? '#4CAF68' : '#2C6B35';
+
+    const BASE = {
+      background:   'none',
+      border:       'none',
+      cursor:       'pointer',
+      padding:      '18px 22px 14px',
+      fontFamily:   "'Nunito', sans-serif",
+      fontSize:     '14px',
+      fontWeight:   '600',
+      outline:      'none',
+      marginBottom: '-1px',
+      transition:   'color 0.18s',
+      letterSpacing:'0.01em',
+    };
+
+    const TAB_DEFS = [
+      { id: 'general',  label: 'Général'  },
+      { id: 'standard', label: 'Standard' },
+      { id: 'appuye',   label: 'Appuyé'   },
+    ];
+
+    const tabs = TAB_DEFS.map(t => ({
+      id:    t.id,
+      label: t.label,
+      style: {
+        ...BASE,
+        borderBottom: t.id === activeTab ? `2px solid ${tabActiveLine}` : '2px solid transparent',
+        color:        t.id === activeTab ? tabActive   : tabInactive,
+        fontWeight:   t.id === activeTab ? '700'       : '600',
+      },
+      click: () => this.setState({ activeTab: t.id }),
+    }));
+
+    return {
+      title: current.title, rows, tabs,
+      isDark, isLight: !isDark,
+      themeLabel:  isDark ? 'Clair' : 'Sombre',
+      toggleTheme: () => this.setState({ theme: isDark ? 'light' : 'dark' }),
+    };
+  }
+}
+</script>
+</body>
+</html>

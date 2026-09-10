@@ -26,9 +26,6 @@ return [
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
-    '@hotwired/turbo' => [
-        'version' => '7.3.0',
-    ],
     'flowbite' => [
         'version' => '2.5.2',
     ],
@@ -57,5 +54,18 @@ return [
     ],
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '8.0.23',
+    ],
+    'daisyui' => [
+        'version' => '5.5.23',
+    ],
+    'daisyui/daisyui.min.css' => [
+        'version' => '5.5.23',
+        'type' => 'css',
+    ],
+    'daisyui/theme' => [
+        'version' => '5.5.23',
     ],
 ];

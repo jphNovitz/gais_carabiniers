@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    #[Cache(maxage: 31536000, public: true, mustRevalidate: true)]
+    #[Cache(maxage: 0, public: false, mustRevalidate: true)]
     public function index(ClubRepository $clubRepository,
                           FacebookEventRepository $facebookEventRepository,
                           PostRepository $postRepository,

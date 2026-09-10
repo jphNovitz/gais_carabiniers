@@ -8,9 +8,6 @@ export default class extends Controller {
     };
 
     connect() {
-
-            console.log('event-timer CONNECT', this.element);
-
         const startTime = new Date(this.startTimeValue);
         this.updateTimer(startTime);
 

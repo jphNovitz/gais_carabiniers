@@ -1,14 +1,14 @@
 <div{{ attributes }}>
     <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <p class="text-sm font-semibold text-content-primary-light dark:text-content-primary-dark">Saison</p>
-            <p class="mt-1 text-xs text-content-secondary-light dark:text-content-secondary-dark">
+            <p class="text-sm font-semibold text-base-content dark:text-base-content">Saison</p>
+            <p class="mt-1 text-xs text-primary dark:text-primary">
                 Le tableau s'adapte automatiquement a l'annee selectionnee.
             </p>
         </div>
         <label class="inline-flex items-center gap-3">
-            <span class="text-sm font-medium text-content-primary-light dark:text-content-primary-dark">Annee</span>
-            <select data-model="year" class="min-w-28 rounded-lg border border-base-light bg-base-light/40 px-3 py-2 text-sm text-content-primary-light dark:border-base-dark dark:bg-base-dark/40 dark:text-content-primary-dark">
+            <span class="text-sm font-medium text-base-content dark:text-base-content">Annee</span>
+            <select data-model="year" class="min-w-28 rounded-lg border border-base-200 bg-base-200/40 px-3 py-2 text-sm text-base-content dark:border-base-200 dark:bg-base-200/40 dark:text-base-content">
                 {% for availableYear in this.availableYears %}
                     <option value="{{ availableYear }}" {% if availableYear == this.year %}selected{% endif %}>
                         {{ availableYear }}
@@ -20,10 +20,10 @@
 
     {% set standings = this.standings|default([]) %}
     {% if standings is not empty %}
-        <div class="overflow-hidden rounded-xl border border-base-light/70 bg-surface-light shadow-sm dark:border-base-dark/70 dark:bg-surface-dark">
+        <div class="overflow-hidden rounded-xl border border-base-200/70 bg-base-100 shadow-sm dark:border-base-200/70 dark:bg-base-100">
             <div class="overflow-x-auto">
-            <table class="min-w-full table-auto text-xs text-left md:text-sm text-content-primary-light dark:text-content-primary-dark">
-                <thead class="bg-base-light/50 text-xs uppercase text-content-primary-light dark:bg-base-dark/50 dark:text-content-primary-dark">
+            <table class="min-w-full table-auto text-xs text-left md:text-sm text-base-content dark:text-base-content">
+                <thead class="bg-base-200/50 text-xs uppercase text-base-content dark:bg-base-200/50 dark:text-base-content">
                 <tr>
                     <th scope="col" class="w-14 px-3 py-3">#</th>
                     <th scope="col" class="w-20 px-3 py-3 text-center">Evol.</th>
@@ -47,7 +47,7 @@
                 {% for row in standings %}
                     {% set previousRank = row.previousRank|default(null) %}
                     {% set change = (previousRank is not null and previousRank > 0) ? (previousRank - row.rank) : null %}
-                    <tr class="border-b border-base-light/70 dark:border-base-dark/70
+                    <tr class="border-b border-base-200/70 dark:border-base-200/70
                             {% if row.rank == 1 %} bg-warning/20 shadow-[inset_3px_0_0_var(--color-warning)]
                     {% elseif row.rank == 2 %} bg-[#8E9298]/20 shadow-[inset_3px_0_0_#8E9298]
                     {% elseif row.rank == 3 %} bg-[#9A6543]/20 shadow-[inset_3px_0_0_#9A6543]
@@ -84,12 +84,12 @@
                 </tbody>
             </table>
             </div>
-            <div class="border-t border-base-light/70 px-3 py-3 text-xs text-content-secondary-light dark:border-base-dark/70 dark:text-content-secondary-dark md:px-4">
+            <div class="border-t border-base-200/70 px-3 py-3 text-xs text-primary dark:border-base-200/70 dark:text-primary md:px-4">
                 <p class="mt-0 md:hidden">Plaq. : nombre de plaquettes abattues. Part. : nombre de participations.</p>
             </div>
         </div>
     {% else %}
-        <div class="p-4 text-sm text-content-primary-light bg-surface-light border border-surface-light rounded-lg dark:bg-surface-dark dark:text-content-primary-dark dark:border-surface-dark">
+        <div class="p-4 text-sm text-base-content bg-base-100 border border-base-300 rounded-lg">
             Aucun classement disponible pour le moment.
         </div>
     {% endif %}

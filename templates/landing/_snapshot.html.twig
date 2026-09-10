@@ -2,7 +2,7 @@
 
     <div class="w-full² md:w-1/2 mx-auto">
         <twig:Title:H2 class="mb-8 text-left">Top 5 tireurs</twig:Title:H2>
-        <table class="table-full w-full bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-lg">
+        <table class="table-full w-full bg-base-100 rounded-2xl overflow-hidden shadow-lg">
             <thead>
             <tr>
                 <th class="text-left p-4">Pos</th>
@@ -15,7 +15,7 @@
                 |filter(s => s.rank <= 5)
                 |sort((a, b) => a.rank <=> b.rank)
             %}
-                <tr class="border-t border-base-light dark:border-base-dark">
+                <tr class="border-t border-base-200 dark:border-base-200">
                     <td class="py-2 px-4">{{ shooter.rank }}</td>
                     <td class="py-2 px-4">{{ shooter.firstName }}</td>
                     <td class="py-2 px-4 text-center">{{ shooter.totalScore }}</td>
@@ -23,7 +23,7 @@
             {% endfor %}
 
             {#            {% for shooter in snapshot |slice(0,5) %}#}
-{#                <tr class="border-t border-base-light dark:border-base-dark">#}
+{#                <tr class="border-t border-base-200 dark:border-base-200">#}
 {#                    <td class="py-2 px-4">{{ loop.index }}</td>#}
 {#                    <td class="py-2 px-4">{{ shooter.firstName }}</td>#}
 {#                    <td class="py-2 px-4 text-center">{{ shooter.totalScore }}</td>#}
@@ -38,7 +38,7 @@
     after:left-0
     after:w-0
     after:h-[2px]
-    after:bg-secondary
+    after:bg-primary
     hover:after:w-full
     after:transition-[width]
     after:duration-300

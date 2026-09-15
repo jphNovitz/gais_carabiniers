@@ -42,7 +42,7 @@
 {% block page_title %}{{ post.title }}{% endblock %}
 
 {% block page_summary %}
-    {{ post.summary }}
+    {{ post.summary |typo }}
 {% endblock %}
 
 {% block page_media %}
@@ -54,7 +54,7 @@
 {% endblock %}
 
 {% block page_content %}
-    {{ post.content|raw }}
+    {{ post.content|typo|raw }}
 {% endblock %}
 
 {% block page_aside_content %}
